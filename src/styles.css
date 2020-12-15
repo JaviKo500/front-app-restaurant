@@ -1,7 +1,19 @@
 /* You can add global styles to this file, and also import other style files */
 
+* {
+    margin: 0;
+    padding: 0;
+}
 
-/* "src/assets/metro_4/css/metro-all.min.css" */
+html {
+    position: relative;
+    min-height: 100%;
+}
 
+body {
+    margin-bottom: 0px;
+}
 
-/* "src/assets/metro_4/js/metro.min.js" */
+.wrap {
+    padding-bottom: 0px;
+}

@@ -1,0 +1,34 @@
+<div class="container-fluid pr-0 pl-0">
+    <div class="grid">
+        <div class="row">
+            <div class="cell-sm-4 mb-10">
+                <app-header></app-header>
+            </div>
+        </div>
+        <div class="row">
+            <div class="cell-sm pt-0 pb-0 pr-0">
+
+                <body>
+                    <aside class="side-bar">
+                        <div data-role="navview" class="">
+                            <div class="navview-pane">
+                                <!-- booton para cerrar abrir menu -->
+                                <button class="pull-button">
+                                  <span class="default-icon-menu"></span>
+                                </button>
+                                <!-- items del menu -->
+                                <app-side-bar></app-side-bar>
+                            </div>
+                            <div class="navview-content mt-2">
+                                <!-- para mostrar los demas componentes -->
+                                <router-outlet></router-outlet>
+                            </div>
+                        </div>
+                    </aside>
+                </body>
+            </div>
+        </div>
+    </div>
+
+</div>
+<app-footer></app-footer>
