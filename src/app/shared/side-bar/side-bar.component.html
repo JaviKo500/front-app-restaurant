@@ -1,8 +1,24 @@
 <ul class="navview-menu">
     <li *ngFor="let item of menuItems">
-        <a href="#" class=" caption item-header pb-9">{{ item.title}}</a>
+        <a *ngIf="item.subMenu.length > 0">
+            <span class="icon d-flex flex-align-center justify-content-center"><i class="fas fa-list-alt"></i></span>
+            <span class="caption item-header">
+          {{item.title}}
+          </span>
+        </a>
+        <a *ngIf="item.subMenu.length === 0" [routerLink]="item.url">
+            <span class="icon d-flex flex-align-center justify-content-center"><i class="fas fa-list-alt"></i></span>
+            <span class="caption item-header">
+          {{item.title}}
+          </span>
+        </a>
         <ul data-role="dropdown" style="display: none;">
-            <li><a class="caption" *ngFor="let subItem of item.subMenu" [routerLink]="subItem.url"> {{ subItem.title }}</a></li>
+            <li>
+                <a *ngFor="let subItem of item.subMenu" [routerLink]="subItem.url">
+                    <span class="icon d-flex flex-align-center justify-content-end pr-2"><i [class]="subItem.icon"></i></span>
+                    <span class="caption">{{ subItem.title }}</span>
+                </a>
+            </li>
         </ul>
     </li>
 </ul>
