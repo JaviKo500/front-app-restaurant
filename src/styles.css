@@ -19,6 +19,14 @@ body {
 }
 
 
+/* para las imagenes de lkas tablas */
+
+.img-categoria {
+    width: 65px;
+    height: 65px;
+}
+
+
 /*******************
 Layouts
 ******************/
