@@ -9,11 +9,13 @@ import { ComponentsModule } from '../components/components.module';
 import { PagesComponent } from './pages.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { FormularioComponent } from './producto/formulario/formulario.component';
+import { CategoriaListarComponent } from './categoria/categoria-listar.component';
+import { FormsModule } from '@angular/forms';
 
 
 
 @NgModule({
-  declarations: [PagesComponent, DashboardComponent, FormularioComponent],
+  declarations: [PagesComponent, DashboardComponent, FormularioComponent, CategoriaListarComponent ],
   exports: [
     DashboardComponent
   ],
@@ -21,7 +23,8 @@ import { FormularioComponent } from './producto/formulario/formulario.component'
     CommonModule,
     RouterModule,
     SharedModule,
-    ComponentsModule
+    ComponentsModule,
+    FormsModule
   ]
 })
 export class PagesModule { }

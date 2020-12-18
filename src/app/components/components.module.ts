@@ -1,18 +1,21 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormularioComponent } from './producto/formulario/formulario.component';
-import { ListarComponent } from './producto/listar/listar.component';
+
+// ngbootstrap
+
+import { PreviewImgComponent } from './preview-img/preview-img.component';
+import { PaginatorComponent } from './paginator/paginator.component';
 
 
 
 @NgModule({
-  declarations: [FormularioComponent, ListarComponent],
+  declarations: [PreviewImgComponent, PaginatorComponent],
   exports: [
-    FormularioComponent,
-    ListarComponent
-  ],
+    PreviewImgComponent,
+    PaginatorComponent
+   ],
   imports: [
-    CommonModule
+    CommonModule,
   ]
 })
 export class ComponentsModule { }

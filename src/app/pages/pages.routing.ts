@@ -3,6 +3,8 @@ import { NgModule } from '@angular/core';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { PagesComponent } from './pages.component';
 import { FormularioComponent } from './producto/formulario/formulario.component';
+import { ProductoListarComponent } from './producto/producto-listar.component';
+import { CategoriaListarComponent } from './categoria/categoria-listar.component';
 
 
 const routes: Routes = [
@@ -11,7 +13,9 @@ const routes: Routes = [
     component: PagesComponent,
     children: [
       { path: '', component: DashboardComponent },
-      { path: 'crear', component: FormularioComponent },
+      { path: 'crearpro', component: FormularioComponent, data: { title: 'Productos', subTitle: 'Administrar producto' } },
+      { path: 'productos', component: ProductoListarComponent },
+      { path: 'categorias', component: CategoriaListarComponent, data: { title: 'Categorías', subTitle: 'Administra tus categorías' } },
     ]
   }
 ];

@@ -1,6 +1,6 @@
 <ul class="navview-menu">
     <li *ngFor="let item of menuItems">
-        <a href="#" class=" caption item-header">{{ item.title}}</a>
+        <a href="#" class=" caption item-header pb-9">{{ item.title}}</a>
         <ul data-role="dropdown" style="display: none;">
             <li><a class="caption" *ngFor="let subItem of item.subMenu" [routerLink]="subItem.url"> {{ subItem.title }}</a></li>
         </ul>

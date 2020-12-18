@@ -1,7 +1,7 @@
-<div class="container-fluid pr-0 pl-0">
+<div class="container-fluid pr-0 pl-0 wrap">
     <div class="grid">
         <div class="row">
-            <div class="cell-sm-4 mb-10">
+            <div class="cell-sm mb-10">
                 <app-header></app-header>
             </div>
         </div>
@@ -20,15 +20,17 @@
                                 <app-side-bar></app-side-bar>
                             </div>
                             <div class="navview-content mt-2">
+                                <!-- breadcrumbs -->
+                                <app-breadcrumbs></app-breadcrumbs>
                                 <!-- para mostrar los demas componentes -->
                                 <router-outlet></router-outlet>
                             </div>
                         </div>
                     </aside>
                 </body>
+
             </div>
         </div>
     </div>
-
 </div>
 <app-footer></app-footer>

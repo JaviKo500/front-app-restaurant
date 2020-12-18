@@ -1,0 +1,21 @@
+<div class="contenedor-img mt-5">
+    <div class="contenedor-img-vista" *ngIf="(!imagen ||  banderaEditarImg) && !img_url ">
+        <div class="img-vista" *ngIf="!img_url">
+            <img src="assets/icons/addImg.png" alt="">
+        </div>
+    </div>
+    <div class="contenedor-img-vista" *ngIf="imagen && !img_url && !banderaEditarImg">
+        <div class="img-vista" [ngStyle]="{'border':'0px'}">
+            2
+            <!-- <img src="{{URL}}producto/img/{{producto.imagen}}" class="img-vista-producto" alt=" "> -->
+        </div>
+    </div>
+    <div class="contenedor-img-vista" *ngIf="img_url">
+        <div class="img-vista" [ngStyle]="{'border':'0px'}">
+            <img [src]="img_url " *ngIf="img_url" class="img-vista-producto" alt=" ">
+        </div>
+    </div>
+    <div class="btn-img-pro">
+        <input type="file" name="imgPro " id="imgPro " class="btn-img " accept="image/* " (change)=" onChange($event) "> Subir imagen
+    </div>
+</div>
