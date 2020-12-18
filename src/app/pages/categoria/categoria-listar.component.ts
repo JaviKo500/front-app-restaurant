@@ -1,4 +1,4 @@
-import { Component, OnChanges, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 // Para crear modales del ng boostrap
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';

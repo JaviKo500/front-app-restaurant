@@ -9,8 +9,8 @@ export class SidebarService {
     title: 'Productos',
     icon: '',
     subMenu: [
-      { title: 'Listar productos', url: 'productos' },
-      { title: 'Crear productos', url: 'crearpro' },
+      { title: 'Lista de productos', url: 'productos' },
+      { title: 'Agregar producto', url: 'crearpro' },
       { title: 'Categorias', url: 'categorias' }
     ]
   }];
