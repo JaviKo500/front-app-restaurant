@@ -1,13 +1,13 @@
 <ul class="navview-menu">
     <li *ngFor="let item of menuItems">
         <a *ngIf="item.subMenu.length > 0">
-            <span class="icon d-flex flex-align-center justify-content-center"><i class="fas fa-list-alt"></i></span>
+            <span class="icon d-flex flex-align-center justify-content-center"><i [class]="item.icon"></i></span>
             <span class="caption item-header">
           {{item.title}}
           </span>
         </a>
         <a *ngIf="item.subMenu.length === 0" [routerLink]="item.url">
-            <span class="icon d-flex flex-align-center justify-content-center"><i class="fas fa-list-alt"></i></span>
+            <span class="icon d-flex flex-align-center justify-content-center"><i [class]="item.icon"></i></span>
             <span class="caption item-header">
           {{item.title}}
           </span>
