@@ -13,6 +13,7 @@ import { CategoriaModel } from '../../models/productos/categoria.model';
 export class CategoriaListarComponent implements OnInit {
 
   categoria = new CategoriaModel();
+  listaCategorias: CategoriaModel [] = [];
   imagenCategoria: File;
   constructor( private modalService: NgbModal ) { }
 

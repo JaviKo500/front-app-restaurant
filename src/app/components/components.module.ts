@@ -5,14 +5,16 @@ import { CommonModule } from '@angular/common';
 
 import { PreviewImgComponent } from './preview-img/preview-img.component';
 import { PaginatorComponent } from './paginator/paginator.component';
+import { SpinnerComponent } from './spinner/spinner.component';
 
 
 
 @NgModule({
-  declarations: [PreviewImgComponent, PaginatorComponent],
+  declarations: [PreviewImgComponent, PaginatorComponent, SpinnerComponent],
   exports: [
     PreviewImgComponent,
-    PaginatorComponent
+    PaginatorComponent,
+    SpinnerComponent
    ],
   imports: [
     CommonModule,

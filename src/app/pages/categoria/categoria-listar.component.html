@@ -42,19 +42,19 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
+                                        <tr *ngIf="listaCategorias.length > 0">
                                             <td>Bebidas</td>
                                             <td><img class="img-categoria" src="assets/icons/addImg.png" alt=""></td>
                                             <td>
                                                 <div class="row row-width alinear">
                                                     <div class="cell-sm-6">
                                                         <button class="button primary rounded shadowed">
-                                                          <span class="ml-1">Editar</span>
+                                                          <span class="ml-1">Editar <i class="fas fa-edit ml-1"></i></span>
                                                         </button>
                                                     </div>
                                                     <div class="cell-sm-6">
                                                         <button class="button primary delete  rounded shadowed">
-                                                          <span class="ml-1">Borrar</span>
+                                                          <span class="ml-1">Borrar<i class="fas fa-trash-alt ml-1"></i></span>
                                                         </button>
                                                     </div>
                                                 </div>
@@ -64,8 +64,16 @@
                                 </table>
                             </div>
                         </div>
+                        <!-- Spinner -->
+                        <div class="row">
+                            <div class="cell">
+                                <div *ngIf="listaCategorias.length === 0">
+                                    <app-spinner></app-spinner>
+                                </div>
+                            </div>
+                        </div>
                         <!-- paginador -->
-                        <div class="row ">
+                        <div class="row">
                             <div class="cell-12  d-flex flex-justify-end">
                                 <!-- componente paginador -->
                                 <app-paginator></app-paginator>
@@ -78,7 +86,6 @@
         </div>
     </div>
 </div>
-
 <ng-template #content let-modal>
     <div class="modal-header">
         <h4 class="modal-title">Añadir categoría</h4>
