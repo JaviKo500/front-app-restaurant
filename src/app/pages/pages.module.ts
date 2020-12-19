@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 // modulos creados
 import { SharedModule } from '../shared/shared.module';
 import { ComponentsModule } from '../components/components.module';
@@ -26,7 +27,8 @@ import { ProductoListarComponent } from './producto/producto-listar.component';
     RouterModule,
     SharedModule,
     ComponentsModule,
-    FormsModule
+    FormsModule,
+    NgbModule
   ]
 })
 export class PagesModule { }

@@ -1,18 +1,22 @@
 <ul class="navview-menu">
+    <!-- class="active" PARA VER QUE ITEM ESTA -->
     <li *ngFor="let item of menuItems">
         <a *ngIf="item.subMenu.length > 0">
             <span class="icon d-flex flex-align-center justify-content-center"><i [class]="item.icon"></i></span>
-            <span class="caption item-header">
+            <span class="caption titleSpan d-flex flex-align-center justify-content-center">
           {{item.title}}
           </span>
+            <span class="badges">
+            <span class="badge inline">{{item.subMenu.length}}</span>
+            </span>
         </a>
         <a *ngIf="item.subMenu.length === 0" [routerLink]="item.url">
             <span class="icon d-flex flex-align-center justify-content-center"><i [class]="item.icon"></i></span>
-            <span class="caption item-header">
+            <span class="caption titleSpan d-flex flex-align-center justify-content-center">
           {{item.title}}
           </span>
         </a>
-        <ul data-role="dropdown" style="display: none;">
+        <ul data-role="dropdown" class="navview-menu" style="display: none;">
             <li>
                 <a *ngFor="let subItem of item.subMenu" [routerLink]="subItem.url">
                     <span class="icon d-flex flex-align-center justify-content-end pr-2"><i [class]="subItem.icon"></i></span>

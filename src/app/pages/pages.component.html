@@ -9,15 +9,17 @@
             <div class="cell-sm pt-0 pb-0 pr-0">
 
                 <body>
-                    <aside class="side-bar">
-                        <div data-role="navview" data-compact="fs" class="">
+                    <aside class="side-bar animated fadeIn">
+                        <nav data-role="navview" data-compact="fs">
                             <div class="navview-pane">
                                 <!-- booton para cerrar abrir menu -->
-                                <button class="pull-button">
-                                  <span class="default-icon-menu"></span>
-                                </button>
+                                <div class="navview-container">
+                                    <button class="pull-button">
+                                    <span class="default-icon-menu"></span>
+                                  </button>
+                                </div>
                                 <!-- items del menu -->
-                                <app-side-bar></app-side-bar>
+                                <app-side-bar class="navview-menu-container"></app-side-bar>
                             </div>
                             <div class="navview-content mt-2">
                                 <!-- breadcrumbs -->
@@ -25,7 +27,7 @@
                                 <!-- para mostrar los demas componentes -->
                                 <router-outlet></router-outlet>
                             </div>
-                        </div>
+                        </nav>
                     </aside>
                 </body>
 
