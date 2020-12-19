@@ -2,22 +2,23 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { BASE_URL } from 'src/environments/configurations';
 import { catchError, map } from 'rxjs/operators';
-import swal from 'sweetalert2';
+import { Categoria } from 'src/app/models/productos/categoria';
 import { Observable, throwError } from 'rxjs';
-import { Producto } from 'src/app/models/productos/producto';
+import swal from 'sweetalert2';
 
 @Injectable({
   providedIn: 'root',
 })
-export class ProductoService {
-  constructor(private http: HttpClient) {}
+export class CategoriaService {
   private url: string = BASE_URL;
-
   private httpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
+  constructor(private http: HttpClient) {}
 
-  RegistarProducto(producto: Producto): Observable<Producto> {
+  RegistarCategoria(categoria: Categoria): Observable<Categoria> {
     return this.http
-      .post(this.url, producto, { headers: this.httpHeaders })
+      .post(this.url + 'register/categoria', categoria, {
+        headers: this.httpHeaders,
+      })
       .pipe(
         map((response: any) => response),
         catchError((e) => {
@@ -25,5 +26,14 @@ export class ProductoService {
           return throwError(e);
         })
       );
+  }
+
+  ListaCategorias(): Observable<Categoria[]> {
+    return this.http.get(this.url + 'get/categories').pipe(
+      map((response: any) => response.categorias as Categoria[]),
+      catchError((e) => {
+        return throwError(e);
+      })
+    );
   }
 }

@@ -1,5 +1,5 @@
 import { CategoriaListarComponent } from '../../pages/categoria/categoria-listar.component';
-export class ProductoModel {
+export class Producto {
   id: number;
   nombre: string;
   precio: number;

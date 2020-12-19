@@ -97,7 +97,7 @@
         <div class="d-flex flex-justify-center">
             <div class="row d-flex flex-justify-center" style="width: 100%;">
                 <form style="width: 100%;">
-                    <input type="text" data-role="input" name="nombre" data-prepend="Nombre categoría: " [(ngModel)]="categoria.nombre" #nombre="ngModel" required minlength="3">
+                    <input type="text" data-role="input" name="nombre" data-prepend="Nombre categoría: " [(ngModel)]="categoria.nombre" #nombre="ngModel" required minlength="3" autocomplete="off">
                     <div class="sms-alert" *ngIf="nombre.invalid && (nombre.dirty || nombre.touched)">
                         <div class="sms-alert-required" *ngIf="nombre.errors.required">
                             <small class="p-invalid">Ingresar un nombre</small>
