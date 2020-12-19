@@ -1,30 +1,29 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
-
-
 // modulos creados
 import { AuthModule } from './auth/auth.module';
 import { PagesModule } from './pages/pages.module';
 
+//importacion de conexion http
+import { HttpClientModule } from '@angular/common/http';
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-
-
+import { CategoriaService } from './services/categoria/categoria.service';
 
 @NgModule({
-  declarations: [
-    AppComponent
-  ],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    HttpClientModule,
     PagesModule,
     AuthModule,
-    NgbModule
+    NgbModule,
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers: [CategoriaService],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
