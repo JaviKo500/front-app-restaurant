@@ -1,7 +1,7 @@
 <ul class="navview-menu">
     <!-- class="active" PARA VER QUE ITEM ESTA -->
     <li *ngFor="let item of menuItems">
-        <a *ngIf="item.subMenu.length > 0">
+        <a *ngIf="item.subMenu.length > 0" class="c-pointer">
             <span class="icon d-flex flex-align-center justify-content-center"><i [class]="item.icon"></i></span>
             <span class="caption titleSpan d-flex flex-align-center justify-content-center">
           {{item.title}}

@@ -39,6 +39,7 @@ export class CategoriaListarComponent implements OnInit {
 
   saveCategoria(): void {
     //servicio para registrar las categorias
+    this.categoria.estado = true;
     this.categoriaService
       .RegistarCategoria(this.categoria)
       .subscribe((response) => {
