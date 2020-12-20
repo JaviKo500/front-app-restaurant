@@ -28,6 +28,20 @@ export class CategoriaService {
       );
   }
 
+  ActualizarCategoria(categoria: Categoria): Observable<Categoria> {
+    return this.http
+      .put(this.url + 'update/categoria/' + categoria.id, categoria, {
+        headers: this.httpHeaders,
+      })
+      .pipe(
+        map((response: any) => response),
+        catchError((e) => {
+          swal.fire(e.error.mensaje, e.error.error, 'error');
+          return throwError(e);
+        })
+      );
+  }
+
   ListaCategorias(): Observable<Categoria[]> {
     return this.http.get(this.url + 'get/categories').pipe(
       map((response: any) => response.categorias as Categoria[]),

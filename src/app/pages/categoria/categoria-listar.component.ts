@@ -33,6 +33,7 @@ export class CategoriaListarComponent implements OnInit {
   }
 
   openLg(content) {
+    this.categoria = new Categoria();
     this.modalReference = this.modalService.open(content);
   }
 
@@ -48,6 +49,23 @@ export class CategoriaListarComponent implements OnInit {
         this.CerrarAllModals();
       });
     console.log(this.categoria);
+  }
+  //abrimos modal con los datos de esa categoria
+  abrirModalActualizarCate(MCategoria, cate: Categoria): void {
+    if (cate) {
+      this.openLg(MCategoria);
+      //cargamos los datos
+      this.categoria = cate;
+    }
+  }
+  //metodo para actualizar las categorias
+  updateCategoria(): void {
+    this.categoriaService
+      .ActualizarCategoria(this.categoria)
+      .subscribe((response) => {
+        console.log(response);
+        this.listarCategorias();
+      });
   }
 
   CerrarModal(): void {
