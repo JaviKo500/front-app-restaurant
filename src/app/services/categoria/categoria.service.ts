@@ -52,18 +52,16 @@ export class CategoriaService {
   }
 
   //gurdar imagen productp
-  saveImgCategoria(archivo: File, id): Observable<Categoria> {
+  saveImgCategoria(archivo: File, id, api: string): Observable<Categoria> {
     let formDataImg = new FormData();
     formDataImg.append('archivo', archivo);
     formDataImg.append('id', id);
-    return this.http
-      .post(this.url + 'register/category/image/upload', formDataImg)
-      .pipe(
-        map((response: any) => response.mensaje),
-        catchError((e) => {
-          swal.fire(e.error.mensaje, e.error.error, 'error');
-          return throwError(e);
-        })
-      );
+    return this.http.post(this.url + api, formDataImg).pipe(
+      map((response: any) => response.mensaje),
+      catchError((e) => {
+        swal.fire(e.error.mensaje, e.error.error, 'error');
+        return throwError(e);
+      })
+    );
   }
 }
