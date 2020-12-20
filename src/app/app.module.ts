@@ -14,6 +14,9 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { CategoriaService } from './services/categoria/categoria.service';
 
+//deploy config
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
+
 @NgModule({
   declarations: [AppComponent],
   imports: [
@@ -24,7 +27,8 @@ import { CategoriaService } from './services/categoria/categoria.service';
     AuthModule,
     NgbModule,
   ],
-  providers: [CategoriaService],
+  providers: [CategoriaService,
+    { provide: LocationStrategy, useClass: HashLocationStrategy },],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
