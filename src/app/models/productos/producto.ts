@@ -1,8 +1,8 @@
-import { CategoriaListarComponent } from '../../pages/categoria/categoria-listar.component';
+import { Categoria } from './categoria';
 export class Producto {
   id: number;
   nombre: string;
   precio: number;
   descripcion: string;
-  categoria: CategoriaListarComponent;
+  categoria: Categoria;
 }

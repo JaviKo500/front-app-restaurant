@@ -78,8 +78,11 @@ export class CategoriaListarComponent implements OnInit {
           this.CerrarAllModals();
           this.listarCategorias();
         });
+      //si no existe un archivo o el archivo de imagen es erroneo se verifica que exista un nombre de imagenCategoria
+      //en el backend y si existe se pasa a actualizar la categoria a excepcion de la imagen
     } else {
       if (!this.categoria.imagen) {
+        //si no existe un nombre de imagen no se puede actualizar.
         swal.fire('Advertencia', 'Debe seleccionar su imagen', 'warning');
       } else {
         this.categoriaService.ActualizarCategoria(this.categoria).subscribe(
