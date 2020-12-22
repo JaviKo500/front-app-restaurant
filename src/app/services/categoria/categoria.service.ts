@@ -16,7 +16,7 @@ export class CategoriaService {
 
   RegistarCategoria(categoria: Categoria): Observable<Categoria> {
     return this.http
-      .post(this.url + 'register/categoria', categoria, {
+      .post(this.url + 'register/category', categoria, {
         headers: this.httpHeaders,
       })
       .pipe(
@@ -30,7 +30,7 @@ export class CategoriaService {
 
   ActualizarCategoria(categoria: Categoria): Observable<Categoria> {
     return this.http
-      .put(this.url + 'update/categoria/' + categoria.id, categoria, {
+      .put(this.url + 'update/category/' + categoria.id, categoria, {
         headers: this.httpHeaders,
       })
       .pipe(
@@ -58,6 +58,15 @@ export class CategoriaService {
     formDataImg.append('id', id);
     return this.http.post(this.url + api, formDataImg).pipe(
       map((response: any) => response.mensaje),
+      catchError((e) => {
+        swal.fire(e.error.mensaje, e.error.error, 'error');
+        return throwError(e);
+      })
+    );
+  }
+
+  deleteCategoria(id: number): Observable<Categoria> {
+    return this.http.delete<Categoria>(this.url + 'delete/category/' + id).pipe(
       catchError((e) => {
         swal.fire(e.error.mensaje, e.error.error, 'error');
         return throwError(e);

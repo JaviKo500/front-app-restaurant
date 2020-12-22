@@ -26,20 +26,4 @@ export class ProductoService {
         })
       );
   }
-
-  //gurdar imagen productp
-  saveImgProducto(archivo: File, id): Observable<Producto> {
-    let formDataImg = new FormData();
-    formDataImg.append('archivo', archivo);
-    formDataImg.append('id', id);
-    return this.http
-      .post(this.url + 'register/product/img/upload', formDataImg)
-      .pipe(
-        map((response: any) => response.mensaje),
-        catchError((e) => {
-          swal.fire(e.error.mensaje, e.error.error, 'error');
-          return throwError(e);
-        })
-      );
-  }
 }
