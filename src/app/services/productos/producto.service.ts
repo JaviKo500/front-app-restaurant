@@ -17,7 +17,9 @@ export class ProductoService {
 
   RegistarProducto(producto: Producto): Observable<Producto> {
     return this.http
-      .post(this.url, producto, { headers: this.httpHeaders })
+      .post(this.url + 'register/product', producto, {
+        headers: this.httpHeaders,
+      })
       .pipe(
         map((response: any) => response),
         catchError((e) => {

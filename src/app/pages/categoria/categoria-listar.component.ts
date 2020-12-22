@@ -118,7 +118,7 @@ export class CategoriaListarComponent implements OnInit {
           console.log('categoria id: ' + res.id);
         });
     } else {
-      swal.fire('Advertencia', 'Debe seleccionar su imagen', 'warning');
+      swal.fire('Observación', 'Debe seleccionar uma imágen', 'warning');
     }
   }
 
