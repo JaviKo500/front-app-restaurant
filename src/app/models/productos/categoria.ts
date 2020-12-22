@@ -1,6 +1,6 @@
-export class Categoria{
+export class Categoria {
   id: number;
-  nombre: string;
+  nombre: string = '';
   imagen: string;
   estado: boolean;
 }

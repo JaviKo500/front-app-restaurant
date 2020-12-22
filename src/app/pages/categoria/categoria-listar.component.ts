@@ -68,34 +68,38 @@ export class CategoriaListarComponent implements OnInit {
   }
   //metodo para actualizar las categorias
   updateCategoria(): void {
-    //comprobamos si existe un archivo de imagen
-    if (this.imagenCategoria) {
-      this.categoriaService
-        .ActualizarCategoria(this.categoria)
-        .subscribe((response) => {
-          this.cargarImagenCategoria(Number(response.id));
-          console.log(response);
-          this.CerrarAllModals();
-          this.listarCategorias();
-        });
-      //si no existe un archivo o el archivo de imagen es erroneo se verifica que exista un nombre de imagenCategoria
-      //en el backend y si existe se pasa a actualizar la categoria a excepcion de la imagen
-    } else {
-      if (!this.categoria.imagen) {
-        //si no existe un nombre de imagen no se puede actualizar.
-        swal.fire('Advertencia', 'Debe seleccionar su imagen', 'warning');
-      } else {
-        this.categoriaService.ActualizarCategoria(this.categoria).subscribe(
-          (response) => {
-            console.log('Categoria actualizado');
-            this.listarCategorias();
+    //validar los campos de la categoria
+    if (this.CamposLlenos()) {
+      if (this.imagenCategoria) {
+        this.categoriaService
+          .ActualizarCategoria(this.categoria)
+          .subscribe((response) => {
+            this.cargarImagenCategoria(Number(response.id));
+            console.log(response);
             this.CerrarAllModals();
-          },
-          (error) => {
-            console.log(error.mensaje);
-          }
-        );
+            this.listarCategorias();
+          });
+        //si no existe un archivo o el archivo de imagen es erroneo se verifica que exista un nombre de imagenCategoria
+        //en el backend y si existe se pasa a actualizar la categoria a excepcion de la imagen
+      } else {
+        if (!this.categoria.imagen) {
+          //si no existe un nombre de imagen no se puede actualizar.
+          swal.fire('Advertencia', 'Debe seleccionar su imagen', 'warning');
+        } else {
+          this.categoriaService.ActualizarCategoria(this.categoria).subscribe(
+            (response) => {
+              console.log('Categoria actualizado');
+              this.listarCategorias();
+              this.CerrarAllModals();
+            },
+            (error) => {
+              console.log(error.mensaje);
+            }
+          );
+        }
       }
+    } else {
+      swal.fire('Observación', 'Debe llenar los campos.', 'warning');
     }
   }
 
@@ -108,17 +112,21 @@ export class CategoriaListarComponent implements OnInit {
   }
 
   saveCategoria(): void {
-    if (this.imagenCategoria) {
-      //servicio para registrar las categorias
-      this.categoria.estado = true;
-      this.categoriaService
-        .RegistarCategoria(this.categoria)
-        .subscribe((res) => {
-          this.cargarImagenCategoria(Number(res.id));
-          console.log('categoria id: ' + res.id);
-        });
+    if (this.CamposLlenos()) {
+      if (this.imagenCategoria) {
+        //servicio para registrar las categorias
+        this.categoria.estado = true;
+        this.categoriaService
+          .RegistarCategoria(this.categoria)
+          .subscribe((res) => {
+            this.cargarImagenCategoria(Number(res.id));
+            console.log('categoria id: ' + res.id);
+          });
+      } else {
+        swal.fire('Observación', 'Debe seleccionar uma imágen', 'warning');
+      }
     } else {
-      swal.fire('Observación', 'Debe seleccionar uma imágen', 'warning');
+      swal.fire('Observación', 'Debe llenar los campos.', 'warning');
     }
   }
 
@@ -140,5 +148,14 @@ export class CategoriaListarComponent implements OnInit {
           this.imagenCategoria = null;
         }
       );
+  }
+
+  CamposLlenos(): boolean {
+    let band = false;
+    let cat = this.categoria;
+    if (cat.nombre.length > 2) {
+      band = true;
+    }
+    return band;
   }
 }
