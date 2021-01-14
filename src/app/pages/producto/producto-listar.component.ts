@@ -12,7 +12,14 @@ export class ProductoListarComponent implements OnInit {
   producto: Producto = new Producto();
   constructor(private productoserService: ProductoService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.productoserService.ObtenerProductos().subscribe(res=>{
+      console.log('lista');
+      
+      console.log(res);
+      
+    })
+  }
 
   
 

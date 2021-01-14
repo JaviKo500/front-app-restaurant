@@ -65,8 +65,9 @@ export class CategoriaService {
     );
   }
 
-  deleteCategoria(id: number): Observable<Categoria> {
-    return this.http.delete<Categoria>(this.url + 'delete/category/' + id).pipe(
+  deleteCategoria(id: number): Observable<any> {
+    return this.http.delete(this.url + 'delete/category/' + id).pipe(
+      map((response: any) => response.mensaje),
       catchError((e) => {
         swal.fire(e.error.mensaje, e.error.error, 'error');
         return throwError(e);

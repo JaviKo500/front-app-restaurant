@@ -68,7 +68,10 @@
           </div>
         </div>
         <div class="cell-md-5 offset-1">
-          <app-preview-img (imagenSave)="(imagenProducto)"></app-preview-img>
+          <app-preview-img
+            (imagenSave)="(imagenProducto)"
+            (change)="onChange($event)"
+          ></app-preview-img>
         </div>
       </div>
       <div class="row">

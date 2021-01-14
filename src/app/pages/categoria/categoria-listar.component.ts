@@ -158,4 +158,26 @@ export class CategoriaListarComponent implements OnInit {
     }
     return band;
   }
+
+  eliminarCategoria(idCategoria: number): void {
+    this.categoriaService.deleteCategoria(idCategoria).subscribe((res) => {
+      this.listarCategorias();
+      swal
+        .fire({
+          title: '¿Esta seguro de eliminar esta categoría?',
+          text:
+            'Sí ud elimina esta categoría es posible que pierda productos y recibos relacionadas con esta categoría.',
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Si, Eliminar de todas formas',
+        })
+        .then((result) => {
+          if (result.isConfirmed) {
+            swal.fire('Borrado', res, 'success');
+          }
+        });
+    });
+  }
 }
