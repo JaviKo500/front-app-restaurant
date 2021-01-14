@@ -1,9 +1,28 @@
+header {
+    background: rgba(0, 0, 0, 0.9);
+    width: 100%;
+    position: fixed;
+    z-index: 10;
+}
+
+.wrapper {
+    width: 100%;
+    margin: auto;
+    overflow: hidden;
+}
+
 .nav {
     display: flex;
     flex-wrap: wrap;
     padding-left: 0;
     margin-bottom: 0;
     list-style: none;
+}
+
+nav div {
+    list-style: none;
+    overflow: hidden;
+    /* Limpiamos errores de float */
 }
 
 .navbar {
@@ -34,9 +53,8 @@
 }
 
 .button.link:hover {
-    background-color: transparent;
     color: white;
-    text-decoration: underline
+    text-decoration: none
 }
 
 .button.link.focus,
@@ -45,7 +63,38 @@
     box-shadow: non e
 }
 
+button:focus {
+    outline: 1px dotted;
+    outline: none;
+}
+
 .color-bg {
     background-color: transparent;
+    color: white;
+}
+
+@media screen and (max-width: 765px) {
+    .navbar {
+        background: rgba(0, 0, 0, 0.9);
+        width: 100%;
+        position: fixed;
+        z-index: 10;
+    }
+}
+
+
+/* botones pedido */
+
+.btn-finalizar-pedido {
+    color: white;
+    background-color: black;
+}
+
+.badge {
+    right: 0;
+}
+
+.badge-car {
+    background-color: #00AFF0 !important;
     color: white;
 }

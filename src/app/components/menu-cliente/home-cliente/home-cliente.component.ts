@@ -1,14 +1,12 @@
-import { Component, HostListener, OnInit } from '@angular/core';
-import { Categoria } from '../../models/productos/categoria';
-import { element } from 'protractor';
-import { translate } from '@angular/localize/src/utils';
+import { Component, OnInit } from '@angular/core';
+import { Categoria } from '../../../models/productos/categoria';
 
 @Component({
-  selector: 'app-menu-cliente',
-  templateUrl: './menu-cliente.component.html',
-  styleUrls: ['./menu-cliente.component.css']
+  selector: 'app-home-cliente',
+  templateUrl: './home-cliente.component.html',
+  styleUrls: ['./home-cliente.component.css']
 })
-export class MenuClienteComponent implements OnInit {
+export class HomeClienteComponent implements OnInit {
   categorias: Categoria [] = [
     {
       id: 1,
@@ -19,7 +17,7 @@ export class MenuClienteComponent implements OnInit {
     {
       id: 2,
       estado: true,
-      imagen: 'assets/icons/user-c2.png',
+      imagen: 'assets/icons/comida.jpg',
       nombre: 'Arroz'
     },
     {
@@ -31,7 +29,7 @@ export class MenuClienteComponent implements OnInit {
     {
       id: 3,
       estado: true,
-      imagen: 'assets/icons/user-c2.png',
+      imagen: 'assets/icons/comida.jpg',
       nombre: 'Colas'
     },
     {
@@ -43,7 +41,7 @@ export class MenuClienteComponent implements OnInit {
     {
       id: 5,
       estado: true,
-      imagen: 'assets/icons/user-c2.png',
+      imagen: 'assets/icons/comida.jpg',
       nombre: 'Ceviche'
     },
     {

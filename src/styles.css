@@ -5,18 +5,25 @@
     padding: 0;
 }
 
-html {
+html,
+body {
+    height: 100%;
+}
+
+
+/* html {
     position: relative;
     min-height: 100%;
-}
+} */
 
 body {
     margin-bottom: 0px;
 }
 
-.wrap {
+
+/* .wrap {
     padding-bottom: 60px;
-}
+} */
 
 
 /* para las imagenes de lkas tablas */
@@ -281,4 +288,11 @@ Layouts
 
 .fadeIn {
     animation-name: fadeIn;
+}
+
+
+/* para el carousel de imagenes */
+
+.carousel-indicators {
+    z-index: 1 !important;
 }
