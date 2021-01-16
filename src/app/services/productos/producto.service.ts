@@ -15,6 +15,16 @@ export class ProductoService {
 
   private httpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
 
+  ObtenerProductos(): Observable<Producto[]> {
+    return this.http.get(this.url + 'get/products').pipe(
+      map((response: any) => response.productos as Producto[]),
+      catchError((e) => {
+        swal.fire(e.error.mensaje, e.error.error, 'error');
+        return throwError(e);
+      })
+    );
+  }
+
   RegistarProducto(producto: Producto): Observable<Producto> {
     return this.http
       .post(this.url + 'register/product', producto, {
