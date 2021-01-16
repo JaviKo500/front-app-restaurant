@@ -20,7 +20,16 @@ export class SidebarService {
       { title: 'Lista de productos', icon: 'fas fa-list-alt', url: 'productos' },
       { title: 'Agregar producto', icon: 'fa fa-plus-circle', url: 'crearpro' },
       { title: 'Categorias', icon: 'fa fa-tags', url: 'categorias' }
-    ]
-  }];
+      ]
+    },
+    {
+    title: 'Configuraciones',
+    icon:'fas fa-cogs',
+    url: '',
+    subMenu: [
+      { title: 'Mesas', icon: 'fas fa-chair', url: 'mesas' },
+      ]
+    }
+  ];
   constructor() { }
 }

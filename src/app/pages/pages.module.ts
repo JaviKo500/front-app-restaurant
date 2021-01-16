@@ -13,14 +13,23 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { FormularioComponent } from './producto/formulario/formulario.component';
 import { CategoriaListarComponent } from './categoria/categoria-listar.component';
 import { ProductoListarComponent } from './producto/producto-listar.component';
+import { MesasComponent } from './configuraciones/mesas/mesas.component';
+import { ConfiguracionEmpresaComponent } from './configuraciones/configuracion-empresa/configuracion-empresa.component';
 
 
 
 @NgModule({
-  declarations: [PagesComponent, DashboardComponent, FormularioComponent, CategoriaListarComponent, ProductoListarComponent ],
+  declarations: [
+    PagesComponent,
+    DashboardComponent,
+    FormularioComponent,
+    CategoriaListarComponent,
+    ProductoListarComponent,
+    MesasComponent,
+    ConfiguracionEmpresaComponent
+  ],
   exports: [
     DashboardComponent,
-
   ],
   imports: [
     CommonModule,
