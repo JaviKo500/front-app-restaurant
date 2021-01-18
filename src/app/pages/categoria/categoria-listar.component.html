@@ -60,13 +60,13 @@
                           class="img-categoria"
                           src="assets/icons/addImg.png"
                           alt="not found"
-                          *ngIf="categoria.imagen == ''"
+                          *ngIf="cate.imagen == '' || categoria.imagen == undefined"
                         />
                         <img
                           class="img-categoria"
                           src="{{ api }}category/img/{{ cate.imagen }}"
                           alt="not found"
-                          *ngIf="categoria.imagen != ''"
+                          *ngIf="cate.imagen != undefined"
                         />
                       </td>
                       <td>

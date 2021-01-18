@@ -38,4 +38,14 @@ export class ProductoService {
         })
       );
   }
+
+  deleteProducto(id: number): Observable<any> {
+    return this.http.delete(this.url + 'delete/product/' + id).pipe(
+      map((response: any) => response.mensaje),
+      catchError((e) => {
+        swal.fire(e.error.mensaje, e.error.error, 'error');
+        return throwError(e);
+      })
+    );
+  }
 }

@@ -43,19 +43,34 @@
               <th>Acciones</th>
             </tr>
           </thead>
-          <tbody>
-            <tr *ngIf="listaProductos.length > 0">
+          <tbody *ngIf="listaProductos.length > 0">
+            <tr *ngFor="let prod of listaProductos">
               <td>
                 <img
                   class="img-categoria"
                   src="assets/icons/addImg.png"
                   alt=""
+                  *ngIf="prod.imagen == '' || prod.imagen == undefined"
                 />
+                <img
+                class="img-categoria"
+                src="{{ api }}product/img/{{ prod.imagen }}"
+                alt="not found"
+                *ngIf="prod.imagen != undefined"
+              />
               </td>
-              <td>Bill</td>
-              <td>Gates</td>
-              <td>@billy</td>
-              <td>@billy</td>
+              <td>
+                {{ prod.nombre }}
+              </td>
+              <td>
+                {{ prod.categoria.nombre }}
+              </td>
+              <td>
+                {{ prod.precio }}
+              </td>
+              <td>
+                acciones
+              </td>
             </tr>
           </tbody>
         </table>

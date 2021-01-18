@@ -25,7 +25,7 @@ export class CategoriaService {
           swal.fire(e.error.mensaje, e.error.error, 'error');
           return throwError(e);
         })
-      );
+      ); 
   }
 
   ActualizarCategoria(categoria: Categoria): Observable<Categoria> {

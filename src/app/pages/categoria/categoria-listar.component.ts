@@ -176,6 +176,8 @@ export class CategoriaListarComponent implements OnInit {
         .then((result) => {
           if (result.isConfirmed) {
             swal.fire('Borrado', res, 'success');
+            console.log(res);
+            
           }
         });
     });

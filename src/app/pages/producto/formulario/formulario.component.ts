@@ -3,7 +3,7 @@ import { Categoria } from 'src/app/models/productos/categoria';
 import { Producto } from 'src/app/models/productos/producto';
 import { CategoriaService } from 'src/app/services/categoria/categoria.service';
 import { ProductoService } from 'src/app/services/productos/producto.service';
-import { API_CATE, API_PROD } from 'src/environments/configurations';
+import { API_PROD } from 'src/environments/configurations';
 import swal from 'sweetalert2';
 
 @Component({
@@ -49,7 +49,7 @@ export class FormularioComponent implements OnInit {
         this.productoService
           .RegistarProducto(this.producto)
           .subscribe((response) => {
-            console.log(response);
+            this.cargarImagenProducto(response.id);
           });
       } else {
         swal.fire('Observación', 'Debe seleccionar una imágen.', 'warning');
@@ -69,7 +69,7 @@ export class FormularioComponent implements OnInit {
           this.img_url = null;
         },
         (error) => {
-          this.categoriaService.deleteCategoria(id).subscribe((res) => {});
+          this.productoService.deleteProducto(id).subscribe((res) => {});
           console.log('error');
           console.log(error);
           this.imagenProducto = null;
@@ -100,7 +100,7 @@ export class FormularioComponent implements OnInit {
       this.producto.categoria != undefined &&
       this.producto.descripcion.length > 2 &&
       this.producto.nombre.length > 2 &&
-      this.producto.precio > 0 
+      this.producto.precio > 0
     ) {
       band = true;
     }
