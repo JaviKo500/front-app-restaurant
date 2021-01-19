@@ -15,13 +15,22 @@ export class ProductoListarComponent implements OnInit {
   constructor(private productoserService: ProductoService) {}
 
   ngOnInit(): void {
-    this.listarProductos();
+
+    this.listarProductospage();
   }
   listarProductos(): void {
     this.productoserService.ObtenerProductos().subscribe((res) => {
       this.listaProductos = res;
       console.log('lista');
       console.log(res);   
+    });
+  }
+
+  listarProductospage(): void {
+    this.productoserService.ObtenerProductosPageable(0).subscribe((res) => {
+      this.listaProductos = res.content;
+      console.log('lista');
+      console.log(res.content);   
     });
   }
 }

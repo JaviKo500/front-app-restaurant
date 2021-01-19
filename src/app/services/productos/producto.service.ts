@@ -25,6 +25,15 @@ export class ProductoService {
     );
   }
 
+  ObtenerProductosPageable(page: number): Observable<any> {
+    return this.http.get(this.url + 'get/products/' + page).pipe(
+      map((response: any) => {
+        response.productos.content as Producto[];
+        return response.productos;
+      })
+    );
+  }
+
   RegistarProducto(producto: Producto): Observable<Producto> {
     return this.http
       .post(this.url + 'register/product', producto, {
