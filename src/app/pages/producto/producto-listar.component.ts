@@ -13,6 +13,7 @@ export class ProductoListarComponent implements OnInit {
   listaProductos: Producto[] = [];
   //variable contenedor de los datos de la paginacion de productos
   paginador: any;
+  path:any='/dashboard/productos/page';
   producto: Producto = new Producto();
   api: any = BASE_URL;
   constructor(

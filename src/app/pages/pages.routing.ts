@@ -15,7 +15,7 @@ const routes: Routes = [
     children: [
       { path: '', component: DashboardComponent, data: { title: 'Inicio', subTitle: 'Bienvenido'  } },
       { path: 'crearpro', component: FormularioComponent, data: { title: 'Productos', subTitle: 'Administrar producto' } },
-      { path: 'productos', component: ProductoListarComponent, data: { title: 'Productos', subTitle: 'Lista de productos'  } },
+      { path: 'productos/page/:page', component: ProductoListarComponent, data: { title: 'Productos', subTitle: 'Lista de productos'  } },
       { path: 'categorias', component: CategoriaListarComponent, data: { title: 'Categorías', subTitle: 'Administra tus categorías' } },
       { path: 'mesas', component: MesasComponent, data: { title: 'Mesas', subTitle: 'Administrar mesas del Restaurante' } },
     ]
