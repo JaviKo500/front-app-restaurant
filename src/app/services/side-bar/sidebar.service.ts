@@ -13,6 +13,12 @@ export class SidebarService {
       subMenu: []
     },
     {
+      title: 'Pedidos',
+      icon:'fas fa-th-list',
+      url: 'pedidos',
+      subMenu: []
+    },
+    {
     title: 'Productos',
     icon:'fas fa-box',
     url: '',
@@ -29,7 +35,8 @@ export class SidebarService {
     subMenu: [
       { title: 'Mesas', icon: 'fas fa-chair', url: 'mesas' },
       ]
-    }
+    },
+
   ];
   constructor() { }
 }

@@ -1,0 +1,50 @@
+<div class="card">
+    <div class="card-body">
+        <div class="flex-container wrap">
+            <div class="alert alert-primary" role="alert" *ngIf="listaPedidos.length == 0">
+                Menu no disponible aun, intente actualizando la página!
+            </div>
+            <div *ngFor='let mesa of mesasPedidos'>
+                <div class="card-mesa d-flex justify-content-center flex-align-center" (click)="filtrarPedidosPorMesa(mesa.nombre,modalPedido)">
+                    <div>
+                        <h2 class="text-leader d-inline pos-relative ml-4 pr-4">{{mesa.nombre}}</h2>
+                    </div>
+                </div>
+                <br>
+            </div>
+        </div>
+    </div>
+</div>
+<ng-template #modalPedido let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title">Pedidos de {{nombreMesa}}</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    </div>
+    <div class="modal-body flex-style">
+        <div class="cont-description">
+            <table class="table row-hover row-border">
+                <thead>
+                    <tr>
+                        <th>Cant.</th>
+                        <th>Producto</th>
+                        <th>Total</th>
+                        <th>Hora</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let pedido of pedidosPorMesa">
+                        <td>1</td>
+                        <td>Bill</td>
+                        <td>Gates</td>
+                        <td>@billy</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="button shadowed" style="color: red;" (click)="modal.dismiss('Cross click')">Cerrar</button>
+    </div>
+</ng-template>

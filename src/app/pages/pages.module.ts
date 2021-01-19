@@ -15,6 +15,7 @@ import { CategoriaListarComponent } from './categoria/categoria-listar.component
 import { ProductoListarComponent } from './producto/producto-listar.component';
 import { MesasComponent } from './configuraciones/mesas/mesas.component';
 import { ConfiguracionEmpresaComponent } from './configuraciones/configuracion-empresa/configuracion-empresa.component';
+import { PedidosComponent } from './pedidos/pedidos.component';
 
 
 
@@ -26,7 +27,8 @@ import { ConfiguracionEmpresaComponent } from './configuraciones/configuracion-e
     CategoriaListarComponent,
     ProductoListarComponent,
     MesasComponent,
-    ConfiguracionEmpresaComponent
+    ConfiguracionEmpresaComponent,
+    PedidosComponent
   ],
   exports: [
     DashboardComponent,

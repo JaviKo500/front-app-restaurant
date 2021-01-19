@@ -22,7 +22,18 @@ import { HomeClienteComponent } from './menu-cliente/home-cliente/home-cliente.c
 
 
 @NgModule({
-  declarations: [PreviewImgComponent, PaginatorComponent, SpinnerComponent, MenuClienteComponent, NavBarComponent, CarouselComponent, ProductosComponent, CategoriasClienteComponent, ClienteSidebarComponent, HomeClienteComponent],
+  declarations: [
+    PreviewImgComponent,
+    PaginatorComponent,
+    SpinnerComponent,
+    MenuClienteComponent,
+    NavBarComponent,
+    CarouselComponent,
+    ProductosComponent,
+    CategoriasClienteComponent,
+    ClienteSidebarComponent,
+    HomeClienteComponent
+  ],
   exports: [
     PreviewImgComponent,
     PaginatorComponent,
