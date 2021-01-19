@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Producto } from '../../models/productos/producto';
 import { ProductoService } from 'src/app/services/productos/producto.service';
 import { BASE_URL } from 'src/environments/configurations';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-producto-listar',
@@ -10,27 +11,40 @@ import { BASE_URL } from 'src/environments/configurations';
 })
 export class ProductoListarComponent implements OnInit {
   listaProductos: Producto[] = [];
+  //variable contenedor de los datos de la paginacion de productos
+  paginador: any;
   producto: Producto = new Producto();
   api: any = BASE_URL;
-  constructor(private productoserService: ProductoService) {}
+  constructor(
+    private productoserService: ProductoService,
+    private activatedRoute: ActivatedRoute
+  ) {}
 
   ngOnInit(): void {
-
     this.listarProductospage();
   }
   listarProductos(): void {
     this.productoserService.ObtenerProductos().subscribe((res) => {
       this.listaProductos = res;
       console.log('lista');
-      console.log(res);   
+      console.log(res);
     });
   }
 
   listarProductospage(): void {
-    this.productoserService.ObtenerProductosPageable(0).subscribe((res) => {
-      this.listaProductos = res.content;
-      console.log('lista');
-      console.log(res.content);   
+    this.activatedRoute.paramMap.subscribe((params) => {
+      let page: number = +params.get('page');
+      if (!page) {
+        page = 0;
+      }
+      this.productoserService
+        .ObtenerProductosPageable(page)
+        .subscribe((res) => {
+          this.listaProductos = res.content;
+          console.log('lista');
+          console.log(res.content);
+          this.paginador = res;
+        });
     });
   }
 }
