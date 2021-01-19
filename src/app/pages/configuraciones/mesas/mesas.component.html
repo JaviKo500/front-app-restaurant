@@ -43,11 +43,12 @@
                                             <th>#</th>
                                             <th>Mesa</th>
                                             <th>nombreQr</th>
+                                            <th></th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr *ngFor="let mesa of listaMesas">
-                                            <td>{{mesa.id + 1}}</td>
+                                            <td>{{ mesa.id }} </td>
                                             <td>{{mesa.nombre}}</td>
                                             <td>{{mesa.nombreQr}}</td>
                                             <td>
@@ -81,7 +82,7 @@
                         <div class="row">
                             <div class="cell-12 d-flex flex-justify-end">
                                 <!-- componente paginador -->
-                                <app-paginator></app-paginator>
+                                <!-- <app-paginator></app-paginator> -->
                             </div>
                         </div>
                     </div>
