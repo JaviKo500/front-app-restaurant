@@ -1,130 +1,185 @@
 <div class="container-fluid">
-    <div class="grid">
-        <div class="row">
-            <div class="cell-sm">
-                <div class="card">
-                    <div class="card-body">
-                        <!-- Barra para añadir -->
-                        <div class="row">
-                            <div class="cell-3 text-left">
-                                <div class="d-flex flex-justify-start">
-                                    <h5>Mesas del Restaurante</h5>
-                                </div>
-                            </div>
-                            <div class="cell-3 offset-6 text-right">
-                                <div class="d-flex flex-justify-end">
-                                    <button class="button primary shadowed btn-block" (click)="openLg(modalMesa)">
-                                      Añadir
-                                  </button>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Acciones y input para filtrar -->
-                        <div class="row">
-                            <div class="cell-3 offset-6">
-                                <div class="d-flex flex-justify-between">
-                                    <input type="text" data-role="input" data-prepend="Buscar: " />
-                                </div>
-                            </div>
-                            <div class="cell-3 offset-0">
-                                <div class="d-flex flex-justify-between">
-                                    <button class="button info shadowed btn-block">
-                                        Acciones
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Tabla -->
-                        <div class="row">
-                            <div class="cell-sm">
-                                <table class="table striped">
-                                    <thead>
-                                        <tr>
-                                            <th>#</th>
-                                            <th>Mesa</th>
-                                            <th>nombreQr</th>
-                                            <th></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr *ngFor="let mesa of listaMesas">
-                                            <td>{{ mesa.id }} </td>
-                                            <td>{{mesa.nombre}}</td>
-                                            <td>{{mesa.nombreQr}}</td>
-                                            <td>
-                                                <div class="row row-width alinear">
-                                                    <div class="cell-sm-6">
-                                                        <button class="button primary rounded shadowed" (click)="ModalActualizarMesa(modalMesa, mesa)">
-                                                            <span class="ml-1">Editar <i class="fas fa-edit ml-1"></i ></span>
-                                                          </button>
-                                                    </div>
-                                                    <div class="cell-sm-6">
-                                                        <button class="button primary alert rounded shadowed">
-                                                            <span class="ml-1">Borrar<i class="fas fa-trash-alt ml-1"></i></span>
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                        <!-- Spinner -->
-                        <div class="row">
-                            <div class="cell">
-                                <div *ngIf="listaMesas.length === 0">
-                                    <app-spinner></app-spinner>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- paginador -->
-                        <div class="row">
-                            <div class="cell-12 d-flex flex-justify-end">
-                                <!-- componente paginador -->
-                                <!-- <app-paginator></app-paginator> -->
-                            </div>
-                        </div>
-                    </div>
+  <div class="grid">
+    <div class="row">
+      <div class="cell-sm">
+        <div class="card">
+          <div class="card-body">
+            <!-- Barra para añadir -->
+            <div class="row">
+              <div class="cell-3 text-left">
+                <div class="d-flex flex-justify-start">
+                  <h5>Mesas del Restaurante</h5>
                 </div>
+              </div>
+              <div class="cell-3 offset-6 text-right">
+                <div class="d-flex flex-justify-end">
+                  <button
+                    class="button primary shadowed btn-block"
+                    (click)="openLg(modalMesa)"
+                  >
+                    Añadir
+                  </button>
+                </div>
+              </div>
             </div>
+            <!-- Acciones y input para filtrar -->
+            <div class="row">
+              <div class="cell-3 offset-6">
+                <div class="d-flex flex-justify-between">
+                  <input
+                    type="text"
+                    data-role="input"
+                    data-prepend="Buscar: "
+                  />
+                </div>
+              </div>
+              <div class="cell-3 offset-0">
+                <div class="d-flex flex-justify-between">
+                  <button class="button info shadowed btn-block">
+                    Acciones
+                  </button>
+                </div>
+              </div>
+            </div>
+            <!-- Tabla -->
+            <div class="row">
+              <div class="cell-sm">
+                <table class="table striped">
+                  <thead>
+                    <tr>
+                      <th>#</th>
+                      <th>Mesa</th>
+                      <th>nombreQr</th>
+                      <th></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let mesa of listaMesas">
+                      <td>{{ mesa.id }}</td>
+                      <td>{{ mesa.nombre }}</td>
+                      <td>{{ mesa.nombreQr }}</td>
+                      <td>
+                        <div class="row row-width alinear">
+                          <div class="cell-sm-6">
+                            <button
+                              class="button primary rounded shadowed"
+                              (click)="ModalActualizarMesa(modalMesa, mesa)"
+                            >
+                              <span class="ml-1"
+                                >Editar <i class="fas fa-edit ml-1"></i
+                              ></span>
+                            </button>
+                          </div>
+                          <div class="cell-sm-6">
+                            <button
+                              class="button primary alert rounded shadowed"
+                            >
+                              <span class="ml-1"
+                                >Borrar<i class="fas fa-trash-alt ml-1"></i
+                              ></span>
+                            </button>
+                          </div>
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <!-- Spinner -->
+            <div class="row">
+              <div class="cell">
+                <div *ngIf="listaMesas.length === 0">
+                  <app-spinner></app-spinner>
+                </div>
+              </div>
+            </div>
+            <!-- paginador -->
+            <div class="row">
+              <div class="cell-12 d-flex flex-justify-end">
+                <!-- componente paginador -->
+                <!-- <app-paginator></app-paginator> -->
+              </div>
+            </div>
+          </div>
         </div>
+      </div>
     </div>
+  </div>
 </div>
 <ng-template #modalMesa let-modal>
-    <div class="modal-header">
-        <h4 class="modal-title" *ngIf="!mesa.id">Añadir Mesa</h4>
-        <h4 class="modal-title" *ngIf="mesa.id">Editar Mesa</h4>
-        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-    <span aria-hidden="true">&times;</span>
-  </button>
-    </div>
-    <div class="modal-body">
-        <div class="d-flex flex-justify-center">
-            <div class="row d-flex flex-justify-center" style="width: 100%">
-                <form style="width: 100%">
-                    <input type="text" data-role="input" name="nombre" data-prepend="Nombre Mesa: " [(ngModel)]="mesa.nombre" #nombre="ngModel" required minlength="3" autocomplete="off" />
-                    <div class="sms-alert" *ngIf="nombre.invalid && (nombre.dirty || nombre.touched)">
-                        <div class="sms-alert-required" *ngIf="nombre.errors.required">
-                            <small class="p-invalid">Ingresar un nombre</small>
-                        </div>
-                        <div class="sms-alert-length" *ngIf="nombre.errors.minlength">
-                            <small class="p-invalid">Ingresar al menos 3 caracteres</small>
-                        </div>
-                    </div>
-                    <div class=" d-flex justify-content-start">
-                        <label for="" class="mt-1 mr-1">Estado</label>
-                        <input type="checkbox" data-role="checkbox">
-                    </div>
-                </form>
+  <div class="modal-header">
+    <h4 class="modal-title" *ngIf="!mesa.id">Añadir Mesa</h4>
+    <h4 class="modal-title" *ngIf="mesa.id">Editar Mesa</h4>
+    <button
+      type="button"
+      class="close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="d-flex flex-justify-center">
+      <div class="row d-flex flex-justify-center" style="width: 100%">
+        <form style="width: 100%">
+          <input
+            type="text"
+            data-role="input"
+            name="nombre"
+            data-prepend="Nombre Mesa: "
+            [(ngModel)]="mesa.nombre"
+            #nombre="ngModel"
+            required
+            minlength="3"
+            autocomplete="off"
+          />
+          <div
+            class="sms-alert"
+            *ngIf="nombre.invalid && (nombre.dirty || nombre.touched)"
+          >
+            <div class="sms-alert-required" *ngIf="nombre.errors.required">
+              <small class="p-invalid">Ingresar un nombre</small>
             </div>
-        </div>
+            <div class="sms-alert-length" *ngIf="nombre.errors.minlength">
+              <small class="p-invalid">Ingresar al menos 3 caracteres</small>
+            </div>
+          </div>
+          <div class="d-flex justify-content-start">
+            <label for="" class="mt-1 mr-1">Estado</label>
+            <input type="checkbox" data-role="checkbox" name="estado" [(ngModel)]="mesa.estado"/>
+          </div>
+        </form>
+      </div>
     </div>
-    <div class="modal-footer">
-        <div class="d-flex flex-justify-between" style="width: 40%">
-            <button type="button" class="button dark rounded btn-width" (click)="saveMesa()" *ngIf="!mesa.id">Guardar</button>
-            <button type="button" class="button dark rounded btn-width" (click)="updateMesa()" *ngIf="mesa.id">Actualizar</button>
-            <button type="button" class="button alert btn-width" (click)="modal.close('Close click')">Cancelar</button>
-        </div>
+  </div>
+  <div class="modal-footer">
+    <div class="d-flex flex-justify-between" style="width: 40%">
+      <button
+        type="button"
+        class="button dark rounded btn-width"
+        (click)="saveMesa()"
+        *ngIf="!mesa.id"
+      >
+        Guardar
+      </button>
+      <button
+        type="button"
+        class="button dark rounded btn-width"
+        (click)="updateMesa()"
+        *ngIf="mesa.id"
+      >
+        Actualizar
+      </button>
+      <button
+        type="button"
+        class="button alert btn-width"
+        (click)="modal.close('Close click')"
+      >
+        Cancelar
+      </button>
     </div>
+  </div>
 </ng-template>
+
