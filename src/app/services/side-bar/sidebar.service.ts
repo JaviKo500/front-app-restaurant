@@ -19,6 +19,15 @@ export class SidebarService {
       subMenu: []
     },
     {
+    title: 'Gestión de usuarios',
+    icon:'fas fa-users',
+    url: '',
+    subMenu: [
+      { title: 'Lista de usuarios ', icon: 'fas fa-address-book', url: 'usuarios' },
+      { title: 'Agregar usuarios ', icon: 'fas fa-user-plus', url: 'crearusu' },
+      ]
+    },
+    {
     title: 'Productos',
     icon:'fas fa-box',
     url: '',

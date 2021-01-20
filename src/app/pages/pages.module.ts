@@ -16,6 +16,8 @@ import { ProductoListarComponent } from './producto/producto-listar.component';
 import { MesasComponent } from './configuraciones/mesas/mesas.component';
 import { ConfiguracionEmpresaComponent } from './configuraciones/configuracion-empresa/configuracion-empresa.component';
 import { PedidosComponent } from './pedidos/pedidos.component';
+import { UsuariosComponent } from './usuarios/usuarios.component';
+import { FormularioUsuarioComponent } from './usuarios/formulario-usuario/formulario-usuario.component';
 
 
 
@@ -28,7 +30,9 @@ import { PedidosComponent } from './pedidos/pedidos.component';
     ProductoListarComponent,
     MesasComponent,
     ConfiguracionEmpresaComponent,
-    PedidosComponent
+    PedidosComponent,
+    UsuariosComponent,
+    FormularioUsuarioComponent
   ],
   exports: [
     DashboardComponent,
