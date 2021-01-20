@@ -25,7 +25,7 @@ export class CategoriaService {
           swal.fire(e.error.mensaje, e.error.error, 'error');
           return throwError(e);
         })
-      ); 
+      );
   }
 
   ActualizarCategoria(categoria: Categoria): Observable<Categoria> {
@@ -46,6 +46,19 @@ export class CategoriaService {
     return this.http.get(this.url + 'get/categories').pipe(
       map((response: any) => response.categorias as Categoria[]),
       catchError((e) => {
+        return throwError(e);
+      })
+    );
+  }
+
+  ListaCategoriasPageable(page: number): Observable<any> {
+    return this.http.get(this.url + 'get/categories/' + page).pipe(
+      map((response: any) => {
+        return response.categorias;
+      }),
+      catchError((e) => {
+        console.log('Error service paginacion cate: '+e.error);
+        
         return throwError(e);
       })
     );

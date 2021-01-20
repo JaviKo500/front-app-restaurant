@@ -17,7 +17,7 @@ const routes: Routes = [
       { path: '', component: DashboardComponent, data: { title: 'Inicio', subTitle: 'Bienvenido'  } },
       { path: 'crearpro', component: FormularioComponent, data: { title: 'Productos', subTitle: 'Administrar producto' } },
       { path: 'productos/page/:page', component: ProductoListarComponent, data: { title: 'Productos', subTitle: 'Lista de productos'  } },
-      { path: 'categorias', component: CategoriaListarComponent, data: { title: 'Categorías', subTitle: 'Administra tus categorías' } },
+      { path: 'categorias/page/:page', component: CategoriaListarComponent, data: { title: 'Categorías', subTitle: 'Administra tus categorías' } },
       { path: 'mesas', component: MesasComponent, data: { title: 'Mesas', subTitle: 'Administrar mesas del Restaurante' } },
       { path: 'pedidos', component: PedidosComponent, data: { title: 'Pedidos', subTitle: 'Revisa los pedidos de tus clientes' } }
     ]
