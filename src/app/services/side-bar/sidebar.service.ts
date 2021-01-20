@@ -42,7 +42,7 @@ export class SidebarService {
     icon:'fas fa-cogs',
     url: '',
     subMenu: [
-      { title: 'Mesas', icon: 'fas fa-chair', url: 'mesas' },
+      { title: 'Mesas', icon: 'fas fa-chair', url: 'mesas/page/0' },
       ]
     },
 

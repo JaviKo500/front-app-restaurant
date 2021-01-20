@@ -1,6 +1,5 @@
 import { DetallePedido } from './detalle-pedido.model';
-import { Estado } from './estado.model';
-import { Mesa } from './mesa.model';
+import { Mesa } from './mesa/mesa';
 export class Pedido {
     id: number;
     // listaProd: DetallePedido[] = [];

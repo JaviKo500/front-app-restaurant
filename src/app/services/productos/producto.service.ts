@@ -29,9 +29,13 @@ export class ProductoService {
     return this.http.get(this.url + 'get/products/' + page).pipe(
       map((response: any) => {
         return response.productos;
+      }),
+      catchError((e) => {
+        swal.fire(e.error.mensaje, e.error.error, 'error');
+        return throwError(e);
       })
     );
-  } 
+  }
 
   RegistarProducto(producto: Producto): Observable<Producto> {
     return this.http

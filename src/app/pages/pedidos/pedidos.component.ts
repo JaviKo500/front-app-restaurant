@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Pedido } from '../../models/pedido.model';
-import { Mesa } from '../../models/mesa.model';
 
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { Mesa } from 'src/app/models/mesa/mesa';
 
 @Component({
   selector: 'app-pedidos',

@@ -22,7 +22,7 @@ const routes: Routes = [
       { path: 'crearusu', component: FormularioUsuarioComponent, data: { title: 'Usuarios', subTitle: 'Agrega usuarios' } },
       { path: 'productos/page/:page', component: ProductoListarComponent, data: { title: 'Productos', subTitle: 'Lista de productos'  } },
       { path: 'categorias/page/:page', component: CategoriaListarComponent, data: { title: 'Categorías', subTitle: 'Administra tus categorías' } },
-      { path: 'mesas', component: MesasComponent, data: { title: 'Mesas', subTitle: 'Administrar mesas del Restaurante' } },
+      { path: 'mesas/page/:page', component: MesasComponent, data: { title: 'Mesas', subTitle: 'Administrar mesas del Restaurante' } },
       { path: 'pedidos', component: PedidosComponent, data: { title: 'Pedidos', subTitle: 'Revisa los pedidos de tus clientes' } }
     ]
   }
