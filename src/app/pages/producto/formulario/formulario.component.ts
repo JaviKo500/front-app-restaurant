@@ -64,9 +64,17 @@ export class FormularioComponent implements OnInit {
       .saveImgCategoria_Producto(this.imagenProducto, id, API_PROD)
       .subscribe(
         (res) => {
+          swal.fire({
+            position: 'top-end',
+            icon: 'success',
+            title: 'Producto guardado correctamente',
+            showConfirmButton: false,
+            timer: 1000,
+          });
           console.log('guardado');
           this.imagenProducto = null;
           this.img_url = null;
+          this.producto = new Producto();
         },
         (error) => {
           this.productoService.deleteProducto(id).subscribe((res) => {});
