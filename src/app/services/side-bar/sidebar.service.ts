@@ -34,7 +34,7 @@ export class SidebarService {
     subMenu: [
       { title: 'Lista de productos', icon: 'fas fa-list-alt', url: 'productos/page/0' },
       { title: 'Agregar producto', icon: 'fa fa-plus-circle', url: 'crearpro' },
-      { title: 'Categorias', icon: 'fa fa-tags', url: 'categorias' }
+      { title: 'Categorias', icon: 'fa fa-tags', url: 'categorias/page/0' }
       ]
     },
     {

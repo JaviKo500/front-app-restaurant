@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 // Para crear modales del ng boostrap
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
@@ -14,6 +15,10 @@ import { Categoria } from '../../models/productos/categoria';
 })
 export class CategoriaListarComponent implements OnInit {
   categoria = new Categoria();
+  //datos para pagnacion
+  paginador: any;
+  path: any = '/dashboard/categorias/page';
+  //termina datos paginacion
   api: any = BASE_URL;
   listaCategorias: Categoria[] = [];
   img_url: any[];
@@ -22,11 +27,12 @@ export class CategoriaListarComponent implements OnInit {
   modalReference: NgbModalRef;
   constructor(
     private modalService: NgbModal,
-    private categoriaService: CategoriaService
+    private categoriaService: CategoriaService,
+    private activatedRoute: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
-    this.listarCategorias();
+    this.listarCategoriaspageable();
   }
 
   onChange(event): void {
@@ -51,6 +57,23 @@ export class CategoriaListarComponent implements OnInit {
     this.categoriaService.ListaCategorias().subscribe((categorias: any) => {
       this.listaCategorias = categorias;
       console.log(categorias);
+    });
+  }
+
+  private listarCategoriaspageable(): void {
+    //listar todas las categorias sin excepcion.
+    console.log('Paginando.....');
+    this.activatedRoute.paramMap.subscribe((params) => {
+      let page: number = +params.get('page');
+      if (!page) {
+        page = 0;
+      }
+      this.categoriaService
+        .ListaCategoriasPageable(page)
+        .subscribe((categorias: any) => {
+          this.listaCategorias = categorias.content;
+          this.paginador = categorias;
+        });
     });
   }
 
@@ -177,7 +200,6 @@ export class CategoriaListarComponent implements OnInit {
           if (result.isConfirmed) {
             swal.fire('Borrado', res, 'success');
             console.log(res);
-            
           }
         });
     });

@@ -33,6 +33,8 @@ export class ProductoListarComponent implements OnInit {
   }
 
   listarProductospage(): void {
+    console.log('Paginando.....');
+    
     this.activatedRoute.paramMap.subscribe((params) => {
       let page: number = +params.get('page');
       if (!page) {

@@ -21,7 +21,7 @@ const routes: Routes = [
       { path: 'usuarios', component: UsuariosComponent, data: { title: 'Usuarios', subTitle: 'Administrar tus usuarios' } },
       { path: 'crearusu', component: FormularioUsuarioComponent, data: { title: 'Usuarios', subTitle: 'Agrega usuarios' } },
       { path: 'productos/page/:page', component: ProductoListarComponent, data: { title: 'Productos', subTitle: 'Lista de productos'  } },
-      { path: 'categorias', component: CategoriaListarComponent, data: { title: 'Categorías', subTitle: 'Administra tus categorías' } },
+      { path: 'categorias/page/:page', component: CategoriaListarComponent, data: { title: 'Categorías', subTitle: 'Administra tus categorías' } },
       { path: 'mesas', component: MesasComponent, data: { title: 'Mesas', subTitle: 'Administrar mesas del Restaurante' } },
       { path: 'pedidos', component: PedidosComponent, data: { title: 'Pedidos', subTitle: 'Revisa los pedidos de tus clientes' } }
     ]
