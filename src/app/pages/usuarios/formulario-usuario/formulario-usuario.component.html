@@ -1,17 +1,17 @@
-<div class="card">
-    <div class="card-body">
+<div class="card mt-0 ">
+    <div class="card-body  p-2">
         <form>
-            <div class="card">
-                <div class="card-body">
-                    <h3>Datos generales</h3>
+            <div class="card mb-2">
+                <div class="card-body ">
+                    <h3 class="mb-2">Datos generales</h3>
                     <div class="row">
-                        <div class="cell-md-6">
+                        <div class="cell-md-6 pb-0">
                             <input type="text" data-role="input" data-prepend="Nombre" class="mb-5">
                             <input type="text" data-role="input" data-prepend="Teléfono">
                         </div>
-                        <div class="cell-md-6">
+                        <div class="cell-md-6 pb-0">
                             <input type="text" data-role="input" data-prepend="Identificación" class="mb-5">
-                            <div class="input-group mb-3">
+                            <div class="input-group mb-0">
                                 <div class="input-group-prepend">
                                     <label class="input-group-text" for="inputGroupSelect01" style="border-right-color: transparent;">Género </label>
                                 </div>
@@ -24,18 +24,33 @@
                     </div>
                 </div>
             </div>
-            <div class="card">
-                <div class="card-body">
-                    <h3>Datos Usuario</h3>
+            <div class="card mb-2">
+                <div class="card-body ">
+                    <h3 class="mb-2">Datos Usuario</h3>
                     <div class="row">
-                        <div class="cell-md-6">
+                        <div class="cell-md-6 pb-0">
                             <input type="text" data-role="input" data-prepend="Nombre usuario" class="mb-5">
+                            <input type="password" data-role="input" data-prepend="Contraseña" class="mb-5">
+                            <input type="password" data-role="input" data-prepend="Confirmar contraseña">
                         </div>
-                        <div class="cell-md-6">
+                        <div class="cell-md-6 pb-0">
                             <input type="email" data-role="input" data-prepend="Email" class="mb-5">
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <label class="input-group-text" for="inputGroupSelect01" style="border-right-color: transparent;">Género </label>
+                                </div>
+                                <select class="custom-select" id="inputGroupSelect01" name="categorias">
+                            <option [ngValue]="undefined">Choose...</option>
+                            <option>4</option>
+                          </select>
+                            </div>
                         </div>
                     </div>
                 </div>
+            </div>
+            <div class="w-100 d-flex justify-content-sm-between mt-5 mb-2">
+                <button class="button shadowed button-usuario ml-2" style="color: red;">Cancelar</button>
+                <button class="button shadowed button-usuario button-save mr-2">Guardar</button>
             </div>
         </form>
     </div>
