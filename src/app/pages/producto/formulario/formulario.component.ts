@@ -84,19 +84,33 @@ export class FormularioComponent implements OnInit {
       if (this.imagenProducto) {
         this.productoService.updateProduct(this.producto).subscribe((res) => {
           console.log('Producto actualizado');
+          swal.fire({
+            position: 'top-end',
+            icon: 'success',
+            title: 'Su producto fué actualizado correctamente.',
+            showConfirmButton: false,
+            timer: 1000,
+          });
           console.log(res);
         }),
           (error) => {
             console.log(error.mensaje);
           };
       } else {
-        if (this.producto.imagen != '') {
+        if (this.producto.imagen == '') {
           //si no existe un nombre de imagen no se puede actualizar.
           swal.fire('Advertencia', 'Debe seleccionar su imagen', 'warning');
         } else {
           this.productoService.updateProduct(this.producto).subscribe(
             (response) => {
               console.log('Producto actualizado');
+              swal.fire({
+                position: 'top-end',
+                icon: 'success',
+                title: 'Su producto fué actualizado correctamente.',
+                showConfirmButton: false,
+                timer: 1000,
+              });
               console.log(response);
             },
             (error) => {
