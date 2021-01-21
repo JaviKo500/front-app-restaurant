@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { Pedido } from '../../models/pedido.model';
 
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+
+// Modelos
 import { Mesa } from 'src/app/models/mesa/mesa';
+import { Pedido } from '../../models/pedido.model';
 
 @Component({
   selector: 'app-pedidos',
@@ -10,11 +12,13 @@ import { Mesa } from 'src/app/models/mesa/mesa';
   styleUrls: ['./pedidos.component.css']
 })
 export class PedidosComponent implements OnInit {
+
   private modalRef: NgbModalRef;
 
   mesasPedidos: Mesa [] = [];
   nombreMesa: string;
   pedidosPorMesa: Pedido [] = [];
+  cantidadPedido:number = 0;
   listaPedidos: Pedido [] = [
     {
       id: 1,
@@ -55,16 +59,13 @@ export class PedidosComponent implements OnInit {
       }
     }
   ];
-
-
   constructor( private modalService: NgbModal ) { }
   ngOnInit(): void {
     this.filtrarPorMesas();
   }
-
   // filtramos por mesa para separar los pedidos en la vista del cliente
   filtrarPorMesas(){
-    let nombreMesa = []
+    let nombreMesa = [];
     this.listaPedidos.forEach(( pedido: Pedido ) => {
       if(!nombreMesa.includes( pedido.mesa.id )){
         this.mesasPedidos.push(pedido.mesa);
@@ -72,10 +73,20 @@ export class PedidosComponent implements OnInit {
       }
     });
   }
-  // filtramos los pedidos por mesa
+  // filtramos los pedidos por mesa para el modal
   filtrarPedidosPorMesa(mesa,modalPedido){
     this.nombreMesa = mesa;
     this.pedidosPorMesa = this.listaPedidos.filter( (pedido: Pedido) => pedido.mesa.nombre === mesa);
     this.modalRef = this.modalService.open(modalPedido, { size: 'xl', centered: true, scrollable: true });
+  }
+  // Para hacer un badge con la cantidad de pedidos
+  numeroPedidos(idMesa: number): number{
+    this.cantidadPedido = 0;
+    for (const pedido of this.listaPedidos) {
+        if(pedido.mesa.id === idMesa){
+        this.cantidadPedido++
+        }
+    }
+    return this.cantidadPedido;
   }
 }

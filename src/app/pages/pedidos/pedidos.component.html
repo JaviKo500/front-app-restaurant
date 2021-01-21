@@ -9,12 +9,13 @@
                     <div>
                         <h2 class="text-leader d-inline pos-relative ml-4 pr-4">{{mesa.nombre}}</h2>
                     </div>
+                    <span class="badge inside bg-red fg-white mt-1 mr-1 badgeCantidad">{{numeroPedidos(mesa.id)}}</span>
                 </div>
-                <br>
             </div>
         </div>
     </div>
 </div>
+<!-- modal apra ver los pedidos por mesa -->
 <ng-template #modalPedido let-modal>
     <div class="modal-header">
         <h4 class="modal-title">Pedidos de {{nombreMesa}}</h4>
