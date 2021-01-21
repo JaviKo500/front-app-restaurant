@@ -3,6 +3,7 @@ import { Producto } from '../../models/productos/producto';
 import { ProductoService } from 'src/app/services/productos/producto.service';
 import { BASE_URL } from 'src/environments/configurations';
 import { ActivatedRoute } from '@angular/router';
+import swal from 'sweetalert2';
 
 @Component({
   selector: 'app-producto-listar',
@@ -10,19 +11,10 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./producto-listar.component.css'],
 })
 export class ProductoListarComponent implements OnInit {
-  listaProductos: Producto[] = [
-    {
-      id:1,
-      nombre: 'coda',
-      precio: 2.5,
-      descripcion: 'bebida',
-      categoria: {nombre:'bebida',id: 1,estado:true,imagen:'/aapp'},
-      imagen:'sasa'
-    }
-  ];
+  listaProductos: Producto[] = [];
   //variable contenedor de los datos de la paginacion de productos
   paginador: any;
-  path:any='/dashboard/productos/page';
+  path: any = '/dashboard/productos/page';
   producto: Producto = new Producto();
   api: any = BASE_URL;
   constructor(
@@ -58,5 +50,28 @@ export class ProductoListarComponent implements OnInit {
           this.paginador = res;
         });
     });
+  }
+  eliminarProducto(id: number): void {
+    console.log('eliminando prod....');
+    swal
+      .fire({
+        title: '¿Esta seguro de eliminar este producto?',
+        text:
+          'Sí ud elimina este producto es posible que pierda recibos relacionadas con este producto.',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Si, Eliminar de todas formas',
+      })
+      .then((result) => {
+        if (result.isConfirmed) {
+          this.productoserService.deleteProducto(id).subscribe((res) => {
+            this.listarProductospage();
+            swal.fire('Borrado', res, 'success');
+            console.log(res);
+          });
+        }
+      });
   }
 }

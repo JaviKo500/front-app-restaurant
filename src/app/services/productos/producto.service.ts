@@ -5,6 +5,7 @@ import { catchError, map } from 'rxjs/operators';
 import swal from 'sweetalert2';
 import { Observable, throwError } from 'rxjs';
 import { Producto } from 'src/app/models/productos/producto';
+import { Categoria } from 'src/app/models/productos/categoria';
 
 @Injectable({
   providedIn: 'root',
@@ -40,6 +41,20 @@ export class ProductoService {
   RegistarProducto(producto: Producto): Observable<Producto> {
     return this.http
       .post(this.url + 'register/product', producto, {
+        headers: this.httpHeaders,
+      })
+      .pipe(
+        map((response: any) => response),
+        catchError((e) => {
+          swal.fire(e.error.mensaje, e.error.error, 'error');
+          return throwError(e);
+        })
+      );
+  }
+
+  updateProduct(producto: Producto): Observable<Producto> {
+    return this.http
+      .put(this.url + 'update/product/' + producto.id, producto, {
         headers: this.httpHeaders,
       })
       .pipe(

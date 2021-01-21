@@ -58,7 +58,39 @@ export class FormularioComponent implements OnInit {
       swal.fire('Observación', 'Debe llenar los campos.', 'warning');
     }
   }
-
+  //metodo para actualizar un producto
+  actualizaProducto(): void {
+    //validamos campos
+    if (this.CamposCompletos()) {
+      if (this.imagenProducto) {
+        this.productoService.updateProduct(this.producto).subscribe((res) => {
+          console.log('Producto actualizado');
+          console.log(res);
+        }),
+          (error) => {
+            console.log(error.mensaje);
+          };
+      } else {
+        if (!this.producto.imagen) {
+          //si no existe un nombre de imagen no se puede actualizar.
+          swal.fire('Advertencia', 'Debe seleccionar su imagen', 'warning');
+        } else {
+          this.productoService.updateProduct(this.producto).subscribe(
+            (response) => {
+              console.log('Producto actualizado');
+              console.log(response);
+            },
+            (error) => {
+              console.log(error.mensaje);
+            }
+          );
+        }
+      }
+    } else {
+      swal.fire('Observación', 'Debe llenar los campos.', 'warning');
+    }
+  }
+  //temina metodo de actualizaProducto
   cargarImagenProducto(id: number): void {
     this.categoriaService
       .saveImgCategoria_Producto(this.imagenProducto, id, API_PROD)

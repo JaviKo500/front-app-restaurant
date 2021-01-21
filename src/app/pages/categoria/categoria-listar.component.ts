@@ -51,7 +51,7 @@ export class CategoriaListarComponent implements OnInit {
       swal.fire('Error', 'Solo imágenes', 'error');
     }
   }
-
+  //por borrar sin uso
   private listarCategorias(): void {
     //listar todas las categorias sin excepcion.
     this.categoriaService.ListaCategorias().subscribe((categorias: any) => {
@@ -89,6 +89,26 @@ export class CategoriaListarComponent implements OnInit {
       this.categoria = cate;
     }
   }
+  //metodo para registrar categoria
+  saveCategoria(): void {
+    if (this.CamposLlenos()) {
+      if (this.imagenCategoria) {
+        //servicio para registrar las categorias
+        this.categoria.estado = true;
+        this.categoriaService
+          .RegistarCategoria(this.categoria)
+          .subscribe((res) => {
+            this.cargarImagenCategoria(Number(res.id));
+            console.log('categoria id: ' + res.id);
+          });
+      } else {
+        swal.fire('Observación', 'Debe seleccionar uma imágen', 'warning');
+      }
+    } else {
+      swal.fire('Observación', 'Debe llenar los campos.', 'warning');
+    }
+  }
+
   //metodo para actualizar las categorias
   updateCategoria(): void {
     //validar los campos de la categoria
@@ -134,30 +154,22 @@ export class CategoriaListarComponent implements OnInit {
     this.modalService.dismissAll();
   }
 
-  saveCategoria(): void {
-    if (this.CamposLlenos()) {
-      if (this.imagenCategoria) {
-        //servicio para registrar las categorias
-        this.categoria.estado = true;
-        this.categoriaService
-          .RegistarCategoria(this.categoria)
-          .subscribe((res) => {
-            this.cargarImagenCategoria(Number(res.id));
-            console.log('categoria id: ' + res.id);
-          });
-      } else {
-        swal.fire('Observación', 'Debe seleccionar uma imágen', 'warning');
-      }
-    } else {
-      swal.fire('Observación', 'Debe llenar los campos.', 'warning');
-    }
-  }
-
   cargarImagenCategoria(id: number): void {
     this.categoriaService
       .saveImgCategoria_Producto(this.imagenCategoria, id, API_CATE)
       .subscribe(
         (res) => {
+          //alerta de mensaje al guardar el
+
+          swal.fire({
+            position: 'top-end',
+            icon: 'success',
+            title: 'Categoría registrada correctamente',
+            showConfirmButton: false,
+            timer: 1000,
+          });
+          //termina alerta
+          //restablecer variables
           console.log('guardado');
           this.imagenCategoria = null;
           this.img_url = null;
@@ -183,25 +195,27 @@ export class CategoriaListarComponent implements OnInit {
   }
 
   eliminarCategoria(idCategoria: number): void {
-    this.categoriaService.deleteCategoria(idCategoria).subscribe((res) => {
-      this.listarCategorias();
-      swal
-        .fire({
-          title: '¿Esta seguro de eliminar esta categoría?',
-          text:
-            'Sí ud elimina esta categoría es posible que pierda productos y recibos relacionadas con esta categoría.',
-          icon: 'warning',
-          showCancelButton: true,
-          confirmButtonColor: '#3085d6',
-          cancelButtonColor: '#d33',
-          confirmButtonText: 'Si, Eliminar de todas formas',
-        })
-        .then((result) => {
-          if (result.isConfirmed) {
-            swal.fire('Borrado', res, 'success');
-            console.log(res);
-          }
-        });
-    });
+    swal
+      .fire({
+        title: '¿Esta seguro de eliminar esta categoría?',
+        text:
+          'Sí ud elimina esta categoría es posible que pierda productos y recibos relacionadas con esta categoría.',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Si, Eliminar de todas formas',
+      })
+      .then((result) => {
+        if (result.isConfirmed) {
+          this.categoriaService
+            .deleteCategoria(idCategoria)
+            .subscribe((res) => {
+              this.listarCategorias();
+              swal.fire('Borrado', res, 'success');
+              console.log(res);
+            });
+        }
+      });
   }
 }

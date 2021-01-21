@@ -1,15 +1,18 @@
 <div class="card">
-    <div class="card-body">
-        <!-- Barra para añadir -->
-        <div class="row">
-            <div class="cell-3 text-left">
-                <div class="d-flex flex-justify-start">
-                    <h5>Todos los productos</h5>
-                </div>
-            </div>
-            <div class="cell-3 offset-6 text-right">
-                <div class="d-flex flex-justify-end">
-                    <a class="button primary shadowed btn-block" routerLink="/dashboard/crearpro">Añadir</a
+  <div class="card-body">
+    <!-- Barra para añadir -->
+    <div class="row">
+      <div class="cell-3 text-left">
+        <div class="d-flex flex-justify-start">
+          <h5>Todos los productos</h5>
+        </div>
+      </div>
+      <div class="cell-3 offset-6 text-right">
+        <div class="d-flex flex-justify-end">
+          <a
+            class="button primary shadowed btn-block"
+            routerLink="/dashboard/crearpro"
+            >Añadir</a
           >
         </div>
       </div>
@@ -50,11 +53,11 @@
                   *ngIf="prod.imagen == '' || prod.imagen == undefined"
                 />
                 <img
-                class="img-categoria"
-                src="{{ api }}product/img/{{ prod.imagen }}"
-                alt="not found"
-                *ngIf="prod.imagen != undefined"
-              />
+                  class="img-categoria"
+                  src="{{ api }}product/img/{{ prod.imagen }}"
+                  alt="not found"
+                  *ngIf="prod.imagen != undefined"
+                />
               </td>
               <td>
                 {{ prod.nombre }}
@@ -69,12 +72,19 @@
                 <div class="row row-width alinear">
                   <div class="cell-sm-6">
                     <button class="button primary rounded shadowed">
-                      <span class="ml-1">Editar <i class="fas fa-edit ml-1"></i></span>
+                      <span class="ml-1"
+                        >Editar <i class="fas fa-edit ml-1"></i
+                      ></span>
                     </button>
                   </div>
                   <div class="cell-sm-6">
-                    <button class="button primary delete rounded shadowed">
-                      <span class="ml-1">Borrar<i class="fas fa-trash-alt ml-1"></i></span>
+                    <button
+                      class="button primary delete rounded shadowed"
+                      (click)="eliminarProducto(prod.id)"
+                    >
+                      <span class="ml-1"
+                        >Borrar<i class="fas fa-trash-alt ml-1"></i
+                      ></span>
                     </button>
                   </div>
                 </div>
@@ -96,7 +106,11 @@
     <div class="row">
       <div class="cell-12 d-flex flex-justify-end">
         <!-- componente paginador -->
-        <app-paginator *ngIf="paginador" [paginador]="paginador" [path]="path"></app-paginator>
+        <app-paginator
+          *ngIf="paginador"
+          [paginador]="paginador"
+          [path]="path"
+        ></app-paginator>
       </div>
     </div>
   </div>
