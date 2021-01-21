@@ -10,7 +10,16 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./producto-listar.component.css'],
 })
 export class ProductoListarComponent implements OnInit {
-  listaProductos: Producto[] = [];
+  listaProductos: Producto[] = [
+    {
+      id:1,
+      nombre: 'coda',
+      precio: 2.5,
+      descripcion: 'bebida',
+      categoria: {nombre:'bebida',id: 1,estado:true,imagen:'/aapp'},
+      imagen:'sasa'
+    }
+  ];
   //variable contenedor de los datos de la paginacion de productos
   paginador: any;
   path:any='/dashboard/productos/page';
@@ -34,7 +43,7 @@ export class ProductoListarComponent implements OnInit {
 
   listarProductospage(): void {
     console.log('Paginando.....');
-    
+
     this.activatedRoute.paramMap.subscribe((params) => {
       let page: number = +params.get('page');
       if (!page) {
