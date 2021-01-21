@@ -1,28 +1,50 @@
 <div class="card">
-    <div class="card-body">
-        <form>
-            <div class="row">
-                <div class="cell-md-6">
-                    <div class="row">
-                        <div class="cell-12 mt-4">
-                            <input type="text" data-role="input" data-prepend="Nombre producto " name="prodNombre" autocomplete="off" [(ngModel)]="producto.nombre" />
-                        </div>
-                    </div>
-                    <div class="row mt-3">
-                        <div class="cell-12">
-                            <input type="number" data-role="input" data-prepend="Precio producto: " name="prodPrecio" autocomplete="off" [(ngModel)]="producto.precio" />
-                        </div>
-                    </div>
-                    <div class="row mt-3">
-                        <div class="cell-12">
-                            <input type="text" data-role="input" data-prepend="Descripción producto: " name="prodDescripcion" autocomplete="off" [(ngModel)]="producto.descripcion" />
-                        </div>
-                    </div>
-                    <div class="row mt-3">
-                        <div class="cell-12">
-                            <div class="input-group mb-3">
-                                <div class="input-group-prepend">
-                                    <label class="input-group-text" for="inputGroupSelect01">Categoria producto:</label
+  <div class="card-body">
+    <form>
+      <div class="row">
+        <div class="cell-md-6">
+          <div class="row">
+            <div class="cell-12 mt-4">
+              <input
+                type="text"
+                data-role="input"
+                data-prepend="Nombre producto "
+                name="prodNombre"
+                autocomplete="off"
+                [(ngModel)]="producto.nombre"
+              />
+            </div>
+          </div>
+          <div class="row mt-3">
+            <div class="cell-12">
+              <input
+                type="number"
+                data-role="input"
+                data-prepend="Precio producto: "
+                name="prodPrecio"
+                autocomplete="off"
+                [(ngModel)]="producto.precio"
+              />
+            </div>
+          </div>
+          <div class="row mt-3">
+            <div class="cell-12">
+              <input
+                type="text"
+                data-role="input"
+                data-prepend="Descripción producto: "
+                name="prodDescripcion"
+                autocomplete="off"
+                [(ngModel)]="producto.descripcion"
+              />
+            </div>
+          </div>
+          <div class="row mt-3">
+            <div class="cell-12">
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <label class="input-group-text" for="inputGroupSelect01"
+                    >Categoria producto:</label
                   >
                 </div>
                 <select
@@ -64,13 +86,15 @@
           <button
             class="button primary rounded shadowed w-25"
             (click)="RegistrarProducto()"
-            *ngIf="!producto.id">
+            *ngIf="!producto.id"
+          >
             Guardar
           </button>
           <button
             class="button primary rounded shadowed w-25"
-            (click)="RegistrarProducto()"
-            *ngIf="producto.id">
+            (click)="actualizaProducto()"
+            *ngIf="producto.id"
+          >
             Actualizar
           </button>
         </div>
