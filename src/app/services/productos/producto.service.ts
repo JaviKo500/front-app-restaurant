@@ -16,9 +16,9 @@ export class ProductoService {
 
   private httpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
 
-  ObtenerProductos(): Observable<Producto[]> {
-    return this.http.get(this.url + 'get/products').pipe(
-      map((response: any) => response.productos as Producto[]),
+  ObtenerProducto(id: number): Observable<Producto> {
+    return this.http.get(this.url + 'get/product/' + id).pipe(
+      map((response: any) => response.producto as Producto),
       catchError((e) => {
         swal.fire(e.error.mensaje, e.error.error, 'error');
         return throwError(e);

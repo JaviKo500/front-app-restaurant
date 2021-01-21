@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { Categoria } from 'src/app/models/productos/categoria';
 import { Producto } from 'src/app/models/productos/producto';
 import { CategoriaService } from 'src/app/services/categoria/categoria.service';
@@ -19,13 +20,29 @@ export class FormularioComponent implements OnInit {
   bandera_imagen = false;
   constructor(
     private categoriaService: CategoriaService,
-    private productoService: ProductoService
+    private productoService: ProductoService,
+    private activatedRoute: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
     this.ListarCategorias();
+    this.activatedRoute.paramMap.subscribe((params) => {
+      let id: number = +params.get('id');
+      if (id) {
+        this.buscarproducto(id);
+      }
+    });
   }
 
+  buscarproducto(id: number) {
+    console.log(id);
+    swal.showLoading();
+    this.productoService.ObtenerProducto(id).subscribe((response) => {
+      console.log(response);
+      this.producto = response;
+      swal.close();
+    });
+  }
   onChange(event): void {
     if (event.target.files && event.target.files[0]) {
       var reader = new FileReader();

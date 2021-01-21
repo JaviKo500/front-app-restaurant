@@ -71,7 +71,10 @@
               <td>
                 <div class="row row-width alinear">
                   <div class="cell-sm-6">
-                    <button class="button primary rounded shadowed">
+                    <button
+                      class="button primary rounded shadowed"
+                      [routerLink]="['/dashboard/crearpro/', prod.id]"
+                    >
                       <span class="ml-1"
                         >Editar <i class="fas fa-edit ml-1"></i
                       ></span>

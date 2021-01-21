@@ -25,17 +25,9 @@ export class ProductoListarComponent implements OnInit {
   ngOnInit(): void {
     this.listarProductospage();
   }
-  listarProductos(): void {
-    this.productoserService.ObtenerProductos().subscribe((res) => {
-      this.listaProductos = res;
-      console.log('lista');
-      console.log(res);
-    });
-  }
 
   listarProductospage(): void {
     console.log('Paginando.....');
-
     this.activatedRoute.paramMap.subscribe((params) => {
       let page: number = +params.get('page');
       if (!page) {
