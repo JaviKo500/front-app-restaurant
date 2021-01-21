@@ -47,7 +47,12 @@
         </div>
         <div class="cell-md-5 offset-1">
           <app-preview-img
-          *ngIf="pathImg === null"
+          *ngIf="producto.imagen.length === 0"
+            (imagenSave)="(imagenProducto)"
+            (change)="onChange($event)"
+          ></app-preview-img>
+          <app-preview-img
+          *ngIf="idProducto > 0 && pathImg.length > 0"
             (imagenSave)="(imagenProducto)"
             (change)="onChange($event)"
             [pathImg] = "pathImg"

@@ -1,13 +1,12 @@
 <div class="contenedor-img mt-5">
-    <div class="contenedor-img-vista" *ngIf="(!imagen ||  banderaEditarImg) && !img_url ">
+    <div class="contenedor-img-vista" *ngIf="(!pathImg ||  banderaEditarImg) && !img_url ">
         <div class="img-vista" *ngIf="!img_url">
             <img src="assets/icons/addImg.png" alt="">
         </div>
     </div>
-    <div class="contenedor-img-vista" *ngIf="imagen && !img_url && !banderaEditarImg">
+    <div class="contenedor-img-vista" *ngIf="pathImg && !img_url">
         <div class="img-vista" [ngStyle]="{'border':'0px'}">
-            2
-            <!-- <img src="{{URL}}producto/img/{{producto.imagen}}" class="img-vista-producto" alt=" "> -->
+            <img src="{{ api }}product/img/{{ pathImg}}" class="img-vista-producto" alt=" ">
         </div>
     </div>
     <div class="contenedor-img-vista" *ngIf="img_url">

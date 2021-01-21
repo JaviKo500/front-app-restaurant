@@ -1,5 +1,5 @@
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Categoria } from 'src/app/models/productos/categoria';
 import { Producto } from 'src/app/models/productos/producto';
 import { CategoriaService } from 'src/app/services/categoria/categoria.service';
@@ -13,32 +13,34 @@ import swal from 'sweetalert2';
   styleUrls: ['./formulario.component.css'],
 })
 export class FormularioComponent implements OnInit {
-  pathImg: string;
   imagenProducto: File;
   producto: Producto = new Producto();
+  idProducto:number = 0;
+  pathImg: string = '';
   listaCategorias: Categoria[] = [];
   img_url: any[];
   bandera_imagen = false;
   constructor(
     private categoriaService: CategoriaService,
     private productoService: ProductoService,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private route: Router
   ) {}
 
   ngOnInit(): void {
     this.ListarCategorias();
     this.activatedRoute.paramMap.subscribe((params) => {
-      let id: number = +params.get('id');
-      if (id) {
-        this.buscarproducto(id);
+      this.idProducto = +params.get('id');
+      if (this.idProducto) {
+        this.buscarproducto(this.idProducto);
       }
+      this.pathImg = this.producto.imagen;
     });
   }
 
   buscarproducto(id: number) {
     swal.showLoading();
     this.productoService.ObtenerProducto(id).subscribe((response) => {
-      console.log(response);
       this.producto = response;
       this.pathImg = this.producto.imagen;
       console.log(this.pathImg);
@@ -85,6 +87,8 @@ export class FormularioComponent implements OnInit {
         this.productoService.updateProduct(this.producto).subscribe((res) => {
           console.log('Producto actualizado');
           console.log(res);
+          this.pathImg = '';
+          this.route.navigateByUrl('/dashboard/productos/page/0');
         }),
           (error) => {
             console.log(error.mensaje);
@@ -98,6 +102,8 @@ export class FormularioComponent implements OnInit {
             (response) => {
               console.log('Producto actualizado');
               console.log(response);
+              this.pathImg = '';
+              this.route.navigateByUrl('/dashboard/productos/page/0');
             },
             (error) => {
               console.log(error.mensaje);
@@ -125,6 +131,7 @@ export class FormularioComponent implements OnInit {
           console.log('guardado');
           this.imagenProducto = null;
           this.img_url = null;
+          this.pathImg = '';
           this.producto = new Producto();
         },
         (error) => {
