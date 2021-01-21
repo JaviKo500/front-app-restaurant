@@ -58,7 +58,7 @@ export class CategoriaService {
       }),
       catchError((e) => {
         console.log('Error service paginacion cate: '+e.error);
-        
+
         return throwError(e);
       })
     );

@@ -11,7 +11,7 @@ import swal from 'sweetalert2';
 export class PreviewImgComponent implements OnInit {
   @Input() imagen: string;
   @Output() imagenSave: EventEmitter<File> = new EventEmitter();
-
+  @Input() pathImg;
   // img
   imagenFile: File;
   img_url: any[];
@@ -21,7 +21,9 @@ export class PreviewImgComponent implements OnInit {
 
   constructor() {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    console.log(this.pathImg);
+  }
 
   // leer imagen
   onChange(event): void {

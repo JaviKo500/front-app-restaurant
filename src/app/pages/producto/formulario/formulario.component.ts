@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Categoria } from 'src/app/models/productos/categoria';
 import { Producto } from 'src/app/models/productos/producto';
@@ -13,6 +13,7 @@ import swal from 'sweetalert2';
   styleUrls: ['./formulario.component.css'],
 })
 export class FormularioComponent implements OnInit {
+  pathImg: string;
   imagenProducto: File;
   producto: Producto = new Producto();
   listaCategorias: Categoria[] = [];
@@ -35,11 +36,12 @@ export class FormularioComponent implements OnInit {
   }
 
   buscarproducto(id: number) {
-    console.log(id);
     swal.showLoading();
     this.productoService.ObtenerProducto(id).subscribe((response) => {
       console.log(response);
       this.producto = response;
+      this.pathImg = this.producto.imagen;
+      console.log(this.pathImg);
       swal.close();
     });
   }
@@ -137,7 +139,6 @@ export class FormularioComponent implements OnInit {
   ListarCategorias(): void {
     this.categoriaService.ListaCategorias().subscribe((response) => {
       this.listaCategorias = response;
-      console.log(this.listaCategorias);
     });
   }
 
