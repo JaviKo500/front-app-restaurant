@@ -90,7 +90,7 @@ export class FormularioComponent implements OnInit {
             console.log(error.mensaje);
           };
       } else {
-        if (!this.producto.imagen) {
+        if (this.producto.imagen != '') {
           //si no existe un nombre de imagen no se puede actualizar.
           swal.fire('Advertencia', 'Debe seleccionar su imagen', 'warning');
         } else {
