@@ -19,7 +19,6 @@ export class FormularioComponent implements OnInit {
   imagenProducto: File;
   producto: Producto = new Producto();
   listaCategorias: Categoria[] = [];
-  bandera_imagen = false;
   constructor(
     private categoriaService: CategoriaService,
     private productoService: ProductoService,
@@ -49,7 +48,6 @@ export class FormularioComponent implements OnInit {
     this.imagenProducto = event.target.files[0];
     if (this.imagenProducto.type.indexOf('image') < 0) {
       this.imagenProducto = null;
-      this.bandera_imagen = false;
       swal.fire('Error', 'Solo imágenes', 'error');
     }
   }

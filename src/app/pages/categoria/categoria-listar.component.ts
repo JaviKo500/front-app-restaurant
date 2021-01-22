@@ -24,7 +24,6 @@ export class CategoriaListarComponent implements OnInit {
 
   api: any = BASE_URL;
   listaCategorias: Categoria[] = [];
-  bandera_imagen = false;
   imagenCategoria: File = null;
   pathImg: string;
   modalReference: NgbModalRef;
@@ -42,7 +41,6 @@ export class CategoriaListarComponent implements OnInit {
     this.imagenCategoria = event.target.files[0];
     if (this.imagenCategoria.type.indexOf('image') < 0) {
       this.imagenCategoria = null;
-      this.bandera_imagen = false;
       swal.fire('Error', 'Solo imágenes', 'error');
     }
   }
@@ -74,6 +72,7 @@ export class CategoriaListarComponent implements OnInit {
 
   openLg(content) {
     this.categoria = new Categoria();
+    this.pathImg = null;
     this.modalReference = this.modalService.open(content);
   }
   //abrimos modal con los datos de esa categoria
@@ -84,6 +83,7 @@ export class CategoriaListarComponent implements OnInit {
       this.categoria = cate;
       // path para cargar img en el componente preview
       this.pathImg = 'category/img/'+this.categoria.imagen;
+
     }
   }
   //metodo para registrar categoria
