@@ -73,6 +73,7 @@
                           <div class="cell-sm-6">
                             <button
                               class="button primary alert rounded shadowed"
+                              (click)="deletMesa(mesa.id)"
                             >
                               <span class="ml-1"
                                 >Borrar<i class="fas fa-trash-alt ml-1"></i
@@ -101,7 +102,7 @@
                 <app-paginator
                   *ngIf="paginador"
                   [paginador]="paginador"
-                  [path]="path" 
+                  [path]="path"
                 ></app-paginator>
               </div>
             </div>

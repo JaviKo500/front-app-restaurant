@@ -15,7 +15,6 @@ import { PreviewImgComponent } from '../../components/preview-img/preview-img.co
   styleUrls: ['./categoria-listar.component.css'],
 })
 export class CategoriaListarComponent implements OnInit {
-
   categoria = new Categoria();
   //datos para pagnacion
   paginador: any;
@@ -83,8 +82,7 @@ export class CategoriaListarComponent implements OnInit {
       //cargamos los datos
       this.categoria = cate;
       // path para cargar img en el componente preview
-      this.pathImg = 'category/img/'+this.categoria.imagen;
-
+      this.pathImg = 'category/img/' + this.categoria.imagen;
     }
   }
   //metodo para registrar categoria
@@ -158,7 +156,6 @@ export class CategoriaListarComponent implements OnInit {
       .subscribe(
         (res) => {
           //alerta de mensaje al guardar el
-
           swal.fire({
             position: 'top-end',
             icon: 'success',
