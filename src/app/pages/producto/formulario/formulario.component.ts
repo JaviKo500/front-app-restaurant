@@ -1,4 +1,4 @@
-import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Categoria } from 'src/app/models/productos/categoria';
 import { Producto } from 'src/app/models/productos/producto';
@@ -7,18 +7,18 @@ import { ProductoService } from 'src/app/services/productos/producto.service';
 import { API_PROD } from 'src/environments/configurations';
 import swal from 'sweetalert2';
 
+import { PreviewImgComponent } from '../../../components/preview-img/preview-img.component';
+
 @Component({
   selector: 'app-formulario',
   templateUrl: './formulario.component.html',
   styleUrls: ['./formulario.component.css'],
 })
 export class FormularioComponent implements OnInit {
+  @ViewChild( 'img_url' , { static: false }) img_url: PreviewImgComponent;
   imagenProducto: File;
   producto: Producto = new Producto();
-  idProducto:number = 0;
-  pathImg: string = '';
   listaCategorias: Categoria[] = [];
-  img_url: any[];
   bandera_imagen = false;
   constructor(
     private categoriaService: CategoriaService,
@@ -30,11 +30,10 @@ export class FormularioComponent implements OnInit {
   ngOnInit(): void {
     this.ListarCategorias();
     this.activatedRoute.paramMap.subscribe((params) => {
-      this.idProducto = +params.get('id');
-      if (this.idProducto) {
-        this.buscarproducto(this.idProducto);
+      let id = +params.get('id');
+      if (id) {
+        this.buscarproducto(id);
       }
-      this.pathImg = this.producto.imagen;
     });
   }
 
@@ -42,20 +41,11 @@ export class FormularioComponent implements OnInit {
     swal.showLoading();
     this.productoService.ObtenerProducto(id).subscribe((response) => {
       this.producto = response;
-      this.pathImg = this.producto.imagen;
-      console.log(this.pathImg);
+      this.img_url.pasarURLImg('product/img/'+this.producto.imagen);
       swal.close();
     });
   }
   onChange(event): void {
-    if (event.target.files && event.target.files[0]) {
-      var reader = new FileReader();
-      reader.onload = (event: any) => {
-        this.img_url = event.target.result;
-      };
-      reader.readAsDataURL(event.target.files[0]);
-      this.bandera_imagen = true;
-    }
     this.imagenProducto = event.target.files[0];
     if (this.imagenProducto.type.indexOf('image') < 0) {
       this.imagenProducto = null;
@@ -94,7 +84,6 @@ export class FormularioComponent implements OnInit {
             timer: 1000,
           });
           console.log(res);
-          this.pathImg = '';
           this.route.navigateByUrl('/dashboard/productos/page/0');
         }),
           (error) => {
@@ -116,7 +105,6 @@ export class FormularioComponent implements OnInit {
                 timer: 1000,
               });
               console.log(response);
-              this.pathImg = '';
               this.route.navigateByUrl('/dashboard/productos/page/0');
             },
             (error) => {
@@ -144,9 +132,8 @@ export class FormularioComponent implements OnInit {
           });
           console.log('guardado');
           this.imagenProducto = null;
-          this.img_url = null;
-          this.pathImg = '';
           this.producto = new Producto();
+          this.img_url.vaciarUrl();
         },
         (error) => {
           this.productoService.deleteProducto(id).subscribe((res) => {});

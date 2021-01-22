@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 // Para crear modales del ng boostrap
@@ -7,6 +7,7 @@ import { CategoriaService } from 'src/app/services/categoria/categoria.service';
 import { BASE_URL, API_CATE } from 'src/environments/configurations';
 import swal from 'sweetalert2';
 import { Categoria } from '../../models/productos/categoria';
+import { PreviewImgComponent } from '../../components/preview-img/preview-img.component';
 
 @Component({
   selector: 'app-categoria-listar',
@@ -14,16 +15,18 @@ import { Categoria } from '../../models/productos/categoria';
   styleUrls: ['./categoria-listar.component.css'],
 })
 export class CategoriaListarComponent implements OnInit {
+
   categoria = new Categoria();
   //datos para pagnacion
   paginador: any;
   path: any = '/dashboard/categorias/page';
   //termina datos paginacion
+
   api: any = BASE_URL;
   listaCategorias: Categoria[] = [];
-  img_url: any[];
   bandera_imagen = false;
   imagenCategoria: File = null;
+  pathImg: string;
   modalReference: NgbModalRef;
   constructor(
     private modalService: NgbModal,
@@ -36,14 +39,6 @@ export class CategoriaListarComponent implements OnInit {
   }
 
   onChange(event): void {
-    if (event.target.files && event.target.files[0]) {
-      var reader = new FileReader();
-      reader.onload = (event: any) => {
-        this.img_url = event.target.result;
-      };
-      reader.readAsDataURL(event.target.files[0]);
-      this.bandera_imagen = true;
-    }
     this.imagenCategoria = event.target.files[0];
     if (this.imagenCategoria.type.indexOf('image') < 0) {
       this.imagenCategoria = null;
@@ -87,6 +82,8 @@ export class CategoriaListarComponent implements OnInit {
       this.openLg(MCategoria);
       //cargamos los datos
       this.categoria = cate;
+      // path para cargar img en el componente preview
+      this.pathImg = 'category/img/'+this.categoria.imagen;
     }
   }
   //metodo para registrar categoria
@@ -172,7 +169,6 @@ export class CategoriaListarComponent implements OnInit {
           //restablecer variables
           console.log('guardado');
           this.imagenCategoria = null;
-          this.img_url = null;
           this.listarCategorias();
           this.CerrarAllModals();
         },

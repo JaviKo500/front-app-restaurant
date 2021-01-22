@@ -11,19 +11,17 @@ import swal from 'sweetalert2';
 export class PreviewImgComponent implements OnInit {
   @Input() imagen: string;
   @Output() imagenSave: EventEmitter<File> = new EventEmitter();
-  @Input() pathImg:string;
+  @Input() pathImg: string;
+
   api:any = BASE_URL;
-  // img
   imagenFile: File;
   img_url: any[];
   URL = BASE_URL;
   bandera = false;
-  banderaEditarImg = false;
 
   constructor() {}
 
   ngOnInit(): void {
-    console.log(this.pathImg);
   }
 
   // leer imagen
@@ -39,7 +37,6 @@ export class PreviewImgComponent implements OnInit {
     this.imagenFile = event.target.files[0];
     // mandamos el evento
     this.imagenSave.emit(this.imagenFile);
-
     if (this.imagenFile.type.indexOf('image') < 0) {
       this.imagenFile = null;
       this.bandera = false;
@@ -51,5 +48,13 @@ export class PreviewImgComponent implements OnInit {
         timer: 1000,
       });
     }
+  }
+  // metodos para compartir con el componente padre
+  vaciarUrl(): void {
+    this.img_url = null;
+  }
+  pasarURLImg( url: string ): void {
+    this.pathImg = url;
+    console.log(this.pathImg);
   }
 }
