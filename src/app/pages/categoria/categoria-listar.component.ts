@@ -72,6 +72,7 @@ export class CategoriaListarComponent implements OnInit {
 
   openLg(content) {
     this.categoria = new Categoria();
+    // vaciamos el path al crear una nueva categoria
     this.pathImg = null;
     this.modalReference = this.modalService.open(content);
   }

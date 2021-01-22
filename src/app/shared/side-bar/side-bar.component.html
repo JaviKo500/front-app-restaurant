@@ -1,20 +1,14 @@
-<ul class="navview-menu">
-    <!-- class="active" PARA VER QUE ITEM ESTA -->
+<ul class="navview-menu animated fadeIn" *ngIf="menuItems.length > 0">
+    <li class="item-separator"></li>
     <li *ngFor="let item of menuItems">
-        <a *ngIf="item.subMenu.length > 0" class="c-pointer">
-            <span class="icon d-flex flex-align-center justify-content-center"><i [class]="item.icon"></i></span>
-            <span class="caption titleSpan d-flex flex-align-center justify-content-center">
-          {{item.title}}
-          </span>
-            <span class="badges">
-            <span class="badge inline">{{item.subMenu.length}}</span>
-            </span>
+        <a *ngIf="item.subMenu.length > 0" id="pane-toggle">
+            <span class="icon "><i [class]="item.icon"></i></span>
+            <span class="caption ">{{item.title}}</span>
+            <span class="badges"><span class="badge inline">{{item.subMenu.length}}</span></span>
         </a>
-        <a *ngIf="item.subMenu.length === 0" [routerLink]="item.url">
-            <span class="icon d-flex flex-align-center justify-content-center"><i [class]="item.icon"></i></span>
-            <span class="caption titleSpan d-flex flex-align-center justify-content-center">
-          {{item.title}}
-          </span>
+        <a *ngIf="item.subMenu.length === 0" [routerLink]="item.url" id="pane-toggle">
+            <span class="icon"><i [class]="item.icon"></i></span>
+            <span class="caption ">{{item.title}}</span>
         </a>
         <ul data-role="dropdown" class="navview-menu" style="display: none;">
             <li>
@@ -26,3 +20,13 @@
         </ul>
     </li>
 </ul>
+<!-- caundo no hay data en el array categorias -->
+<div class="item-header ml-2" *ngIf="menuItems.length == 0">
+    <div class="card">
+        <div class="card-body">
+            <div class="alert alert-primary flex-1 pl-2" role="alert">
+                Menu no disponible aun, intente actualizando la página!
+            </div>
+        </div>
+    </div>
+</div>
