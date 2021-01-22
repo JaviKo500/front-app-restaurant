@@ -11,7 +11,7 @@
             <span class="caption ">{{item.title}}</span>
         </a>
         <ul data-role="dropdown" class="navview-menu" style="display: none;">
-            <li>
+            <li class="margen-submenu">
                 <a *ngFor="let subItem of item.subMenu" [routerLink]="subItem.url">
                     <span class="icon d-flex flex-align-center justify-content-end pr-2"><i [class]="subItem.icon"></i></span>
                     <span class="caption">{{ subItem.title }}</span>

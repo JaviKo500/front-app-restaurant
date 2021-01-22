@@ -29,7 +29,41 @@
         <!-- Tabla -->
         <div class="row">
             <div class="cell-sm">
-
+                <table class="table row-hover row-border">
+                    <thead>
+                        <tr>
+                            <th>Usuario</th>
+                            <th>Nombre</th>
+                            <th>Cédula</th>
+                            <th>Email</th>
+                            <th>Teléfono</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let usuario of listaUsuarios">
+                            <td>{{usuario.username}}</td>
+                            <td>{{usuario.nombre}}</td>
+                            <td>{{usuario.cedula}}</td>
+                            <td>{{usuario.email}}</td>
+                            <td>{{usuario.telefono}}</td>
+                            <td>
+                                <div class="row row-width ">
+                                    <div class="cell-sm-6">
+                                        <button class="button primary rounded shadowed" [routerLink]="['/dashboard/crearusu/', usuario.id]">
+                                      <span class="ml-1">Editar <i class="fas fa-edit ml-1"></i></span>
+                                    </button>
+                                    </div>
+                                    <div class="cell-sm-6 ">
+                                        <button class="button alert rounded shadowed">
+                                      <span class="ml-1">Borrar<i class="fas fa-trash-alt ml-1"></i></span>
+                                    </button>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
         <!-- Spinner -->

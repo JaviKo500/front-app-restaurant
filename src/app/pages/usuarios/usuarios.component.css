@@ -1,0 +1,9 @@
+[class*=cell-],
+[class*=col-] {
+    position: relative;
+    display: block;
+    padding: 6px;
+    padding-bottom: 0px;
+    width: 100%;
+    min-height: 1px
+}
