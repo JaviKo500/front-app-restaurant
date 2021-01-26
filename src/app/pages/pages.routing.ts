@@ -32,7 +32,7 @@ const routes: Routes = [
         data: { title: 'Usuarios', subTitle: 'Administrar tus usuarios' },
       },
       {
-        path: 'crearusu',
+        path: 'crearusu/:id',
         component: FormularioUsuarioComponent,
         data: { title: 'Usuarios', subTitle: 'Agrega usuarios' },
       },

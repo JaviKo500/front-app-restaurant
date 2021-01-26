@@ -31,7 +31,7 @@ export class SidebarService {
         {
           title: 'Agregar usuarios ',
           icon: 'fas fa-user-plus',
-          url: 'crearusu',
+          url: 'crearusu/:id',
         },
       ],
     },

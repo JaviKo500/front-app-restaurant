@@ -1,85 +1,96 @@
 <div class="card">
-    <div class="card-body">
-        <!-- Barra para añadir -->
-        <div class="row">
-            <div class="cell-3 text-left">
-                <div class="d-flex flex-justify-start">
-                    <h5>Todos los productos</h5>
-                </div>
-            </div>
-            <div class="cell-3 offset-6 text-right">
-                <div class="d-flex flex-justify-end">
-                    <a class="button primary shadowed btn-block" routerLink="/dashboard/crearusu">Añadir</a>
-                </div>
-            </div>
+  <div class="card-body">
+    <!-- Barra para añadir -->
+    <div class="row">
+      <div class="cell-3 text-left">
+        <div class="d-flex flex-justify-start">
+          <h5>Todos los productos</h5>
         </div>
-        <!-- Acciones y input para filtrar -->
-        <div class="row">
-            <div class="cell-3 offset-6">
-                <div class="d-flex flex-justify-between">
-                    <input type="text" data-role="input" data-prepend="Buscar: " />
-                </div>
-            </div>
-            <div class="cell-3 offset-0">
-                <div class="d-flex flex-justify-between">
-                    <button class="button info shadowed btn-block">Acciones</button>
-                </div>
-            </div>
+      </div>
+      <div class="cell-3 offset-6 text-right">
+        <div class="d-flex flex-justify-end">
+          <a
+            class="button primary shadowed btn-block"
+            routerLink="/dashboard/crearusu/:id"
+            >Añadir</a
+          >
         </div>
-        <!-- Tabla -->
-        <div class="row">
-            <div class="cell-sm">
-                <table class="table row-hover row-border">
-                    <thead>
-                        <tr>
-                            <th>Usuario</th>
-                            <th>Nombre</th>
-                            <th>Cédula</th>
-                            <th>Email</th>
-                            <th>Teléfono</th>
-                            <th>Acciones</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let usuario of listaUsuarios">
-                            <td>{{usuario.username}}</td>
-                            <td>{{usuario.nombre}}</td>
-                            <td>{{usuario.cedula}}</td>
-                            <td>{{usuario.email}}</td>
-                            <td>{{usuario.telefono}}</td>
-                            <td>
-                                <div class="row row-width ">
-                                    <div class="cell-sm-6">
-                                        <button class="button primary rounded shadowed" [routerLink]="['/dashboard/crearusu/', usuario.id]">
-                                      <span class="ml-1">Editar <i class="fas fa-edit ml-1"></i></span>
-                                    </button>
-                                    </div>
-                                    <div class="cell-sm-6 ">
-                                        <button class="button alert rounded shadowed">
-                                      <span class="ml-1">Borrar<i class="fas fa-trash-alt ml-1"></i></span>
-                                    </button>
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-        <!-- Spinner -->
-        <div class="row">
-            <div class="cell">
-                <div *ngIf="">
-                    <app-spinner></app-spinner>
-                </div>
-            </div>
-        </div>
-        <!-- paginador -->
-        <div class="row">
-            <div class="cell-12 d-flex flex-justify-end">
-                <!-- componente paginador -->
-                <!-- <app-paginator *ngIf="paginador" [paginador]="paginador" [path]="path"></app-paginator> -->
-            </div>
-        </div>
+      </div>
     </div>
+    <!-- Acciones y input para filtrar -->
+    <div class="row">
+      <div class="cell-3 offset-6">
+        <div class="d-flex flex-justify-between">
+          <input type="text" data-role="input" data-prepend="Buscar: " />
+        </div>
+      </div>
+      <div class="cell-3 offset-0">
+        <div class="d-flex flex-justify-between">
+          <button class="button info shadowed btn-block">Acciones</button>
+        </div>
+      </div>
+    </div>
+    <!-- Tabla -->
+    <div class="row">
+      <div class="cell-sm">
+        <table class="table row-hover row-border">
+          <thead>
+            <tr>
+              <th>Usuario</th>
+              <th>Nombre</th>
+              <th>Cédula</th>
+              <th>Email</th>
+              <th>Teléfono</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let usuario of listaUsuarios">
+              <td>{{ usuario.username }}</td>
+              <td>{{ usuario.nombre }}</td>
+              <td>{{ usuario.cedula }}</td>
+              <td>{{ usuario.email }}</td>
+              <td>{{ usuario.telefono }}</td>
+              <td>
+                <div class="row row-width">
+                  <div class="cell-sm-6">
+                    <button
+                      class="button primary rounded shadowed"
+                      [routerLink]="['/dashboard/crearusu/', usuario.id]"
+                    >
+                      <span class="ml-1"
+                        >Editar <i class="fas fa-edit ml-1"></i
+                      ></span>
+                    </button>
+                  </div>
+                  <div class="cell-sm-6">
+                    <button class="button alert rounded shadowed">
+                      <span class="ml-1"
+                        >Borrar<i class="fas fa-trash-alt ml-1"></i
+                      ></span>
+                    </button>
+                  </div>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <!-- Spinner -->
+    <div class="row">
+      <div class="cell">
+        <div *ngIf="">
+          <app-spinner></app-spinner>
+        </div>
+      </div>
+    </div>
+    <!-- paginador -->
+    <div class="row">
+      <div class="cell-12 d-flex flex-justify-end">
+        <!-- componente paginador -->
+        <!-- <app-paginator *ngIf="paginador" [paginador]="paginador" [path]="path"></app-paginator> -->
+      </div>
+    </div>
+  </div>
 </div>
