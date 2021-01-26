@@ -5,7 +5,6 @@ import { catchError, map } from 'rxjs/operators';
 import swal from 'sweetalert2';
 import { Observable, throwError } from 'rxjs';
 import { Producto } from 'src/app/models/productos/producto';
-import { Categoria } from 'src/app/models/productos/categoria';
 
 @Injectable({
   providedIn: 'root',
