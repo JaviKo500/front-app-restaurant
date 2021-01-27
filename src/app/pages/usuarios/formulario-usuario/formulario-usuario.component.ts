@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Role } from 'src/app/models/persona/role.model';
+import { Sexo } from 'src/app/models/persona/sexo.model';
 import { UsuarioService } from 'src/app/services/usuarios/usuario.service';
 
 @Component({
@@ -38,5 +40,25 @@ export class FormularioUsuarioComponent implements OnInit {
 
   buscarProductoId(id: number): void {
     console.log(id);
+  }
+
+  //comparar-validar datos de roles en boostrap
+  compararRole(o1: Role, o2: Role): boolean {
+    if (o1 === undefined && o2 === undefined) {
+      return true;
+    }
+    return o1 === null || o2 === null || o1 === undefined || o2 === undefined
+      ? false
+      : o1.id === o2.id;
+  }
+
+  //comparar-validar datos de categorias en boostrap
+  compararGenero(o1: Sexo, o2: Sexo): boolean {
+    if (o1 === undefined && o2 === undefined) {
+      return true;
+    }
+    return o1 === null || o2 === null || o1 === undefined || o2 === undefined
+      ? false
+      : o1.id === o2.id;
   }
 }
