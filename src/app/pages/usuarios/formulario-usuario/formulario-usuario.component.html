@@ -33,9 +33,17 @@
                     >Género
                   </label>
                 </div>
-                <select class="custom-select" id="genero" name="genero">
+                <select
+                  [compareWith]="compararGenero"
+                  class="custom-select"
+                  id="genero"
+                  name="genero"
+                  [(ngModel)]="usuario.sexo"
+                >
                   <option [ngValue]="undefined">Choose...</option>
-                  <option>5</option>
+                  <option value="1" [ngValue]="gen" *ngFor="let gen of generos">
+                    {{ gen.tipo }}
+                  </option>
                 </select>
               </div>
             </div>
@@ -83,9 +91,17 @@
                     >Role
                   </label>
                 </div>
-                <select class="custom-select" id="roles" name="roles">
+                <select
+                  [compareWith]="compararRole"
+                  class="custom-select"
+                  id="roles"
+                  name="roles"
+                  [(ngModel)]="usuario.roles"
+                >
                   <option [ngValue]="undefined">Choose...</option>
-                  <option>4</option>
+                  <option value="1" [ngValue]="rol" *ngFor="let rol of roles">
+                    {{ rol.nombre }}
+                  </option>
                 </select>
               </div>
             </div>

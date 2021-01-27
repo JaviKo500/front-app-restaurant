@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Role } from 'src/app/models/persona/role.model';
 import { Sexo } from 'src/app/models/persona/sexo.model';
+import { Usuario } from 'src/app/models/persona/usuario.model';
 import { UsuarioService } from 'src/app/services/usuarios/usuario.service';
 
 @Component({
@@ -10,6 +11,9 @@ import { UsuarioService } from 'src/app/services/usuarios/usuario.service';
   styleUrls: ['./formulario-usuario.component.css'],
 })
 export class FormularioUsuarioComponent implements OnInit {
+  usuario: Usuario = new Usuario();
+  generos: Sexo[] = [];
+  roles: Role[] = [];
   constructor(
     private activatedRoute: ActivatedRoute,
     private usuarioService: UsuarioService
@@ -29,12 +33,14 @@ export class FormularioUsuarioComponent implements OnInit {
   listarRoles(): void {
     this.usuarioService.obtenerusuarioRoles().subscribe((res) => {
       console.log(res);
+      this.roles = res;
     });
   }
 
   listarSexos(): void {
     this.usuarioService.obtenerUsuarioGeneros().subscribe((res) => {
       console.log(res);
+      this.generos = res;
     });
   }
 
