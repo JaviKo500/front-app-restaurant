@@ -15,6 +15,7 @@ export class FormularioUsuarioComponent implements OnInit {
 
   ngOnInit(): void {
     this.listarRoles();
+    this.listarSexos();
     this.activatedRoute.paramMap.subscribe((params) => {
       let id = +params.get('id');
       if (id) {
@@ -25,6 +26,12 @@ export class FormularioUsuarioComponent implements OnInit {
 
   listarRoles(): void {
     this.usuarioService.obtenerusuarioRoles().subscribe((res) => {
+      console.log(res);
+    });
+  }
+
+  listarSexos(): void {
+    this.usuarioService.obtenerUsuarioGeneros().subscribe((res) => {
       console.log(res);
     });
   }
