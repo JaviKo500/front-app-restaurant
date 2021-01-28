@@ -4,6 +4,7 @@ import { Role } from 'src/app/models/persona/role.model';
 import { Sexo } from 'src/app/models/persona/sexo.model';
 import { Usuario } from 'src/app/models/persona/usuario.model';
 import { UsuarioService } from 'src/app/services/usuarios/usuario.service';
+import swal from 'sweetalert2';
 
 @Component({
   selector: 'app-formulario-usuario',
@@ -30,6 +31,14 @@ export class FormularioUsuarioComponent implements OnInit {
     });
   }
 
+  registrarUsuario(): void {
+    if (this.camposCompletos()) {
+      console.log('completos');
+    } else {
+      swal.fire('Observación', 'Debe', 'warning');
+    }
+  }
+
   listarRoles(): void {
     this.usuarioService.obtenerusuarioRoles().subscribe((res) => {
       console.log(res);
@@ -46,6 +55,26 @@ export class FormularioUsuarioComponent implements OnInit {
 
   buscarProductoId(id: number): void {
     console.log(id);
+  }
+
+  camposCompletos(): boolean {
+    let band;
+    let u = this.usuario;
+    if (
+      u.cedula.length < 10 ||
+      u.email.length < 3 ||
+      u.nombre.length < 3 ||
+      u.password.length < 3 ||
+      u.roles == null ||
+      u.sexo == null ||
+      u.telefono.length < 10 ||
+      u.username.length < 3
+    ) {
+      band = false;
+    } else {
+      band = true;
+    }
+    return band;
   }
 
   //comparar-validar datos de roles en boostrap
