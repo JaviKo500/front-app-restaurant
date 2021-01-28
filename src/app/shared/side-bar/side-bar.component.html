@@ -4,7 +4,7 @@
         <a *ngIf="item.subMenu.length > 0" id="pane-toggle">
             <span class="icon "><i [class]="item.icon"></i></span>
             <span class="caption ">{{item.title}}</span>
-            <span class="badges"><span class="badge inline">{{item.subMenu.length}}</span></span>
+            <span class="badges"><span class="badge inline" >{{item.subMenu.length}}</span></span>
         </a>
         <a *ngIf="item.subMenu.length === 0" [routerLink]="item.url" id="pane-toggle">
             <span class="icon"><i [class]="item.icon"></i></span>

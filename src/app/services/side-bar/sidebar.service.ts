@@ -57,7 +57,10 @@ export class SidebarService {
       title: 'Configuraciones',
       icon: 'fas fa-cogs',
       url: '',
-      subMenu: [{ title: 'Mesas', icon: 'fas fa-chair', url: 'mesas/page/0' }],
+      subMenu: [
+        { title: 'Configuración empresa', icon: 'fas fa-cog', url: 'empresa' },
+        { title: 'Mesas', icon: 'fas fa-chair', url: 'mesas/page/0' },
+      ],
     },
   ];
   constructor() {}

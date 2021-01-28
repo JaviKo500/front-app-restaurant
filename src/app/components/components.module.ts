@@ -32,7 +32,7 @@ import { HomeClienteComponent } from './menu-cliente/home-cliente/home-cliente.c
     ProductosComponent,
     CategoriasClienteComponent,
     ClienteSidebarComponent,
-    HomeClienteComponent
+    HomeClienteComponent,
   ],
   exports: [
     PreviewImgComponent,

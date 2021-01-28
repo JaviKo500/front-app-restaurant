@@ -10,6 +10,7 @@ import { MesasComponent } from './configuraciones/mesas/mesas.component';
 import { PedidosComponent } from './pedidos/pedidos.component';
 import { UsuariosComponent } from './usuarios/usuarios.component';
 import { FormularioUsuarioComponent } from './usuarios/formulario-usuario/formulario-usuario.component';
+import { ConfiguracionEmpresaComponent } from './configuraciones/configuracion-empresa/configuracion-empresa.component';
 
 const routes: Routes = [
   {
@@ -50,6 +51,11 @@ const routes: Routes = [
         path: 'mesas/page/:page',
         component: MesasComponent,
         data: { title: 'Mesas', subTitle: 'Administrar mesas del Restaurante' },
+      },
+      {
+        path: 'empresa',
+        component: ConfiguracionEmpresaComponent,
+        data: { title: 'Empresa ', subTitle: 'Configura los datos de tu empresa' },
       },
       {
         path: 'pedidos',

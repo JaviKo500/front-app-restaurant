@@ -18,6 +18,7 @@ import { ConfiguracionEmpresaComponent } from './configuraciones/configuracion-e
 import { PedidosComponent } from './pedidos/pedidos.component';
 import { UsuariosComponent } from './usuarios/usuarios.component';
 import { FormularioUsuarioComponent } from './usuarios/formulario-usuario/formulario-usuario.component';
+import { VentaComponent } from './venta/venta.component';
 
 
 
@@ -32,7 +33,8 @@ import { FormularioUsuarioComponent } from './usuarios/formulario-usuario/formul
     ConfiguracionEmpresaComponent,
     PedidosComponent,
     UsuariosComponent,
-    FormularioUsuarioComponent
+    FormularioUsuarioComponent,
+    VentaComponent
   ],
   exports: [
     DashboardComponent,
