@@ -15,6 +15,7 @@ export class FormularioUsuarioComponent implements OnInit {
   usuario: Usuario = new Usuario();
   generos: Sexo[] = [];
   roles: Role[] = [];
+  role: Role;
   constructor(
     private activatedRoute: ActivatedRoute,
     private usuarioService: UsuarioService
@@ -34,6 +35,10 @@ export class FormularioUsuarioComponent implements OnInit {
   registrarUsuario(): void {
     if (this.camposCompletos()) {
       console.log('completos');
+      this.usuario.roles.push(this.role);
+      this.usuarioService.registrarUsuario(this.usuario).subscribe((res) => {
+        console.log(res);
+      });
     } else {
       swal.fire('Observación', 'Debe', 'warning');
     }

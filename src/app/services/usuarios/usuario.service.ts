@@ -4,6 +4,7 @@ import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { Role } from 'src/app/models/persona/role.model';
 import { Sexo } from 'src/app/models/persona/sexo.model';
+import { Usuario } from 'src/app/models/persona/usuario.model';
 import { BASE_URL } from 'src/environments/configurations';
 import swal from 'sweetalert2';
 
@@ -34,5 +35,19 @@ export class UsuarioService {
         return throwError(e);
       })
     );
+  }
+
+  registrarUsuario(usuario: Usuario): Observable<any> {
+    return this.http
+      .post(this.url + 'register/user', usuario, {
+        headers: this.httpHeaders,
+      })
+      .pipe(
+        map((response: any) => response),
+        catchError((e) => {
+          swal.fire(e.error.mensaje, e.error.error, 'error');
+          return throwError(e);
+        })
+      );
   }
 }
