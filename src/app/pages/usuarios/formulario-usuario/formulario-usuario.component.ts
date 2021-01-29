@@ -36,11 +36,17 @@ export class FormularioUsuarioComponent implements OnInit {
     if (this.camposCompletos()) {
       console.log('completos');
       this.usuario.roles.push(this.role);
+      console.log(this.role);
+
       this.usuarioService.registrarUsuario(this.usuario).subscribe((res) => {
         console.log(res);
       });
     } else {
-      swal.fire('Observación', 'Debe', 'warning');
+      swal.fire(
+        'Observación',
+        'Llenar los campos con almenos 3 caracteres.',
+        'warning'
+      );
     }
   }
 

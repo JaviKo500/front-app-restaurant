@@ -4,6 +4,7 @@ export class Usuario {
   id: number;
   cedula: string = '';
   nombre: string = '';
+  apellidos: string = '';
   email: string = '';
   sexo: Sexo;
   telefono: string = '';
