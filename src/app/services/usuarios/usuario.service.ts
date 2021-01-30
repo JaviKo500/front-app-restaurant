@@ -45,7 +45,16 @@ export class UsuarioService {
       .pipe(
         map((response: any) => response),
         catchError((e) => {
-          swal.fire(e.error.mensaje, e.error.error, 'error');
+          if (e.status === 409) {
+            swal.fire(
+              'No registrado revisar errores',
+              e.error.mensaje,
+              'warning'
+            );
+          } else {
+            swal.fire(e.error.mensaje, e.error.error, 'error');
+          }
+
           return throwError(e);
         })
       );

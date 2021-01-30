@@ -1,3 +1,4 @@
+import { stringify } from '@angular/compiler/src/util';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Role } from 'src/app/models/persona/role.model';
@@ -34,10 +35,13 @@ export class FormularioUsuarioComponent implements OnInit {
 
   registrarUsuario(): void {
     if (this.camposCompletos()) {
+      //eliminar espacios en email, usuario
+      this.usuario.email = this.usuario.email.replace(' ', '');
+      this.usuario.username = this.usuario.username.replace(' ', '');
+      this.usuario.roles = [];
       console.log('completos');
       this.usuario.roles.push(this.role);
-      console.log(this.role);
-
+      console.log(this.usuario);
       this.usuarioService.registrarUsuario(this.usuario).subscribe((res) => {
         console.log(res);
       });
@@ -49,6 +53,8 @@ export class FormularioUsuarioComponent implements OnInit {
       );
     }
   }
+
+  actualizarUsuario(): void {}
 
   listarRoles(): void {
     this.usuarioService.obtenerusuarioRoles().subscribe((res) => {
@@ -72,13 +78,12 @@ export class FormularioUsuarioComponent implements OnInit {
     let band;
     let u = this.usuario;
     if (
-      u.cedula.length < 10 ||
       u.email.length < 3 ||
       u.nombre.length < 3 ||
       u.password.length < 3 ||
       u.roles == null ||
+      this.role == null ||
       u.sexo == null ||
-      u.telefono.length < 10 ||
       u.username.length < 3
     ) {
       band = false;
