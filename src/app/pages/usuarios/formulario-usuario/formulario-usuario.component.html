@@ -92,6 +92,9 @@
                 data-role="input"
                 autocomplete="off"
                 data-prepend="Confirmar contraseña"
+                name="confirmpass"
+                [(ngModel)]="confirmarPassword"
+                (change)="compararContrasenas()"
               />
             </div>
             <div class="cell-md-6 pb-0">
@@ -129,6 +132,13 @@
               </div>
             </div>
           </div>
+        </div>
+        <div
+          *ngIf="coinsidenPassword == false"
+          class="alert alert-danger"
+          role="alert"
+        >
+          Las contraseñas no coinsiden
         </div>
       </div>
       <div class="w-100 d-flex justify-content-sm-between mt-5 mb-2">

@@ -17,6 +17,8 @@ export class FormularioUsuarioComponent implements OnInit {
   generos: Sexo[] = [];
   roles: Role[] = [];
   role: Role;
+  confirmarPassword: string = '';
+  coinsidenPassword: boolean = true;
   constructor(
     private activatedRoute: ActivatedRoute,
     private usuarioService: UsuarioService
@@ -35,16 +37,33 @@ export class FormularioUsuarioComponent implements OnInit {
 
   registrarUsuario(): void {
     if (this.camposCompletos()) {
-      //eliminar espacios en email, usuario
-      this.usuario.email = this.usuario.email.replace(' ', '');
-      this.usuario.username = this.usuario.username.replace(' ', '');
-      this.usuario.roles = [];
-      console.log('completos');
-      this.usuario.roles.push(this.role);
-      console.log(this.usuario);
-      this.usuarioService.registrarUsuario(this.usuario).subscribe((res) => {
-        console.log(res);
-      });
+      //confirmacion de compararContraseñas
+      if (this.compararContrasenas()) {
+        //eliminar espacios en email, usuario
+        this.usuario.email = this.usuario.email.replace(' ', '');
+        this.usuario.username = this.usuario.username.replace(' ', '');
+        //push del role
+        this.usuario.roles = [];
+        this.usuario.roles.push(this.role);
+        console.log(this.usuario);
+        this.usuarioService.registrarUsuario(this.usuario).subscribe((res) => {
+          console.log(res);
+          swal.fire({
+            position: 'top-end',
+            icon: 'success',
+            title: res.mensaje,
+            showConfirmButton: false,
+            timer: 1500,
+          });
+          //resetear variables al guardar
+          this.usuario = new Usuario();
+          this.role = undefined;
+          this.coinsidenPassword = true;
+          this.confirmarPassword = '';
+        });
+      } else {
+        this.coinsidenPassword = false;
+      }
     } else {
       swal.fire(
         'Observación',
@@ -84,11 +103,25 @@ export class FormularioUsuarioComponent implements OnInit {
       u.roles == null ||
       this.role == null ||
       u.sexo == null ||
-      u.username.length < 3
+      u.username.length < 3 ||
+      this.confirmarPassword.length < 3
     ) {
       band = false;
     } else {
       band = true;
+    }
+    return band;
+  }
+
+  //compararContraseñas
+  compararContrasenas(): boolean {
+    let band: boolean;
+    if (this.usuario.password === this.confirmarPassword) {
+      this.coinsidenPassword = true;
+      band = true;
+    } else {
+      this.coinsidenPassword = false;
+      band = false;
     }
     return band;
   }
