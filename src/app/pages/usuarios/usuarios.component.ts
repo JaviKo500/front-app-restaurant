@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { UsuarioService } from 'src/app/services/usuarios/usuario.service';
 import { Usuario } from '../../models/persona/usuario.model';
 
 @Component({
@@ -8,7 +10,25 @@ import { Usuario } from '../../models/persona/usuario.model';
 })
 export class UsuariosComponent implements OnInit {
   listaUsuarios: Usuario[] = [];
-  constructor() {}
+  constructor(
+    private usuarioService: UsuarioService,
+    private activatedRoute: ActivatedRoute
+  ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.listarUsuarios();
+  }
+  //paginhar usuarios
+  listarUsuarios(): void {
+    this.activatedRoute.paramMap.subscribe((params) => {
+      let page: number = +params.get('page');
+      if (!page) {
+        page = 0;
+      }
+      this.usuarioService.obtenerUsuariosPageable(page).subscribe((res) => {
+        this.listaUsuarios = res.content;
+        console.log(res.content);
+      });
+    });
+  }
 }

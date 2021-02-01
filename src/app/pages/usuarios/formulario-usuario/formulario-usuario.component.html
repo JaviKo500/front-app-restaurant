@@ -122,7 +122,7 @@
                   class="custom-select"
                   id="roles"
                   name="roles"
-                  [(ngModel)]="role"
+                  [(ngModel)]="usuario.roles[0]"
                 >
                   <option [ngValue]="undefined">Choose...</option>
                   <option value="1" [ngValue]="rol" *ngFor="let rol of roles">
@@ -144,7 +144,7 @@
       <div class="w-100 d-flex justify-content-sm-between mt-5 mb-2">
         <button
           class="button shadowed button-usuario ml-2"
-          [routerLink]="['/dashboard/usuarios']"
+          [routerLink]="['/dashboard/usuarios/page/0']"
         >
           Cancelar
         </button>

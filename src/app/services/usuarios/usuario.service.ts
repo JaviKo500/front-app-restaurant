@@ -17,6 +17,31 @@ export class UsuarioService {
 
   private httpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
 
+  //paginar lista de usuarios
+  obtenerUsuariosPageable(page: number): Observable<any> {
+    return this.http.get(this.url + 'get/users/' + page).pipe(
+      map((response: any) => {
+        return response.usuarios;
+      }),
+      catchError((e) => {
+        swal.fire(e.error.mensaje, e.error.error, 'error');
+        return throwError(e);
+      })
+    );
+  }
+
+  //bucar usuario por id
+  obtenerUsuarioId(id: number): Observable<any> {
+    return this.http.get(this.url + 'get/user/' + id).pipe(
+      map((response: any) => response.usuario as Usuario),
+      catchError((e) => {
+        swal.fire(e.error.mensaje, e.error.error, 'error');
+        return throwError(e);
+      })
+    );
+  }
+
+  //listar roles de usuario
   obtenerusuarioRoles(): Observable<Role[]> {
     return this.http.get(this.url + 'get/user/roles').pipe(
       map((response: any) => response.roles as Role[]),

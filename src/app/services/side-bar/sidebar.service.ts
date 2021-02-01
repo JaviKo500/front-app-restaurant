@@ -26,7 +26,7 @@ export class SidebarService {
         {
           title: 'Lista de usuarios ',
           icon: 'fas fa-address-book',
-          url: 'usuarios',
+          url: 'usuarios/page/0',
         },
         {
           title: 'Agregar usuarios ',

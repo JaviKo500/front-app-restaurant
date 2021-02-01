@@ -1,4 +1,3 @@
-import { stringify } from '@angular/compiler/src/util';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Role } from 'src/app/models/persona/role.model';
@@ -30,7 +29,7 @@ export class FormularioUsuarioComponent implements OnInit {
     this.activatedRoute.paramMap.subscribe((params) => {
       let id = +params.get('id');
       if (id) {
-        this.buscarProductoId(id);
+        this.buscarUsuarioId(id);
       }
     });
   }
@@ -42,9 +41,6 @@ export class FormularioUsuarioComponent implements OnInit {
         //eliminar espacios en email, usuario
         this.usuario.email = this.usuario.email.replace(' ', '');
         this.usuario.username = this.usuario.username.replace(' ', '');
-        //push del role
-        this.usuario.roles = [];
-        this.usuario.roles.push(this.role);
         console.log(this.usuario);
         this.usuarioService.registrarUsuario(this.usuario).subscribe((res) => {
           console.log(res);
@@ -89,8 +85,11 @@ export class FormularioUsuarioComponent implements OnInit {
     });
   }
 
-  buscarProductoId(id: number): void {
-    console.log(id);
+  buscarUsuarioId(id: number): void {
+    this.usuarioService.obtenerUsuarioId(id).subscribe((res) => {
+      console.log(res);
+      this.usuario = res;
+    });
   }
 
   camposCompletos(): boolean {
@@ -101,7 +100,6 @@ export class FormularioUsuarioComponent implements OnInit {
       u.nombre.length < 3 ||
       u.password.length < 3 ||
       u.roles == null ||
-      this.role == null ||
       u.sexo == null ||
       u.username.length < 3 ||
       this.confirmarPassword.length < 3
