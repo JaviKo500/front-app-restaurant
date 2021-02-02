@@ -71,15 +71,10 @@ export class UsuarioService {
         map((response: any) => response),
         catchError((e) => {
           if (e.status === 409) {
-            swal.fire(
-              'No registrado revisar errores',
-              e.error.mensaje,
-              'warning'
-            );
+            return throwError(e);
           } else {
             swal.fire(e.error.mensaje, e.error.error, 'error');
           }
-
           return throwError(e);
         })
       );

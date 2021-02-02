@@ -13,6 +13,7 @@ import swal from 'sweetalert2';
 })
 export class FormularioUsuarioComponent implements OnInit {
   usuario: Usuario = new Usuario();
+  erroresBackend: String[] = [];
   generos: Sexo[] = [];
   roles: Role[] = [];
   role: Role;
@@ -42,21 +43,31 @@ export class FormularioUsuarioComponent implements OnInit {
         this.usuario.email = this.usuario.email.replace(' ', '');
         this.usuario.username = this.usuario.username.replace(' ', '');
         console.log(this.usuario);
-        this.usuarioService.registrarUsuario(this.usuario).subscribe((res) => {
-          console.log(res);
-          swal.fire({
-            position: 'top-end',
-            icon: 'success',
-            title: res.mensaje,
-            showConfirmButton: false,
-            timer: 1500,
-          });
-          //resetear variables al guardar
-          this.usuario = new Usuario();
-          this.role = undefined;
-          this.coinsidenPassword = true;
-          this.confirmarPassword = '';
-        });
+        this.usuarioService.registrarUsuario(this.usuario).subscribe(
+          (res) => {
+            console.log(res);
+            swal.fire({
+              position: 'top-end',
+              icon: 'success',
+              title: res.mensaje,
+              showConfirmButton: false,
+              timer: 1500,
+            });
+            //resetear variables al guardar
+            this.usuario = new Usuario();
+            this.role = undefined;
+            this.coinsidenPassword = true;
+            this.confirmarPassword = '';
+            this.erroresBackend = [];
+          },
+          (err) => {
+            if (err.status === 409) {
+              this.erroresBackend = err.error.mensaje as string[];
+              console.log('mensaje en ts');
+              console.log(this.erroresBackend);
+            }
+          }
+        );
       } else {
         this.coinsidenPassword = false;
       }
