@@ -79,4 +79,49 @@ export class UsuarioService {
         })
       );
   }
+
+  //actualizarUsuario
+  actualizarUsuario(usuario: Usuario): Observable<any> {
+    return this.http
+      .put(this.url + 'update/user', usuario, {
+        headers: this.httpHeaders,
+      })
+      .pipe(
+        map((response: any) => response),
+        catchError((e) => {
+          if (e.status === 409) {
+            return throwError(e);
+          } else {
+            swal.fire(e.error.mensaje, e.error.error, 'error');
+          }
+          return throwError(e);
+        })
+      );
+  }
+
+  //actualizar Usuario estado
+  actualizarUsuarioEstado(usuario: Usuario): Observable<any> {
+    return this.http
+      .put(this.url + 'update/user/estado', usuario, {
+        headers: this.httpHeaders,
+      })
+      .pipe(
+        map((response: any) => response),
+        catchError((e) => {
+          swal.fire(e.error.mensaje, e.error.error, 'error');
+          return throwError(e);
+        })
+      );
+  }
+
+  //metodo eliminar usuario
+  eliminarUsuario(id: number): Observable<any> {
+    return this.http.delete(this.url + 'delete/user/' + id).pipe(
+      map((response: any) => response.mensaje),
+      catchError((e) => {
+        swal.fire(e.error.mensaje, e.error.error, 'error');
+        return throwError(e);
+      })
+    );
+  }
 }

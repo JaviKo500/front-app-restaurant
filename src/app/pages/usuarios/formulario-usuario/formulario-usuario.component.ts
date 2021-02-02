@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Role } from 'src/app/models/persona/role.model';
 import { Sexo } from 'src/app/models/persona/sexo.model';
 import { Usuario } from 'src/app/models/persona/usuario.model';
@@ -21,7 +21,8 @@ export class FormularioUsuarioComponent implements OnInit {
   coinsidenPassword: boolean = true;
   constructor(
     private activatedRoute: ActivatedRoute,
-    private usuarioService: UsuarioService
+    private usuarioService: UsuarioService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -74,13 +75,47 @@ export class FormularioUsuarioComponent implements OnInit {
     } else {
       swal.fire(
         'Observación',
-        'Llenar los campos con almenos 3 caracteres.',
+        'Llenar los campos con almenos 3 caracteres y seleccionar todas las opciones.',
         'warning'
       );
     }
   }
 
-  actualizarUsuario(): void {}
+  actualizarUsuario(): void {
+    console.log('actualizando');
+    if (this.camposCompletos()) {
+      this.usuario.email = this.usuario.email.replace(' ', '');
+      this.usuario.username = this.usuario.username.replace(' ', '');
+      console.log(this.usuario);
+      this.usuarioService.actualizarUsuario(this.usuario).subscribe(
+        (res) => {
+          console.log(res);
+          swal.fire({
+            position: 'top-end',
+            icon: 'success',
+            title: res.mensaje,
+            showConfirmButton: false,
+            timer: 1500,
+          });
+          //regresar a listado de usuarios
+          this.router.navigate(['/dashboard/usuarios/page/0']);
+        },
+        (err) => {
+          if (err.status === 409) {
+            this.erroresBackend = err.error.mensaje as string[];
+            console.log('mensaje en ts');
+            console.log(this.erroresBackend);
+          }
+        }
+      );
+    } else {
+      swal.fire(
+        'Observación',
+        'Llenar los campos con almenos 3 caracteres y seleccionar todas las opciones.',
+        'warning'
+      );
+    }
+  }
 
   listarRoles(): void {
     this.usuarioService.obtenerusuarioRoles().subscribe((res) => {

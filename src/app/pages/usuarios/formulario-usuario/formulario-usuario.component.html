@@ -161,8 +161,16 @@
         <button
           class="button shadowed button-usuario button-save mr-2"
           (click)="registrarUsuario()"
+          *ngIf="!usuario.id"
         >
           Guardar
+        </button>
+        <button
+          class="button primary rounded shadowed w-25"
+          (click)="actualizarUsuario()"
+          *ngIf="usuario.id"
+        >
+          Actualizar
         </button>
       </div>
     </form>
