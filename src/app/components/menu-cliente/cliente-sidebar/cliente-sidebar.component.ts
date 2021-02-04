@@ -8,7 +8,8 @@ import { Categoria } from '../../../models/productos/categoria';
 })
 export class ClienteSidebarComponent implements OnInit {
   @Input() categorias:Categoria[] = [];
-  constructor() { }
+  constructor( ) { }
+
 
   ngOnInit(): void {
   }

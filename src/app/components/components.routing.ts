@@ -4,6 +4,7 @@ import { NgModule } from '@angular/core';
 import { MenuClienteComponent } from './menu-cliente/menu-cliente.component';
 import { ProductosComponent } from './menu-cliente/productos/productos.component';
 import { HomeClienteComponent } from './menu-cliente/home-cliente/home-cliente.component';
+import { FormularioClienteComponent } from './menu-cliente/formulario-cliente/formulario-cliente.component';
 const routes: Routes = [
   {
     path: 'cliente',
@@ -11,6 +12,7 @@ const routes: Routes = [
     children: [
         { path: '', component: HomeClienteComponent, },
         { path: ':id', component: ProductosComponent, },
+        { path: 'formulario/registro', component: FormularioClienteComponent}
     ]
   }
 ];

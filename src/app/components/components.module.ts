@@ -18,6 +18,7 @@ import { ProductosComponent } from './menu-cliente/productos/productos.component
 import { CategoriasClienteComponent } from './menu-cliente/categorias-cliente/categorias-cliente.component';
 import { ClienteSidebarComponent } from './menu-cliente/cliente-sidebar/cliente-sidebar.component';
 import { HomeClienteComponent } from './menu-cliente/home-cliente/home-cliente.component';
+import { FormularioClienteComponent } from './menu-cliente/formulario-cliente/formulario-cliente.component';
 
 
 
@@ -33,13 +34,14 @@ import { HomeClienteComponent } from './menu-cliente/home-cliente/home-cliente.c
     CategoriasClienteComponent,
     ClienteSidebarComponent,
     HomeClienteComponent,
+    FormularioClienteComponent,
   ],
   exports: [
     PreviewImgComponent,
     PaginatorComponent,
     SpinnerComponent,
     CategoriasClienteComponent
-   ],
+    ],
   imports: [
     CommonModule,
     NgbModule,

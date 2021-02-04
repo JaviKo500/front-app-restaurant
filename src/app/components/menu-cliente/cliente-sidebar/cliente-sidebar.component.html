@@ -1,16 +1,22 @@
+<!-- FORMULARIO PARA CLIENTE -->
 <ul class="navview-menu" *ngIf="categorias.length > 0">
     <li class="item-separator"></li>
     <li>
         <a [routerLink]="['/cliente']" id="pane-toggle">
-            <span class="icon d-flex flex-align-center justify-content-center"><i class="fas fa-home"></i></span>
+            <span class="icon d-flex flex-align-center justify-content-center"><i class="fas fa-home "></i></span>
             <span class="caption">Inicio</span>
         </a>
+        <!-- TODO: validar cuan ya este registrado
+        <a [routerLink]="['formulario/registro']" id="pane-toggle">
+            <span class="icon d-flex flex-align-center justify-content-center"><i class="fas fa-user-edit "></i></span>
+            <span class="caption">Registrar</span>
+        </a> -->
     </li>
     <li class="item-separator"></li>
     <li class="item-header">Categorías</li>
     <li *ngFor="let categoria of categorias">
         <a [routerLink]="['/cliente',categoria.id]" id="pane-toggle">
-            <span class="icon  "><img [src]="categoria.imagen" style="width: 95%; height: 95%;" class="bd-cyan border-radius-4" [alt]="categoria.nombre"></span>
+            <span class="icon"><img [src]="categoria.imagen" style="width: 80%; height: 100%;" class="bd-cyan border-radius-4" [alt]="categoria.nombre"></span>
             <span class="pl-2 caption">{{categoria.nombre}}</span>
         </a>
     </li>

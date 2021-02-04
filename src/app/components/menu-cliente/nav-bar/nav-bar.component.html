@@ -11,7 +11,7 @@
               <i class="far fa-bell fa-2x"></i>
               <span class="badge mt-2 mr-3">4</span>
           </button>
-            <div class="button link" (click)="modalPedido(modalListaPedido)">
+            <div class="button link" (click)="modalPedido(modalListaPedido, modalRegistro)">
                 <span class="mif-cart mif-3x"></span>
                 <span class="badge mt-2 mr-2 badge-car">4</span>
             </div>
@@ -46,7 +46,7 @@
     <div class="modal-footer">
         <div class="d-flex justify-content-around align-content-center w-100 mb-0">
             <button type="button" class="button shadowed text-danger w-33"> Cancelar  </button>
-            <button type="button" class="button shadowed w-33 btn-finalizar-pedido"> Finalizar </button>
+            <button type="button" class="button shadowed w-33 btn-finalizar-pedido" (click)="postEnviarPedido()"> Finalizar </button>
         </div>
     </div>
 </ng-template>
@@ -70,5 +70,17 @@
         <div class="d-flex justify-content-around align-content-center w-100 mb-0">
             <button type="button" class="button shadowed w-100 btn-finalizar-pedido" (click)="modal.dismiss('Cross click')"> Aceptar </button>
         </div>
+    </div>
+</ng-template>
+<!-- modalregsitro cliente -->
+<ng-template #modalRegistro let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title">Regsitrarme</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+    <span aria-hidden="true">&times;</span>
+  </button>
+    </div>
+    <div class="modal-body p-0 fondo">
+        <app-formulario-cliente [cerrarModalRef]="modalRef" (registrocliente)="guardarEnviarDatos($event)"></app-formulario-cliente>
     </div>
 </ng-template>
