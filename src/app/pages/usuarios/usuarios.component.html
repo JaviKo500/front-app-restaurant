@@ -45,18 +45,18 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let usuario of listaUsuarios">
-              <td>{{ usuario.username }}</td>
-              <td>{{ usuario.nombre }}</td>
-              <td>{{ usuario.cedula }}</td>
-              <td>{{ usuario.email }}</td>
-              <td>{{ usuario.telefono }}</td>
+            <tr *ngFor="let usu of listaUsuarios">
+              <td>{{ usu.username }}</td>
+              <td>{{ usu.nombre }}</td>
+              <td>{{ usu.cedula }}</td>
+              <td>{{ usu.email }}</td>
+              <td>{{ usu.telefono }}</td>
               <td>
                 <div class="row row-width">
                   <div class="cell-sm-6">
                     <button
                       class="button primary rounded shadowed"
-                      [routerLink]="['/dashboard/crearusu/', usuario.id]"
+                      [routerLink]="['/dashboard/crearusu/', usu.id]"
                     >
                       <span class="ml-1"
                         >Editar <i class="fas fa-edit ml-1"></i
@@ -64,7 +64,10 @@
                     </button>
                   </div>
                   <div class="cell-sm-6">
-                    <button class="button alert rounded shadowed">
+                    <button
+                      class="button alert rounded shadowed"
+                      (click)="eliminarUsuario(usu.id)"
+                    >
                       <span class="ml-1"
                         >Borrar<i class="fas fa-trash-alt ml-1"></i
                       ></span>
@@ -89,7 +92,11 @@
     <div class="row">
       <div class="cell-12 d-flex flex-justify-end">
         <!-- componente paginador -->
-        <!-- <app-paginator *ngIf="paginador" [paginador]="paginador" [path]="path"></app-paginator> -->
+        <app-paginator
+          *ngIf="paginador"
+          [paginador]="paginador"
+          [path]="path"
+        ></app-paginator>
       </div>
     </div>
   </div>

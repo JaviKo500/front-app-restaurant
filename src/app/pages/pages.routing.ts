@@ -28,7 +28,7 @@ const routes: Routes = [
         data: { title: 'Productos', subTitle: 'Administrar producto' },
       },
       {
-        path: 'usuarios',
+        path: 'usuarios/page/0',
         component: UsuariosComponent,
         data: { title: 'Usuarios', subTitle: 'Administrar tus usuarios' },
       },
@@ -55,7 +55,10 @@ const routes: Routes = [
       {
         path: 'empresa',
         component: ConfiguracionEmpresaComponent,
-        data: { title: 'Empresa ', subTitle: 'Configura los datos de tu empresa' },
+        data: {
+          title: 'Empresa ',
+          subTitle: 'Configura los datos de tu empresa',
+        },
       },
       {
         path: 'pedidos',

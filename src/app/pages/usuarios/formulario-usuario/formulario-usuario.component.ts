@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Role } from 'src/app/models/persona/role.model';
 import { Sexo } from 'src/app/models/persona/sexo.model';
 import { Usuario } from 'src/app/models/persona/usuario.model';
 import { UsuarioService } from 'src/app/services/usuarios/usuario.service';
+import swal from 'sweetalert2';
 
 @Component({
   selector: 'app-formulario-usuario',
@@ -12,11 +13,16 @@ import { UsuarioService } from 'src/app/services/usuarios/usuario.service';
 })
 export class FormularioUsuarioComponent implements OnInit {
   usuario: Usuario = new Usuario();
+  erroresBackend: String[] = [];
   generos: Sexo[] = [];
   roles: Role[] = [];
+  role: Role;
+  confirmarPassword: string = '';
+  coinsidenPassword: boolean = true;
   constructor(
     private activatedRoute: ActivatedRoute,
-    private usuarioService: UsuarioService
+    private usuarioService: UsuarioService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -25,9 +31,90 @@ export class FormularioUsuarioComponent implements OnInit {
     this.activatedRoute.paramMap.subscribe((params) => {
       let id = +params.get('id');
       if (id) {
-        this.buscarProductoId(id);
+        this.buscarUsuarioId(id);
       }
     });
+  }
+
+  registrarUsuario(): void {
+    if (this.camposCompletos()) {
+      //confirmacion de compararContraseñas
+      if (this.compararContrasenas()) {
+        //eliminar espacios en email, usuario
+        this.usuario.email = this.usuario.email.replace(' ', '');
+        this.usuario.username = this.usuario.username.replace(' ', '');
+        console.log(this.usuario);
+        this.usuarioService.registrarUsuario(this.usuario).subscribe(
+          (res) => {
+            console.log(res);
+            swal.fire({
+              position: 'top-end',
+              icon: 'success',
+              title: res.mensaje,
+              showConfirmButton: false,
+              timer: 1500,
+            });
+            //resetear variables al guardar
+            this.usuario = new Usuario();
+            this.role = undefined;
+            this.coinsidenPassword = true;
+            this.confirmarPassword = '';
+            this.erroresBackend = [];
+          },
+          (err) => {
+            if (err.status === 409) {
+              this.erroresBackend = err.error.mensaje as string[];
+              console.log('mensaje en ts');
+              console.log(this.erroresBackend);
+            }
+          }
+        );
+      } else {
+        this.coinsidenPassword = false;
+      }
+    } else {
+      swal.fire(
+        'Observación',
+        'Llenar los campos con almenos 3 caracteres y seleccionar todas las opciones.',
+        'warning'
+      );
+    }
+  }
+
+  actualizarUsuario(): void {
+    console.log('actualizando');
+    if (this.camposCompletos()) {
+      this.usuario.email = this.usuario.email.replace(' ', '');
+      this.usuario.username = this.usuario.username.replace(' ', '');
+      console.log(this.usuario);
+      this.usuarioService.actualizarUsuario(this.usuario).subscribe(
+        (res) => {
+          console.log(res);
+          swal.fire({
+            position: 'top-end',
+            icon: 'success',
+            title: res.mensaje,
+            showConfirmButton: false,
+            timer: 1500,
+          });
+          //regresar a listado de usuarios
+          this.router.navigate(['/dashboard/usuarios/page/0']);
+        },
+        (err) => {
+          if (err.status === 409) {
+            this.erroresBackend = err.error.mensaje as string[];
+            console.log('mensaje en ts');
+            console.log(this.erroresBackend);
+          }
+        }
+      );
+    } else {
+      swal.fire(
+        'Observación',
+        'Llenar los campos con almenos 3 caracteres y seleccionar todas las opciones.',
+        'warning'
+      );
+    }
   }
 
   listarRoles(): void {
@@ -44,8 +131,43 @@ export class FormularioUsuarioComponent implements OnInit {
     });
   }
 
-  buscarProductoId(id: number): void {
-    console.log(id);
+  buscarUsuarioId(id: number): void {
+    this.usuarioService.obtenerUsuarioId(id).subscribe((res) => {
+      console.log(res);
+      this.usuario = res;
+    });
+  }
+
+  camposCompletos(): boolean {
+    let band;
+    let u = this.usuario;
+    if (
+      u.email.length < 3 ||
+      u.nombre.length < 3 ||
+      u.password.length < 3 ||
+      u.roles == null ||
+      u.sexo == null ||
+      u.username.length < 3 ||
+      this.confirmarPassword.length < 3
+    ) {
+      band = false;
+    } else {
+      band = true;
+    }
+    return band;
+  }
+
+  //compararContraseñas
+  compararContrasenas(): boolean {
+    let band: boolean;
+    if (this.usuario.password === this.confirmarPassword) {
+      this.coinsidenPassword = true;
+      band = true;
+    } else {
+      this.coinsidenPassword = false;
+      band = false;
+    }
+    return band;
   }
 
   //comparar-validar datos de roles en boostrap
