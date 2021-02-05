@@ -16,6 +16,7 @@ import { CategoriaService } from './services/categoria/categoria.service';
 
 //deploy config
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [AppComponent],
@@ -23,12 +24,15 @@ import { HashLocationStrategy, LocationStrategy } from '@angular/common';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
+    FormsModule,
     PagesModule,
     AuthModule,
     NgbModule,
   ],
-  providers: [CategoriaService,
-    { provide: LocationStrategy, useClass: HashLocationStrategy },],
+  providers: [
+    CategoriaService,
+    { provide: LocationStrategy, useClass: HashLocationStrategy },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

@@ -57,7 +57,7 @@ export class CategoriaService {
         return response.categorias;
       }),
       catchError((e) => {
-        console.log('Error service paginacion cate: '+e.error);
+        console.log('Error service paginacion cate: ' + e.error);
 
         return throwError(e);
       })

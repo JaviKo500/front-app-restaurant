@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
-
 import { SharedModule } from '../shared/shared.module';
 
 // ngbootstrap
@@ -19,8 +18,7 @@ import { CategoriasClienteComponent } from './menu-cliente/categorias-cliente/ca
 import { ClienteSidebarComponent } from './menu-cliente/cliente-sidebar/cliente-sidebar.component';
 import { HomeClienteComponent } from './menu-cliente/home-cliente/home-cliente.component';
 import { FormularioClienteComponent } from './menu-cliente/formulario-cliente/formulario-cliente.component';
-
-
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -40,13 +38,8 @@ import { FormularioClienteComponent } from './menu-cliente/formulario-cliente/fo
     PreviewImgComponent,
     PaginatorComponent,
     SpinnerComponent,
-    CategoriasClienteComponent
-    ],
-  imports: [
-    CommonModule,
-    NgbModule,
-    SharedModule,
-    RouterModule
-  ]
+    CategoriasClienteComponent,
+  ],
+  imports: [CommonModule, FormsModule, NgbModule, SharedModule, RouterModule],
 })
-export class ComponentsModule { }
+export class ComponentsModule {}
