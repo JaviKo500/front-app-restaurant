@@ -7,7 +7,7 @@ import { Producto } from '../../../models/productos/producto';
 @Component({
   selector: 'app-productos',
   templateUrl: './productos.component.html',
-  styleUrls: ['./productos.component.css']
+  styleUrls: ['./productos.component.css'],
 })
 export class ProductosComponent implements OnInit {
   private modalRef: NgbModalRef;
@@ -18,73 +18,18 @@ export class ProductosComponent implements OnInit {
   // Instancia objetos
   producto: Producto = new Producto();
 
-
-  productos: Producto [] = [
-    {
-      id:1,
-      nombre:'Coca Cola',
-      categoria: {
-        id: 5,
-        estado: true,
-        imagen: 'assets/icons/comida.jpg',
-        nombre: 'Ceviche'
-      },
-      descripcion:'Jugo',
-      precio:2.5,
-      imagen:'assets/icons/comida.jpg'
-    },
-    {
-      id:1,
-      nombre:'Coca Cola',
-      categoria: {
-        id: 5,
-        estado: true,
-        imagen: 'assets/icons/comida.jpg',
-        nombre: 'Ceviche'
-      },
-      descripcion:'Jugo',
-      precio:2.5,
-      imagen:'assets/icons/comida.jpg'
-    },
-    {
-      id:1,
-      nombre:'Coca Cola',
-      categoria: {
-        id: 5,
-        estado: true,
-        imagen: 'assets/icons/comida.jpg',
-        nombre: 'Ceviche'
-      },
-      descripcion:'Jugo',
-      precio:2.5,
-      imagen:'assets/icons/comida.jpg'
-    },
-    {
-      id:1,
-      nombre:'Coca Cola',
-      categoria: {
-        id: 5,
-        estado: true,
-        imagen: 'assets/icons/comida.jpg',
-        nombre: 'Ceviche'
-      },
-      descripcion:'Jugo',
-      precio:2.5,
-      imagen:'assets/icons/comida.jpg'
-    }
-  ];
-  constructor( private modalService: NgbModal ) {
+  productos: Producto[] = [];
+  constructor(private modalService: NgbModal) {
     // inicalizamos variable para notificaciones
     // @ts-ignore
     this.notificacion = Metro.notify;
   }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   // agregar un producto al pedido
   agregarProducto(prod: Producto): void {
-    this.notificacion.create("This is a notify", "Title", {});
+    this.notificacion.create('This is a notify', 'Title', {});
     console.log('agrgado');
   }
   productoModal(producto: Producto, modal): void {
@@ -101,5 +46,4 @@ export class ProductosComponent implements OnInit {
       this.cantidad--;
     }
   }
-
 }

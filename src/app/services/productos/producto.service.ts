@@ -15,6 +15,17 @@ export class ProductoService {
 
   private httpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
 
+  //filtrar productos del cliente
+  ObtenerProductosClientes(cate_id: number): Observable<Producto[]> {
+    return this.http.get(this.url + 'get/client/products/' + cate_id).pipe(
+      map((response: any) => response.producto as Producto[]),
+      catchError((e) => {
+        swal.fire(e.error.mensaje, e.error.error, 'error');
+        return throwError(e);
+      })
+    );
+  }
+  //obtener productos por el id
   ObtenerProducto(id: number): Observable<Producto> {
     return this.http.get(this.url + 'get/product/' + id).pipe(
       map((response: any) => response.producto as Producto),
@@ -24,7 +35,7 @@ export class ProductoService {
       })
     );
   }
-
+  //obtener productos por paginacion
   ObtenerProductosPageable(page: number): Observable<any> {
     return this.http.get(this.url + 'get/products/' + page).pipe(
       map((response: any) => {
@@ -36,7 +47,7 @@ export class ProductoService {
       })
     );
   }
-
+  //registrar productos
   RegistarProducto(producto: Producto): Observable<Producto> {
     return this.http
       .post(this.url + 'register/product', producto, {
@@ -50,7 +61,7 @@ export class ProductoService {
         })
       );
   }
-
+  //actualizar productos
   updateProduct(producto: Producto): Observable<Producto> {
     return this.http
       .put(this.url + 'update/product/' + producto.id, producto, {
@@ -64,7 +75,7 @@ export class ProductoService {
         })
       );
   }
-
+  //elimnar productos
   deleteProducto(id: number): Observable<any> {
     return this.http.delete(this.url + 'delete/product/' + id).pipe(
       map((response: any) => response.mensaje),
