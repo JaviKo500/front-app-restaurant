@@ -49,6 +49,7 @@ export class FormularioClienteComponent implements OnInit {
       );
     }
   }
+
   cerrarModal(): void {
     this.cerrarModalRef.close();
   }
