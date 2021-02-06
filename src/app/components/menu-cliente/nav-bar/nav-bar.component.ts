@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { Pedido } from 'src/app/models/pedidos/pedido';
 import { Cliente } from 'src/app/models/persona/cliente';
 import swal from 'sweetalert2';
 
@@ -12,6 +13,7 @@ import swal from 'sweetalert2';
 export class NavBarComponent implements OnInit {
   public modalRef: NgbModalRef;
   modalRegistrar: any;
+  pedido: Pedido = new Pedido();
   constructor(private modalService: NgbModal) {}
 
   ngOnInit(): void {}
@@ -70,7 +72,8 @@ export class NavBarComponent implements OnInit {
 
   AsignarCliente(cliente: Cliente): void {
     if (cliente) {
-      console.log(cliente);
+      //asignado el cliente al pedido
+      this.pedido.cliente = cliente;
     }
   }
 
