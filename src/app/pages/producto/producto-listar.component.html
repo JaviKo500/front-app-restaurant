@@ -67,7 +67,7 @@
               </td>
               <td>
                 <div class="row row-width alinear">
-                  <div class="cell-sm-6">
+                  <div class="cell-sm-4">
                     <button
                       class="button primary rounded shadowed"
                       [routerLink]="['/dashboard/crearpro/', prod.id]"
@@ -77,7 +77,7 @@
                       ></span>
                     </button>
                   </div>
-                  <div class="cell-sm-6">
+                  <div class="cell-sm-4">
                     <button
                       class="button primary delete rounded shadowed"
                       (click)="eliminarProducto(prod.id)"
@@ -86,6 +86,9 @@
                         >Borrar<i class="fas fa-trash-alt ml-1"></i
                       ></span>
                     </button>
+                  </div>
+                  <div class="cell-sm-4 d-flex align-content-center">
+                    <label class="checkbox transition-on"><input type="checkbox" data-role="checkbox" checked="" data-caption="Style 1" data-role-checkbox="true" class=""><span class="check"></span><span class="caption">Estado</span></label>
                   </div>
                 </div>
               </td>
