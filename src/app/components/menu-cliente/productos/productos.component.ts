@@ -54,9 +54,24 @@ export class ProductosComponent implements OnInit {
 
   // agregar un producto al pedido
   agregarProducto(prod: Producto): void {
-    console.log('agrgado');
-    this.notificaciones('agrgado', 'Notificación');
+    console.log('producto');
+    console.log(prod);
 
+    if (this.existeProducto(prod.id)) {
+      this.incrementarCantidad(prod.id);
+      this.notificaciones(
+        'Actualizado',
+        'se actualizó la cantidad del producto'
+      );
+      console.log(this.items);
+    } else {
+      //agregamos el produxto al item
+      this.item.producto = prod;
+      this.items.push(this.item);
+      this.notificaciones('Agregado', 'se agregó un producto');
+      console.log(this.items);
+    }
+    console.log('agrgado');
     //cerrar modal y restaurar valor del item
     this.cerrarModalDetalle();
   }
@@ -82,5 +97,33 @@ export class ProductosComponent implements OnInit {
   cerrarModalDetalle(): void {
     this.item = new DetallePedido();
     this.modalRef.close();
+  }
+
+  // verificar si un producto existe en el pedido
+  existeProducto(id: number): boolean {
+    let band = false;
+    this.items.forEach((item: DetallePedido) => {
+      if (id === item.producto.id) {
+        band = true;
+      }
+    });
+    return band;
+  }
+
+  // si existe un producto duplicado aumentar la cantidad
+  incrementarCantidad(id: number): void {
+    this.items = this.items.map((item: DetallePedido) => {
+      if (id === item.producto.id) {
+        item.cantidad += this.item.cantidad;
+      }
+      return item;
+    });
+  }
+
+  //eliminar un producto de la lista del pedido
+  eliminarProducto(id: number): void {
+    this.items = this.items.filter(
+      (item: DetallePedido) => id !== item.producto.id
+    );
   }
 }
