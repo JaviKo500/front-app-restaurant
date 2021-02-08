@@ -11,7 +11,7 @@ import swal from 'sweetalert2';
   styleUrls: ['./producto-listar.component.css'],
 })
 export class ProductoListarComponent implements OnInit {
-  listaProductos: Producto[] = [ { id:1 ,imagen:'',categoria:{id:1,estado: true,nombre:'jaja',imagen:''},nombre:'casa',descripcion:'casa',precio:2.5}];
+  listaProductos: Producto[] = [];
   //variable contenedor de los datos de la paginacion de productos
   paginador: any;
   path: any = '/dashboard/productos/page';

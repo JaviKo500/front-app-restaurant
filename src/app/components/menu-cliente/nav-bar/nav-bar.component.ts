@@ -1,9 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { Pedido } from 'src/app/models/pedidos/pedido';
 import { Cliente } from 'src/app/models/persona/cliente';
 import swal from 'sweetalert2';
+import { PedidoService } from '../../../services/pedido/pedido.service';
+import { DetallePedido } from '../../../models/pedidos/detalle-pedido';
 
 @Component({
   selector: 'app-nav-bar',
@@ -11,12 +13,16 @@ import swal from 'sweetalert2';
   styleUrls: ['./nav-bar.component.css'],
 })
 export class NavBarComponent implements OnInit {
+
   public modalRef: NgbModalRef;
   modalRegistrar: any;
   pedido: Pedido = new Pedido();
-  constructor(private modalService: NgbModal) {}
+  constructor(private modalService: NgbModal, private pedidoService: PedidoService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    // llamo detecto evento del servicio pedidos cuando se agrega pedidos en productos component
+    this.pedidoService.change.subscribe( items => this.pedido.items = items);
+  }
   modalPedido(modal, modalRegistro): void {
     this.modalRef = this.modalService.open(modal, { centered: true });
     // para guardar la data del modal si desea o no resgistrarse el cliente
@@ -37,8 +43,7 @@ export class NavBarComponent implements OnInit {
   }
 
   postEnviarPedido(): void {
-    swal
-      .fire({
+    swal.fire({
         title: '¿Desea registrarse?',
         text: 'opcional',
         icon: 'question',
@@ -81,4 +86,13 @@ export class NavBarComponent implements OnInit {
     this.cerrarModal();
     swal.fire('Pedido', 'Enviado', 'success');
   }
+
+ //eliminar un producto de la lista del pedido
+ eliminarProducto(id: number): void {
+  this.pedido.items = this.pedido.items.filter(
+    (item: DetallePedido) => id !== item.producto.id
+  );
+  this.pedidoService.pasarPedidos(this.pedido.items);
+}
+
 }

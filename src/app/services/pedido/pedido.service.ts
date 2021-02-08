@@ -1,6 +1,8 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable, Output } from '@angular/core';
 import { BASE_URL } from 'src/environments/configurations';
+import { Observable } from 'rxjs';
+import { DetallePedido } from '../../models/pedidos/detalle-pedido';
 
 @Injectable({
   providedIn: 'root',
@@ -8,6 +10,18 @@ import { BASE_URL } from 'src/environments/configurations';
 export class PedidoService {
   constructor(private http: HttpClient) {}
   private url: string = BASE_URL;
-
+  // variable para gurdar pedidos desdel servicio
+  items: DetallePedido [] = [];
   private httpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
+  // emito evento para pasar los items al componente navbar
+  @Output() change: EventEmitter< DetallePedido [] > = new EventEmitter();
+
+  // metodo para psar los pedidos
+  pasarPedidos( items): void {
+    // si exxiste pedidos
+    if(items){
+      this.items = items;
+      this.change.emit(this.items);
+    }
+  }
 }

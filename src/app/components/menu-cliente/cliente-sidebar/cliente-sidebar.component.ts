@@ -9,8 +9,6 @@ import { Categoria } from '../../../models/productos/categoria';
 export class ClienteSidebarComponent implements OnInit {
   @Input() categorias:Categoria[] = [];
   constructor( ) { }
-
-
   ngOnInit(): void {
   }
 
