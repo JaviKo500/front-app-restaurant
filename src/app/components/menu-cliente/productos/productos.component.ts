@@ -1,4 +1,4 @@
-import { Component, HostBinding, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
@@ -7,7 +7,6 @@ import { ProductoService } from 'src/app/services/productos/producto.service';
 import { BASE_URL } from 'src/environments/configurations';
 
 import { Producto } from '../../../models/productos/producto';
-import { PedidoService } from '../../../services/pedido/pedido.service';
 
 @Component({
   selector: 'app-productos',
@@ -15,7 +14,8 @@ import { PedidoService } from '../../../services/pedido/pedido.service';
   styleUrls: ['./productos.component.css'],
 })
 export class ProductosComponent implements OnInit {
-  @HostBinding() pasarPedidos = [];
+  //enviar el listado de pedidos al componente nav-bar
+  @Output() itemsRetorno: EventEmitter<DetallePedido> = new EventEmitter();
 
   private modalRef: NgbModalRef;
   api = BASE_URL;
@@ -30,7 +30,6 @@ export class ProductosComponent implements OnInit {
   constructor(
     private modalService: NgbModal,
     private productoService: ProductoService,
-    private pedidosService: PedidoService,
     private activatedRoute: ActivatedRoute
   ) {
     // inicalizamos variable para notificaciones
@@ -45,15 +44,13 @@ export class ProductosComponent implements OnInit {
         this.listarProductosPorCategoria(id);
       }
     });
-    // para regresar items si hay cambios en el navarcomponent
-    this.pedidosService.change.subscribe( items => this.items = items);
   }
 
   //listar productos por categoria
 
   listarProductosPorCategoria(id: number): void {
     this.productoService.ObtenerProductosClientes(id).subscribe((res) => {
-      // console.log(res);
+      console.log(res);
       this.productos = res;
     });
   }
@@ -76,8 +73,6 @@ export class ProductosComponent implements OnInit {
       this.items.push(this.item);
       this.notificaciones('Agregado', 'se agregó un producto');
       console.log(this.items);
-      // llamo metodo par pasar los items al servico
-      this.pedidosService.pasarPedidos( this.items );
     }
     console.log('agrgado');
     //cerrar modal y restaurar valor del item
