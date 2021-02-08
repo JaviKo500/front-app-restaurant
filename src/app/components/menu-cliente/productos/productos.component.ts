@@ -1,8 +1,9 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, HostBinding } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { DetallePedido } from 'src/app/models/pedidos/detalle-pedido';
+import { PedidoService } from 'src/app/services/pedido/pedido.service';
 import { ProductoService } from 'src/app/services/productos/producto.service';
 import { BASE_URL } from 'src/environments/configurations';
 
@@ -15,7 +16,7 @@ import { Producto } from '../../../models/productos/producto';
 })
 export class ProductosComponent implements OnInit {
   //enviar el listado de pedidos al componente nav-bar
-  @Output() itemsRetorno: EventEmitter<DetallePedido> = new EventEmitter();
+  @HostBinding() pasarPedidos = [];
 
   private modalRef: NgbModalRef;
   api = BASE_URL;
@@ -30,6 +31,7 @@ export class ProductosComponent implements OnInit {
   constructor(
     private modalService: NgbModal,
     private productoService: ProductoService,
+    private pedidosService: PedidoService,
     private activatedRoute: ActivatedRoute
   ) {
     // inicalizamos variable para notificaciones
@@ -44,6 +46,8 @@ export class ProductosComponent implements OnInit {
         this.listarProductosPorCategoria(id);
       }
     });
+    // para regresar items si hay cambios en el navarcomponent
+    this.pedidosService.change.subscribe((items) => (this.items = items));
   }
 
   //listar productos por categoria
