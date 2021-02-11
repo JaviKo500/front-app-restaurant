@@ -90,6 +90,7 @@ export class NavBarComponent implements OnInit {
   enviarPedido(): void {
     this.cerrarModal();
     swal.fire('Pedido', 'Enviado', 'success');
+    // console.log(this.pedido);
   }
 
   //eliminar un producto de la lista del pedido
