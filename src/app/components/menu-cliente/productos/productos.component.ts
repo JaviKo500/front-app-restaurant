@@ -76,6 +76,8 @@ export class ProductosComponent implements OnInit {
       this.item.producto = prod;
       this.items.push(this.item);
       this.notificaciones('Agregado', 'se agregó un producto');
+      // aqui debe estar este medodo par que funcione
+      this.pedidosService.pasarPedidos(this.items);
       console.log(this.items);
     }
     console.log('agrgado');
