@@ -67,7 +67,6 @@ export class ProductosComponent implements OnInit {
     if (this.existeProducto(prod.id)) {
       this.incrementarCantidad(prod.id);
       this.notificaciones(
-        'Actualizado',
         'se actualizó la cantidad del producto'
       );
       console.log(this.items);
@@ -75,7 +74,7 @@ export class ProductosComponent implements OnInit {
       //agregamos el produxto al item
       this.item.producto = prod;
       this.items.push(this.item);
-      this.notificaciones('Agregado', 'se agregó un producto');
+      this.notificaciones('se agregó un producto');
       // aqui debe estar este medodo par que funcione
       this.pedidosService.pasarPedidos(this.items);
       console.log(this.items);
@@ -98,8 +97,13 @@ export class ProductosComponent implements OnInit {
     }
   }
 
-  notificaciones(mensaje: string, titulo: string): void {
-    this.notificacion.create(mensaje, titulo, { cls: 'info' });
+  notificaciones(mensaje: string): void {
+    this.notificacion.setup({
+      width: 300,
+      timeout: 1000 ,
+      animation: 'easeOutBounce'
+  });
+    this.notificacion.create(mensaje, '', { cls: 'success' });
   }
 
   //cerrar modal de detalle

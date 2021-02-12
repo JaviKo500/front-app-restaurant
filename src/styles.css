@@ -37,6 +37,24 @@ body {
     background-color: #f8f8f8;
 }
 
+.notify-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: 650px;
+}
+
+.notify {
+    text-align: center;
+}
+
+@media screen and (min-width: 1000px) {
+    .notify-container {
+        top: 600px;
+    }
+}
+
 
 /*******************
 Layouts
