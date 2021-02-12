@@ -90,6 +90,11 @@ export class NavBarComponent implements OnInit {
   enviarPedido(): void {
     this.cerrarModal();
     swal.fire('Pedido', 'Enviado', 'success');
+    if (this.pedido.items.length > 0) {
+      console.log('si');
+    } else {
+      console.log('no');
+    }
     // console.log(this.pedido);
   }
 
@@ -99,5 +104,18 @@ export class NavBarComponent implements OnInit {
       (item: DetallePedido) => id !== item.producto.id
     );
     this.pedidoService.pasarPedidos(this.pedido.items);
+  }
+  //calcular importe de cada producto
+  public calcularImporte(cantidad: number, precio: number): number {
+    let total = cantidad * precio;
+    return Math.round(total * 100) / 100;
+  }
+  //calcular el total del poedido
+  calcularTotal(): number {
+    let total = 0;
+    this.pedido.items.forEach((items: DetallePedido) => {
+      total += this.calcularImporte(items.cantidad, items.producto.precio);
+    });
+    return Math.floor(total * 100) / 100;
   }
 }
