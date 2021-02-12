@@ -93,7 +93,7 @@ export class NavBarComponent implements OnInit {
     if (this.pedido.items.length > 0) {
       console.log('si');
     } else {
-      console.log('no');
+      //mensaje
     }
     // console.log(this.pedido);
   }
