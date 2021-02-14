@@ -1,7 +1,7 @@
 <ul class="navview-menu animated fadeIn" *ngIf="menuItems.length > 0">
     <li class="item-separator"></li>
     <li *ngFor="let item of menuItems">
-        <a *ngIf="item.subMenu.length > 0" id="pane-toggle">
+        <a *ngIf="item.subMenu.length > 0">
             <span class="icon "><i [class]="item.icon"></i></span>
             <span class="caption ">{{item.title}}</span>
             <span class="badges"><span class="badge inline" >{{item.subMenu.length}}</span></span>
@@ -12,7 +12,7 @@
         </a>
         <ul data-role="dropdown" class="navview-menu" style="display: none;">
             <li class="margen-submenu">
-                <a *ngFor="let subItem of item.subMenu" [routerLink]="subItem.url">
+                <a *ngFor="let subItem of item.subMenu" [routerLink]="subItem.url" id="pane-toggle">
                     <span class="icon d-flex flex-align-center justify-content-end pr-2"><i [class]="subItem.icon"></i></span>
                     <span class="caption">{{ subItem.title }}</span>
                 </a>

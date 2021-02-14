@@ -9,14 +9,14 @@
                             <nav class="navview-pane">
                                 <div class="navview-container">
                                     <button class="pull-button">
-                    <span class="default-icon-menu"></span>
-                  </button>
+                                     <span class="default-icon-menu"></span>
+                                    </button>
                                 </div>
                                 <!-- data menu -->
                                 <app-cliente-sidebar [categorias]="categorias" class="navview-menu-container" style="height: calc(100% - 104px)"></app-cliente-sidebar>
                             </nav>
                             <div class="navview-content">
-                                <app-nav-bar #cantidadItems></app-nav-bar>
+                                <app-nav-bar></app-nav-bar>
                                 <div class="contenido">
                                     <router-outlet></router-outlet>
                                 </div>

@@ -52,6 +52,17 @@ export class MesaService {
       })
     );
   }
+  ObtenerMesas(): Observable<any> {
+    return this.http.get(this.url+'lista/mesa').pipe(
+      map((response: any) => {
+        return response.lista;
+      }),
+      catchError((e) => {
+        swal.fire(e.error.mensaje, e.error.error, 'error');
+        return throwError(e);
+      })
+    );
+  }
 
   deleteMesa(id: number): Observable<any> {
     return this.http.delete(this.url + 'delete/mesa/' + id).pipe(
