@@ -18,7 +18,6 @@ export class PedidoService {
   private httpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
   // emito evento para pasar los items al componente navbar
   @Output() change: EventEmitter<DetallePedido[]> = new EventEmitter();
-
   registrarPedido(pedido: Pedido): Observable<any> {
     return this.http
       .post(this.url + 'register/new/pedido', pedido, {

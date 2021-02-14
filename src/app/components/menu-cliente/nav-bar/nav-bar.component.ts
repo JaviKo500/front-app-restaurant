@@ -18,6 +18,7 @@ export class NavBarComponent implements OnInit {
   items: DetallePedido[] = [];
   modalRegistrar: any;
   pedido: Pedido = new Pedido();
+  pedido_local: Pedido;
   constructor(
     private modalService: NgbModal,
     private pedidoService: PedidoService
@@ -25,7 +26,11 @@ export class NavBarComponent implements OnInit {
 
   ngOnInit(): void {
     // llamo detecto evento del servicio pedidos cuando se agrega pedidos en productos component
-    this.pedidoService.change.subscribe((items) => (this.pedido.items = items));
+    this.recuperarDelLocalStorage();
+    this.pedidoService.change.subscribe((items) => {
+      this.pedido.items = items;
+      this.guardarEnLocalStorage(this.pedido);
+    });
   }
   modalPedido(modal, modalRegistro): void {
     this.modalRef = this.modalService.open(modal, { centered: true });
@@ -122,5 +127,35 @@ export class NavBarComponent implements OnInit {
       total += this.calcularImporte(items.cantidad, items.producto.precio);
     });
     return Math.floor(total * 100) / 100;
+  }
+
+  // guardar pedido en el local storage
+  guardarEnLocalStorage(pedido: Pedido): void {
+    const now = new Date();
+    const item = {
+      value: pedido,
+      expiry: now.getTime() + 1800000,
+    };
+    localStorage.setItem('pedido', JSON.stringify(item));
+    this.recuperarDelLocalStorage();
+  }
+
+  // recuperar pedid del local storage
+  recuperarDelLocalStorage(): void {
+    let pedido_local = localStorage.getItem('pedido');
+    if (pedido_local) {
+      const item = JSON.parse(pedido_local);
+      const now = new Date();
+      if (now.getTime() > item.expiry) {
+        localStorage.removeItem('pedido');
+      } else {
+        this.pedido_local = item.value;
+        if (this.pedido_local != null) {
+          this.pedido = this.pedido_local;
+          console.log('pedido local storage');
+          console.log(this.pedido);
+        }
+      }
+    }
   }
 }

@@ -41,9 +41,9 @@ export class ProductosComponent implements OnInit {
 
   ngOnInit(): void {
     this.activatedRoute.paramMap.subscribe((params) => {
-      let id = +params.get('id');
-      if (id) {
-        this.listarProductosPorCategoria(id);
+      let id_cate = +params.get('id_cate');
+      if (id_cate) {
+        this.listarProductosPorCategoria(id_cate);
       }
     });
     // para regresar items si hay cambios en el navarcomponent
@@ -66,9 +66,7 @@ export class ProductosComponent implements OnInit {
 
     if (this.existeProducto(prod.id)) {
       this.incrementarCantidad(prod.id);
-      this.notificaciones(
-        'se actualizó la cantidad del producto'
-      );
+      this.notificaciones('se actualizó la cantidad del producto');
       console.log(this.items);
     } else {
       //agregamos el produxto al item
@@ -100,9 +98,9 @@ export class ProductosComponent implements OnInit {
   notificaciones(mensaje: string): void {
     this.notificacion.setup({
       width: 300,
-      timeout: 1000 ,
-      animation: 'easeOutBounce'
-  });
+      timeout: 1000,
+      animation: 'easeOutBounce',
+    });
     this.notificacion.create(mensaje, '', { cls: 'success' });
   }
 

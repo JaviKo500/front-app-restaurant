@@ -19,7 +19,7 @@ import { ClienteSidebarComponent } from './menu-cliente/cliente-sidebar/cliente-
 import { HomeClienteComponent } from './menu-cliente/home-cliente/home-cliente.component';
 import { FormularioClienteComponent } from './menu-cliente/formulario-cliente/formulario-cliente.component';
 import { FormsModule } from '@angular/forms';
-import { MesaComponent } from './menu-cliente/mesa/mesa.component';
+import { ClienteMesaComponent } from './menu-cliente/mesa/mesa.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +34,7 @@ import { MesaComponent } from './menu-cliente/mesa/mesa.component';
     ClienteSidebarComponent,
     HomeClienteComponent,
     FormularioClienteComponent,
-    MesaComponent,
+    ClienteMesaComponent,
   ],
   exports: [
     PreviewImgComponent,

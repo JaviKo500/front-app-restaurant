@@ -15,6 +15,16 @@ export class MesaService {
 
   private httpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
 
+  ObtenerMesaId(id: number): Observable<any> {
+    return this.http.get(this.url + 'get/mesa/cliente/' + id).pipe(
+      map((response: any) => response.mesa as Mesa),
+      catchError((e) => {
+        swal.fire(e.error.mensaje, e.error.error, 'error');
+        return throwError(e);
+      })
+    );
+  }
+
   registrarMesa(mesa: Mesa): Observable<any> {
     return this.http
       .post(this.url + 'register/mesa', mesa, { headers: this.httpHeaders })
@@ -52,10 +62,11 @@ export class MesaService {
       })
     );
   }
+
   ObtenerMesas(): Observable<any> {
-    return this.http.get(this.url+'lista/mesa').pipe(
+    return this.http.get(this.url + 'get/all/mesas').pipe(
       map((response: any) => {
-        return response.lista;
+        return response;
       }),
       catchError((e) => {
         swal.fire(e.error.mensaje, e.error.error, 'error');
