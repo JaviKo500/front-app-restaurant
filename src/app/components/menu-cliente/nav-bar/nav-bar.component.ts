@@ -153,6 +153,8 @@ export class NavBarComponent implements OnInit {
         if (this.pedido_local != null) {
           this.pedido = this.pedido_local;
           console.log('pedido local storage');
+          //pasar la nueva lista de productos al componente producto
+          this.pedidoService.pasarPedidos(this.pedido.items);
           console.log(this.pedido);
         }
       }
