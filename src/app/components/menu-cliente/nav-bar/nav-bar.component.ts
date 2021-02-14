@@ -65,6 +65,7 @@ export class NavBarComponent implements OnInit {
           this.modalRegistrarCliente();
         } else if (result.isDenied) {
           // si solo quiere enviar los datos
+          //this.AsignarCliente(new Cliente());
           this.cerrarModal();
           this.enviarPedido();
         }
@@ -92,8 +93,11 @@ export class NavBarComponent implements OnInit {
     swal.fire('Pedido', 'Enviado', 'success');
     if (this.pedido.items.length > 0) {
       console.log('si');
+      this.pedidoService.registrarPedido(this.pedido).subscribe((res) => {
+        console.log(res);
+      });
     } else {
-      //mensaje
+      swal.fire('Observación', 'Debe seleccionar productos', 'warning');
     }
     // console.log(this.pedido);
   }
