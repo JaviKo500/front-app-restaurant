@@ -35,7 +35,7 @@ export class PedidoService {
   // metodo para psar los pedidos
   pasarPedidos(items): void {
     // si exxiste pedidos
-    if (items) {
+    if (items.length > 0) {
       this.items = items;
       this.change.emit(this.items);
     }

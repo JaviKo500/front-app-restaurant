@@ -29,8 +29,13 @@ export class NavBarComponent implements OnInit {
     this.recuperarDelLocalStorage();
     this.pedidoService.change.subscribe((items) => {
       this.pedido.items = items;
+      console.log(items);
       this.guardarEnLocalStorage(this.pedido);
     });
+    //pasar la nueva lista de productos al componente producto al refrescar la pagina
+    this.pedidoService.pasarPedidos(this.pedido.items);
+    console.log('pasar productos');
+    console.log(this.pedido.items);
   }
   modalPedido(modal, modalRegistro): void {
     this.modalRef = this.modalService.open(modal, { centered: true });
@@ -137,7 +142,6 @@ export class NavBarComponent implements OnInit {
       expiry: now.getTime() + 1800000,
     };
     localStorage.setItem('pedido', JSON.stringify(item));
-    this.recuperarDelLocalStorage();
   }
 
   // recuperar pedid del local storage
@@ -153,8 +157,7 @@ export class NavBarComponent implements OnInit {
         if (this.pedido_local != null) {
           this.pedido = this.pedido_local;
           console.log('pedido local storage');
-          //pasar la nueva lista de productos al componente producto
-          this.pedidoService.pasarPedidos(this.pedido.items);
+
           console.log(this.pedido);
         }
       }

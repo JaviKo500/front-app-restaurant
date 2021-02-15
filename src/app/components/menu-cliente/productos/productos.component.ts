@@ -48,13 +48,14 @@ export class ProductosComponent implements OnInit {
     });
     // para regresar items si hay cambios en el navarcomponent
     this.pedidosService.change.subscribe((items) => (this.items = items));
+    console.log('items en producto');
+    console.log(this.items);
   }
 
   //listar productos por categoria
 
   listarProductosPorCategoria(id: number): void {
     this.productoService.ObtenerProductosClientes(id).subscribe((res) => {
-      console.log(res);
       this.productos = res;
     });
   }
