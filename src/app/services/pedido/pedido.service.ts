@@ -1,5 +1,5 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { EventEmitter, Injectable, Output } from '@angular/core';
+import { EventEmitter, Injectable } from '@angular/core';
 import { BASE_URL } from 'src/environments/configurations';
 import { Observable, throwError } from 'rxjs';
 import { DetallePedido } from '../../models/pedidos/detalle-pedido';
@@ -11,13 +11,12 @@ import swal from 'sweetalert2';
   providedIn: 'root',
 })
 export class PedidoService {
+  //evento para retornar el detalle pedido
+  items$ = new EventEmitter<DetallePedido[]>();
+
   constructor(private http: HttpClient) {}
   private url: string = BASE_URL;
-  // variable para gurdar pedidos desdel servicio
-  items: DetallePedido[] = [];
   private httpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
-  // emito evento para pasar los items al componente navbar
-  @Output() change: EventEmitter<DetallePedido[]> = new EventEmitter();
   registrarPedido(pedido: Pedido): Observable<any> {
     return this.http
       .post(this.url + 'register/new/pedido', pedido, {
@@ -30,14 +29,5 @@ export class PedidoService {
           return throwError(e);
         })
       );
-  }
-
-  // metodo para psar los pedidos
-  pasarPedidos(items): void {
-    // si exxiste pedidos
-    if (items.length > 0) {
-      this.items = items;
-      this.change.emit(this.items);
-    }
   }
 }

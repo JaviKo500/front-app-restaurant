@@ -1,4 +1,4 @@
-import { Component, OnInit, HostBinding } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
@@ -15,9 +15,6 @@ import { Producto } from '../../../models/productos/producto';
   styleUrls: ['./productos.component.css'],
 })
 export class ProductosComponent implements OnInit {
-  //enviar el listado de pedidos al componente nav-bar
-  @HostBinding() pasarPedidos = [];
-
   private modalRef: NgbModalRef;
   api = BASE_URL;
   // variables
@@ -40,16 +37,20 @@ export class ProductosComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    // para regresar items si hay cambios en el navarcomponent
+    this.pedidosService.items$.subscribe((items) => {
+      this.items = items;
+      console.log('items en producto');
+      console.log(this.items);
+    });
+    console.log('compoente prod cargado');
+
     this.activatedRoute.paramMap.subscribe((params) => {
       let id_cate = +params.get('id_cate');
       if (id_cate) {
         this.listarProductosPorCategoria(id_cate);
       }
     });
-    // para regresar items si hay cambios en el navarcomponent
-    this.pedidosService.change.subscribe((items) => (this.items = items));
-    console.log('items en producto');
-    console.log(this.items);
   }
 
   //listar productos por categoria
@@ -75,7 +76,7 @@ export class ProductosComponent implements OnInit {
       this.items.push(this.item);
       this.notificaciones('se agregó un producto');
       // aqui debe estar este medodo par que funcione
-      this.pedidosService.pasarPedidos(this.items);
+      this.pedidosService.items$.emit(this.items);
       console.log(this.items);
     }
     console.log('agrgado');

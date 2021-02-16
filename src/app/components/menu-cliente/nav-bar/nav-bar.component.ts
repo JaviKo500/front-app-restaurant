@@ -27,15 +27,12 @@ export class NavBarComponent implements OnInit {
   ngOnInit(): void {
     // llamo detecto evento del servicio pedidos cuando se agrega pedidos en productos component
     this.recuperarDelLocalStorage();
-    this.pedidoService.change.subscribe((items) => {
+    this.pedidoService.items$.subscribe((items) => {
       this.pedido.items = items;
       console.log(items);
       this.guardarEnLocalStorage(this.pedido);
     });
-    //pasar la nueva lista de productos al componente producto al refrescar la pagina
-    this.pedidoService.pasarPedidos(this.pedido.items);
-    console.log('pasar productos');
-    console.log(this.pedido.items);
+    this.PasarDetallePedido();
   }
   modalPedido(modal, modalRegistro): void {
     this.modalRef = this.modalService.open(modal, { centered: true });
@@ -118,7 +115,7 @@ export class NavBarComponent implements OnInit {
     this.pedido.items = this.pedido.items.filter(
       (item: DetallePedido) => id !== item.producto.id
     );
-    this.pedidoService.pasarPedidos(this.pedido.items);
+    this.PasarDetallePedido();
   }
   //calcular importe de cada producto
   public calcularImporte(cantidad: number, precio: number): number {
@@ -157,10 +154,18 @@ export class NavBarComponent implements OnInit {
         if (this.pedido_local != null) {
           this.pedido = this.pedido_local;
           console.log('pedido local storage');
-
+          //recuperar los datos y enviar la lista de productos
           console.log(this.pedido);
         }
       }
     }
+  }
+  //pasar la nueva lista de productos al componente producto al refrescar la pagina
+  PasarDetallePedido(): void {
+    console.log(this.pedido.items);
+
+    this.pedidoService.items$.emit(this.pedido.items);
+    console.log('pasar productos');
+    console.log(this.pedido.items);
   }
 }
