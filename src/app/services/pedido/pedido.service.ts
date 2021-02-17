@@ -13,6 +13,8 @@ import swal from 'sweetalert2';
 export class PedidoService {
   //evento para retornar el detalle pedido
   items$ = new EventEmitter<DetallePedido[]>();
+  //evento para pasar el id de la mesa
+  id_mesa$ = new EventEmitter<number>();
 
   constructor(private http: HttpClient) {}
   private url: string = BASE_URL;
