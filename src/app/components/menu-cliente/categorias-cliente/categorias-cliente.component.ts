@@ -15,8 +15,6 @@ export class CategoriasClienteComponent implements OnInit {
   @Input() categorias: Categoria[] = [];
   categoria: Categoria;
   api = BASE_URL;
-
   constructor() {}
-
   ngOnInit(): void {}
 }

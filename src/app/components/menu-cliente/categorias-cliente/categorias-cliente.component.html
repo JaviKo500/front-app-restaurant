@@ -9,7 +9,10 @@
         Menu no disponible aun, intente actualizando la página!
       </div>
       <div *ngFor="let categoria of categorias">
-        <div class="card-categoria" [routerLink]="['/cliente', categoria.id]">
+        <div
+          class="card-categoria"
+          [routerLink]="['/cliente/menu/', categoria.id]"
+        >
           <div class="imgBox">
             <img
               src="{{ api + 'category/img/' + categoria.imagen }}"

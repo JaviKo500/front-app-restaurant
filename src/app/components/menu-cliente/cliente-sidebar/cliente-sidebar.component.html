@@ -1,7 +1,7 @@
 <ul class="navview-menu" *ngIf="categorias.length > 0">
   <li class="item-separator"></li>
   <li>
-    <a [routerLink]="['/cliente/home/mesa/:id_mesa']" id="pane-toggle">
+    <a [routerLink]="['/cliente/home/mesa/', id_mesa]" id="pane-toggle">
       <span class="icon"><i class="fas fa-home"></i></span>
       <span class="caption">Inicio</span>
     </a>

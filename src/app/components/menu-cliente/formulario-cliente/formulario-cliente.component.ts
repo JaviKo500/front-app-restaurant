@@ -27,11 +27,9 @@ export class FormularioClienteComponent implements OnInit {
     console.log(this.cliente);
     //validar los campos
     if (this.camposCompletos()) {
-      console.log('validacion aceptada');
       //llamar al servicio
       this.clienteService.RegistrarCliente(this.cliente).subscribe(
         (res) => {
-          console.log(res);
           //asignamos el cliente de retorno al evento
           this.reclienteRetorno.emit(res.cliente);
           //asignamos la ceptacion del pedido
@@ -42,8 +40,6 @@ export class FormularioClienteComponent implements OnInit {
         (err) => {
           if (err.status === 409) {
             this.erroresBackend = err.error.mensaje as string[];
-            console.log('mensaje en ts');
-            console.log(this.erroresBackend);
           }
         }
       );
@@ -57,6 +53,10 @@ export class FormularioClienteComponent implements OnInit {
   //verificar campos completos
   camposCompletos(): boolean {
     let c = this.cliente;
+    //eliminar espacios del email
+    this.cliente.email = this.cliente.email.replace(/ /g, '');
+    console.log(this.cliente);
+
     if (
       c.nombres.length < 3 ||
       c.apellidos.length < 3 ||

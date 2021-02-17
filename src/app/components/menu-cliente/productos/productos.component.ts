@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { DetallePedido } from 'src/app/models/pedidos/detalle-pedido';
@@ -41,12 +41,10 @@ export class ProductosComponent implements OnInit {
     // para regresar items si hay cambios en el navarcomponent
     this.pedidosService.items$.subscribe((items) => {
       this.items = items;
-      console.log('items en producto');
-      console.log(this.items);
     });
-    console.log('compoente prod cargado');
     //listar items del local storage si existten
     this.recuperarDelLocalStorage();
+    //parametros de id de categoria
     this.activatedRoute.paramMap.subscribe((params) => {
       let id_cate = +params.get('id_cate');
       if (id_cate) {
@@ -65,13 +63,9 @@ export class ProductosComponent implements OnInit {
 
   // agregar un producto al pedido
   agregarProducto(prod: Producto): void {
-    console.log('producto');
-    console.log(prod);
-
     if (this.existeProducto(prod.id)) {
       this.incrementarCantidad(prod.id);
       this.notificaciones('se actualizó la cantidad del producto');
-      console.log(this.items);
     } else {
       //agregamos el produxto al item
       this.item.producto = prod;
@@ -79,9 +73,7 @@ export class ProductosComponent implements OnInit {
       this.notificaciones('se agregó un producto');
       // aqui debe estar este medodo par que funcione
       this.pedidosService.items$.emit(this.items);
-      console.log(this.items);
     }
-    console.log('agrgado');
     //cerrar modal y restaurar valor del item
     this.cerrarModalDetalle();
   }
@@ -154,9 +146,6 @@ export class ProductosComponent implements OnInit {
         this.pedido_local = item.value;
         if (this.pedido_local != null) {
           this.items = this.pedido_local.items;
-          console.log('detalle pedido local storage');
-          //recuperar los datos y enviar la lista de productos
-          console.log(this.items);
         }
       }
     }

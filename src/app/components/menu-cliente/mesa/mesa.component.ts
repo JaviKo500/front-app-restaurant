@@ -13,7 +13,6 @@ export class ClienteMesaComponent implements OnInit {
 
   ngOnInit(): void {
     this.mesaService.ObtenerMesas().subscribe((mesas) => {
-      console.log(mesas);
       this.mesas = mesas;
     });
   }

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CategoriaService } from 'src/app/services/categoria/categoria.service';
+import { PedidoService } from 'src/app/services/pedido/pedido.service';
 import { Categoria } from '../../../models/productos/categoria';
 
 @Component({
@@ -13,27 +14,25 @@ export class HomeClienteComponent implements OnInit {
   constructor(
     private categoriaService: CategoriaService,
     private activatedRoute: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private pedidoService: PedidoService
   ) {}
 
   ngOnInit(): void {
-    this.listarCategorias();
     this.activatedRoute.paramMap.subscribe((params) => {
       let id_mesa = +params.get('id_mesa');
-      if (id_mesa as Number) {
-        console.log('si');
-        //pasar el valor al nav bar para el pedido
+      if (id_mesa) {
+        this.pedidoService.id_mesa$.emit(id_mesa);
       } else {
         this.router.navigate(['/cliente/mesas']);
-        console.log('no');
       }
     });
+    this.listarCategorias();
   }
 
   listarCategorias(): void {
-    this.categoriaService.ListaCategorias().subscribe((res) => {
-      console.log(res);
-      this.categorias = res;
+    this.categoriaService.ListaCategorias().subscribe((categorias) => {
+      this.categorias = categorias;
     });
   }
 }
