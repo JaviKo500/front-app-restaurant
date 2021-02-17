@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { DetallePedido } from 'src/app/models/pedidos/detalle-pedido';
+import { Pedido } from 'src/app/models/pedidos/pedido';
 import { PedidoService } from 'src/app/services/pedido/pedido.service';
 import { ProductoService } from 'src/app/services/productos/producto.service';
 import { BASE_URL } from 'src/environments/configurations';
@@ -23,7 +24,7 @@ export class ProductosComponent implements OnInit {
   item: DetallePedido = new DetallePedido();
   items: DetallePedido[] = [];
   producto: Producto = new Producto();
-
+  pedido_local: Pedido = new Pedido();
   productos: Producto[] = [];
   constructor(
     private modalService: NgbModal,
@@ -44,7 +45,8 @@ export class ProductosComponent implements OnInit {
       console.log(this.items);
     });
     console.log('compoente prod cargado');
-
+    //listar items del local storage si existten
+    this.recuperarDelLocalStorage();
     this.activatedRoute.paramMap.subscribe((params) => {
       let id_cate = +params.get('id_cate');
       if (id_cate) {
@@ -138,5 +140,25 @@ export class ProductosComponent implements OnInit {
     this.items = this.items.filter(
       (item: DetallePedido) => id !== item.producto.id
     );
+  }
+
+  // recuperar pedid del local storage
+  recuperarDelLocalStorage(): void {
+    let pedido_local = localStorage.getItem('pedido');
+    if (pedido_local) {
+      const item = JSON.parse(pedido_local);
+      const now = new Date();
+      if (now.getTime() > item.expiry) {
+        localStorage.removeItem('pedido');
+      } else {
+        this.pedido_local = item.value;
+        if (this.pedido_local != null) {
+          this.items = this.pedido_local.items;
+          console.log('detalle pedido local storage');
+          //recuperar los datos y enviar la lista de productos
+          console.log(this.items);
+        }
+      }
+    }
   }
 }
