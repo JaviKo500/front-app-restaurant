@@ -19,6 +19,19 @@ export class PedidoService {
   constructor(private http: HttpClient) {}
   private url: string = BASE_URL;
   private httpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
+
+  //listar pedidos del dia
+  listarPedidosDia(): Observable<any> {
+    return this.http.get(this.url + 'pedidos/dia/estado/' + 1).pipe(
+      map((response: any) => response.pedidos as Pedido[]),
+      catchError((e) => {
+        swal.fire(e.error.mensaje, e.error.error, 'warning');
+        return throwError(e);
+      })
+    );
+  }
+
+  //registrar pedido
   registrarPedido(pedido: Pedido): Observable<any> {
     return this.http
       .post(this.url + 'register/new/pedido', pedido, {

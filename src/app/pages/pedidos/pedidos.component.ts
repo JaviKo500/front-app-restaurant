@@ -5,6 +5,7 @@ import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 // Modelos
 import { Mesa } from 'src/app/models/mesa/mesa';
 import { Pedido } from 'src/app/models/pedidos/pedido';
+import { PedidoService } from 'src/app/services/pedido/pedido.service';
 
 @Component({
   selector: 'app-pedidos',
@@ -19,10 +20,22 @@ export class PedidosComponent implements OnInit {
   pedidosPorMesa: Pedido[] = [];
   cantidadPedido: number = 0;
   listaPedidos: Pedido[] = [];
-  constructor(private modalService: NgbModal) {}
+  constructor(
+    private modalService: NgbModal,
+    private pedidoService: PedidoService
+  ) {}
   ngOnInit(): void {
-    this.filtrarPorMesas();
+    this.listarPedidosDelDia();
   }
+
+  //listar pedidos del dia
+  listarPedidosDelDia(): void {
+    this.pedidoService.listarPedidosDia().subscribe((pedidos) => {
+      this.listaPedidos = pedidos;
+      this.filtrarPorMesas();
+    });
+  }
+
   // filtramos por mesa para separar los pedidos en la vista del cliente
   filtrarPorMesas() {
     let nombreMesa = [];
@@ -33,6 +46,7 @@ export class PedidosComponent implements OnInit {
       }
     });
   }
+
   // filtramos los pedidos por mesa para el modal
   filtrarPedidosPorMesa(mesa, modalPedido) {
     this.nombreMesa = mesa;
