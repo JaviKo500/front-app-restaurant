@@ -1,7 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Observable } from 'rxjs';
-import { debounceTime, distinctUntilChanged, flatMap, map, mergeMap, filter } from 'rxjs/operators';
+import { distinctUntilChanged, mergeMap,  } from 'rxjs/operators';
+
+import swal from 'sweetalert2';
+
+import { PreviewImgComponent } from '../../../components/preview-img/preview-img.component';
 import { Producto } from '../../../models/productos/producto';
 import { ProductoService } from '../../../services/productos/producto.service';
 import { BASE_URL } from '../../../../environments/configurations';
@@ -11,6 +14,8 @@ import { BASE_URL } from '../../../../environments/configurations';
   styleUrls: ['./formulario-combo.component.css']
 })
 export class FormularioComboComponent implements OnInit {
+  @ViewChild( 'img_url' , { static: false }) img_url: PreviewImgComponent;
+  imagenProducto: File;
   api: any = BASE_URL;
   arrayDePrueba: Producto [] = [];
   constructor(
@@ -18,7 +23,15 @@ export class FormularioComboComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-
+    
+    
+  }
+  onChange(event): void {
+    this.imagenProducto = event.target.files[0];
+    if (this.imagenProducto.type.indexOf('image') < 0) {
+      this.imagenProducto = null;
+      swal.fire('Error', 'Solo imágenes', 'error');
+    }    
   }
   search = (text$: Observable<string>) => text$.pipe(
     distinctUntilChanged(),

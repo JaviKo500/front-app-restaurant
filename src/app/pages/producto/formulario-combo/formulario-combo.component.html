@@ -31,11 +31,11 @@
                 <div class="cell-xl-3 cell-sm-12 cell-lg-4 mt-4">
                 </div>
                 <div class="cell-xl-4 cell-sm-12 cell-lg-12">
-                    <app-preview-img></app-preview-img>
+                    <app-preview-img (imagenSave)="(imagenProducto)" (change)="onChange($event)" #img_url></app-preview-img>
                 </div>
             </div>
             <div class="row">
-                <div class="cell-8 cell-sm-12 cell-md-12 cell-xl-8">
+                <div class=" cell-sm-12 cell-md-12 cell-xl-8 mb-5">
                     <table class="table row-hover row-border">
                         <thead>
                             <tr>
@@ -58,6 +58,9 @@
                             </tr>
                         </tbody>
                     </table>
+                </div>
+                <div class=" cell-sm-12 cell-md-12 cell-xl-4 mb-5 d-flex justify-content-center align-items-center">
+                    <button class="button shadowed primary w-75">Guardar Datos</button>
                 </div>
             </div>
         </div>
