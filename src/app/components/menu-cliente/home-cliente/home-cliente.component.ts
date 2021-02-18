@@ -27,6 +27,7 @@ export class HomeClienteComponent implements OnInit {
         this.router.navigate(['/cliente/mesas']);
       }
     });
+
     this.listarCategorias();
   }
 
