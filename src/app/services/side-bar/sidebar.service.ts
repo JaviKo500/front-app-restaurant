@@ -50,6 +50,11 @@ export class SidebarService {
           icon: 'fa fa-plus-circle',
           url: 'crearpro/:id',
         },
+        {
+          title: 'Crear combo o promión',
+          icon: 'fas fa-hamburger',
+          url: 'crearcombo/:id',
+        },
         { title: 'Categorias', icon: 'fa fa-tags', url: 'categorias/page/0' },
       ],
     },

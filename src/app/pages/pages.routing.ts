@@ -11,6 +11,7 @@ import { PedidosComponent } from './pedidos/pedidos.component';
 import { UsuariosComponent } from './usuarios/usuarios.component';
 import { FormularioUsuarioComponent } from './usuarios/formulario-usuario/formulario-usuario.component';
 import { ConfiguracionEmpresaComponent } from './configuraciones/configuracion-empresa/configuracion-empresa.component';
+import { FormularioComboComponent } from './producto/formulario-combo/formulario-combo.component';
 
 const routes: Routes = [
   {
@@ -26,6 +27,11 @@ const routes: Routes = [
         path: 'crearpro/:id',
         component: FormularioComponent,
         data: { title: 'Productos', subTitle: 'Administrar producto' },
+      },
+      {
+        path: 'crearcombo/:id',
+        component: FormularioComboComponent,
+        data: { title: 'Especiales', subTitle: 'Crea tus propios combos o promociones' },
       },
       {
         path: 'usuarios/page/0',

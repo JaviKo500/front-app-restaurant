@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 // modulos creados
@@ -19,6 +19,7 @@ import { PedidosComponent } from './pedidos/pedidos.component';
 import { UsuariosComponent } from './usuarios/usuarios.component';
 import { FormularioUsuarioComponent } from './usuarios/formulario-usuario/formulario-usuario.component';
 import { VentaComponent } from './venta/venta.component';
+import { FormularioComboComponent } from './producto/formulario-combo/formulario-combo.component';
 
 
 
@@ -34,7 +35,8 @@ import { VentaComponent } from './venta/venta.component';
     PedidosComponent,
     UsuariosComponent,
     FormularioUsuarioComponent,
-    VentaComponent
+    VentaComponent,
+    FormularioComboComponent
   ],
   exports: [
     DashboardComponent,
@@ -45,6 +47,7 @@ import { VentaComponent } from './venta/venta.component';
     SharedModule,
     ComponentsModule,
     FormsModule,
+    ReactiveFormsModule,
     NgbModule
   ]
 })

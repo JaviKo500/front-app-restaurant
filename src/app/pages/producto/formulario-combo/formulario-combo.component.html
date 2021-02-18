@@ -1,0 +1,65 @@
+<div class="card">
+    <div class="card-body">
+        <div class="grid">
+            <div class="row">
+                <div class="cell-xl-5 cell-sm-12 cell-lg-8 mt-4">
+                    <form>
+                        <div class="input-group mb-2">
+                            <div class="input-group-prepend">
+                                <label class="input-group-text" for="inputGroupSelect01" style="border-right-color: transparent">
+                                    Tipo Especial  
+                                </label>
+                            </div>
+                            <select class="custom-select">
+                              <option [ngValue]="undefined">Choose...</option>
+                              <option value="1" >
+                                  Combo
+                              </option>
+                              <option value="2" >
+                                  Promoción
+                              </option>
+                            </select>
+                        </div>
+                        <input type="text" data-role="input" data-prepend="Nombre" class="mb-2" autocomplete="off">
+                        <input type="number" data-role="input" data-prepend="Precio" name="precio" class="mb-2" autocomplete="off">
+                        <div>
+                            <input data-role="input" data-prepend="Agregar Productos" type="text" class="form-control mb-2" [ngbTypeahead]="search" [inputFormatter]="seleccionarProducto" [resultFormatter]="formatter">
+                        </div>
+                        <textarea data-role="textarea" placeholder="Descripción"></textarea>
+                    </form>
+                </div>
+                <div class="cell-xl-3 cell-sm-12 cell-lg-4 mt-4">
+                </div>
+                <div class="cell-xl-4 cell-sm-12 cell-lg-12">
+                    <app-preview-img></app-preview-img>
+                </div>
+            </div>
+            <div class="row">
+                <div class="cell-8 cell-sm-12 cell-md-12 cell-xl-8">
+                    <table class="table row-hover row-border">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Producto</th>
+                                <th>Categoria</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let producto of arrayDePrueba">
+                                <td><img src="{{ api }}product/img/{{ producto.imagen }}" alt="" style="width: 40px; height: 40px;"></td>
+                                <td>{{ producto.nombre }}</td>
+                                <td>{{ producto.categoria.nombre }}</td>
+                                <td>
+                                    <div class="w-100 d-flex justify-content-around">
+                                        <button class="button alert" (click)="eliminarProductoArray(producto.id)"><i class="far fa-trash-alt"></i></button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
