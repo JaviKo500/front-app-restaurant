@@ -88,15 +88,14 @@ export class ProductoService {
 
   // get productos por termino  a buscar
   getProductoByTerm(term: string): Observable<Producto[]> {
-    return this.http.get<Producto[]>(`${this.url}productos/cargar/${term}`)
-      .pipe(
-        map((response: any) => {
-         console.log(response);
-         return response.productos}),
-        catchError((e) => {
-          return throwError(e);
-        })
-      );
+    return this.http.get(this.url + 'productos/cargar/' + term).pipe(
+      map((response: any) => {
+        console.log(response);
+        return response.productos;
+      }),
+      catchError((e) => {
+        return throwError(e);
+      })
+    );
   }
-  
 }
