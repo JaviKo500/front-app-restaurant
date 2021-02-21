@@ -28,4 +28,5 @@ export class ClienteSidebarComponent implements OnInit {
       console.log('no existe id de mesa');
     }
   }
+
 }

@@ -66,11 +66,11 @@ export class NavBarComponent implements OnInit {
 
   postEnviarPedido(): void {
     if (this.pedido.items.length > 0) {
-      swal
+       swal
         .fire({
-          title: '¿Desea registrarse?',
-          text: 'opcional',
-          icon: 'question',
+          title: '¿Esta registrado?',
+          input: 'text',
+          inputPlaceholder:'Ingrese su cédula',
           showDenyButton: true,
           confirmButtonColor: '#3085d6',
           denyButtonColor: '#000',
@@ -88,6 +88,7 @@ export class NavBarComponent implements OnInit {
             this.enviarPedido();
           }
         });
+        
     }
   }
 

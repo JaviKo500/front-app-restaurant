@@ -1,4 +1,4 @@
-<div class="container-fluid pl-0 w-100 cont-padding">
+<div class="container-fluid pl-0 w-100" style="background-color: #eee;">
     <div class="grid">
         <div class="row">
             <div class="cell-sm pt-0 pb-0 pr-0">
@@ -19,6 +19,8 @@
                                 <app-nav-bar></app-nav-bar>
                                 <div class="contenido">
                                     <router-outlet></router-outlet>
+                                    <!-- boton estatico -->
+                                    <button class="button dark cycle large outline boton-float" [routerLink]="['/cliente/home/mesa/']"><i class="fas fa-home"></i></button>
                                 </div>
                             </div>
                         </div>

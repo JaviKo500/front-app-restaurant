@@ -60,7 +60,7 @@
   <div class="modal-footer">
     <h3 class="text-muted text-left">Total: {{ calcularTotal() }}</h3>
     <div class="d-flex justify-content-around align-content-center w-100 mb-0">
-      <button type="button" class="button shadowed text-danger w-33">
+      <button type="button" class="button shadowed text-danger w-33" (click)="modal.dismiss('Cross click')">
         Cancelar
       </button>
       <button

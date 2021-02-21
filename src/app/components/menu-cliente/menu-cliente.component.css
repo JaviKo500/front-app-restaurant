@@ -26,6 +26,13 @@
     transform: translate3d(0, 0, 0);
 }
 
+.boton-float {
+    position: fixed;
+    bottom: 70px;
+    right: 10px;
+    z-index: 99;
+}
+
 @media screen and (min-width: 1000px) {
     .contenido {
         padding-top: 0px;
@@ -33,9 +40,6 @@
 }
 
 @media screen and (min-width: 765px) {
-    .cont-padding {
-        padding-right: 0px;
-    }
     .contenido {
         padding-top: 0px;
     }
