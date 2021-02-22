@@ -30,6 +30,18 @@ export class FormularioComboComponent implements OnInit {
       swal.fire('Error', 'Solo imágenes', 'error');
     }
   }
+
+  //registrar combo
+  registrarCombo(): void {}
+
+  //campos completos
+  camposLlenos(): boolean {
+    let band = false;
+    let c = this.combo;
+
+    return band;
+  }
+
   search = (text$: Observable<string>) =>
     text$.pipe(
       distinctUntilChanged(),
