@@ -24,6 +24,7 @@ export class PedidoService {
   private httpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
 
   //listar pedidos del dia
+  //el numero 1 es del estado solicitado
   listarPedidosDia(): Observable<any> {
     return this.http.get(this.url + 'pedidos/dia/estado/' + 1).pipe(
       map((response: any) => response.pedidos as Pedido[]),
