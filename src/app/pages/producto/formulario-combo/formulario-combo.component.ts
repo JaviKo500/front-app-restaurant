@@ -9,7 +9,7 @@ import { Producto } from '../../../models/productos/producto';
 import { ProductoService } from '../../../services/productos/producto.service';
 import { BASE_URL } from '../../../../environments/configurations';
 import { Combo } from 'src/app/models/productos/combo';
-import { DetalleCombo } from 'src/app/models/productos/detalle-combo';
+import { ProductoCombo } from 'src/app/models/productos/producto-combo';
 @Component({
   selector: 'app-formulario-combo',
   templateUrl: './formulario-combo.component.html',
@@ -47,7 +47,7 @@ export class FormularioComboComponent implements OnInit {
   data: Producto[] = [];
   // para cuando se seleciona un item
   seleccionarProducto = (producto: Producto) => {
-    let itemscombo: DetalleCombo = new DetalleCombo();
+    let itemscombo: ProductoCombo = new ProductoCombo();
     itemscombo.producto = producto;
     //verificar si existe sino hacer un nuevo push
     if (!this.existeProducto(producto.id)) {
@@ -55,7 +55,7 @@ export class FormularioComboComponent implements OnInit {
     } else {
       //si existe solo suma la cantidad
       this.combo.itemscombo = this.combo.itemscombo.map(
-        (item: DetalleCombo) => {
+        (item: ProductoCombo) => {
           if (item.producto.id == producto.id) {
             item.cantidad++;
           }
@@ -68,7 +68,7 @@ export class FormularioComboComponent implements OnInit {
 
   existeProducto(id: number): boolean {
     let band = false;
-    this.combo.itemscombo.forEach((item: DetalleCombo) => {
+    this.combo.itemscombo.forEach((item: ProductoCombo) => {
       if (item.producto.id === id) {
         band = true;
       }
@@ -78,7 +78,7 @@ export class FormularioComboComponent implements OnInit {
 
   eliminarProductoArray(id: number) {
     this.combo.itemscombo = this.combo.itemscombo.filter(
-      (item: DetalleCombo) => id !== item.producto.id
+      (item: ProductoCombo) => id !== item.producto.id
     );
   }
 
@@ -88,7 +88,7 @@ export class FormularioComboComponent implements OnInit {
       return this.eliminarProductoArray(id);
     }
 
-    this.combo.itemscombo = this.combo.itemscombo.map((item: DetalleCombo) => {
+    this.combo.itemscombo = this.combo.itemscombo.map((item: ProductoCombo) => {
       if (item.producto.id === id) {
         item.cantidad = cantidad;
       }

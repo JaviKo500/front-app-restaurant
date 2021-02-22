@@ -1,5 +1,5 @@
 import { Categoria } from './categoria';
-import { DetalleCombo } from './detalle-combo';
+import { ProductoCombo } from './producto-combo';
 
 export class Combo {
   id: number;
@@ -8,5 +8,5 @@ export class Combo {
   precio: number = 0.0;
   imagen: string;
   categoria: Categoria;
-  itemscombo: DetalleCombo[] = [];
+  itemscombo: ProductoCombo[] = [];
 }
