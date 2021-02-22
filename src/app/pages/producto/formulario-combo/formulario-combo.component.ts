@@ -7,9 +7,11 @@ import swal from 'sweetalert2';
 import { PreviewImgComponent } from '../../../components/preview-img/preview-img.component';
 import { Producto } from '../../../models/productos/producto';
 import { ProductoService } from '../../../services/productos/producto.service';
-import { BASE_URL } from '../../../../environments/configurations';
+import { API_PROD, BASE_URL } from '../../../../environments/configurations';
 import { Combo } from 'src/app/models/productos/combo';
 import { ProductoCombo } from 'src/app/models/productos/producto-combo';
+import { ComboService } from 'src/app/services/combo/combo.service';
+import { CategoriaService } from 'src/app/services/categoria/categoria.service';
 @Component({
   selector: 'app-formulario-combo',
   templateUrl: './formulario-combo.component.html',
@@ -20,7 +22,11 @@ export class FormularioComboComponent implements OnInit {
   imagenProducto: File;
   combo: Combo = new Combo();
   api: any = BASE_URL;
-  constructor(private productoService: ProductoService) {}
+  constructor(
+    private productoService: ProductoService,
+    private comboService: ComboService,
+    private categoriaService: CategoriaService
+  ) {}
 
   ngOnInit(): void {}
   onChange(event): void {
@@ -32,13 +38,27 @@ export class FormularioComboComponent implements OnInit {
   }
 
   //registrar combo
-  registrarCombo(): void {}
+  registrarCombo(): void {
+    if (this.camposLlenos()) {
+      if (this.imagenProducto) {
+        this.comboService.registrarCombo(this.combo).subscribe((res) => {
+          console.log(res);
+        });
+      } else {
+        swal.fire('Observación', 'Debe seleccionar una imágen.', 'warning');
+      }
+    }
+  }
 
   //campos completos
   camposLlenos(): boolean {
     let band = false;
     let c = this.combo;
-
+    if (!c.categoria || c.itemscombo.length == 0 || c.precio == 0) {
+      swal.fire('Observación', 'Completar los campos', 'warning');
+    } else {
+      band = true;
+    }
     return band;
   }
 
@@ -106,5 +126,33 @@ export class FormularioComboComponent implements OnInit {
       }
       return item;
     });
+  }
+
+  cargarImagenProducto(id: number): void {
+    this.categoriaService
+      .saveImgCategoria_Producto(this.imagenProducto, id, API_PROD, 'combo')
+      .subscribe(
+        (res) => {
+          swal.fire({
+            position: 'top-end',
+            icon: 'success',
+            title: 'Producto guardado correctamente',
+            showConfirmButton: false,
+            timer: 1000,
+          });
+          console.log('guardado');
+          this.imagenProducto = null;
+          this.combo = new Combo();
+          this.img_url.vaciarUrl();
+        },
+        (error) => {
+          this.productoService
+            .deleteProductoDefinitive(id)
+            .subscribe((res) => {});
+          console.log('error');
+          console.log(error);
+          this.imagenProducto = null;
+        }
+      );
   }
 }

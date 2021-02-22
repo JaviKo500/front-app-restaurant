@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { BASE_URL } from 'src/environments/configurations';
+import { API_PROD, BASE_URL } from 'src/environments/configurations';
 import { catchError, map } from 'rxjs/operators';
 import { Categoria } from 'src/app/models/productos/categoria';
 import { Observable, throwError } from 'rxjs';
@@ -65,8 +65,17 @@ export class CategoriaService {
   }
 
   //gurdar imagen producto-categoria
-  saveImgCategoria_Producto(archivo: File, id, api: string): Observable<any> {
+  saveImgCategoria_Producto(
+    archivo: File,
+    id,
+    api: string,
+    tipo: string
+  ): Observable<any> {
     let formDataImg = new FormData();
+    //para guardar productos y combos
+    if (api == API_PROD) {
+      formDataImg.append('tipo', tipo);
+    }
     formDataImg.append('archivo', archivo);
     formDataImg.append('id', id);
     return this.http.post(this.url + api, formDataImg).pipe(
@@ -80,6 +89,17 @@ export class CategoriaService {
 
   deleteCategoria(id: number): Observable<any> {
     return this.http.delete(this.url + 'delete/category/' + id).pipe(
+      map((response: any) => response.mensaje),
+      catchError((e) => {
+        swal.fire(e.error.mensaje, e.error.error, 'error');
+        return throwError(e);
+      })
+    );
+  }
+
+  //eliminar definitivamente por error de imagen
+  deleteCategoriaDefinitive(id: number): Observable<any> {
+    return this.http.delete(this.url + 'delete/category/definitive/' + id).pipe(
       map((response: any) => response.mensaje),
       catchError((e) => {
         swal.fire(e.error.mensaje, e.error.error, 'error');

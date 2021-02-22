@@ -152,7 +152,7 @@ export class CategoriaListarComponent implements OnInit {
 
   cargarImagenCategoria(id: number): void {
     this.categoriaService
-      .saveImgCategoria_Producto(this.imagenCategoria, id, API_CATE)
+      .saveImgCategoria_Producto(this.imagenCategoria, id, API_CATE, '')
       .subscribe(
         (res) => {
           //alerta de mensaje al guardar el
@@ -171,7 +171,9 @@ export class CategoriaListarComponent implements OnInit {
           this.CerrarAllModals();
         },
         (error) => {
-          this.categoriaService.deleteCategoria(id).subscribe((res) => {});
+          this.categoriaService
+            .deleteCategoriaDefinitive(id)
+            .subscribe((res) => {});
           console.log('error');
           console.log(error);
           this.imagenCategoria = null;

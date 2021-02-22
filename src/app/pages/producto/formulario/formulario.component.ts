@@ -1,4 +1,10 @@
-import { Component, OnInit, EventEmitter, Output, ViewChild } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  EventEmitter,
+  Output,
+  ViewChild,
+} from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Categoria } from 'src/app/models/productos/categoria';
 import { Producto } from 'src/app/models/productos/producto';
@@ -15,7 +21,7 @@ import { PreviewImgComponent } from '../../../components/preview-img/preview-img
   styleUrls: ['./formulario.component.css'],
 })
 export class FormularioComponent implements OnInit {
-  @ViewChild( 'img_url' , { static: false }) img_url: PreviewImgComponent;
+  @ViewChild('img_url', { static: false }) img_url: PreviewImgComponent;
   imagenProducto: File;
   producto: Producto = new Producto();
   listaCategorias: Categoria[] = [];
@@ -40,7 +46,7 @@ export class FormularioComponent implements OnInit {
     swal.showLoading();
     this.productoService.ObtenerProducto(id).subscribe((response) => {
       this.producto = response;
-      this.img_url.pasarURLImg('product/img/'+this.producto.imagen);
+      this.img_url.pasarURLImg('product/img/' + this.producto.imagen);
       swal.close();
     });
   }
@@ -118,7 +124,7 @@ export class FormularioComponent implements OnInit {
   //temina metodo de actualizaProducto
   cargarImagenProducto(id: number): void {
     this.categoriaService
-      .saveImgCategoria_Producto(this.imagenProducto, id, API_PROD)
+      .saveImgCategoria_Producto(this.imagenProducto, id, API_PROD, 'producto')
       .subscribe(
         (res) => {
           swal.fire({
@@ -134,7 +140,9 @@ export class FormularioComponent implements OnInit {
           this.img_url.vaciarUrl();
         },
         (error) => {
-          this.productoService.deleteProducto(id).subscribe((res) => {});
+          this.productoService
+            .deleteProductoDefinitive(id)
+            .subscribe((res) => {});
           console.log('error');
           console.log(error);
           this.imagenProducto = null;
