@@ -6,6 +6,7 @@ import { DetallePedido } from '../../models/pedidos/detalle-pedido';
 import { Pedido } from 'src/app/models/pedidos/pedido';
 import { catchError, map } from 'rxjs/operators';
 import swal from 'sweetalert2';
+import { Combo } from 'src/app/models/productos/combo';
 
 @Injectable({
   providedIn: 'root',
@@ -15,6 +16,8 @@ export class PedidoService {
   items$ = new EventEmitter<DetallePedido[]>();
   //evento para pasar el id de la mesa
   id_mesa$ = new EventEmitter<number>();
+  //evento para pasar los combos si ecisten
+  //combos$=new EventEmitter<Combo[]>();
 
   constructor(private http: HttpClient) {}
   private url: string = BASE_URL;
