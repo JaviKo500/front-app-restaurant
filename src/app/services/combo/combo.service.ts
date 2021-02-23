@@ -20,6 +20,9 @@ export class ComboService {
       .pipe(
         map((response: any) => response),
         catchError((e) => {
+          if (e.status === 409) {
+            console.log(e);
+          }
           swal.fire(e.error.mensaje, e.error.error, 'warning');
           return throwError(e);
         })

@@ -1,77 +1,136 @@
 <div class="card">
-    <div class="card-body">
-        <div class="grid">
-            <!-- Aqui van los errores desde el back -->
-            <!-- <div class="row">
+  <div class="card-body">
+    <div class="grid">
+      <!-- Aqui van los errores desde el back -->
+      <!-- <div class="row">
                 <div class="cell-xl-12 cell-sm-12 cell-lg-12 ">
                     errores
                 </div>
             </div> -->
-            <div class="row">
-                <div class="cell-xl-8 cell-sm-12 cell-lg-12 mt-4">
-                    <form>
-                        <div class="input-group mb-2">
-                            <div class="input-group-prepend">
-                                <label class="input-group-text" for="inputGroupSelect01" style="border-right-color: transparent">
+      <div class="row">
+        <div class="cell-xl-8 cell-sm-12 cell-lg-12 mt-4">
+          <form>
+            <div class="input-group mb-2">
+              <div class="input-group-prepend">
+                <label
+                  class="input-group-text"
+                  for="inputGroupSelect01"
+                  style="border-right-color: transparent"
+                >
                   Tipo Especial
                 </label>
-                            </div>
-                            <select class="custom-select">
+              </div>
+              <select class="custom-select">
                 <option [ngValue]="undefined">Choose...</option>
                 <option value="1">Combo</option>
                 <option value="2">Promoción</option>
               </select>
-                        </div>
-                        <input type="text" data-role="input" data-prepend="Nombre" class="mb-2" autocomplete="off" name="combo_nombre" [(ngModel)]="combo.nombre" />
-                        <input type="number" data-role="input" data-prepend="Precio" name="combo_precio" class="mb-2" autocomplete="off" [(ngModel)]="combo.precio" />
-                        <textarea data-role="textarea" placeholder="Descripción" class="mb-2" name="descrip_combo" [(ngModel)]="combo.descripcion"></textarea>
-                        <div>
-                            <input data-role="input" data-prepend="Agregar Productos" type="text" class="form-control mb-2" placeholder="Ingrese el nombre del producto" [ngbTypeahead]="search" [inputFormatter]="seleccionarProducto" [resultFormatter]="formatter" />
-                        </div>
-                    </form>
-                </div>
-
-                <div class="cell-xl-4 cell-sm-12 cell-lg-12">
-                    <app-preview-img (imagenSave)="(imagenProducto)" (change)="onChange($event)" #img_url></app-preview-img>
-                </div>
             </div>
-            <div class="row">
-                <div class="cell-sm-12 cell-md-12 cell-xl-8 mb-5">
-                    <table class="table row-hover row-border">
-                        <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>Producto</th>
-                                <th>Cantidad</th>
-                                <th>Categoria</th>
-                                <th>Acciones</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr *ngFor="let item of combo.itemscombo">
-                                <td>
-                                    <img src="{{ api }}product/img/{{ item.producto.imagen }}" alt="" style="width: 40px; height: 40px" />
-                                </td>
-                                <td>{{ item.producto.nombre }}</td>
-                                <td>
-                                    <input id="{{ item.id }}" type="number" value="{{ item.cantidad }}" class="form-control col-sm-4" (change)="actualizarCantidad$(item.producto.id, $event)" />
-                                </td>
-                                <td>{{ item.producto.categoria.nombre }}</td>
-                                <td>
-                                    <div class="w-100 d-flex justify-content-around">
-                                        <button class="button alert" (click)="eliminarProductoArray(item.producto.id)">
+            <input
+              type="text"
+              data-role="input"
+              data-prepend="Nombre"
+              class="mb-2"
+              autocomplete="off"
+              name="combo_nombre"
+              [(ngModel)]="combo.nombre"
+            />
+            <input
+              type="number"
+              data-role="input"
+              data-prepend="Precio"
+              name="combo_precio"
+              class="mb-2"
+              autocomplete="off"
+              [(ngModel)]="combo.precio"
+            />
+            <textarea
+              data-role="textarea"
+              placeholder="Descripción"
+              class="mb-2"
+              name="descrip_combo"
+              [(ngModel)]="combo.descripcion"
+            ></textarea>
+            <div>
+              <input
+                data-role="input"
+                data-prepend="Agregar Productos"
+                type="text"
+                class="form-control mb-2"
+                placeholder="Ingrese el nombre del producto"
+                [ngbTypeahead]="search"
+                [inputFormatter]="seleccionarProducto"
+                [resultFormatter]="formatter"
+              />
+            </div>
+          </form>
+        </div>
+
+        <div class="cell-xl-4 cell-sm-12 cell-lg-12">
+          <app-preview-img
+            (imagenSave)="(imagenProducto)"
+            (change)="onChange($event)"
+            #img_url
+          ></app-preview-img>
+        </div>
+      </div>
+      <div class="row">
+        <div class="cell-sm-12 cell-md-12 cell-xl-8 mb-5">
+          <table class="table row-hover row-border">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Producto</th>
+                <th>Cantidad</th>
+                <th>Categoria</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of combo.itemsCombo">
+                <td>
+                  <img
+                    src="{{ api }}product/img/{{ item.producto.imagen }}"
+                    alt=""
+                    style="width: 40px; height: 40px"
+                  />
+                </td>
+                <td>{{ item.producto.nombre }}</td>
+                <td>
+                  <input
+                    id="{{ item.id }}"
+                    type="number"
+                    value="{{ item.cantidad }}"
+                    class="form-control col-sm-4"
+                    (change)="actualizarCantidad$(item.producto.id, $event)"
+                  />
+                </td>
+                <td>{{ item.producto.categoria.nombre }}</td>
+                <td>
+                  <div class="w-100 d-flex justify-content-around">
+                    <button
+                      class="button alert"
+                      (click)="eliminarProductoArray(item.producto.id)"
+                    >
                       <i class="far fa-trash-alt"></i>
                     </button>
-                                    </div>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <div class="cell-sm-12 cell-md-12 cell-xl-4 mb-5 d-flex justify-content-center align-items-center">
-                    <button class="button shadowed primary w-75">Guardar Datos</button>
-                </div>
-            </div>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </div>
+        <div
+          class="cell-sm-12 cell-md-12 cell-xl-4 mb-5 d-flex justify-content-center align-items-center"
+        >
+          <button
+            class="button shadowed primary w-75"
+            (click)="registrarCombo()"
+          >
+            Guardar Datos
+          </button>
+        </div>
+      </div>
     </div>
+  </div>
 </div>

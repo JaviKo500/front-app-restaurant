@@ -88,7 +88,7 @@ export class ProductoService {
 
   //elimnar productos definitivamente por error de imagen
   deleteProductoDefinitive(id: number): Observable<any> {
-    return this.http.delete(this.url + '"delete/product/definitivo/' + id).pipe(
+    return this.http.delete(this.url + 'delete/product/definitivo/' + id).pipe(
       map((response: any) => response.mensaje),
       catchError((e) => {
         swal.fire(e.error.mensaje, e.error.error, 'error');

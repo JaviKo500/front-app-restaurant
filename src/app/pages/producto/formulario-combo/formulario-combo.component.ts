@@ -43,6 +43,7 @@ export class FormularioComboComponent implements OnInit {
       if (this.imagenProducto) {
         this.comboService.registrarCombo(this.combo).subscribe((res) => {
           console.log(res);
+          this.cargarImagenProducto(res.id_combo);
         });
       } else {
         swal.fire('Observación', 'Debe seleccionar una imágen.', 'warning');
@@ -54,7 +55,7 @@ export class FormularioComboComponent implements OnInit {
   camposLlenos(): boolean {
     let band = false;
     let c = this.combo;
-    if (!c.categoria || c.itemscombo.length == 0 || c.precio == 0) {
+    if (c.itemsCombo.length === 0 || c.precio === 0) {
       swal.fire('Observación', 'Completar los campos', 'warning');
     } else {
       band = true;
@@ -83,10 +84,10 @@ export class FormularioComboComponent implements OnInit {
     itemscombo.producto = producto;
     //verificar si existe sino hacer un nuevo push
     if (!this.existeProducto(producto.id)) {
-      this.combo.itemscombo.push(itemscombo);
+      this.combo.itemsCombo.push(itemscombo);
     } else {
       //si existe solo suma la cantidad
-      this.combo.itemscombo = this.combo.itemscombo.map(
+      this.combo.itemsCombo = this.combo.itemsCombo.map(
         (item: ProductoCombo) => {
           if (item.producto.id == producto.id) {
             item.cantidad++;
@@ -100,7 +101,7 @@ export class FormularioComboComponent implements OnInit {
 
   existeProducto(id: number): boolean {
     let band = false;
-    this.combo.itemscombo.forEach((item: ProductoCombo) => {
+    this.combo.itemsCombo.forEach((item: ProductoCombo) => {
       if (item.producto.id === id) {
         band = true;
       }
@@ -109,7 +110,7 @@ export class FormularioComboComponent implements OnInit {
   }
 
   eliminarProductoArray(id: number) {
-    this.combo.itemscombo = this.combo.itemscombo.filter(
+    this.combo.itemsCombo = this.combo.itemsCombo.filter(
       (item: ProductoCombo) => id !== item.producto.id
     );
   }
@@ -120,7 +121,7 @@ export class FormularioComboComponent implements OnInit {
       return this.eliminarProductoArray(id);
     }
 
-    this.combo.itemscombo = this.combo.itemscombo.map((item: ProductoCombo) => {
+    this.combo.itemsCombo = this.combo.itemsCombo.map((item: ProductoCombo) => {
       if (item.producto.id === id) {
         item.cantidad = cantidad;
       }

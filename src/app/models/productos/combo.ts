@@ -8,5 +8,5 @@ export class Combo {
   precio: number = 0.0;
   imagen: string;
   categoria: Categoria;
-  itemscombo: ProductoCombo[] = [];
+  itemsCombo: ProductoCombo[] = [];
 }
