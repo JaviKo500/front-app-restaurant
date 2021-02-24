@@ -43,14 +43,6 @@ export class CategoriaListarComponent implements OnInit {
       swal.fire('Error', 'Solo imágenes', 'error');
     }
   }
-  //por borrar sin uso
-  private listarCategorias(): void {
-    //listar todas las categorias sin excepcion.
-    this.categoriaService.ListaCategorias().subscribe((categorias: any) => {
-      this.listaCategorias = categorias;
-      console.log(categorias);
-    });
-  }
 
   private listarCategoriaspageable(): void {
     //listar todas las categorias sin excepcion.
@@ -116,7 +108,7 @@ export class CategoriaListarComponent implements OnInit {
             this.cargarImagenCategoria(Number(response.id));
             console.log(response);
             this.CerrarAllModals();
-            this.listarCategorias();
+            this.listarCategoriaspageable();
           });
         //si no existe un archivo o el archivo de imagen es erroneo se verifica que exista un nombre de imagenCategoria
         //en el backend y si existe se pasa a actualizar la categoria a excepcion de la imagen
@@ -128,7 +120,7 @@ export class CategoriaListarComponent implements OnInit {
           this.categoriaService.ActualizarCategoria(this.categoria).subscribe(
             (response) => {
               console.log('Categoria actualizado');
-              this.listarCategorias();
+              this.listarCategoriaspageable();
               this.CerrarAllModals();
             },
             (error) => {
@@ -167,7 +159,7 @@ export class CategoriaListarComponent implements OnInit {
           //restablecer variables
           console.log('guardado');
           this.imagenCategoria = null;
-          this.listarCategorias();
+          this.listarCategoriaspageable();
           this.CerrarAllModals();
         },
         (error) => {
@@ -207,7 +199,7 @@ export class CategoriaListarComponent implements OnInit {
           this.categoriaService
             .deleteCategoria(idCategoria)
             .subscribe((res) => {
-              this.listarCategorias();
+              this.listarCategoriaspageable();
               swal.fire('Borrado', res, 'success');
               console.log(res);
             });

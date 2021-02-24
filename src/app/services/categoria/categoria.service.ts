@@ -43,7 +43,7 @@ export class CategoriaService {
   }
 
   ListaCategorias(): Observable<Categoria[]> {
-    return this.http.get(this.url + 'get/categories').pipe(
+    return this.http.get(this.url + 'get/categories/products').pipe(
       map((response: any) => response.categorias as Categoria[]),
       catchError((e) => {
         return throwError(e);
