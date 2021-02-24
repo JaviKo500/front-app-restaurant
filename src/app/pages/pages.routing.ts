@@ -12,6 +12,7 @@ import { UsuariosComponent } from './usuarios/usuarios.component';
 import { FormularioUsuarioComponent } from './usuarios/formulario-usuario/formulario-usuario.component';
 import { ConfiguracionEmpresaComponent } from './configuraciones/configuracion-empresa/configuracion-empresa.component';
 import { FormularioComboComponent } from './producto/formulario-combo/formulario-combo.component';
+import { ListaCombosComponent } from './producto/lista-combos/lista-combos.component';
 
 const routes: Routes = [
   {
@@ -47,6 +48,11 @@ const routes: Routes = [
         path: 'productos/page/:page',
         component: ProductoListarComponent,
         data: { title: 'Productos', subTitle: 'Lista de productos' },
+      },
+      {
+        path: 'combos/page/:page',
+        component: ListaCombosComponent,
+        data: { title: 'Combos', subTitle: 'Lista de combos u otros especiales' },
       },
       {
         path: 'categorias/page/:page',

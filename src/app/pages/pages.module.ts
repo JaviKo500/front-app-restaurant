@@ -20,6 +20,7 @@ import { UsuariosComponent } from './usuarios/usuarios.component';
 import { FormularioUsuarioComponent } from './usuarios/formulario-usuario/formulario-usuario.component';
 import { VentaComponent } from './venta/venta.component';
 import { FormularioComboComponent } from './producto/formulario-combo/formulario-combo.component';
+import { ListaCombosComponent } from './producto/lista-combos/lista-combos.component';
 
 
 
@@ -36,7 +37,8 @@ import { FormularioComboComponent } from './producto/formulario-combo/formulario
     UsuariosComponent,
     FormularioUsuarioComponent,
     VentaComponent,
-    FormularioComboComponent
+    FormularioComboComponent,
+    ListaCombosComponent
   ],
   exports: [
     DashboardComponent,

@@ -46,12 +46,17 @@ export class SidebarService {
           url: 'productos/page/0',
         },
         {
+          title: 'Lista combos',
+          icon: 'fas fa-boxes',
+          url: 'combos/page/0',
+        },
+        {
           title: 'Agregar producto',
           icon: 'fa fa-plus-circle',
           url: 'crearpro/:id',
         },
         {
-          title: 'Crear combo o promión',
+          title: 'Crear combo o promoción',
           icon: 'fas fa-hamburger',
           url: 'crearcombo/:id',
         },

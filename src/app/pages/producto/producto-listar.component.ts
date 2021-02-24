@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import swal from 'sweetalert2';
+
 import { Producto } from '../../models/productos/producto';
 import { ProductoService } from 'src/app/services/productos/producto.service';
 import { BASE_URL } from 'src/environments/configurations';
-import { ActivatedRoute } from '@angular/router';
-import swal from 'sweetalert2';
 
 @Component({
   selector: 'app-producto-listar',
