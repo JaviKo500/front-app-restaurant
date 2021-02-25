@@ -137,8 +137,16 @@
           <button
             class="button shadowed primary w-75"
             (click)="registrarCombo()"
+            *ngIf="!combo.id"
           >
             Guardar Datos
+          </button>
+          <button
+            class="button shadowed primary w-75"
+            (click)="actualizarCombo()"
+            *ngIf="combo.id"
+          >
+            Actualizar Datos
           </button>
         </div>
       </div>

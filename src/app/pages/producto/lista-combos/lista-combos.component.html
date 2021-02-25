@@ -46,7 +46,12 @@
         <tbody>
           <tr *ngFor="let combo of itemsCombos">
             <td>
-              <img [src]="combo.imagen" alt="" width="50px" height="50px" />
+              <img
+                src="{{ api }}product/img/{{ combo.imagen }}"
+                alt=""
+                width="50px"
+                height="50px"
+              />
             </td>
             <td>{{ combo.nombre }}</td>
             <td>{{ combo.itemsCombo.length }} productos</td>
@@ -60,6 +65,14 @@
                     (click)="productosCombo(combo, modalItemsCombo)"
                   >
                     Ver Detalle
+                  </button>
+                </div>
+                <div class="cell-sm-4">
+                  <button
+                    class="button alert shadowed border-radius-1 mb-0"
+                    [routerLink]="['/dashboard/crearcombo/', combo.id]"
+                  >
+                    Editar
                   </button>
                 </div>
                 <div class="cell-sm-4">

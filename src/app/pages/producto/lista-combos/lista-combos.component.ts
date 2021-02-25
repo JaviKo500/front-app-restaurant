@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { ComboService } from 'src/app/services/combo/combo.service';
+import { BASE_URL } from 'src/environments/configurations';
 import { Combo } from '../../../models/productos/combo';
-import { ProductoCombo } from '../../../models/productos/producto-combo';
 
 @Component({
   selector: 'app-lista-combos',
@@ -12,6 +12,7 @@ import { ProductoCombo } from '../../../models/productos/producto-combo';
 })
 export class ListaCombosComponent implements OnInit {
   itemsCombos: Combo[] = [];
+  api: any = BASE_URL;
   combo: Combo;
   private modalRef: NgbModalRef;
 
@@ -27,6 +28,7 @@ export class ListaCombosComponent implements OnInit {
   listarCombosPageable(): void {
     this.comboService.listarCombosPageable(0).subscribe((res) => {
       console.log(res.combos.content);
+      this.itemsCombos = res.combos.content;
     });
   }
 

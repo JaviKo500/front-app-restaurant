@@ -62,7 +62,7 @@ export class ProductoService {
       );
   }
   //actualizar productos
-  updateProduct(producto: Producto): Observable<Producto> {
+  updateProduct(producto: Producto): Observable<any> {
     return this.http
       .put(this.url + 'update/product/' + producto.id, producto, {
         headers: this.httpHeaders,

@@ -33,6 +33,7 @@ export class ComboService {
     return this.http.get(this.url + 'get/categories/combos').pipe(
       map((response: any) => response),
       catchError((e) => {
+        swal.fire(e.error.mensaje, e.error.error, 'error');
         return throwError(e);
       })
     );
@@ -42,6 +43,7 @@ export class ComboService {
     return this.http.get(this.url + 'get/combos-disponibles/' + page).pipe(
       map((response: any) => response),
       catchError((e) => {
+        swal.fire(e.error.mensaje, e.error.error, 'error');
         return throwError(e);
       })
     );
@@ -51,6 +53,17 @@ export class ComboService {
     return this.http.get(this.url + '').pipe(
       map((response: any) => response),
       catchError((e) => {
+        swal.fire(e.error.mensaje, e.error.error, 'error');
+        return throwError(e);
+      })
+    );
+  }
+
+  obtenerComboId(id: number): Observable<any> {
+    return this.http.get(this.url + 'get/combo/' + id).pipe(
+      map((response: any) => response),
+      catchError((e) => {
+        swal.fire(e.error.mensaje, e.error.error, 'error');
         return throwError(e);
       })
     );

@@ -13,6 +13,7 @@ import { ProductoCombo } from 'src/app/models/productos/producto-combo';
 import { ComboService } from 'src/app/services/combo/combo.service';
 import { CategoriaService } from 'src/app/services/categoria/categoria.service';
 import { Categoria } from 'src/app/models/productos/categoria';
+import { ActivatedRoute, Router } from '@angular/router';
 @Component({
   selector: 'app-formulario-combo',
   templateUrl: './formulario-combo.component.html',
@@ -27,11 +28,19 @@ export class FormularioComboComponent implements OnInit {
   constructor(
     private productoService: ProductoService,
     private comboService: ComboService,
-    private categoriaService: CategoriaService
+    private categoriaService: CategoriaService,
+    private router: Router,
+    private activatedRoute: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
     this.listarCategoriasCombo();
+    this.activatedRoute.paramMap.subscribe((params) => {
+      let id = +params.get('id');
+      if (id) {
+        this.buscarCombo(id);
+      }
+    });
   }
 
   onChange(event): void {
@@ -49,6 +58,7 @@ export class FormularioComboComponent implements OnInit {
       this.listaCategorias = res.categorias;
     });
   }
+
   //registrar combo
   registrarCombo(): void {
     if (this.camposLlenos()) {
@@ -66,6 +76,35 @@ export class FormularioComboComponent implements OnInit {
   //actualizar combos
   actualizarCombo(): void {
     if (this.camposLlenos()) {
+      if (this.imagenProducto) {
+        this.comboService.registrarCombo(this.combo).subscribe((res) => {
+          this.cargarImagenProducto(res.id_combo);
+          this.router.navigate(['/dashboard/combos/page/0']);
+        }),
+          (error) => {
+            console.log(error.mensaje);
+          };
+      } else {
+        if (this.combo.imagen == '') {
+          swal.fire('Advertencia', 'Debe seleccionar su imagen', 'warning');
+        } else {
+          this.comboService.registrarCombo(this.combo).subscribe((res) => {
+            console.log('Producto actualizado');
+            swal.fire({
+              position: 'top-end',
+              icon: 'success',
+              title: 'Su producto fué actualizado correctamente.',
+              showConfirmButton: false,
+              timer: 1000,
+            });
+            console.log(res);
+            this.router.navigate(['/dashboard/combos/page/0']);
+          }),
+            (error) => {
+              console.log(error.mensaje);
+            };
+        }
+      }
     }
   }
 
@@ -187,5 +226,14 @@ export class FormularioComboComponent implements OnInit {
     return o1 === null || o2 === null || o1 === undefined || o2 === undefined
       ? false
       : o1.id === o2.id;
+  }
+
+  buscarCombo(id: number): void {
+    this.comboService.obtenerComboId(id).subscribe((res) => {
+      this.combo = res.combo;
+    }),
+      (err) => {
+        console.log(err);
+      };
   }
 }

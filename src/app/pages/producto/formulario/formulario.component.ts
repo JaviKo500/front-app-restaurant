@@ -79,16 +79,10 @@ export class FormularioComponent implements OnInit {
     if (this.CamposCompletos()) {
       if (this.imagenProducto) {
         this.productoService.updateProduct(this.producto).subscribe((res) => {
-          console.log('Producto actualizado');
-          swal.fire({
-            position: 'top-end',
-            icon: 'success',
-            title: 'Su producto fué actualizado correctamente.',
-            showConfirmButton: false,
-            timer: 1000,
-          });
+          let id = res.id_producto;
           console.log(res);
-          this.route.navigateByUrl('/dashboard/productos/page/0');
+          this.cargarImagenProducto(id);
+          this.route.navigate(['/dashboard/productos/page/0']);
         }),
           (error) => {
             console.log(error.mensaje);
@@ -109,7 +103,7 @@ export class FormularioComponent implements OnInit {
                 timer: 1000,
               });
               console.log(response);
-              this.route.navigateByUrl('/dashboard/productos/page/0');
+              this.route.navigate(['/dashboard/productos/page/0']);
             },
             (error) => {
               console.log(error.mensaje);
