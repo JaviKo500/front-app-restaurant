@@ -63,11 +63,22 @@ export class FormularioComboComponent implements OnInit {
     }
   }
 
+  //actualizar combos
+  actualizarCombo(): void {
+    if (this.camposLlenos()) {
+    }
+  }
+
   //campos completos
   camposLlenos(): boolean {
     let band = false;
     let c = this.combo;
-    if (c.itemsCombo.length === 0 || c.precio === 0) {
+    if (
+      c.itemsCombo.length === 0 ||
+      c.precio === 0 ||
+      !c.categoria ||
+      c.nombre.length < 3
+    ) {
       swal.fire('Observación', 'Completar los campos', 'warning');
     } else {
       band = true;
