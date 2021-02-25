@@ -29,6 +29,24 @@ export class ComboService {
       );
   }
 
+  listarTiposCategorias(): Observable<any> {
+    return this.http.get(this.url + 'get/categories/combos').pipe(
+      map((response: any) => response),
+      catchError((e) => {
+        return throwError(e);
+      })
+    );
+  }
+
+  listarCombosPageable(page: number): Observable<any> {
+    return this.http.get(this.url + 'get/combos-disponibles/' + page).pipe(
+      map((response: any) => response),
+      catchError((e) => {
+        return throwError(e);
+      })
+    );
+  }
+
   obtenerCombosDisponibles(): Observable<any> {
     return this.http.get(this.url + '').pipe(
       map((response: any) => response),

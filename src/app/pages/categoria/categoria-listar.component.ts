@@ -7,7 +7,8 @@ import { CategoriaService } from 'src/app/services/categoria/categoria.service';
 import { BASE_URL, API_CATE } from 'src/environments/configurations';
 import swal from 'sweetalert2';
 import { Categoria } from '../../models/productos/categoria';
-import { PreviewImgComponent } from '../../components/preview-img/preview-img.component';
+import { TipoCategoria } from 'src/app/models/productos/tipo-categoria';
+import { ComboService } from 'src/app/services/combo/combo.service';
 
 @Component({
   selector: 'app-categoria-listar',
@@ -20,7 +21,7 @@ export class CategoriaListarComponent implements OnInit {
   paginador: any;
   path: any = '/dashboard/categorias/page';
   //termina datos paginacion
-
+  listaTipoCategorias: TipoCategoria[] = [];
   api: any = BASE_URL;
   listaCategorias: Categoria[] = [];
   imagenCategoria: File = null;
@@ -29,11 +30,13 @@ export class CategoriaListarComponent implements OnInit {
   constructor(
     private modalService: NgbModal,
     private categoriaService: CategoriaService,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private comboService: ComboService
   ) {}
 
   ngOnInit(): void {
     this.listarCategoriaspageable();
+    this.listarTiposCategorias();
   }
 
   onChange(event): void {
@@ -42,6 +45,14 @@ export class CategoriaListarComponent implements OnInit {
       this.imagenCategoria = null;
       swal.fire('Error', 'Solo imágenes', 'error');
     }
+  }
+
+  //listar Tipo categorias
+  listarTiposCategorias(): void {
+    this.comboService.listarTiposCategorias().subscribe((res) => {
+      this.listaTipoCategorias = res.categorias;
+      console.log(res.categorias);
+    });
   }
 
   private listarCategoriaspageable(): void {
@@ -176,10 +187,20 @@ export class CategoriaListarComponent implements OnInit {
   CamposLlenos(): boolean {
     let band = false;
     let cat = this.categoria;
-    if (cat.nombre.length > 2) {
+    if (cat.nombre.length > 2 && cat.tipo) {
       band = true;
     }
     return band;
+  }
+
+  //comparar-validar datos de tipo categorias en boostrap
+  compararCategoria(o1: TipoCategoria, o2: TipoCategoria): boolean {
+    if (o1 === undefined && o2 === undefined) {
+      return true;
+    }
+    return o1 === null || o2 === null || o1 === undefined || o2 === undefined
+      ? false
+      : o1.id === o2.id;
   }
 
   eliminarCategoria(idCategoria: number): void {
