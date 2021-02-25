@@ -56,7 +56,6 @@ export class CategoriaListarComponent implements OnInit {
 
   private listarCategoriaspageable(): void {
     //listar todas las categorias sin excepcion.
-    console.log('Paginando.....');
     this.activatedRoute.paramMap.subscribe((params) => {
       let page: number = +params.get('page');
       if (!page) {
@@ -67,6 +66,8 @@ export class CategoriaListarComponent implements OnInit {
         .subscribe((categorias: any) => {
           this.listaCategorias = categorias.content;
           this.paginador = categorias;
+          console.log(categorias.content);
+          
         });
     });
   }
