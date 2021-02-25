@@ -28,6 +28,15 @@ export class CategoriaService {
       );
   }
 
+  listarTiposCategorias(): Observable<any> {
+    return this.http.get(this.url + 'get/tipo-categorias').pipe(
+      map((response: any) => response),
+      catchError((e) => {
+        return throwError(e);
+      })
+    );
+  }
+
   ActualizarCategoria(categoria: Categoria): Observable<Categoria> {
     return this.http
       .put(this.url + 'update/category/' + categoria.id, categoria, {

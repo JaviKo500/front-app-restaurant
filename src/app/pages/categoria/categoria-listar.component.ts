@@ -30,8 +30,7 @@ export class CategoriaListarComponent implements OnInit {
   constructor(
     private modalService: NgbModal,
     private categoriaService: CategoriaService,
-    private activatedRoute: ActivatedRoute,
-    private comboService: ComboService
+    private activatedRoute: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
@@ -49,9 +48,9 @@ export class CategoriaListarComponent implements OnInit {
 
   //listar Tipo categorias
   listarTiposCategorias(): void {
-    this.comboService.listarTiposCategorias().subscribe((res) => {
-      this.listaTipoCategorias = res.categorias;
-      console.log(res.categorias);
+    this.categoriaService.listarTiposCategorias().subscribe((res) => {
+      this.listaTipoCategorias = res;
+      console.log(res);
     });
   }
 

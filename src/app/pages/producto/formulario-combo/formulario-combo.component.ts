@@ -12,6 +12,7 @@ import { Combo } from 'src/app/models/productos/combo';
 import { ProductoCombo } from 'src/app/models/productos/producto-combo';
 import { ComboService } from 'src/app/services/combo/combo.service';
 import { CategoriaService } from 'src/app/services/categoria/categoria.service';
+import { Categoria } from 'src/app/models/productos/categoria';
 @Component({
   selector: 'app-formulario-combo',
   templateUrl: './formulario-combo.component.html',
@@ -20,6 +21,7 @@ import { CategoriaService } from 'src/app/services/categoria/categoria.service';
 export class FormularioComboComponent implements OnInit {
   @ViewChild('img_url', { static: false }) img_url: PreviewImgComponent;
   imagenProducto: File;
+  listaCategorias: Categoria[] = [];
   combo: Combo = new Combo();
   api: any = BASE_URL;
   constructor(
@@ -28,7 +30,10 @@ export class FormularioComboComponent implements OnInit {
     private categoriaService: CategoriaService
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.listarCategoriasCombo();
+  }
+
   onChange(event): void {
     this.imagenProducto = event.target.files[0];
     if (this.imagenProducto.type.indexOf('image') < 0) {
@@ -37,6 +42,13 @@ export class FormularioComboComponent implements OnInit {
     }
   }
 
+  //listar categorias para el combo
+  listarCategoriasCombo(): void {
+    this.comboService.listarCategoriasCombo().subscribe((res) => {
+      console.log(res.categorias);
+      this.listaCategorias = res.categorias;
+    });
+  }
   //registrar combo
   registrarCombo(): void {
     if (this.camposLlenos()) {
@@ -155,5 +167,14 @@ export class FormularioComboComponent implements OnInit {
           this.imagenProducto = null;
         }
       );
+  }
+
+  compararCategoria(o1: Categoria, o2: Categoria): boolean {
+    if (o1 === undefined && o2 === undefined) {
+      return true;
+    }
+    return o1 === null || o2 === null || o1 === undefined || o2 === undefined
+      ? false
+      : o1.id === o2.id;
   }
 }

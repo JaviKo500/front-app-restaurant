@@ -29,7 +29,7 @@ export class ComboService {
       );
   }
 
-  listarTiposCategorias(): Observable<any> {
+  listarCategoriasCombo(): Observable<any> {
     return this.http.get(this.url + 'get/categories/combos').pipe(
       map((response: any) => response),
       catchError((e) => {

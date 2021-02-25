@@ -20,10 +20,21 @@
                   Tipo Especial
                 </label>
               </div>
-              <select class="custom-select">
+              <select
+                [compareWith]="compararCategoria"
+                class="custom-select"
+                id="inputGroupSelect01"
+                name="categorias"
+                [(ngModel)]="combo.categoria"
+              >
                 <option [ngValue]="undefined">Choose...</option>
-                <option value="1">Combo</option>
-                <option value="2">Promoción</option>
+                <option
+                  value="1"
+                  [ngValue]="cate"
+                  *ngFor="let cate of listaCategorias"
+                >
+                  {{ cate.nombre }}
+                </option>
               </select>
             </div>
             <input
