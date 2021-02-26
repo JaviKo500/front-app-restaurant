@@ -1,9 +1,7 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { Categoria } from '../../models/productos/categoria';
-import { element } from 'protractor';
-import { translate } from '@angular/localize/src/utils';
 import { CategoriaService } from '../../services/categoria/categoria.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { PedidoService } from 'src/app/services/pedido/pedido.service';
 import { ComboService } from '../../services/combo/combo.service';
 import { Combo } from '../../models/productos/combo';
@@ -15,7 +13,8 @@ import { Combo } from '../../models/productos/combo';
 })
 export class MenuClienteComponent implements OnInit {
   categorias: Categoria[] = [];
-  combos: Combo [] = [];
+  mesa_id: number;
+  combos: Combo[] = [];
   constructor(
     private router: Router,
     private categoriaService: CategoriaService,
@@ -26,15 +25,17 @@ export class MenuClienteComponent implements OnInit {
   ngOnInit(): void {
     //obtener el id de la mesa
     this.pedidoService.id_mesa$.subscribe((id_mesa) => {
+      //this.mesa_id = id_mesa;
+      console.log(id_mesa);
       if (!id_mesa) {
         this.router.navigate(['/cliente/mesas']);
       } else {
         this.categoriaService.ListaCategorias().subscribe((categorias) => {
           this.categorias = categorias;
         });
-        this.comboService.obtenerCombosDisponibles().subscribe( response => {
+        this.comboService.obtenerCombosDisponibles().subscribe((response) => {
           // TODO: optimizar
-          this.combos = response.combos.content;          
+          this.combos = response.combos.content;
           console.log(this.combos);
         });
       }
