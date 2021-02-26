@@ -4,6 +4,7 @@ import { MesaService } from 'src/app/services/mesa/mesa.service';
 import { PedidoService } from 'src/app/services/pedido/pedido.service';
 import { BASE_URL } from 'src/environments/configurations';
 import { Categoria } from '../../../models/productos/categoria';
+import { Combo } from '../../../models/productos/combo';
 
 @Component({
   selector: 'app-cliente-sidebar',
@@ -12,21 +13,25 @@ import { Categoria } from '../../../models/productos/categoria';
 })
 export class ClienteSidebarComponent implements OnInit {
   @Input() categorias: Categoria[] = [];
+  @Input() combos: Combo[] = [];
   api = BASE_URL;
   id_mesa: number;
-  constructor(private pedidoService: PedidoService, private router: Router) {}
+  constructor(private pedidoService: PedidoService, private router: Router) {
+    console.log(this.combos);
+    console.log(this.categorias);
+  }
   ngOnInit(): void {
     //verificar si existe un numero de mesa
+    
     this.pedidoService.id_mesa$.subscribe((id_mesa) => {
-      console.log('side bar id mesa: ' + id_mesa);
       if (id_mesa) {
         this.id_mesa = id_mesa;
       }
     });
     if (!this.id_mesa) {
       this.router.navigate(['/cliente/mesas']);
-      console.log('no existe id de mesa');
     }
+    
   }
 
 }

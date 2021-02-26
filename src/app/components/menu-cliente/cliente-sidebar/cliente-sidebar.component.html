@@ -7,7 +7,7 @@
         </a>
     </li>
     <li class="item-separator"></li>
-    <li class="item-header">Categorías</li>
+    <li class="item-header">Menú</li>
     <li id="pane-toggle">
         <a *ngFor="let categoria of categorias" [routerLink]="['/cliente/menu/', categoria.id]">
             <span class="icon">
@@ -18,6 +18,28 @@
             </span>
             <span class="pl-2 caption">{{ categoria.nombre }}</span>
         </a>
+    </li>
+    <!-- para listar los combos -->
+    <li class="item-header" *ngIf="combos.length > 0">Especiales</li>
+    <li *ngIf="combos.length > 0">
+        <a>
+            <span class="icon d-flex flex-align-center justify-content-center"><i class="fas fa-gifts"></i></span>
+            <span class="caption ">Combos</span>
+            <span class="badges"><span class="badge inline" >{{combos.length}}</span></span>
+        </a>
+        <ul data-role="dropdown" class="navview-menu" style="display: none;" id="pane-toggle">
+            <li class="margen-submenu" id="pane-toggle">
+                <a *ngFor="let combo of combos" id="pane-toggle" [routerLink]="['/cliente/menu/combo/', combo.id]">
+                    <span class="icon">
+                            <img
+                            src="{{ api + 'product/img/' + combo.imagen }}"
+                            style="width: 80%; height: 100%"
+                            class="bd-cyan border-radius-4"/>
+                          </span>
+                    <span class="pl-2 caption">{{ combo.nombre }}</span>
+                </a>
+            </li>
+        </ul>
     </li>
 </ul>
 

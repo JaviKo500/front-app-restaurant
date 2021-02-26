@@ -50,10 +50,10 @@ export class ComboService {
   }
 
   obtenerCombosDisponibles(): Observable<any> {
-    return this.http.get(this.url + '').pipe(
+    return this.http.get(this.url + 'get/combos-disponibles/'+ 0,).pipe(
       map((response: any) => response),
       catchError((e) => {
-        swal.fire(e.error.mensaje, e.error.error, 'error');
+        swal.fire(e.error.mensaje, e.error.error, 'error');        
         return throwError(e);
       })
     );

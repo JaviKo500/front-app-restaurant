@@ -171,9 +171,7 @@ export class NavBarComponent implements OnInit {
         this.pedido_local = item.value;
         if (this.pedido_local != null) {
           this.pedido = this.pedido_local;
-          console.log('pedido local storage');
           //recuperar los datos y enviar la lista de productos
-          console.log(this.pedido);
         }
       }
     }
@@ -215,7 +213,6 @@ export class NavBarComponent implements OnInit {
   //obtener la mesa por el id
   ObtenerMesaId(id: number): void {
     this.mesaService.ObtenerMesaId(id).subscribe((mes) => {
-      console.log(mes);
       this.pedido.mesa = mes as Mesa;
     });
   }

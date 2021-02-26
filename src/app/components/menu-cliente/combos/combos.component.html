@@ -1,0 +1,59 @@
+<div class="card">
+    <div class="card-body">
+        <div class="grid">
+            <div class="row">
+                <div class="cell-12">
+                    <h1>{{combo.nombre}}</h1>
+                </div>
+            </div>
+            <div class="row">
+                <div class="cell-xxl-8 cell-xl-8">
+                    <div class="img-container thumbnail">
+                        <img src="{{ api + 'product/img/' + combo.imagen }}" alt="">
+                    </div>
+                </div>
+
+                <div class="cell-xxl-4 cell-xl-4 p-5">
+                    <span class="mb-5-xl">{{combo.descripcion}}</span>
+                    <h5>Precio:
+                        <span>{{combo.precio}}</span>
+                    </h5>
+                    <div class="mt-3 mb-5-xxl mb-5-xl">
+                        <button class="button shadowed yellow" (click)="modalDetalleCombo(modalDetalle)">Detalle</button>
+                    </div>
+                    <div class=" mt-3 mb-5-xxl mb-5-xl d-flex justify-content-around">
+                        <button class="button light shadowed"><i class="fa-1x fas fa-minus"></i></button>
+                        <h3 class="m-0 mt-1">1</h3>
+                        <button class="button light shadowed"><i class="fa-1x fas fa-plus"></i></button>
+                    </div>
+                    <div class="mt-3">
+                        <button class="button shadowed primary w-100">Agregar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- modal para mostrar detalle  -->
+<ng-template #modalDetalle let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title">Detalle</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <p><strong> "{{combo.nombre}}"</strong> contiene: </p>
+
+        <ul class="custom-list-marker">
+            <li data-marker="✓" *ngFor="let items of combo.itemsCombo">{{items.producto.nombre}} - cantidad: {{items.cantidad}}</li>
+        </ul>
+    </div>
+    <div class="modal-footer">
+        <div class="d-flex justify-content-around align-content-center w-100-md mb-0 w-50-xl">
+            <button type="button" class="button shadowed w-100 btn-finalizar-pedido" (click)="modal.dismiss('Cross click')">
+          Aceptar
+        </button>
+        </div>
+    </div>
+</ng-template>

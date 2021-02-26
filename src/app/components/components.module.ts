@@ -20,6 +20,7 @@ import { HomeClienteComponent } from './menu-cliente/home-cliente/home-cliente.c
 import { FormularioClienteComponent } from './menu-cliente/formulario-cliente/formulario-cliente.component';
 import { FormsModule } from '@angular/forms';
 import { ClienteMesaComponent } from './menu-cliente/mesa/mesa.component';
+import { CombosComponent } from './menu-cliente/combos/combos.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import { ClienteMesaComponent } from './menu-cliente/mesa/mesa.component';
     HomeClienteComponent,
     FormularioClienteComponent,
     ClienteMesaComponent,
+    CombosComponent,
   ],
   exports: [
     PreviewImgComponent,
