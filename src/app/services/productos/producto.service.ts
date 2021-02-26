@@ -5,6 +5,7 @@ import { catchError, map } from 'rxjs/operators';
 import swal from 'sweetalert2';
 import { Observable, throwError } from 'rxjs';
 import { Producto } from 'src/app/models/productos/producto';
+import { Combo } from 'src/app/models/productos/combo';
 
 @Injectable({
   providedIn: 'root',
@@ -19,6 +20,17 @@ export class ProductoService {
   ObtenerProductosClientes(cate_id: number): Observable<any> {
     return this.http.get(this.url + 'get/client/products/' + cate_id).pipe(
       map((response: any) => response.productos as Producto[]),
+      catchError((e) => {
+        swal.fire(e.error.mensaje, e.error.error, 'error');
+        return throwError(e);
+      })
+    );
+  }
+
+  //filtrar productos del cliente
+  ObtenerCombosClientes(cate_id: number): Observable<any> {
+    return this.http.get(this.url + 'get/client/products/' + cate_id).pipe(
+      map((response: any) => response.combos as Combo[]),
       catchError((e) => {
         swal.fire(e.error.mensaje, e.error.error, 'error');
         return throwError(e);
