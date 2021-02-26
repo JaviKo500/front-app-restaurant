@@ -13,16 +13,15 @@ import { Combo } from '../../../models/productos/combo';
 })
 export class ClienteSidebarComponent implements OnInit {
   @Input() categorias: Categoria[] = [];
-  @Input() combos: Combo[] = [];
+  @Input() categoriascombos: Categoria[] = [];
   api = BASE_URL;
   id_mesa: number;
   constructor(private pedidoService: PedidoService, private router: Router) {
-    console.log(this.combos);
+    console.log(this.categoriascombos);
     console.log(this.categorias);
   }
   ngOnInit(): void {
     //verificar si existe un numero de mesa
-    
     this.pedidoService.id_mesa$.subscribe((id_mesa) => {
       if (id_mesa) {
         this.id_mesa = id_mesa;
@@ -31,7 +30,5 @@ export class ClienteSidebarComponent implements OnInit {
     if (!this.id_mesa) {
       this.router.navigate(['/cliente/mesas']);
     }
-    
   }
-
 }
