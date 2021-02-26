@@ -32,7 +32,7 @@ export class HomeClienteComponent implements OnInit {
   }
 
   listarCategorias(): void {
-    this.categoriaService.ListaCategorias().subscribe((categorias) => {
+    this.categoriaService.ListaTodasCategorias().subscribe((categorias) => {
       this.categorias = categorias;
     });
   }

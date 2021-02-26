@@ -51,7 +51,16 @@ export class CategoriaService {
       );
   }
 
-  ListaCategorias(): Observable<Categoria[]> {
+  ListaTodasCategorias(): Observable<Categoria[]> {
+    return this.http.get(this.url + 'get/categories').pipe(
+      map((response: any) => response.categorias as Categoria[]),
+      catchError((e) => {
+        return throwError(e);
+      })
+    );
+  }
+
+  ListaCategoriasProductos(): Observable<Categoria[]> {
     return this.http.get(this.url + 'get/categories/products').pipe(
       map((response: any) => response.categorias as Categoria[]),
       catchError((e) => {

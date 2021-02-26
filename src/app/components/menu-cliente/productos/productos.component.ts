@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { DetallePedido } from 'src/app/models/pedidos/detalle-pedido';
 import { Pedido } from 'src/app/models/pedidos/pedido';
+import { Combo } from 'src/app/models/productos/combo';
+import { ComboService } from 'src/app/services/combo/combo.service';
 import { PedidoService } from 'src/app/services/pedido/pedido.service';
 import { ProductoService } from 'src/app/services/productos/producto.service';
 import { BASE_URL } from 'src/environments/configurations';
@@ -26,11 +28,13 @@ export class ProductosComponent implements OnInit {
   producto: Producto = new Producto();
   pedido_local: Pedido = new Pedido();
   productos: Producto[] = [];
+  combos: Combo[] = [];
   constructor(
     private modalService: NgbModal,
     private productoService: ProductoService,
     private pedidosService: PedidoService,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private comboService: ComboService
   ) {
     // inicalizamos variable para notificaciones
     // @ts-ignore
@@ -54,10 +58,16 @@ export class ProductosComponent implements OnInit {
   }
 
   //listar productos por categoria
-
   listarProductosPorCategoria(id: number): void {
     this.productoService.ObtenerProductosClientes(id).subscribe((res) => {
       this.productos = res;
+    });
+  }
+
+  listarCombosPorCategoria(id: number): void {
+    this.comboService.ObtenerCombosClientes(0).subscribe((response) => {
+      this.combos = response.combos;
+      console.log(this.combos);
     });
   }
 

@@ -145,7 +145,7 @@ export class FormularioComponent implements OnInit {
   }
 
   ListarCategorias(): void {
-    this.categoriaService.ListaCategorias().subscribe((response) => {
+    this.categoriaService.ListaCategoriasProductos().subscribe((response) => {
       this.listaCategorias = response;
     });
   }

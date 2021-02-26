@@ -18,7 +18,6 @@ export class MenuClienteComponent implements OnInit {
   constructor(
     private router: Router,
     private categoriaService: CategoriaService,
-    private comboService: ComboService,
     private pedidoService: PedidoService
   ) {}
 
@@ -30,13 +29,8 @@ export class MenuClienteComponent implements OnInit {
       if (!id_mesa) {
         this.router.navigate(['/cliente/mesas']);
       } else {
-        this.categoriaService.ListaCategorias().subscribe((categorias) => {
+        this.categoriaService.ListaTodasCategorias().subscribe((categorias) => {
           this.categorias = categorias;
-        });
-        this.comboService.obtenerCombosDisponibles().subscribe((response) => {
-          // TODO: optimizar
-          this.combos = response.combos.content;
-          console.log(this.combos);
         });
       }
     });
