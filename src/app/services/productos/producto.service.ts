@@ -29,7 +29,7 @@ export class ProductoService {
 
   //filtrar productos del cliente
   ObtenerCombosClientes(cate_id: number): Observable<any> {
-    return this.http.get(this.url + 'get/client/products/' + cate_id).pipe(
+    return this.http.get(this.url + 'get/client/combos/' + cate_id).pipe(
       map((response: any) => response.combos as Combo[]),
       catchError((e) => {
         swal.fire(e.error.mensaje, e.error.error, 'error');
