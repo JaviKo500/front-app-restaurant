@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { CategoriaService } from 'src/app/services/categoria/categoria.service';
 import { PedidoService } from 'src/app/services/pedido/pedido.service';
 import { Categoria } from '../../../models/productos/categoria';
+import { ComboService } from '../../../services/combo/combo.service';
 
 @Component({
   selector: 'app-home-cliente',
@@ -11,11 +12,13 @@ import { Categoria } from '../../../models/productos/categoria';
 })
 export class HomeClienteComponent implements OnInit {
   categorias: Categoria[] = [];
+  categoriasCombo: Categoria[] = [];
   constructor(
-    private categoriaService: CategoriaService,
     private activatedRoute: ActivatedRoute,
     private router: Router,
-    private pedidoService: PedidoService
+    private categoriaService: CategoriaService,
+    private pedidoService: PedidoService,
+    private comboService: ComboService
   ) {}
 
   ngOnInit(): void {
@@ -29,11 +32,20 @@ export class HomeClienteComponent implements OnInit {
     });
 
     this.listarCategorias();
+    this.listarCategoriasCombos();
   }
 
   listarCategorias(): void {
-    this.categoriaService.ListaTodasCategorias().subscribe((categorias) => {
+    this.categoriaService. ListaCategoriasProductos()
+    .subscribe(categorias => {
       this.categorias = categorias;
+    });
+  }
+  listarCategoriasCombos(): void {
+    this.comboService.listarCategoriasCombo()
+    .subscribe(categoriasCombo => {
+      this.categoriasCombo = categoriasCombo.categorias;
+      console.log('data',this.categoriasCombo);
     });
   }
 }

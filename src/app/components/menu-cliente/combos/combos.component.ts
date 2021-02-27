@@ -14,7 +14,8 @@ import { BASE_URL } from '../../../../environments/configurations';
 })
 export class CombosComponent implements OnInit {
   public modalRef: NgbModalRef;
-  combo = new Combo();
+  combos: Combo [] = [];
+  combo: Combo;
   api = BASE_URL;
   constructor( 
     private modalService: NgbModal,
@@ -25,12 +26,14 @@ export class CombosComponent implements OnInit {
   ngOnInit(): void {
     this.activatedRouter.paramMap
       .subscribe( (params) => {
-        let id_combo = +params.get('id');        
-        if (id_combo) {
-          this.comboService.obtenerComboId( id_combo )
-            .subscribe( item => {
-              this.combo = item.combo;              
-            } )
+        let id_categoria = +params.get('id');        
+        console.log(id_categoria);
+        if (id_categoria) {
+          this.comboService.ObtenerCombosClientes(id_categoria)
+            .subscribe( combosCliente => {
+              console.log(combosCliente);
+              this.combos = combosCliente;
+            })
         }
       });
   }
@@ -38,6 +41,10 @@ export class CombosComponent implements OnInit {
     this.modalRef = this.modalService.open(modalDetalle, {
       centered: true
     });
+  }
+  comboModal(combo: Combo, modal): void {
+    this.combo = combo;
+    this.modalRef = this.modalService.open(modal, { centered: true , size: 'xl'});
   }
 
 }
