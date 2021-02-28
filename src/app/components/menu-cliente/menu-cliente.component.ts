@@ -25,7 +25,7 @@ export class MenuClienteComponent implements OnInit {
     //obtener el id de la mesa
     this.pedidoService.id_mesa$.subscribe((id_mesa) => {
       //this.mesa_id = id_mesa;
-      console.log(id_mesa);
+      // console.log(id_mesa);
       if (!id_mesa) {
         this.router.navigate(['/cliente/mesas']);
       } else {
@@ -35,6 +35,8 @@ export class MenuClienteComponent implements OnInit {
             this.categorias = categorias;
           });
         this.comboService.listarCategoriasCombo().subscribe((categorias) => {
+          console.log(categorias);
+          
           this.categoriascombos = categorias.categorias;
         });
       }

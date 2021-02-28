@@ -13,6 +13,7 @@ import { Categoria } from '../../../models/productos/categoria';
 })
 export class CategoriasClienteComponent implements OnInit {
   @Input() categorias: Categoria[] = [];
+  @Input() categoriasCombos: Categoria[] = [];
   categoria: Categoria;
   api = BASE_URL;
   constructor() {}
