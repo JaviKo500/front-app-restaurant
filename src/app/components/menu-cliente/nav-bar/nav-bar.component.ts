@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { Mesa } from 'src/app/models/mesa/mesa';
+import { DetalleComboPedido } from 'src/app/models/pedidos/detalle-combo-pedido';
 import { DetallePedido } from 'src/app/models/pedidos/detalle-pedido';
 import { Pedido } from 'src/app/models/pedidos/pedido';
 import { Cliente } from 'src/app/models/persona/cliente';
@@ -17,7 +18,8 @@ import swal from 'sweetalert2';
 export class NavBarComponent implements OnInit {
   public modalRef: NgbModalRef;
   //detalle de productos provenientes de productos component items
-  items: DetallePedido[] = [];
+  itemsProducto: DetallePedido[] = [];
+  itemsCombo: DetalleComboPedido[] = [];
   //id del pedido
   idPedido: number;
   modalRegistrar: any;
@@ -33,10 +35,9 @@ export class NavBarComponent implements OnInit {
   ngOnInit(): void {
     // llamo detecto evento del servicio pedidos cuando se agrega pedidos en productos component
     this.recuperarDelLocalStorage();
-    this.pedidoService.items$.subscribe((items) => {
-      this.pedido.items = items;
-      this.guardarEnLocalStorage(this.pedido);
-    });
+    //obtener la lista de productos/combos del componente producto/combo
+    this.suscribirseEventoCambiosItems();
+
     this.PasarDetallePedido();
     //obtener el id de la mesa
     this.pedidoService.id_mesa$.subscribe((id_mesa) => {
@@ -66,11 +67,11 @@ export class NavBarComponent implements OnInit {
 
   postEnviarPedido(): void {
     if (this.pedido.items.length > 0) {
-       swal
+      swal
         .fire({
           title: '¿Esta registrado?',
           input: 'text',
-          inputPlaceholder:'Ingrese su cédula',
+          inputPlaceholder: 'Ingrese su cédula',
           showDenyButton: true,
           confirmButtonColor: '#3085d6',
           denyButtonColor: '#000',
@@ -88,7 +89,6 @@ export class NavBarComponent implements OnInit {
             this.enviarPedido();
           }
         });
-        
     }
   }
 
@@ -113,8 +113,8 @@ export class NavBarComponent implements OnInit {
     swal.fire('Pedido', 'Enviado', 'success');
     if (this.pedido.items.length > 0) {
       this.pedidoService.registrarPedido(this.pedido).subscribe((res) => {
-        this.items = [];
-        this.pedidoService.items$.emit(this.items);
+        this.itemsProducto = [];
+        this.pedidoService.items$.emit(this.itemsProducto);
         this.pedido = new Pedido();
         this.limpiarPedidoLocalStorage();
         this.guardarEnLocalStorageIdPedido(res.id_pedido);
@@ -135,6 +135,15 @@ export class NavBarComponent implements OnInit {
     );
     this.PasarDetallePedido();
   }
+
+  //eliminar un producto de la lista del pedido
+  eliminarCombo(id: number): void {
+    this.pedido.combos = this.pedido.combos.filter(
+      (item: DetalleComboPedido) => id !== item.combo.id
+    );
+    this.PasarDetallePedido();
+  }
+
   //calcular importe de cada producto
   public calcularImporte(cantidad: number, precio: number): number {
     let total = cantidad * precio;
@@ -145,6 +154,13 @@ export class NavBarComponent implements OnInit {
     let total = 0;
     this.pedido.items.forEach((items: DetallePedido) => {
       total += this.calcularImporte(items.cantidad, items.producto.precio);
+    });
+    //combos
+    this.pedido.combos.forEach((itemsCombo: DetalleComboPedido) => {
+      total += this.calcularImporte(
+        itemsCombo.cantidad,
+        itemsCombo.combo.precio
+      );
     });
     return Math.floor(total * 100) / 100;
   }
@@ -179,6 +195,7 @@ export class NavBarComponent implements OnInit {
   //pasar la nueva lista de productos al componente producto al refrescar la pagina
   PasarDetallePedido(): void {
     this.pedidoService.items$.emit(this.pedido.items);
+    this.pedidoService.itemscombo$.emit(this.pedido.combos);
   }
 
   //guardar id de pedido en el local storage
@@ -214,6 +231,20 @@ export class NavBarComponent implements OnInit {
   ObtenerMesaId(id: number): void {
     this.mesaService.ObtenerMesaId(id).subscribe((mes) => {
       this.pedido.mesa = mes as Mesa;
+    });
+  }
+
+  //recuperar los datos del evento
+  suscribirseEventoCambiosItems(): void {
+    //obtener la lista de productos del componente producto
+    this.pedidoService.items$.subscribe((items) => {
+      this.pedido.items = items;
+      this.guardarEnLocalStorage(this.pedido);
+    });
+    //obtener la lista de combos del componente combo
+    this.pedidoService.itemscombo$.subscribe((items) => {
+      this.pedido.combos = items;
+      this.guardarEnLocalStorage(this.pedido);
     });
   }
 }

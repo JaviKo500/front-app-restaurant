@@ -133,6 +133,8 @@ export class ProductosComponent implements OnInit {
       if (id === item.producto.id) {
         item.cantidad += this.item.cantidad;
       }
+      //actualizar cantidad en el navbar
+      this.pedidosService.items$.emit(this.items);
       return item;
     });
   }
