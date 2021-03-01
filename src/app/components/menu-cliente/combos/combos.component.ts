@@ -157,4 +157,13 @@ export class CombosComponent implements OnInit {
       }
     }
   }
+
+  compararCombo(o1: Combo, o2: Combo): boolean {
+    if (o1 === undefined && o2 === undefined) {
+      return true;
+    }
+    return o1 === null || o2 === null || o1 === undefined || o2 === undefined
+      ? false
+      : o1.id === o2.id;
+  }
 }
