@@ -69,7 +69,7 @@ export class NavBarComponent implements OnInit {
     if (this.pedido.items.length > 0) {
       swal
         .fire({
-          title: '¿Esta registrado?',
+          title: '¿Eres cliente?',
           input: 'text',
           inputPlaceholder: 'Ingrese su cédula',
           showDenyButton: true,
