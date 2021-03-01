@@ -17,7 +17,7 @@ export class PedidoService {
   //evento para pasar el id de la mesa
   id_mesa$ = new EventEmitter<number>();
   //evento para pasar los combos si existen
-  combos$ = new EventEmitter<DetalleComboPedido[]>();
+  itemscombo$ = new EventEmitter<DetalleComboPedido[]>();
 
   constructor(private http: HttpClient) {}
   private url: string = BASE_URL;

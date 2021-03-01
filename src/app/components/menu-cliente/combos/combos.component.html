@@ -1,85 +1,101 @@
 <div class="card">
-    <div class="card-body">
-        <div class="flex-container wrap">
-            <div class="alert alert-primary" role="alert" *ngIf="combos.length == 0">
-                No existen productos en esta sección.
+  <div class="card-body">
+    <div class="flex-container wrap">
+      <div class="alert alert-primary" role="alert" *ngIf="combos.length == 0">
+        No existen productos en esta sección.
+      </div>
+      <div *ngFor="let combo of combos">
+        <div class="card-producto" (click)="comboModal(combo, modalCombo)">
+          <div class="imgBox">
+            <img
+              src="{{ api + 'product/img/' + combo.imagen }}"
+              [alt]="combo.nombre"
+            />
+          </div>
+          <div class="details d-flex flex-align-center justify-content-center">
+            <div class="textContent">
+              <h3>
+                <b>{{ combo.nombre }}</b>
+              </h3>
             </div>
-            <div *ngFor="let combo of combos">
-                <div class="card-producto" (click)="comboModal(combo,modalCombo)">
-                    <div class="imgBox">
-                        <img src="{{ api + 'product/img/' + combo.imagen }}" [alt]="combo.nombre" />
-                    </div>
-                    <div class="details d-flex flex-align-center justify-content-center">
-                        <div class="textContent">
-                            <h3>
-                                <b>{{ combo.nombre }}</b>
-                            </h3>
-                        </div>
-                    </div>
-                    <div class="description">
-                        <div class="icon">
-                            <i class="fas fa-dollar-sign"></i> {{ combo.precio }}
-                        </div>
-                    </div>
-                </div>
-                <br />
+          </div>
+          <div class="description">
+            <div class="icon">
+              <i class="fas fa-dollar-sign"></i> {{ combo.precio }}
             </div>
+          </div>
         </div>
+        <br />
+      </div>
     </div>
+  </div>
 </div>
 
 <!-- modal para el combo datos  -->
 <ng-template #modalCombo let-modal>
-    <div class="modal-header">
-        <h4 class="modal-title">{{combo.nombre}}</h4>
-        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-            <span aria-hidden="true">&times;</span>
-        </button>
-    </div>
-    <div class="modal-body">
-        <div class="grid">
-            <div class="row">
-                <div class="cell-sm-12 cell-xxl-7 cell-xl-7">
-                    <div class="img-container thumbnail">
-                        <img src="{{ api + 'product/img/' + combo.imagen }}" alt="">
-                    </div>
-                </div>
-                <div class="cell-sm-12 cell-xxl-5 cell-xl-5">
-                    <h2>
-                        {{combo.precio | currency}}
-                    </h2>
-                    <strong>Descripción</strong>
-                    <br>
-                    <span class="text-secondary ">{{combo.descripcion}}</span>
-                    <br>
-                    <strong>Contiene:</strong>
-                    <br>
-                    <span class="text-secondary " *ngFor="let items of combo.itemsCombo,
-                     let i = index">{{items.cantidad}} {{items.producto.nombre}} <span *ngIf=" i+1 < combo.itemsCombo.length">+</span> </span>
-                    <!-- select e input -->
-                    <div>
-                        <p><strong>Sabor de tu bebida</strong></p>
-                        <div class="input-group mb-2">
-                            <select class="custom-select" id="inputGroupSelect01">
-                              <option [ngValue]="undefined">Seleccionar...</option>
-                              <option>
-                                  data
-                              </option>
-                            </select>
-                        </div>
-                        <p><strong>Información extra</strong></p>
-                        <input type="text" data-role="input">
-                    </div>
-                </div>
+  <div class="modal-header">
+    <h4 class="modal-title">{{ combo.nombre }}</h4>
+    <button
+      type="button"
+      class="close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="grid">
+      <div class="row">
+        <div class="cell-sm-12 cell-xxl-7 cell-xl-7">
+          <div class="img-container thumbnail">
+            <img src="{{ api + 'product/img/' + combo.imagen }}" alt="" />
+          </div>
+        </div>
+        <div class="cell-sm-12 cell-xxl-5 cell-xl-5">
+          <h2>
+            {{ combo.precio | currency }}
+          </h2>
+          <strong>Descripción</strong>
+          <br />
+          <span class="text-secondary">{{ combo.descripcion }}</span>
+          <br />
+          <strong>Contiene:</strong>
+          <br />
+          <span
+            class="text-secondary"
+            *ngFor="let items of combo.itemsCombo; let i = index"
+            >{{ items.cantidad }} {{ items.producto.nombre }}
+            <span *ngIf="i + 1 < combo.itemsCombo.length">+</span>
+          </span>
+          <!-- select e input -->
+          <div>
+            <p><strong>Sabor de tu bebida</strong></p>
+            <div class="input-group mb-2">
+              <select class="custom-select" id="inputGroupSelect01">
+                <option [ngValue]="undefined">Seleccionar...</option>
+                <option>data</option>
+              </select>
             </div>
+            <p><strong>Información extra</strong></p>
+            <input type="text" data-role="input" />
+          </div>
         </div>
+      </div>
     </div>
-    <div class="modal-footer">
-        <div class=" w-100 d-flex justify-content-center">
-            <button class="button light shadowed"><i class="fa-1x fas fa-minus"></i></button>
-            <span class="text-leader pt-1 ml-2 mr-2"><b>1</b></span>
-            <button class="button light shadowed"><i class="fa-1x fas fa-plus"></i></button>
-        </div>
-        <button class="button shadowed  btn-agregar-producto">Agregar</button>
+  </div>
+  <div class="modal-footer">
+    <div class="w-100 d-flex justify-content-center">
+      <button class="button light shadowed" (click)="restarCantidad()">
+        <i class="fa-1x fas fa-minus"></i>
+      </button>
+      <span class="text-leader pt-1 ml-2 mr-2"
+        ><b>{{ item.cantidad }}</b></span
+      >
+      <button class="button light shadowed" (click)="sumarCantidad()">
+        <i class="fa-1x fas fa-plus"></i>
+      </button>
     </div>
+    <button class="button shadowed btn-agregar-producto">Agregar</button>
+  </div>
 </ng-template>
