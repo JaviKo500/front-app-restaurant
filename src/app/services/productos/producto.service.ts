@@ -26,6 +26,19 @@ export class ProductoService {
     );
   }
 
+  //cambiar el estado del producto
+  CambiarEstadoProducto(producto: Producto): Observable<any> {
+    return this.http
+      .put(this.url + 'actualizar/estado/producto', producto)
+      .pipe(
+        map((response: any) => response.mensaje),
+        catchError((e) => {
+          swal.fire(e.error.mensaje, e.error.error, 'warning');
+          return throwError(e);
+        })
+      );
+  }
+
   //obtener productos por el id
   ObtenerProducto(id: number): Observable<Producto> {
     return this.http.get(this.url + 'get/product/' + id).pipe(

@@ -69,4 +69,15 @@ export class ComboService {
       })
     );
   }
+
+  //cambiar el estado del combo
+  CambiarEstadoCombo(combo: Combo): Observable<any> {
+    return this.http.put(this.url + 'actualizar/estado/combo', combo).pipe(
+      map((response: any) => response.mensaje),
+      catchError((e) => {
+        swal.fire(e.error.mensaje, e.error.error, 'warning');
+        return throwError(e);
+      })
+    );
+  }
 }

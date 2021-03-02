@@ -67,4 +67,11 @@ export class ProductoListarComponent implements OnInit {
         }
       });
   }
+
+  //funcion para cambiar el estado del producto
+  cambiarEstadoProducto(prod): void {
+    this.productoserService.CambiarEstadoProducto(prod).subscribe((res) => {
+      console.log(res);
+    });
+  }
 }

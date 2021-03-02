@@ -43,4 +43,12 @@ export class ListaCombosComponent implements OnInit {
       scrollable: true,
     });
   }
+
+  cambiarestado(combo): void {
+    console.log(combo.estado);
+    this.comboService.CambiarEstadoCombo(combo).subscribe((res) => {
+      //colocar lña notificacion
+      console.log(res);
+    });
+  }
 }

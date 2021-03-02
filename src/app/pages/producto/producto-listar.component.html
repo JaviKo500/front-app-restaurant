@@ -95,10 +95,11 @@
                       ><input
                         type="checkbox"
                         data-role="checkbox"
-                        checked=""
                         data-caption="Style 1"
                         data-role-checkbox="true"
-                        class=""
+                        name="prod_estado"
+                        [(ngModel)]="prod.estado"
+                        (change)="cambiarEstadoProducto(prod)"
                       /><span class="check"></span
                       ><span class="caption">Esta en el menú</span></label
                     >

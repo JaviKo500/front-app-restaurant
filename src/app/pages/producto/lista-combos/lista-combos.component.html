@@ -1,15 +1,18 @@
 <div class="card">
-    <div class="card-body">
-        <!-- Barra para añadir -->
-        <div class="row">
-            <div class="cell-3 text-left">
-                <div class="d-flex flex-justify-start">
-                    <h5>Todos los combos u especiales</h5>
-                </div>
-            </div>
-            <div class="cell-3 offset-6 text-right">
-                <div class="d-flex flex-justify-end">
-                    <a class="button primary shadowed btn-block" routerLink="/dashboard/crearcombo/:id">Añadir</a
+  <div class="card-body">
+    <!-- Barra para añadir -->
+    <div class="row">
+      <div class="cell-3 text-left">
+        <div class="d-flex flex-justify-start">
+          <h5>Todos los combos u especiales</h5>
+        </div>
+      </div>
+      <div class="cell-3 offset-6 text-right">
+        <div class="d-flex flex-justify-end">
+          <a
+            class="button primary shadowed btn-block"
+            routerLink="/dashboard/crearcombo/:id"
+            >Añadir</a
           >
         </div>
       </div>
@@ -41,25 +44,25 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let combo of itemsCombos">
+          <tr *ngFor="let com of itemsCombos">
             <td>
               <img
-                src="{{ api }}product/img/{{ combo.imagen }}"
+                src="{{ api }}product/img/{{ com.imagen }}"
                 alt=""
                 width="50px"
                 height="50px"
               />
             </td>
-            <td>{{ combo.nombre }}</td>
-            <td>{{ combo.itemsCombo.length }} productos</td>
-            <td>{{ combo.categoria.nombre }}</td>
-            <td>{{ combo.precio }}</td>
+            <td>{{ com.nombre }}</td>
+            <td>{{ com.itemsCombo.length }} productos</td>
+            <td>{{ com.categoria.nombre }}</td>
+            <td>{{ com.precio }}</td>
             <td>
-              <div class=" d-flex justify-content-around align-items-center">
+              <div class="d-flex justify-content-around align-items-center">
                 <div class="cell-xl-3 cell-sm-1">
                   <button
                     class="button primary shadowed"
-                    (click)="productosCombo(combo, modalItemsCombo)"
+                    (click)="productosCombo(com, modalItemsCombo)"
                   >
                     Ver Detalle
                   </button>
@@ -67,7 +70,7 @@
                 <div class="cell-xl-3 cell-sm-1">
                   <button
                     class="button yellow shadowed border-radius-1 mb-0"
-                    [routerLink]="['/dashboard/crearcombo/', combo.id]"
+                    [routerLink]="['/dashboard/crearcombo/', com.id]"
                   >
                     Editar
                   </button>
@@ -82,10 +85,11 @@
                     ><input
                       type="checkbox"
                       data-role="checkbox"
-                      checked=""
                       data-caption="Style 1"
                       data-role-checkbox="true"
-                      class=""
+                      name="combo_estado"
+                      [(ngModel)]="com.estado"
+                      (change)="cambiarestado(com)"
                     /><span class="check"></span
                     ><span class="caption">Esta en el menú</span></label
                   >
@@ -127,7 +131,7 @@
           <tr *ngFor="let item of combo.itemsCombo">
             <td>
               <img
-                src="{{api}}/product/img/{{item.producto.imagen}}"
+                src="{{ api }}/product/img/{{ item.producto.imagen }}"
                 alt=""
                 width="50px"
                 height="50px"
