@@ -14,7 +14,10 @@
             <img [src]="img_url " *ngIf="img_url" class="img-vista-producto" alt="3 ">
         </div>
     </div>
-    <div class="btn-img-pro">
-        <input type="file" name="imgPro " id="imgPro " class=" btn-img dark shadowed" accept="image/* " (change)=" onChange($event)"> Agregar imagen
+    <div class="d-flex justify-content-center">
+        <div class="file-input">
+            <input type="file" id="file" name="imgPro" class="file" accept="image/* " (change)=" onChange($event)">
+            <label for="file">Agregar imagen<p class="file-name"></p></label>
+        </div>
     </div>
 </div>
