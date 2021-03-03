@@ -43,6 +43,7 @@ import { CombosComponent } from './menu-cliente/combos/combos.component';
     PaginatorComponent,
     SpinnerComponent,
     CategoriasClienteComponent,
+    FormularioClienteComponent
   ],
   imports: [CommonModule, FormsModule, NgbModule, SharedModule, RouterModule],
 })

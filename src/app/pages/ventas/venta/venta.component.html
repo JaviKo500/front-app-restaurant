@@ -1,0 +1,174 @@
+<div class="card">
+    <div class="card-body">
+        <div class="grid">
+            <div class="row">
+                <div class=" cell-xxl-4 cell-xl-4 cell-sm-12 fondo-recibo">
+                    <input class="mb-4 mt-1" type="text" data-role="input" data-prepend="CI: ">
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <button class="button shadowe yellow" (click)="abrirModalCliente(modalCliente)">Nuevo cliente</button>
+                        <input type="checkbox" data-role="checkbox" data-caption="Consumidor final">
+                    </div>
+                    <!-- mesa # -->
+                    <div class=" d-flex justify-content-between mb-4">
+                        <button class="button shadowed warning ancho-mesa" (click)="abrirModalMesa(modalMesa)">Mesa</button>
+                        <input type="text" class="ancho-mesa-input" placeholder="Mesa" disabled>
+                    </div>
+                    <!-- tipo # -->
+                    <div class=" d-flex justify-content-between mb-4">
+                        <input type="radio" data-role="radio" data-caption="Plato">
+                        <input type="radio" data-role="radio" data-caption="Especial">
+                    </div>
+                    <!-- estado pedido -->
+                    <div class="input-group mb-2">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="inputGroupSelect01" style="border-right-color: transparent">Estado pedido:</label>
+                        </div>
+                        <select class="custom-select" name="Tipocategorias">
+                            <option [ngValue]="undefined">Choose...</option>
+                            <option value="1">Entregado</option>
+                        </select>
+                    </div>
+                    <!-- productos -->
+                    <input data-role="input" class="mb-2" data-prepend="Agregar productos:" type="text" placeholder="nombre item" />
+                    <!-- botones -->
+                    <div class="d-flex justify-content-around mt-75 p-2">
+                        <button class="button shadowed alert rounded-0">Cancelar</button>
+                        <button class="button shadowed bg-black">Guardar pedido</button>
+                    </div>
+                </div>
+
+                <!-- detalle  de los pedidos -->
+                <div class="cell-xxl-8 cell-xl-8 cell-sm-12 pl-5">
+                    <!-- recibo -->
+                    <div>
+                        <div class=" text-center">
+                            <h3 class="m-0 mb-1">Nombre empresa</h3>
+                            <h4 class="text-leader2 m-0">Recibo</h4>
+                        </div>
+                        <hr>
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                <h5 class="text-leader2 m-0 mb-2"><strong>Fecha: </strong><small>02/03/2021</small></h5>
+                                <h5 class="text-leader2 m-0 mb-2"><strong>Cliente: </strong><small>Javier Gutierrez</small></h5>
+                                <h5 class="text-leader2 m-0 mb-2"><strong>Dirección: </strong><small>Checa La plata</small></h5>
+                            </div>
+                            <div>
+                                <h5 class="text-leader2 m-0 mb-2"><strong>RUC/CI: </strong><small>0105566046</small></h5>
+                                <h5 class="text-leader2 m-0 mb-2"><strong>Teléfono: </strong><small>0987535645</small></h5>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- tabla -->
+                    <div>
+                        <table class="table row-hover row-border">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Nombre</th>
+                                    <th>Contiene</th>
+                                    <th>Categoría</th>
+                                    <th>Precio</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <img src="assets/icons/" alt="" width="50px" height="50px" />
+                                    </td>
+                                    <td> com.nombre </td>
+                                    <td> com.itemsCombo.length </td>
+                                    <td> com.categoria.nombre </td>
+                                    <td> com.precio</td>
+                                    <td>
+                                        <div class="d-flex justify-content-around align-items-center">
+                                            <div class="cell-xl-3 cell-sm-1">
+                                                <button class="button warning shadowed">
+                                                    <i class="far fa-list-alt"></i>
+                                                </button>
+                                            </div>
+                                            <div class="cell-xl-3 cell-sm-1">
+                                                <button class="button alert shadowed border-radius-1 mb-0">
+                                                    <i class="far fa-trash-alt"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- pie data -->
+                    <hr>
+                    <div>
+                        <div class="d-flex justify-content-between">
+                            <div>
+                            </div>
+                            <div>
+                                <h5 class="text-leader2 m-0 mb-2"><strong>Total:</strong> <small>262.00</small></h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- modal Cliente -->
+<ng-template #modalCliente let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title">Cliente</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    </div>
+    <div class="modal-body">
+        <app-formulario-cliente [ocultarBotones]=" true"></app-formulario-cliente>
+    </div>
+    <div class="modal-footer">
+        <div class="d-flex flex-justify-between w-100">
+            <button class="button shadowed alert rounded-0 w-25" (click)="modal.close('Close click')">Cancelar</button>
+            <button class="button shadowed bg-black w-25">Guardar</button>
+        </div>
+    </div>
+</ng-template>
+<!-- modal Mesa -->
+<ng-template #modalMesa let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title">Seleccionar mesa</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    </div>
+    <div class="modal-body">
+        <!-- tabla -->
+        <div>
+            <table class="table row-hover row-border">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Nombre</th>
+                        <th>Seleccionar</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            1
+                        </td>
+                        <td> com.nombre </td>
+                        <td>
+                            <input type="radio" data-role="radio">
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <div class="d-flex flex-justify-between w-100">
+            <button class="button shadowed alert rounded-0 w-25" (click)="modal.close('Close click')">Cancelar</button>
+            <button class="button shadowed bg-black w-25">Guardar</button>
+        </div>
+    </div>
+</ng-template>

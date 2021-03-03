@@ -19,6 +19,18 @@ export class SidebarService {
       subMenu: [],
     },
     {
+      title: 'Ventas',
+      icon: 'fas fa-file-invoice-dollar',
+      url: '',
+      subMenu: [
+        {
+          title: 'Realizar venta',
+          icon: 'fas fa-shopping-cart',
+          url: 'venta',
+        },
+      ],
+    },
+    {
       title: 'Gestión de usuarios',
       icon: 'fas fa-users',
       url: '',

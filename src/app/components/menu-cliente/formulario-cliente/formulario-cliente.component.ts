@@ -14,7 +14,7 @@ export class FormularioClienteComponent implements OnInit {
   @Output() registrocliente: EventEmitter<boolean> = new EventEmitter();
   @Output() reclienteRetorno: EventEmitter<Cliente> = new EventEmitter();
   @Input() cerrarModalRef: NgbModalRef;
-
+  @Input() ocultarBotones: boolean;
   //alcena errores del backend
   erroresBackend: string[] = [];
 

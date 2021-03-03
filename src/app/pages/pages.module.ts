@@ -18,9 +18,9 @@ import { ConfiguracionEmpresaComponent } from './configuraciones/configuracion-e
 import { PedidosComponent } from './pedidos/pedidos.component';
 import { UsuariosComponent } from './usuarios/usuarios.component';
 import { FormularioUsuarioComponent } from './usuarios/formulario-usuario/formulario-usuario.component';
-import { VentaComponent } from './venta/venta.component';
 import { FormularioComboComponent } from './producto/formulario-combo/formulario-combo.component';
 import { ListaCombosComponent } from './producto/lista-combos/lista-combos.component';
+import { VentaComponent } from './ventas/venta/venta.component';
 
 
 
@@ -36,9 +36,9 @@ import { ListaCombosComponent } from './producto/lista-combos/lista-combos.compo
     PedidosComponent,
     UsuariosComponent,
     FormularioUsuarioComponent,
-    VentaComponent,
     FormularioComboComponent,
-    ListaCombosComponent
+    ListaCombosComponent,
+    VentaComponent
   ],
   exports: [
     DashboardComponent,

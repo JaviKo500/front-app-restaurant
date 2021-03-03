@@ -13,6 +13,7 @@ import { FormularioUsuarioComponent } from './usuarios/formulario-usuario/formul
 import { ConfiguracionEmpresaComponent } from './configuraciones/configuracion-empresa/configuracion-empresa.component';
 import { FormularioComboComponent } from './producto/formulario-combo/formulario-combo.component';
 import { ListaCombosComponent } from './producto/lista-combos/lista-combos.component';
+import { VentaComponent } from './ventas/venta/venta.component';
 
 const routes: Routes = [
   {
@@ -78,6 +79,14 @@ const routes: Routes = [
         data: {
           title: 'Pedidos',
           subTitle: 'Revisa los pedidos de tus clientes',
+        },
+      },
+      {
+        path: 'venta',
+        component: VentaComponent,
+        data: {
+          title: 'Venta',
+          subTitle: 'Realizar pedidos personales',
         },
       },
     ],
