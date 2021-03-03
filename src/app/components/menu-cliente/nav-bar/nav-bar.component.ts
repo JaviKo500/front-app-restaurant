@@ -120,6 +120,7 @@ export class NavBarComponent implements OnInit {
         this.guardarEnLocalStorageIdPedido(res.id_pedido);
         //recuperar la mesa en el pedido
         if (this.id_mesa) {
+          console.log('id mesa obtenido e el navbar');
           this.ObtenerMesaId(this.id_mesa);
         }
       });

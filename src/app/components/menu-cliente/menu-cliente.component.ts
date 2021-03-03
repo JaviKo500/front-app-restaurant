@@ -22,16 +22,21 @@ export class MenuClienteComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    let id_mes_local = this.recuperarDelLocalStorage();
+
     //obtener el id de la mesa
     this.pedidoService.id_mesa$.subscribe((id_mesa) => {
       //solucion errore de cambio de vartiable
       setTimeout(() => {
         this.mesa_id = id_mesa;
       }, 0);
-
-      // console.log(id_mesa);
       if (!id_mesa) {
-        this.router.navigate(['/cliente/mesas']);
+        if (id_mes_local) {
+          console.log(id_mes_local);
+          this.router.navigate(['/cliente/home/mesa/', id_mes_local]);
+        } else {
+          this.router.navigate(['/cliente/mesas']);
+        }
       } else {
         this.categoriaService
           .ListaCategoriasProductos()
@@ -45,5 +50,23 @@ export class MenuClienteComponent implements OnInit {
         });
       }
     });
+  }
+
+  recuperarDelLocalStorage(): number {
+    let valor = localStorage.getItem('id_mesa');
+    let id: number;
+    if (valor) {
+      const item = JSON.parse(valor);
+      const now = new Date();
+      if (now.getTime() > item.expiry) {
+        localStorage.removeItem('id_mesa');
+      } else {
+        let val = item.value;
+        if (val != null) {
+          id = val;
+        }
+      }
+    }
+    return id;
   }
 }
