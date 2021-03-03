@@ -9,6 +9,8 @@ import { BASE_URL } from '../../../../environments/configurations';
 import { DetalleComboPedido } from 'src/app/models/pedidos/detalle-combo-pedido';
 import { PedidoService } from 'src/app/services/pedido/pedido.service';
 import { Pedido } from 'src/app/models/pedidos/pedido';
+import { Producto } from 'src/app/models/productos/producto';
+import { ProductoService } from 'src/app/services/productos/producto.service';
 
 @Component({
   selector: 'app-combos',
@@ -19,6 +21,7 @@ export class CombosComponent implements OnInit {
   public modalRef: NgbModalRef;
   notificacion: any;
   pedido_local: Pedido = new Pedido();
+  bebidas: Producto[] = [];
   combos: Combo[] = [];
   items: DetalleComboPedido[] = [];
   item: DetalleComboPedido = new DetalleComboPedido();
@@ -28,7 +31,8 @@ export class CombosComponent implements OnInit {
     private modalService: NgbModal,
     private activatedRouter: ActivatedRoute,
     private comboService: ComboService,
-    private pedidoService: PedidoService
+    private pedidoService: PedidoService,
+    private productoService: ProductoService
   ) {}
 
   ngOnInit(): void {
@@ -49,6 +53,8 @@ export class CombosComponent implements OnInit {
     this.pedidoService.itemscombo$.subscribe((items) => {
       this.items = items;
     });
+    //obtener la bebidas
+    this.obtenerBebidas();
   }
 
   // agregar un producto al pedido
@@ -158,12 +164,19 @@ export class CombosComponent implements OnInit {
     }
   }
 
-  compararCombo(o1: Combo, o2: Combo): boolean {
+  compararBebidas(o1: Producto, o2: Producto): boolean {
     if (o1 === undefined && o2 === undefined) {
       return true;
     }
     return o1 === null || o2 === null || o1 === undefined || o2 === undefined
       ? false
       : o1.id === o2.id;
+  }
+
+  obtenerBebidas(): void {
+    this.productoService.ObtenerProductosClientes(1).subscribe((result) => {
+      console.log(result);
+      this.bebidas = result;
+    });
   }
 }

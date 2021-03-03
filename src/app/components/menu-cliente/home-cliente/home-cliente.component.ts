@@ -24,8 +24,11 @@ export class HomeClienteComponent implements OnInit {
   ngOnInit(): void {
     this.activatedRoute.paramMap.subscribe((params) => {
       let id_mesa = +params.get('id_mesa');
+      console.log(id_mesa);
       if (id_mesa) {
+        this.router.navigate(['/cliente/home/mesa/', id_mesa]);
         this.pedidoService.id_mesa$.emit(id_mesa);
+        this.guardarIdMesaLocalStorage(id_mesa);
       } else {
         this.router.navigate(['/cliente/mesas']);
       }
@@ -36,16 +39,22 @@ export class HomeClienteComponent implements OnInit {
   }
 
   listarCategorias(): void {
-    this.categoriaService. ListaCategoriasProductos()
-    .subscribe(categorias => {
+    this.categoriaService.ListaCategoriasProductos().subscribe((categorias) => {
       this.categorias = categorias;
     });
   }
   listarCategoriasCombos(): void {
-    this.comboService.listarCategoriasCombo()
-    .subscribe(categoriasCombo => {
+    this.comboService.listarCategoriasCombo().subscribe((categoriasCombo) => {
       this.categoriasCombo = categoriasCombo.categorias;
-      console.log('data',this.categoriasCombo);
     });
+  }
+
+  guardarIdMesaLocalStorage(id_mesa): void {
+    const now = new Date();
+    const item = {
+      value: id_mesa,
+      expiry: now.getTime() + 1800000,
+    };
+    localStorage.setItem('id_mesa', JSON.stringify(item));
   }
 }

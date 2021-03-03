@@ -7,6 +7,7 @@ import { Pedido } from 'src/app/models/pedidos/pedido';
 import { catchError, map } from 'rxjs/operators';
 import swal from 'sweetalert2';
 import { DetalleComboPedido } from 'src/app/models/pedidos/detalle-combo-pedido';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
@@ -19,7 +20,7 @@ export class PedidoService {
   //evento para pasar los combos si existen
   itemscombo$ = new EventEmitter<DetalleComboPedido[]>();
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private router: Router) {}
   private url: string = BASE_URL;
   private httpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
 

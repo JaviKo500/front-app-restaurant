@@ -72,9 +72,19 @@
           <div>
             <p><strong>Sabor de tu bebida</strong></p>
             <div class="input-group mb-2">
-              <select class="custom-select" id="inputGroupSelect01">
+              <select
+                class="custom-select"
+                id="inputGroupSelect01"
+                [compareWith]="compararBebidas"
+              >
                 <option [ngValue]="undefined">Seleccionar...</option>
-                <option>data</option>
+                <option
+                  value="{{ beb.id }}"
+                  [ngValue]="beb"
+                  *ngFor="let beb of bebidas"
+                >
+                  {{ beb.nombre }}
+                </option>
               </select>
             </div>
             <p><strong>Información extra</strong></p>

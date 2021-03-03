@@ -10,4 +10,6 @@ export class Combo {
   categoria: Categoria;
   estado: boolean = false;
   itemsCombo: ProductoCombo[] = [];
+  infoExtra: string = '';
+  saborBebida: string = '';
 }

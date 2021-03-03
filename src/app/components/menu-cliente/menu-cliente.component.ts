@@ -24,7 +24,11 @@ export class MenuClienteComponent implements OnInit {
   ngOnInit(): void {
     //obtener el id de la mesa
     this.pedidoService.id_mesa$.subscribe((id_mesa) => {
-      //this.mesa_id = id_mesa;
+      //solucion errore de cambio de vartiable
+      setTimeout(() => {
+        this.mesa_id = id_mesa;
+      }, 0);
+
       // console.log(id_mesa);
       if (!id_mesa) {
         this.router.navigate(['/cliente/mesas']);
@@ -36,7 +40,7 @@ export class MenuClienteComponent implements OnInit {
           });
         this.comboService.listarCategoriasCombo().subscribe((categorias) => {
           console.log(categorias);
-          
+
           this.categoriascombos = categorias.categorias;
         });
       }

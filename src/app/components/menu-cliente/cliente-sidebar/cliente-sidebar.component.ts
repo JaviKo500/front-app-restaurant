@@ -16,11 +16,7 @@ export class ClienteSidebarComponent implements OnInit {
   @Input() categoriascombos: Categoria[] = [];
   api = BASE_URL;
   id_mesa: number;
-  constructor(
-    private pedidoService: PedidoService, 
-    private router: Router
-    ) {
-  }
+  constructor(private pedidoService: PedidoService, private router: Router) {}
   ngOnInit(): void {
     //verificar si existe un numero de mesa
     this.pedidoService.id_mesa$.subscribe((id_mesa) => {
