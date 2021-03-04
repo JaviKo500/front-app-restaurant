@@ -20,6 +20,8 @@
               type="checkbox"
               data-role="checkbox"
               data-caption="Consumidor final"
+              name="consumidorFinal"
+              [(ngModel)]="ConsumidorFinal"
             />
           </div>
           <!-- mesa # -->
@@ -34,6 +36,8 @@
               type="text"
               class="ancho-mesa-input"
               placeholder="Mesa"
+              name="mesa_pedido"
+              [(ngModel)]="mesa.nombre"
               disabled
             />
           </div>
@@ -232,11 +236,13 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>1</td>
-            <td>com.nombre</td>
+          <tr *ngFor="let mes of mesas">
+            <td>{{ mes.id }}</td>
+            <td>{{ mes.nombre }}</td>
             <td>
-              <input type="radio" data-role="radio" />
+              <button class="btn btn-primary" (click)="seleccionarMesa(mes)">
+                Asignar
+              </button>
             </td>
           </tr>
         </tbody>
@@ -251,7 +257,6 @@
       >
         Cancelar
       </button>
-      <button class="button shadowed bg-black w-25">Guardar</button>
     </div>
   </div>
 </ng-template>
