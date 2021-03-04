@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { Mesa } from 'src/app/models/mesa/mesa';
+import { Pedido } from 'src/app/models/pedidos/pedido';
 import { MesaService } from 'src/app/services/mesa/mesa.service';
 @Component({
   selector: 'app-venta',
@@ -12,6 +13,7 @@ export class VentaComponent implements OnInit {
   mesas: Mesa[] = [];
   ConsumidorFinal: boolean = false;
   mesa: Mesa = new Mesa();
+  pedido: Pedido = new Pedido();
   modalReference: NgbModalRef;
   constructor(
     private modalService: NgbModal,
@@ -37,6 +39,7 @@ export class VentaComponent implements OnInit {
   }
   seleccionarMesa(mesa: Mesa): void {
     this.mesa = mesa;
+    this.pedido.mesa = this.mesa;
     this.CerrarModal();
   }
 }
