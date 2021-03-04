@@ -26,6 +26,7 @@ export class CombosComponent implements OnInit {
   items: DetalleComboPedido[] = [];
   item: DetalleComboPedido = new DetalleComboPedido();
   combo: Combo;
+  BebidaCombo: Producto;
   api = BASE_URL;
   constructor(
     private modalService: NgbModal,
@@ -60,22 +61,25 @@ export class CombosComponent implements OnInit {
   // agregar un producto al pedido
   agregarCombo(comb: Combo): void {
     console.log(comb);
-
-    if (this.existeCombo(comb.id)) {
-      this.incrementarCantidad(comb.id);
-      //ARREGLAR LAS NOTIFICACIOINES
-      //this.notificaciones('se actualizó la cantidad del producto');
+    if (this.combo.saborBebida) {
+      if (this.existeCombo(comb.id)) {
+        this.incrementarCantidad(comb.id);
+        //ARREGLAR LAS NOTIFICACIOINES
+        //this.notificaciones('se actualizó la cantidad del producto');
+      } else {
+        //agregamos el produxto al item
+        this.item.combo = comb;
+        this.items.push(this.item);
+        //ARREGLAR LAS NOTIFICACIOINES
+        //this.notificaciones('se agregó un producto');
+        // aqui debe estar este medodo par que funcione
+        this.pedidoService.itemscombo$.emit(this.items);
+      }
+      this.cerrarModalDetalle();
     } else {
-      //agregamos el produxto al item
-      this.item.combo = comb;
-      this.items.push(this.item);
-      //ARREGLAR LAS NOTIFICACIOINES
-      //this.notificaciones('se agregó un producto');
-      // aqui debe estar este medodo par que funcione
-      this.pedidoService.itemscombo$.emit(this.items);
+      console.log('escoger un abor');
     }
     //cerrar modal y restaurar valor del item
-    this.cerrarModalDetalle();
     console.log(this.items);
   }
 
@@ -178,5 +182,10 @@ export class CombosComponent implements OnInit {
       console.log(result);
       this.bebidas = result;
     });
+  }
+
+  asignarBebida(): void {
+    this.combo.saborBebida = this.BebidaCombo.nombre;
+    console.log(this.combo.saborBebida);
   }
 }

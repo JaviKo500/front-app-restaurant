@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { Mesa } from 'src/app/models/mesa/mesa';
@@ -29,7 +30,8 @@ export class NavBarComponent implements OnInit {
   constructor(
     private modalService: NgbModal,
     private pedidoService: PedidoService,
-    private mesaService: MesaService
+    private mesaService: MesaService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -66,7 +68,7 @@ export class NavBarComponent implements OnInit {
   }
 
   postEnviarPedido(): void {
-    if (this.pedido.items.length > 0) {
+    if (this.pedido.items.length > 0 || this.pedido.combos.length > 0) {
       swal
         .fire({
           title: '¿Eres cliente?',
@@ -111,7 +113,7 @@ export class NavBarComponent implements OnInit {
   enviarPedido(): void {
     this.cerrarModal();
     swal.fire('Pedido', 'Enviado', 'success');
-    if (this.pedido.items.length > 0) {
+    if (this.pedido.items.length > 0 || this.pedido.combos.length > 0) {
       this.pedidoService.registrarPedido(this.pedido).subscribe((res) => {
         this.itemsProducto = [];
         this.pedidoService.items$.emit(this.itemsProducto);
@@ -122,6 +124,7 @@ export class NavBarComponent implements OnInit {
         if (this.id_mesa) {
           console.log('id mesa obtenido e el navbar');
           this.ObtenerMesaId(this.id_mesa);
+          this.router.navigate(['/cliente/home/mesa/', this.id_mesa]);
         }
       });
     } else {

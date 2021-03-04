@@ -76,6 +76,9 @@
                 class="custom-select"
                 id="inputGroupSelect01"
                 [compareWith]="compararBebidas"
+                name="bebida_combo"
+                [(ngModel)]="BebidaCombo"
+                (change)="asignarBebida()"
               >
                 <option [ngValue]="undefined">Seleccionar...</option>
                 <option
@@ -88,7 +91,12 @@
               </select>
             </div>
             <p><strong>Información extra</strong></p>
-            <input type="text" data-role="input" />
+            <input
+              type="text"
+              data-role="input"
+              name="info_adicio"
+              [(ngModel)]="combo.infoExtra"
+            />
           </div>
         </div>
       </div>
