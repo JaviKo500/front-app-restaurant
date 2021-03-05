@@ -80,4 +80,16 @@ export class ComboService {
       })
     );
   }
+
+  // get productos por termino  a buscar
+  getComboByTerm(term: string): Observable<Combo[]> {
+    return this.http.get(this.url + 'combos/cargar/' + term).pipe(
+      map((response: any) => {
+        return response.combos;
+      }),
+      catchError((e) => {
+        return throwError(e);
+      })
+    );
+  }
 }

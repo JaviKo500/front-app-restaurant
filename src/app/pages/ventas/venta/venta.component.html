@@ -84,6 +84,7 @@
               name="venta"
               value="plato"
               data-caption="Plato"
+              checked
               (change)="SeleccionDeFiltrado('plato')"
             />
             <input
@@ -96,13 +97,35 @@
             />
           </div>
           <!-- productos -->
-          <input
-            data-role="input"
-            class="mb-2"
-            data-prepend="Agregar:"
-            type="text"
-            placeholder="nombre item"
-          />
+          <div *ngIf="radioIsProducto; else temcombo">
+            <input
+              data-role="input"
+              class="mb-2"
+              data-prepend="Agregar:"
+              type="text"
+              name="producto"
+              placeholder="nombre producto"
+              [ngbTypeahead]="searchProductos"
+              [inputFormatter]="seleccionarProducto"
+              [resultFormatter]="formatterProducto"
+            />
+          </div>
+
+          <ng-template #temcombo>
+            <!--Combos-->
+            <input
+              data-role="input"
+              class="mb-2"
+              data-prepend="Agregar:"
+              type="text"
+              name="combo"
+              placeholder="nombre combo"
+              [ngbTypeahead]="searchCombos"
+              [inputFormatter]="seleccionarCombo"
+              [resultFormatter]="formatterCombo"
+            />
+          </ng-template>
+
           <!-- botones -->
           <div class="d-flex justify-content-around mt-75 p-2">
             <button class="button shadowed alert rounded-0">Cancelar</button>

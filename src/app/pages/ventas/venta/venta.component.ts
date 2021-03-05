@@ -1,13 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { Observable } from 'rxjs';
+import { distinctUntilChanged, mergeMap } from 'rxjs/operators';
 import { Mesa } from 'src/app/models/mesa/mesa';
 import { Estado } from 'src/app/models/pedidos/estado';
 import { Pedido } from 'src/app/models/pedidos/pedido';
 import { Cliente } from 'src/app/models/persona/cliente';
+import { Combo } from 'src/app/models/productos/combo';
+import { Producto } from 'src/app/models/productos/producto';
 import { ClienteService } from 'src/app/services/cliente/cliente.service';
+import { ComboService } from 'src/app/services/combo/combo.service';
 import { MesaService } from 'src/app/services/mesa/mesa.service';
 import { PedidoService } from 'src/app/services/pedido/pedido.service';
+import { ProductoService } from 'src/app/services/productos/producto.service';
 import swal from 'sweetalert2';
 
 @Component({
@@ -17,6 +23,7 @@ import swal from 'sweetalert2';
 })
 export class VentaComponent implements OnInit {
   mesas: Mesa[] = [];
+  radioIsProducto: boolean = true;
   cliente: Cliente = new Cliente();
   buscarClienteCedula: string = '';
   ConsumidorFinal: boolean = false;
@@ -28,7 +35,9 @@ export class VentaComponent implements OnInit {
     private modalService: NgbModal,
     private mesaService: MesaService,
     private pedidoService: PedidoService,
-    private clienteService: ClienteService
+    private clienteService: ClienteService,
+    private productoService: ProductoService,
+    private comboService: ComboService
   ) {}
 
   ngOnInit(): void {
@@ -103,16 +112,53 @@ export class VentaComponent implements OnInit {
   }
   SeleccionDeFiltrado(event: string): void {
     if (event === 'plato') {
-      this.filtrarPlatos();
+      this.radioIsProducto = true;
     }
     if (event === 'combo') {
-      this.filtrarCombo();
+      this.radioIsProducto = false;
     }
   }
   filtrarPlatos(): void {
     console.log('filtrado de platos');
   }
-  filtrarCombo(): void {
-    console.log('filtrado de combos');
+  //------------------------------- filtrado de productos-----------------------------------//
+  searchProductos = (text$: Observable<string>) =>
+    text$.pipe(
+      distinctUntilChanged(),
+      mergeMap((term) =>
+        term ? this.productoService.getProductoByTerm(term) : []
+      )
+    );
+
+  // para mostrar datos en la lista del input
+  formatterProducto = (producto: Producto) =>
+    producto.nombre +
+    ' -> $' +
+    producto.precio +
+    ' -> ' +
+    producto.categoria.nombre;
+  dataP: Producto[] = [];
+  //temina el formato
+
+  seleccionarProducto(producto: Producto) {
+    console.log(producto);
   }
+  //termina el filtrado de productos
+
+  //------------------------------- filtrado de combos-----------------------------------//
+
+  searchCombos = (text$: Observable<string>) =>
+    text$.pipe(
+      distinctUntilChanged(),
+      mergeMap((term) => (term ? this.comboService.getComboByTerm(term) : []))
+    );
+  // para mostrar datos en la lista del input
+  formatterCombo = (combo: Combo) =>
+    combo.nombre + ' -> $' + combo.precio + ' -> ' + combo.categoria.nombre;
+  dataC: Combo[] = [];
+  //temina el formato
+  seleccionarCombo(combo: Combo) {
+    console.log(combo);
+  }
+  //termina metodos opara el filtrado del combo
 }
