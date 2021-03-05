@@ -23,6 +23,17 @@ export class ClienteService {
     );
   }
 
+  //obtener cliente por cedula
+  ClienteCedula(cedula: string): Observable<any> {
+    return this.http.get(this.url + 'cliente/findbyced/' + cedula).pipe(
+      map((response: any) => response.cliente as Cliente),
+      catchError((e) => {
+        swal.fire(e.error.mensaje, e.error.error, 'warning');
+        return throwError(e);
+      })
+    );
+  }
+
   //registrar cliente
   RegistrarCliente(cliente: Cliente): Observable<any> {
     return this.http

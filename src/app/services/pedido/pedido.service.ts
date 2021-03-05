@@ -8,6 +8,7 @@ import { catchError, map } from 'rxjs/operators';
 import swal from 'sweetalert2';
 import { DetalleComboPedido } from 'src/app/models/pedidos/detalle-combo-pedido';
 import { Router } from '@angular/router';
+import { Estado } from 'src/app/models/pedidos/estado';
 
 @Injectable({
   providedIn: 'root',
@@ -29,6 +30,16 @@ export class PedidoService {
   listarPedidosDia(): Observable<any> {
     return this.http.get(this.url + 'pedidos/dia/estado/' + 1).pipe(
       map((response: any) => response.pedidos as Pedido[]),
+      catchError((e) => {
+        swal.fire(e.error.mensaje, e.error.error, 'warning');
+        return throwError(e);
+      })
+    );
+  }
+
+  listarEstadosPedidos(): Observable<any> {
+    return this.http.get(this.url + 'get/pedidos/estados').pipe(
+      map((response: any) => response as Estado[]),
       catchError((e) => {
         swal.fire(e.error.mensaje, e.error.error, 'warning');
         return throwError(e);

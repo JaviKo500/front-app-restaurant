@@ -36,6 +36,9 @@ export class FormularioClienteComponent implements OnInit {
           //this.cerrarModal();
           this.cliente = new Cliente();
           this.registrocliente.emit(true);
+          if (this.ocultarBotones) {
+            this.cerrarModal();
+          }
         },
         (err) => {
           if (err.status === 409) {
