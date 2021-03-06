@@ -97,7 +97,7 @@
             />
           </div>
           <!-- productos -->
-          <div *ngIf="radioIsProducto; else temcombo">
+          <div>
             <input
               data-role="input"
               class="mb-2"
@@ -125,7 +125,6 @@
               [resultFormatter]="formatterCombo"
             />
           </ng-template>
-
           <!-- botones -->
           <div class="d-flex justify-content-around mt-75 p-2">
             <button class="button shadowed alert rounded-0">Cancelar</button>
