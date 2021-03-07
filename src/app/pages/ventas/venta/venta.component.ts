@@ -111,6 +111,7 @@ export class VentaComponent implements OnInit {
     }
   }
   SeleccionDeFiltrado(event: string): void {
+    
     if (event === 'plato') {
       this.radioIsProducto = true;
     }

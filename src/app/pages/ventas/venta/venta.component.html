@@ -1,60 +1,27 @@
 <div class="card">
-  <div class="card-body">
-    <div class="grid">
-      <div class="row">
-        <div class="cell-xxl-4 cell-xl-4 cell-sm-12 fondo-recibo">
-          <input
-            class="mb-4 mt-1"
-            type="text"
-            data-role="input"
-            data-prepend="CI: "
-            name="cliente_busqueda"
-            [(ngModel)]="buscarClienteCedula"
-            (change)="buscarClientePorCedula($event)"
-            [disabled]="ConsumidorFinal"
-          />
-          <div class="d-flex justify-content-between align-items-center mb-2">
-            <button
-              class="button shadowe yellow"
-              (click)="abrirModalCliente(modalCliente)"
-            >
+    <div class="card-body">
+        <div class="grid">
+            <div class="row">
+                <div class="cell-xxl-4 cell-xl-4 cell-sm-12 fondo-recibo">
+                    <input class="mb-4 mt-1" type="text" data-role="input" data-prepend="CI: " name="cliente_busqueda" [(ngModel)]="buscarClienteCedula" (change)="buscarClientePorCedula($event)" [disabled]="ConsumidorFinal" />
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <button class="button shadowe yellow" (click)="abrirModalCliente(modalCliente)">
               Nuevo cliente
             </button>
-            <input
-              type="checkbox"
-              data-role="checkbox"
-              data-caption="Consumidor final"
-              name="consumidorFinal"
-              [(ngModel)]="ConsumidorFinal"
-              (change)="ConsumidorFilanEstado()"
-            />
-          </div>
-          <!-- mesa # -->
-          <div class="d-flex justify-content-between mb-4">
-            <button
-              class="button shadowed warning ancho-mesa"
-              (click)="abrirModalMesa(modalMesa)"
-            >
+                        <input type="checkbox" data-role="checkbox" data-caption="Consumidor final" name="consumidorFinal" [(ngModel)]="ConsumidorFinal" (change)="ConsumidorFilanEstado()" />
+                    </div>
+                    <!-- mesa # -->
+                    <div class="d-flex justify-content-between mb-4">
+                        <button class="button shadowed warning ancho-mesa" (click)="abrirModalMesa(modalMesa)">
               Mesa
             </button>
-            <input
-              type="text"
-              class="ancho-mesa-input"
-              placeholder="Seleccionar mesa"
-              name="mesa_pedido"
-              [(ngModel)]="mesa.nombre"
-              disabled
-            />
-          </div>
+                        <input type="text" class="ancho-mesa-input" placeholder="Seleccionar mesa" name="mesa_pedido" [(ngModel)]="mesa.nombre" disabled />
+                    </div>
 
-          <!-- estado pedido -->
-          <div class="input-group mb-2">
-            <div class="input-group-prepend">
-              <label
-                class="input-group-text"
-                for="inputGroupSelect01"
-                style="border-right-color: transparent"
-                >Estado pedido:</label
+                    <!-- estado pedido -->
+                    <div class="input-group mb-2">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="inputGroupSelect01" style="border-right-color: transparent">Estado pedido:</label
               >
             </div>
             <select
@@ -84,7 +51,7 @@
               name="venta"
               value="plato"
               data-caption="Plato"
-              checked
+              [checked]="radioIsProducto"
               (change)="SeleccionDeFiltrado('plato')"
             />
             <input
@@ -97,7 +64,7 @@
             />
           </div>
           <!-- productos -->
-          <div>
+          <div *ngIf="radioIsProducto">
             <input
               data-role="input"
               class="mb-2"
@@ -110,8 +77,7 @@
               [resultFormatter]="formatterProducto"
             />
           </div>
-
-          <ng-template #temcombo>
+          <div *ngIf="!radioIsProducto">
             <!--Combos-->
             <input
               data-role="input"
@@ -124,7 +90,7 @@
               [inputFormatter]="seleccionarCombo"
               [resultFormatter]="formatterCombo"
             />
-          </ng-template>
+          </div>
           <!-- botones -->
           <div class="d-flex justify-content-around mt-75 p-2">
             <button class="button shadowed alert rounded-0">Cancelar</button>
