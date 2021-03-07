@@ -25,10 +25,10 @@ import swal from 'sweetalert2';
 })
 export class VentaComponent implements OnInit {
   mesas: Mesa[] = [];
-  radioIsProducto: boolean = true;
+  radioIsProducto = true;
   cliente: Cliente = new Cliente();
-  buscarClienteCedula: string = '';
-  ConsumidorFinal: boolean = false;
+  buscarClienteCedula = '';
+  ConsumidorFinal = false;
   mesa: Mesa = new Mesa();
   estados: Estado[] = [];
   pedido: Pedido = new Pedido();
@@ -44,13 +44,13 @@ export class VentaComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    //listar los estados del pedido
+    // listar los estados del pedido
     this.listarEstadosPedido();
   }
-  abrirModalCliente(modal) {
+  abrirModalCliente(modal): void {
     this.modalReference = this.modalService.open(modal, { size: 'xl' });
   }
-  abrirModalMesa(modal) {
+  abrirModalMesa(modal): void {
     this.obtenerMesas();
     this.modalReference = this.modalService.open(modal, { scrollable: true });
   }
@@ -94,9 +94,9 @@ export class VentaComponent implements OnInit {
         this.cliente = res;
       });
   }
-  ConsumidorFilanEstado() {
+  ConsumidorFilanEstado(): void {
     this.buscarClienteCedula = '';
-    if (this.ConsumidorFinal == true) {
+    if (this.ConsumidorFinal === true) {
       console.log(true);
       this.clienteService.ClienteCedula('9999999999').subscribe((res) => {
         console.log(res);
@@ -124,7 +124,7 @@ export class VentaComponent implements OnInit {
   filtrarPlatos(): void {
     console.log('filtrado de platos');
   }
-  //------------------------------- filtrado de productos-----------------------------------//
+  // ------------------------------- filtrado de productos-----------------------------------//
   searchProductos = (text$: Observable<string>) =>
     text$.pipe(
       distinctUntilChanged(),
@@ -132,7 +132,6 @@ export class VentaComponent implements OnInit {
         term ? this.productoService.getProductoByTerm(term) : []
       )
     );
-
   // para mostrar datos en la lista del input
   formatterProducto = (producto: Producto) =>
     producto.nombre +
@@ -141,7 +140,7 @@ export class VentaComponent implements OnInit {
     ' -> ' +
     producto.categoria.nombre;
   dataP: Producto[] = [];
-  //temina el formato
+  // temina el formato
 
   seleccionarProducto = (producto: Producto) => {
     console.log(producto);
@@ -149,7 +148,7 @@ export class VentaComponent implements OnInit {
   };
   //termina el filtrado de productos
 
-  //------------------------------- filtrado de combos-----------------------------------//
+  // ------------------------------- filtrado de combos-----------------------------------//
 
   searchCombos = (text$: Observable<string>) =>
     text$.pipe(

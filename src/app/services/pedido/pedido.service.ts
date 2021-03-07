@@ -1,13 +1,17 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Router } from '@angular/router';
 import { EventEmitter, Injectable } from '@angular/core';
-import { BASE_URL } from 'src/environments/configurations';
 import { Observable, throwError } from 'rxjs';
-import { DetallePedido } from '../../models/pedidos/detalle-pedido';
-import { Pedido } from 'src/app/models/pedidos/pedido';
 import { catchError, map } from 'rxjs/operators';
 import swal from 'sweetalert2';
+
+// enpoint
+import { BASE_URL } from 'src/environments/configurations';
+
+// models
+import { DetallePedido } from '../../models/pedidos/detalle-pedido';
+import { Pedido } from 'src/app/models/pedidos/pedido';
 import { DetalleComboPedido } from 'src/app/models/pedidos/detalle-combo-pedido';
-import { Router } from '@angular/router';
 import { Estado } from 'src/app/models/pedidos/estado';
 
 @Injectable({
