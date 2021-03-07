@@ -4,6 +4,8 @@ import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { Observable } from 'rxjs';
 import { distinctUntilChanged, mergeMap } from 'rxjs/operators';
 import { Mesa } from 'src/app/models/mesa/mesa';
+import { OperacionesCombos } from 'src/app/models/operaciones/operaciones-combos';
+import { DetalleComboPedido } from 'src/app/models/pedidos/detalle-combo-pedido';
 import { Estado } from 'src/app/models/pedidos/estado';
 import { Pedido } from 'src/app/models/pedidos/pedido';
 import { Cliente } from 'src/app/models/persona/cliente';
@@ -31,6 +33,7 @@ export class VentaComponent implements OnInit {
   estados: Estado[] = [];
   pedido: Pedido = new Pedido();
   modalReference: NgbModalRef;
+  NuevoCombo: DetalleComboPedido = new DetalleComboPedido();
   constructor(
     private modalService: NgbModal,
     private mesaService: MesaService,
@@ -111,7 +114,6 @@ export class VentaComponent implements OnInit {
     }
   }
   SeleccionDeFiltrado(event: string): void {
-    
     if (event === 'plato') {
       this.radioIsProducto = true;
     }
@@ -141,9 +143,10 @@ export class VentaComponent implements OnInit {
   dataP: Producto[] = [];
   //temina el formato
 
-  seleccionarProducto(producto: Producto) {
+  seleccionarProducto = (producto: Producto) => {
     console.log(producto);
-  }
+    return '';
+  };
   //termina el filtrado de productos
 
   //------------------------------- filtrado de combos-----------------------------------//
@@ -158,8 +161,20 @@ export class VentaComponent implements OnInit {
     combo.nombre + ' -> $' + combo.precio + ' -> ' + combo.categoria.nombre;
   dataC: Combo[] = [];
   //temina el formato
-  seleccionarCombo(combo: Combo) {
+
+  seleccionarCombo = (combo: Combo) => {
+    let operacion: OperacionesCombos = new OperacionesCombos();
+    this.NuevoCombo.combo = combo;
     console.log(combo);
-  }
-  //termina metodos opara el filtrado del combo
+    let existe = operacion.existeCombo(combo.id, this.pedido.combos);
+    console.log(existe);
+    if (!existe) {
+      this.pedido.combos.push(this.NuevoCombo);
+    } else {
+      //sumar cantidad
+    }
+    //restauramos la variable
+    this.NuevoCombo = new DetalleComboPedido();
+    return '';
+  };
 }
