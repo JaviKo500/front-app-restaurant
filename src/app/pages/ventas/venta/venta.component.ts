@@ -5,7 +5,9 @@ import { Observable } from 'rxjs';
 import { distinctUntilChanged, mergeMap } from 'rxjs/operators';
 import { Mesa } from 'src/app/models/mesa/mesa';
 import { OperacionesCombos } from 'src/app/models/operaciones/operaciones-combos';
+import { OperacionesProductos } from 'src/app/models/operaciones/operaciones-productos';
 import { DetalleComboPedido } from 'src/app/models/pedidos/detalle-combo-pedido';
+import { DetallePedido } from 'src/app/models/pedidos/detalle-pedido';
 import { Estado } from 'src/app/models/pedidos/estado';
 import { Pedido } from 'src/app/models/pedidos/pedido';
 import { Cliente } from 'src/app/models/persona/cliente';
@@ -16,6 +18,7 @@ import { ComboService } from 'src/app/services/combo/combo.service';
 import { MesaService } from 'src/app/services/mesa/mesa.service';
 import { PedidoService } from 'src/app/services/pedido/pedido.service';
 import { ProductoService } from 'src/app/services/productos/producto.service';
+import { BASE_URL } from 'src/environments/configurations';
 import swal from 'sweetalert2';
 
 @Component({
@@ -24,6 +27,8 @@ import swal from 'sweetalert2';
   styleUrls: ['./venta.component.css'],
 })
 export class VentaComponent implements OnInit {
+  //api carga de imagenes
+  api = BASE_URL;
   mesas: Mesa[] = [];
   radioIsProducto = true;
   cliente: Cliente = new Cliente();
@@ -33,7 +38,7 @@ export class VentaComponent implements OnInit {
   estados: Estado[] = [];
   pedido: Pedido = new Pedido();
   modalReference: NgbModalRef;
-  NuevoCombo: DetalleComboPedido = new DetalleComboPedido();
+
   constructor(
     private modalService: NgbModal,
     private mesaService: MesaService,
@@ -47,16 +52,7 @@ export class VentaComponent implements OnInit {
     // listar los estados del pedido
     this.listarEstadosPedido();
   }
-  abrirModalCliente(modal): void {
-    this.modalReference = this.modalService.open(modal, { size: 'xl' });
-  }
-  abrirModalMesa(modal): void {
-    this.obtenerMesas();
-    this.modalReference = this.modalService.open(modal, { scrollable: true });
-  }
-  CerrarModal(): void {
-    this.modalReference.close();
-  }
+
   obtenerMesas(): void {
     this.mesaService.ObtenerMesas().subscribe((res) => {
       console.log(res);
@@ -121,9 +117,6 @@ export class VentaComponent implements OnInit {
       this.radioIsProducto = false;
     }
   }
-  filtrarPlatos(): void {
-    console.log('filtrado de platos');
-  }
   // ------------------------------- filtrado de productos-----------------------------------//
   searchProductos = (text$: Observable<string>) =>
     text$.pipe(
@@ -142,12 +135,31 @@ export class VentaComponent implements OnInit {
   dataP: Producto[] = [];
   // temina el formato
 
-  seleccionarProducto = (producto: Producto) => {
-    console.log(producto);
+  seleccionarProducto = (prod: Producto) => {
+    let operaciones: OperacionesProductos = new OperacionesProductos();
+    let NuevoProducto: DetallePedido = new DetallePedido();
+    //asignar el producto
+    NuevoProducto.producto = prod;
+    console.log(prod);
+    let existe = operaciones.existeProducto(prod.id, this.pedido.items);
+    if (!existe) {
+      this.pedido.items.push(NuevoProducto);
+    } else {
+      //incrementar la cantidad del producto en 1
+      this.pedido.items = operaciones.incrementarCantidad(
+        prod.id,
+        1,
+        this.pedido.items
+      );
+    }
     return '';
   };
   //termina el filtrado de productos
-
+  //eliminar productos de pedido
+  eliminarProdPedido(id: number): void {
+    let operacion: OperacionesProductos = new OperacionesProductos();
+    this.pedido.items = operacion.eliminarProducto(id, this.pedido.items);
+  }
   // ------------------------------- filtrado de combos-----------------------------------//
 
   searchCombos = (text$: Observable<string>) =>
@@ -160,20 +172,45 @@ export class VentaComponent implements OnInit {
     combo.nombre + ' -> $' + combo.precio + ' -> ' + combo.categoria.nombre;
   dataC: Combo[] = [];
   //temina el formato
-
+  //funcion para agregar un combo al pedido
   seleccionarCombo = (combo: Combo) => {
     let operacion: OperacionesCombos = new OperacionesCombos();
-    this.NuevoCombo.combo = combo;
-    console.log(combo);
+    let NuevoCombo: DetalleComboPedido = new DetalleComboPedido();
+    NuevoCombo.combo = combo;
     let existe = operacion.existeCombo(combo.id, this.pedido.combos);
     console.log(existe);
     if (!existe) {
-      this.pedido.combos.push(this.NuevoCombo);
+      this.pedido.combos.push(NuevoCombo);
     } else {
+      //incrementar la cantidad del combo en 1
+      this.pedido.combos = operacion.incrementarCantidad(
+        combo.id,
+        1,
+        this.pedido.combos
+      );
       //sumar cantidad
     }
     //restauramos la variable
-    this.NuevoCombo = new DetalleComboPedido();
+    console.log('combos');
+
+    console.log(this.pedido.combos);
     return '';
   };
+  //eliminar combos del pedido
+  eliminarComboPedido(id: number): void {
+    let operacion: OperacionesCombos = new OperacionesCombos();
+    this.pedido.combos = operacion.eliminarCombo(id, this.pedido.combos);
+  }
+
+  //--------------funciones d elos modaless-----------------
+  abrirModalCliente(modal): void {
+    this.modalReference = this.modalService.open(modal, { size: 'xl' });
+  }
+  abrirModalMesa(modal): void {
+    this.obtenerMesas();
+    this.modalReference = this.modalService.open(modal, { scrollable: true });
+  }
+  CerrarModal(): void {
+    this.modalReference.close();
+  }
 }

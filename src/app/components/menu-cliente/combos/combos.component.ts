@@ -11,6 +11,7 @@ import { PedidoService } from 'src/app/services/pedido/pedido.service';
 import { Pedido } from 'src/app/models/pedidos/pedido';
 import { Producto } from 'src/app/models/productos/producto';
 import { ProductoService } from 'src/app/services/productos/producto.service';
+import { OperacionesCombos } from 'src/app/models/operaciones/operaciones-combos';
 
 @Component({
   selector: 'app-combos',
@@ -27,6 +28,7 @@ export class CombosComponent implements OnInit {
   item: DetalleComboPedido = new DetalleComboPedido();
   combo: Combo;
   BebidaCombo: Producto;
+  operaciones: OperacionesCombos = new OperacionesCombos();
   api = BASE_URL;
   constructor(
     private modalService: NgbModal,
@@ -85,32 +87,22 @@ export class CombosComponent implements OnInit {
 
   // verificar si un producto existe en el pedido
   existeCombo(id: number): boolean {
-    let band = false;
-    this.items.forEach((item: DetalleComboPedido) => {
-      if (id === item.combo.id) {
-        band = true;
-      }
-    });
+    let band = this.operaciones.existeCombo(id, this.items);
     return band;
   }
 
   // si existe un producto duplicado aumentar la cantidad
   incrementarCantidad(id: number): void {
-    this.items = this.items.map((item: DetalleComboPedido) => {
-      if (id === item.combo.id) {
-        item.cantidad += this.item.cantidad;
-      }
-      //actualizar en el nav bar
-      this.pedidoService.itemscombo$.emit(this.items);
-      return item;
-    });
+    this.items = this.operaciones.incrementarCantidad(
+      id,
+      this.item.cantidad,
+      this.items
+    );
   }
 
   //eliminar un combo de la lista del pedido
   eliminarCombo(id: number): void {
-    this.items = this.items.filter(
-      (item: DetalleComboPedido) => id !== item.combo.id
-    );
+    this.items = this.operaciones.eliminarCombo(id, this.items);
   }
 
   modalDetalleCombo(modalDetalle): void {

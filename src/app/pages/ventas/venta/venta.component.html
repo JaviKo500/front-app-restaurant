@@ -181,19 +181,20 @@
                 </tr>
               </thead>
               <tbody>
-                <tr>
+                <!--Tr de los productos-->
+                <tr *ngFor="let prod of pedido.items">
                   <td>
                     <img
-                      src="assets/icons/"
+                      src="{{ api }}product/img/{{ prod.producto.imagen }}"
                       alt=""
                       width="50px"
                       height="50px"
                     />
                   </td>
-                  <td>com.nombre</td>
-                  <td>com.itemsCombo.length</td>
-                  <td>com.categoria.nombre</td>
-                  <td>com.precio</td>
+                  <td>{{ prod.producto.nombre }}</td>
+                  <td>{{ prod.cantidad }}</td>
+                  <td>{{ prod.producto.categoria.nombre }}</td>
+                  <td>{{ prod.producto.precio }}</td>
                   <td>
                     <div
                       class="d-flex justify-content-around align-items-center"
@@ -206,6 +207,41 @@
                       <div class="cell-xl-3 cell-sm-1">
                         <button
                           class="button alert shadowed border-radius-1 mb-0"
+                          (click)="eliminarProdPedido(prod.producto.id)"
+                        >
+                          <i class="far fa-trash-alt"></i>
+                        </button>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+                <!--Tr de los combos-->
+                <tr *ngFor="let comb of pedido.combos">
+                  <td>
+                    <img
+                      src="{{ api }}product/img/{{ comb.combo.imagen }}"
+                      alt=""
+                      width="50px"
+                      height="50px"
+                    />
+                  </td>
+                  <td>{{ comb.combo.nombre }}</td>
+                  <td>{{ comb.cantidad }}</td>
+                  <td>{{ comb.combo.categoria.nombre }}</td>
+                  <td>{{ comb.combo.precio }}</td>
+                  <td>
+                    <div
+                      class="d-flex justify-content-around align-items-center"
+                    >
+                      <div class="cell-xl-3 cell-sm-1">
+                        <button class="button warning shadowed">
+                          <i class="far fa-list-alt"></i>
+                        </button>
+                      </div>
+                      <div class="cell-xl-3 cell-sm-1">
+                        <button
+                          class="button alert shadowed border-radius-1 mb-0"
+                          (click)="eliminarComboPedido(comb.combo.id)"
                         >
                           <i class="far fa-trash-alt"></i>
                         </button>

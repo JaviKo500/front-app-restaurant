@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { OperacionesProductos } from 'src/app/models/operaciones/operaciones-productos';
 import { DetallePedido } from 'src/app/models/pedidos/detalle-pedido';
 import { Pedido } from 'src/app/models/pedidos/pedido';
 import { Combo } from 'src/app/models/productos/combo';
@@ -29,6 +30,7 @@ export class ProductosComponent implements OnInit {
   pedido_local: Pedido = new Pedido();
   productos: Producto[] = [];
   combos: Combo[] = [];
+  operacion: OperacionesProductos = new OperacionesProductos();
   constructor(
     private modalService: NgbModal,
     private productoService: ProductoService,
@@ -118,32 +120,24 @@ export class ProductosComponent implements OnInit {
 
   // verificar si un producto existe en el pedido
   existeProducto(id: number): boolean {
-    let band = false;
-    this.items.forEach((item: DetallePedido) => {
-      if (id === item.producto.id) {
-        band = true;
-      }
-    });
+    let band = this.operacion.existeProducto(id, this.items);
     return band;
   }
 
   // si existe un producto duplicado aumentar la cantidad
   incrementarCantidad(id: number): void {
-    this.items = this.items.map((item: DetallePedido) => {
-      if (id === item.producto.id) {
-        item.cantidad += this.item.cantidad;
-      }
-      //actualizar cantidad en el navbar
-      this.pedidosService.items$.emit(this.items);
-      return item;
-    });
+    this.items = this.operacion.incrementarCantidad(
+      id,
+      this.item.cantidad,
+      this.items
+    );
+    //actualizar cantidad en el navbar
+    this.pedidosService.items$.emit(this.items);
   }
 
   //eliminar un producto de la lista del pedido
   eliminarProducto(id: number): void {
-    this.items = this.items.filter(
-      (item: DetallePedido) => id !== item.producto.id
-    );
+    this.items = this.operacion.eliminarProducto(id, this.items);
   }
 
   // recuperar pedid del local storage
