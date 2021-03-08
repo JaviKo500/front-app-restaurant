@@ -87,6 +87,8 @@ export class CombosComponent implements OnInit {
     console.log(this.items);
   }
 
+  private addCombo(): void {}
+
   // verificar si un producto existe en el pedido
   existeCombo(id: number): boolean {
     let band = this.operaciones.existeCombo(id, this.items);
