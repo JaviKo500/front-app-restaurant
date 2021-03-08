@@ -62,6 +62,10 @@ export class VentaComponent implements OnInit {
     if (this.validarCampos()) {
       this.pedidoService.registrarPedidoAuth(this.pedido).subscribe((res) => {
         console.log(res);
+        //restablecer valores
+        this.pedido = new Pedido();
+        this.cliente = new Cliente();
+        this.mesa = new Mesa();
       });
     }
   }
