@@ -37,6 +37,7 @@ export class VentaComponent implements OnInit {
   mesa: Mesa = new Mesa();
   estados: Estado[] = [];
   pedido: Pedido = new Pedido();
+  comboDetalle: Combo;
   modalReference: NgbModalRef;
 
   constructor(
@@ -138,14 +139,14 @@ export class VentaComponent implements OnInit {
   seleccionarProducto = (prod: Producto) => {
     let operaciones: OperacionesProductos = new OperacionesProductos();
     let NuevoProducto: DetallePedido = new DetallePedido();
-    //asignar el producto
+    // asignar el producto
     NuevoProducto.producto = prod;
     console.log(prod);
     let existe = operaciones.existeProducto(prod.id, this.pedido.items);
     if (!existe) {
       this.pedido.items.push(NuevoProducto);
     } else {
-      //incrementar la cantidad del producto en 1
+      // incrementar la cantidad del producto en 1
       this.pedido.items = operaciones.incrementarCantidad(
         prod.id,
         1,
@@ -153,9 +154,9 @@ export class VentaComponent implements OnInit {
       );
     }
     return '';
-  };
-  //termina el filtrado de productos
-  //eliminar productos de pedido
+  }
+  // termina el filtrado de productos
+  // eliminar productos de pedido
   eliminarProdPedido(id: number): void {
     let operacion: OperacionesProductos = new OperacionesProductos();
     this.pedido.items = operacion.eliminarProducto(id, this.pedido.items);
@@ -171,8 +172,8 @@ export class VentaComponent implements OnInit {
   formatterCombo = (combo: Combo) =>
     combo.nombre + ' -> $' + combo.precio + ' -> ' + combo.categoria.nombre;
   dataC: Combo[] = [];
-  //temina el formato
-  //funcion para agregar un combo al pedido
+  // temina el formato
+  // funcion para agregar un combo al pedido
   seleccionarCombo = (combo: Combo) => {
     let operacion: OperacionesCombos = new OperacionesCombos();
     let NuevoCombo: DetalleComboPedido = new DetalleComboPedido();
@@ -182,32 +183,36 @@ export class VentaComponent implements OnInit {
     if (!existe) {
       this.pedido.combos.push(NuevoCombo);
     } else {
-      //incrementar la cantidad del combo en 1
+      // incrementar la cantidad del combo en 1
       this.pedido.combos = operacion.incrementarCantidad(
         combo.id,
         1,
         this.pedido.combos
       );
-      //sumar cantidad
+      // sumar cantidad
     }
-    //restauramos la variable
+    // restauramos la variable
     console.log('combos');
 
     console.log(this.pedido.combos);
     return '';
-  };
-  //eliminar combos del pedido
+  }
+  // eliminar combos del pedido
   eliminarComboPedido(id: number): void {
     let operacion: OperacionesCombos = new OperacionesCombos();
     this.pedido.combos = operacion.eliminarCombo(id, this.pedido.combos);
   }
 
-  //--------------funciones d elos modaless-----------------
+  // --------------funciones d elos modaless-----------------
   abrirModalCliente(modal): void {
     this.modalReference = this.modalService.open(modal, { size: 'xl' });
   }
   abrirModalMesa(modal): void {
     this.obtenerMesas();
+    this.modalReference = this.modalService.open(modal, { scrollable: true });
+  }
+  abrirModalDetalle(modal, detallePedidoCombo: DetalleComboPedido): void {
+    this.comboDetalle = detallePedidoCombo.combo;
     this.modalReference = this.modalService.open(modal, { scrollable: true });
   }
   CerrarModal(): void {

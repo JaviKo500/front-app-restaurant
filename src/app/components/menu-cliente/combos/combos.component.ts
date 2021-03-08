@@ -12,6 +12,7 @@ import { Pedido } from 'src/app/models/pedidos/pedido';
 import { Producto } from 'src/app/models/productos/producto';
 import { ProductoService } from 'src/app/services/productos/producto.service';
 import { OperacionesCombos } from 'src/app/models/operaciones/operaciones-combos';
+import { ProductoCombo } from '../../../models/productos/producto-combo';
 
 @Component({
   selector: 'app-combos',
@@ -52,11 +53,11 @@ export class CombosComponent implements OnInit {
       }
     });
     this.recuperarDelLocalStorage();
-    //obtener la lista modificada de
+    // obtener la lista modificada de
     this.pedidoService.itemscombo$.subscribe((items) => {
       this.items = items;
     });
-    //obtener la bebidas
+    // obtener la bebidas
     this.obtenerBebidas();
   }
 
@@ -66,14 +67,14 @@ export class CombosComponent implements OnInit {
     if (this.combo.saborBebida) {
       if (this.existeCombo(comb.id)) {
         this.incrementarCantidad(comb.id);
-        //ARREGLAR LAS NOTIFICACIOINES
-        //this.notificaciones('se actualizó la cantidad del producto');
+        // ARREGLAR LAS NOTIFICACIOINES
+        // this.notificaciones('se actualizó la cantidad del producto');
       } else {
-        //agregamos el produxto al item
+        // agregamos el produxto al item
         this.item.combo = comb;
         this.items.push(this.item);
-        //ARREGLAR LAS NOTIFICACIOINES
-        //this.notificaciones('se agregó un producto');
+        // ARREGLAR LAS NOTIFICACIOINES
+        // this.notificaciones('se agregó un producto');
         // aqui debe estar este medodo par que funcione
         this.pedidoService.itemscombo$.emit(this.items);
       }
@@ -81,7 +82,7 @@ export class CombosComponent implements OnInit {
     } else {
       console.log('escoger un abor');
     }
-    //cerrar modal y restaurar valor del item
+    // cerrar modal y restaurar valor del item
     console.log(this.items);
   }
 
@@ -100,7 +101,7 @@ export class CombosComponent implements OnInit {
     );
   }
 
-  //eliminar un combo de la lista del pedido
+  // eliminar un combo de la lista del pedido
   eliminarCombo(id: number): void {
     this.items = this.operaciones.eliminarCombo(id, this.items);
   }
@@ -117,7 +118,7 @@ export class CombosComponent implements OnInit {
       size: 'xl',
     });
   }
-  //para mensajes toast
+  // para mensajes toast
   notificaciones(mensaje: string): void {
     this.notificacion.setup({
       width: 300,
@@ -137,7 +138,7 @@ export class CombosComponent implements OnInit {
     }
   }
 
-  //cerrar modal de detalle
+  // cerrar modal de detalle
   cerrarModalDetalle(): void {
     this.item = new DetalleComboPedido();
     this.modalRef.close();
@@ -179,5 +180,10 @@ export class CombosComponent implements OnInit {
   asignarBebida(): void {
     this.combo.saborBebida = this.BebidaCombo.nombre;
     console.log(this.combo.saborBebida);
+  }
+
+  verificarComboBebidas(): boolean {
+    // devuelve true almenos si hay una bebida asignada en el combo si no falso
+     return this.combo.itemsCombo.some( (item: ProductoCombo) => item.producto.categoria.id === 1);
   }
 }

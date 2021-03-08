@@ -15,7 +15,7 @@ export class ProductoService {
 
   private httpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
 
-  //filtrar productos del cliente
+  // filtrar productos del cliente
   ObtenerProductosClientes(cate_id: number): Observable<any> {
     return this.http.get(this.url + 'get/client/products/' + cate_id).pipe(
       map((response: any) => response.productos as Producto[]),
@@ -26,7 +26,7 @@ export class ProductoService {
     );
   }
 
-  //cambiar el estado del producto
+  // cambiar el estado del producto
   CambiarEstadoProducto(producto: Producto): Observable<any> {
     return this.http
       .put(this.url + 'actualizar/estado/producto', producto)
