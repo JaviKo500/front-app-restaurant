@@ -64,7 +64,7 @@ export class CombosComponent implements OnInit {
   // agregar un producto al pedido
   agregarCombo(comb: Combo): void {
     console.log(comb);
-    if (this.combo.saborBebida) {
+    if (!this.combo.saborBebida && this.verificarComboBebidas() == false) {
       if (this.existeCombo(comb.id)) {
         this.incrementarCantidad(comb.id);
         // ARREGLAR LAS NOTIFICACIOINES
@@ -184,6 +184,8 @@ export class CombosComponent implements OnInit {
 
   verificarComboBebidas(): boolean {
     // devuelve true almenos si hay una bebida asignada en el combo si no falso
-     return this.combo.itemsCombo.some( (item: ProductoCombo) => item.producto.categoria.id === 1);
+    return this.combo.itemsCombo.some(
+      (item: ProductoCombo) => item.producto.categoria.id === 1
+    );
   }
 }
