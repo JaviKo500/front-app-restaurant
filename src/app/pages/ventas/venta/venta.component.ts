@@ -58,14 +58,16 @@ export class VentaComponent implements OnInit {
     //asignar los valores al pedido
     this.pedido.cliente = this.cliente;
     this.pedido.mesa = this.mesa;
+    this.pedido.fecha = new Date();
     if (this.validarCampos()) {
-      console.log(this.pedido);
+      this.pedidoService.registrarPedidoAuth(this.pedido).subscribe((res) => {
+        console.log(res);
+      });
     }
   }
 
   obtenerMesas(): void {
     this.mesaService.ObtenerMesas().subscribe((res) => {
-      console.log(res);
       this.mesas = res;
     });
   }
@@ -78,7 +80,6 @@ export class VentaComponent implements OnInit {
   listarEstadosPedido(): void {
     this.pedidoService.listarEstadosPedidos().subscribe((res) => {
       this.estados = res;
-      console.log(res);
     });
   }
 
@@ -92,20 +93,19 @@ export class VentaComponent implements OnInit {
   }
 
   buscarClientePorCedula(event: any): void {
-    console.log('evento activado');
-    this.clienteService
-      .ClienteCedula(this.buscarClienteCedula)
-      .subscribe((res) => {
-        console.log(res);
-        this.cliente = res;
-      });
+    if (this.buscarClienteCedula) {
+      this.clienteService
+        .ClienteCedula(this.buscarClienteCedula)
+        .subscribe((res) => {
+          this.cliente = res;
+          console.log(res);
+        });
+    }
   }
   ConsumidorFilanEstado(): void {
     this.buscarClienteCedula = '';
     if (this.ConsumidorFinal === true) {
-      console.log(true);
       this.clienteService.ClienteCedula('9999999999').subscribe((res) => {
-        console.log(res);
         this.cliente = res;
       });
     } else {
@@ -150,7 +150,6 @@ export class VentaComponent implements OnInit {
     let NuevoProducto: DetallePedido = new DetallePedido();
     // asignar el producto
     NuevoProducto.producto = prod;
-    console.log(prod);
     let existe = operaciones.existeProducto(prod.id, this.pedido.items);
     if (!existe) {
       this.pedido.items.push(NuevoProducto);
@@ -188,7 +187,6 @@ export class VentaComponent implements OnInit {
     let NuevoCombo: DetalleComboPedido = new DetalleComboPedido();
     NuevoCombo.combo = combo;
     let existe = operacion.existeCombo(combo.id, this.pedido.combos);
-    console.log(existe);
     if (!existe) {
       this.pedido.combos.push(NuevoCombo);
     } else {
