@@ -63,7 +63,8 @@ export class CombosComponent implements OnInit {
 
   // agregar un producto al pedido
   agregarCombo(comb: Combo): void {
-    console.log(comb);
+    console.log('sabor ' + this.combo.saborBebida);
+
     if (!this.combo.saborBebida && this.verificarComboBebidas() == false) {
       if (this.existeCombo(comb.id)) {
         this.incrementarCantidad(comb.id);
@@ -172,12 +173,13 @@ export class CombosComponent implements OnInit {
 
   obtenerBebidas(): void {
     this.productoService.ObtenerProductosClientes(1).subscribe((result) => {
-      console.log(result);
       this.bebidas = result;
     });
   }
 
   asignarBebida(): void {
+    console.log(this.BebidaCombo.nombre);
+
     this.combo.saborBebida = this.BebidaCombo.nombre;
     console.log(this.combo.saborBebida);
   }
