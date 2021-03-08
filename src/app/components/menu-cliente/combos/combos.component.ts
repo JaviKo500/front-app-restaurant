@@ -64,30 +64,38 @@ export class CombosComponent implements OnInit {
   // agregar un producto al pedido
   agregarCombo(comb: Combo): void {
     console.log('sabor ' + this.combo.saborBebida);
-
+    //en el caso de ser sin bebidas
     if (!this.combo.saborBebida && this.verificarComboBebidas() == false) {
-      if (this.existeCombo(comb.id)) {
-        this.incrementarCantidad(comb.id);
-        // ARREGLAR LAS NOTIFICACIOINES
-        // this.notificaciones('se actualizó la cantidad del producto');
-      } else {
-        // agregamos el produxto al item
-        this.item.combo = comb;
-        this.items.push(this.item);
-        // ARREGLAR LAS NOTIFICACIOINES
-        // this.notificaciones('se agregó un producto');
-        // aqui debe estar este medodo par que funcione
-        this.pedidoService.itemscombo$.emit(this.items);
-      }
+      this.addCombo(comb);
       this.cerrarModalDetalle();
     } else {
-      console.log('escoger un abor');
+      if (this.combo.saborBebida && this.verificarComboBebidas() == true) {
+        this.addCombo(comb);
+        this.cerrarModalDetalle();
+      } else {
+        console.log('escoger un abor');
+      }
     }
+    //en el caso de contener bebidas
     // cerrar modal y restaurar valor del item
     console.log(this.items);
   }
 
-  private addCombo(): void {}
+  private addCombo(comb: Combo): void {
+    if (this.existeCombo(comb.id)) {
+      this.incrementarCantidad(comb.id);
+      // ARREGLAR LAS NOTIFICACIOINES
+      // this.notificaciones('se actualizó la cantidad del producto');
+    } else {
+      // agregamos el produxto al item
+      this.item.combo = comb;
+      this.items.push(this.item);
+      // ARREGLAR LAS NOTIFICACIOINES
+      // this.notificaciones('se agregó un producto');
+      // aqui debe estar este medodo par que funcione
+      this.pedidoService.itemscombo$.emit(this.items);
+    }
+  }
 
   // verificar si un producto existe en el pedido
   existeCombo(id: number): boolean {
