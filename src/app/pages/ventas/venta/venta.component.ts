@@ -54,6 +54,15 @@ export class VentaComponent implements OnInit {
     this.listarEstadosPedido();
   }
 
+  registrarPedido(): void {
+    //asignar los valores al pedido
+    this.pedido.cliente = this.cliente;
+    this.pedido.mesa = this.mesa;
+    if (this.validarCampos()) {
+      console.log(this.pedido);
+    }
+  }
+
   obtenerMesas(): void {
     this.mesaService.ObtenerMesas().subscribe((res) => {
       console.log(res);
@@ -154,7 +163,7 @@ export class VentaComponent implements OnInit {
       );
     }
     return '';
-  }
+  };
   // termina el filtrado de productos
   // eliminar productos de pedido
   eliminarProdPedido(id: number): void {
@@ -192,11 +201,8 @@ export class VentaComponent implements OnInit {
       // sumar cantidad
     }
     // restauramos la variable
-    console.log('combos');
-
-    console.log(this.pedido.combos);
     return '';
-  }
+  };
   // eliminar combos del pedido
   eliminarComboPedido(id: number): void {
     let operacion: OperacionesCombos = new OperacionesCombos();
@@ -217,5 +223,36 @@ export class VentaComponent implements OnInit {
   }
   CerrarModal(): void {
     this.modalReference.close();
+  }
+
+  private pedidoConProductos(): boolean {
+    let band = true;
+    if (this.pedido.items.length == 0 && this.pedido.combos.length == 0) {
+      band = false;
+    }
+    return band;
+  }
+  //validar opciones para registrar el pedido
+  validarCampos(): boolean {
+    let band = true;
+    if (this.pedidoConProductos()) {
+      let p = this.pedido;
+      if (!p.cliente || !p.mesa || !p.estado) {
+        swal.fire(
+          'Observación',
+          'Asegurese de seleccionar un cliente, mesa y estado del pedido',
+          'warning'
+        );
+        band = false;
+      }
+    } else {
+      swal.fire(
+        'Observación',
+        'Escoger productos y/o combos para el pedido.',
+        'warning'
+      );
+      band = false;
+    }
+    return band;
   }
 }

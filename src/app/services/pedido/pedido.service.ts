@@ -65,4 +65,18 @@ export class PedidoService {
         })
       );
   }
+  //registrar pedido
+  registrarPedidoAuth(pedido: Pedido): Observable<any> {
+    return this.http
+      .post(this.url + 'register/new/auth/pedido', pedido, {
+        headers: this.httpHeaders,
+      })
+      .pipe(
+        map((response: any) => response),
+        catchError((e) => {
+          swal.fire(e.error.mensaje, e.error.error, 'warning');
+          return throwError(e);
+        })
+      );
+  }
 }

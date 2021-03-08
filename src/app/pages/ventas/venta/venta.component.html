@@ -1,27 +1,60 @@
 <div class="card">
-    <div class="card-body">
-        <div class="grid">
-            <div class="row">
-                <div class="cell-xxl-4 cell-xl-4 cell-sm-12 fondo-recibo">
-                    <input class="mb-4 mt-1" type="text" data-role="input" data-prepend="CI: " name="cliente_busqueda" [(ngModel)]="buscarClienteCedula" (change)="buscarClientePorCedula($event)" [disabled]="ConsumidorFinal" />
-                    <div class="d-flex justify-content-between align-items-center mb-2">
-                        <button class="button shadowe yellow" (click)="abrirModalCliente(modalCliente)">
+  <div class="card-body">
+    <div class="grid">
+      <div class="row">
+        <div class="cell-xxl-4 cell-xl-4 cell-sm-12 fondo-recibo">
+          <input
+            class="mb-4 mt-1"
+            type="text"
+            data-role="input"
+            data-prepend="CI: "
+            name="cliente_busqueda"
+            [(ngModel)]="buscarClienteCedula"
+            (change)="buscarClientePorCedula($event)"
+            [disabled]="ConsumidorFinal"
+          />
+          <div class="d-flex justify-content-between align-items-center mb-2">
+            <button
+              class="button shadowe yellow"
+              (click)="abrirModalCliente(modalCliente)"
+            >
               Nuevo cliente
             </button>
-                        <input type="checkbox" data-role="checkbox" data-caption="Consumidor final" name="consumidorFinal" [(ngModel)]="ConsumidorFinal" (change)="ConsumidorFilanEstado()" />
-                    </div>
-                    <!-- mesa # -->
-                    <div class="d-flex justify-content-between mb-4">
-                        <button class="button shadowed warning ancho-mesa" (click)="abrirModalMesa(modalMesa)">
+            <input
+              type="checkbox"
+              data-role="checkbox"
+              data-caption="Consumidor final"
+              name="consumidorFinal"
+              [(ngModel)]="ConsumidorFinal"
+              (change)="ConsumidorFilanEstado()"
+            />
+          </div>
+          <!-- mesa # -->
+          <div class="d-flex justify-content-between mb-4">
+            <button
+              class="button shadowed warning ancho-mesa"
+              (click)="abrirModalMesa(modalMesa)"
+            >
               Mesa
             </button>
-                        <input type="text" class="ancho-mesa-input" placeholder="Seleccionar mesa" name="mesa_pedido" [(ngModel)]="mesa.nombre" disabled />
-                    </div>
+            <input
+              type="text"
+              class="ancho-mesa-input"
+              placeholder="Seleccionar mesa"
+              name="mesa_pedido"
+              [(ngModel)]="mesa.nombre"
+              disabled
+            />
+          </div>
 
-                    <!-- estado pedido -->
-                    <div class="input-group mb-2">
-                        <div class="input-group-prepend">
-                            <label class="input-group-text" for="inputGroupSelect01" style="border-right-color: transparent">Estado pedido:</label
+          <!-- estado pedido -->
+          <div class="input-group mb-2">
+            <div class="input-group-prepend">
+              <label
+                class="input-group-text"
+                for="inputGroupSelect01"
+                style="border-right-color: transparent"
+                >Estado pedido:</label
               >
             </div>
             <select
@@ -94,7 +127,12 @@
           <!-- botones -->
           <div class="d-flex justify-content-around mt-75 p-2">
             <button class="button shadowed alert rounded-0">Cancelar</button>
-            <button class="button shadowed bg-black">Guardar pedido</button>
+            <button
+              class="button shadowed bg-black"
+              (click)="registrarPedido()"
+            >
+              Guardar pedido
+            </button>
           </div>
         </div>
 
@@ -196,7 +234,10 @@
                       class="d-flex justify-content-around align-items-center"
                     >
                       <div class="cell-xl-3 cell-sm-1">
-                        <button class="button warning shadowed" (click)="abrirModalDetalle(modalDetalleCombo, comb)">
+                        <button
+                          class="button warning shadowed"
+                          (click)="abrirModalDetalle(modalDetalleCombo, comb)"
+                        >
                           <i class="far fa-list-alt"></i>
                         </button>
                       </div>
@@ -304,7 +345,7 @@
 <!-- modal de talle combo -->
 <ng-template #modalDetalleCombo let-modal>
   <div class="modal-header">
-    <h4 class="modal-title">{{comboDetalle.nombre}}</h4>
+    <h4 class="modal-title">{{ comboDetalle.nombre }}</h4>
     <button
       type="button"
       class="close"
@@ -315,8 +356,8 @@
     </button>
   </div>
   <div class="modal-body">
-     <!-- tabla -->
-     <div>
+    <!-- tabla -->
+    <div>
       <table class="table row-hover row-border">
         <thead>
           <tr>
@@ -329,11 +370,11 @@
           <tr *ngFor="let item of comboDetalle.itemsCombo">
             <td>
               <img
-              src="{{ api }}product/img/{{ item.producto.imagen }}"
-              alt=""
-              width="50px"
-              height="50px"
-            />
+                src="{{ api }}product/img/{{ item.producto.imagen }}"
+                alt=""
+                width="50px"
+                height="50px"
+              />
             </td>
             <td>{{ item.producto.nombre }}</td>
             <td>{{ item.cantidad }}</td>
@@ -343,11 +384,14 @@
     </div>
     <!-- detalles -->
     <p><strong>Descripción</strong></p>
-    <p class="m-0">{{comboDetalle.descripcion}}</p>
+    <p class="m-0">{{ comboDetalle.descripcion }}</p>
     <p><strong>Contenido</strong></p>
-    <span class="text-secondary" *ngFor="let items of comboDetalle.itemsCombo; let i = index">{{ items.cantidad }} {{ items.producto.nombre }}
+    <span
+      class="text-secondary"
+      *ngFor="let items of comboDetalle.itemsCombo; let i = index"
+      >{{ items.cantidad }} {{ items.producto.nombre }}
       <span *ngIf="i + 1 < comboDetalle.itemsCombo.length">+</span>
-              </span>
+    </span>
     <p><strong></strong></p>
   </div>
   <div class="modal-footer">
