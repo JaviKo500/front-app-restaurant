@@ -76,6 +76,7 @@ export class VentaComponent implements OnInit {
     this.pedido.cliente = this.cliente;
     this.pedido.mesa = this.mesa;
     this.pedido.fecha = new Date();
+    this.pedido.total = this.calcularTotal();
     if (this.validarCampos()) {
       this.pedidoService.registrarPedidoAuth(this.pedido).subscribe((res) => {
         console.log(res);
@@ -273,5 +274,26 @@ export class VentaComponent implements OnInit {
       band = false;
     }
     return band;
+  }
+  //---- calcular el total del pedido
+  calcularTotal(): number {
+    let total = 0.0;
+    this.pedido.items.forEach((item: DetallePedido) => {
+      total += this.calcularImporte(item.cantidad, item.producto.precio);
+    });
+    //combos
+    this.pedido.combos.forEach((itemsCombo: DetalleComboPedido) => {
+      total += this.calcularImporte(
+        itemsCombo.cantidad,
+        itemsCombo.combo.precio
+      );
+    });
+    return Math.floor(total * 100) / 100;
+  }
+
+  //calcular importe de cada producto
+  public calcularImporte(cantidad: number, precio: number): number {
+    let total = cantidad * precio;
+    return Math.round(total * 100) / 100;
   }
 }
