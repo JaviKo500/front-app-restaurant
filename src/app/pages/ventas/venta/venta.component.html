@@ -199,7 +199,9 @@
                   <td>{{ prod.producto.nombre }}</td>
                   <td>{{ prod.cantidad }}</td>
                   <td>{{ prod.producto.categoria.nombre }}</td>
-                  <td>{{ prod.producto.precio }}</td>
+                  <td>
+                    {{ calcularImporte(prod.cantidad, prod.producto.precio) }}
+                  </td>
                   <td>
                     <div
                       class="d-flex justify-content-center align-items-center"
@@ -228,7 +230,9 @@
                   <td>{{ comb.combo.nombre }}</td>
                   <td>{{ comb.cantidad }}</td>
                   <td>{{ comb.combo.categoria.nombre }}</td>
-                  <td>{{ comb.combo.precio }}</td>
+                  <td>
+                    {{ calcularImporte(comb.cantidad, comb.combo.precio) }}
+                  </td>
                   <td>
                     <div
                       class="d-flex justify-content-around align-items-center"
