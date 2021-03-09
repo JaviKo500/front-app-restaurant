@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { Observable } from 'rxjs';
@@ -46,14 +47,30 @@ export class VentaComponent implements OnInit {
     private pedidoService: PedidoService,
     private clienteService: ClienteService,
     private productoService: ProductoService,
-    private comboService: ComboService
+    private comboService: ComboService,
+    private activatedRoute: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
+    //cargar pedido en caso de haberlo
+    this.activatedRoute.paramMap.subscribe((params) => {
+      let id = +params.get('id');
+      if (id) {
+        this.buscarPedido(id);
+      }
+    });
     // listar los estados del pedido
     this.listarEstadosPedido();
   }
-
+  buscarPedido(id: number): void {
+    this.pedidoService.obtenerPedidoPorId(id).subscribe((res) => {
+      //reasignar los valores
+      this.pedido = res;
+      this.cliente = res.cliente;
+      this.mesa = res.mesa;
+      console.log(res);
+    });
+  }
   registrarPedido(): void {
     //asignar los valores al pedido
     this.pedido.cliente = this.cliente;

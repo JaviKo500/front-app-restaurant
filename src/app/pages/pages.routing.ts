@@ -33,7 +33,10 @@ const routes: Routes = [
       {
         path: 'crearcombo/:id',
         component: FormularioComboComponent,
-        data: { title: 'Especiales', subTitle: 'Crea tus propios combos o promociones' },
+        data: {
+          title: 'Especiales',
+          subTitle: 'Crea tus propios combos o promociones',
+        },
       },
       {
         path: 'usuarios/page/0',
@@ -53,7 +56,10 @@ const routes: Routes = [
       {
         path: 'combos/page/:page',
         component: ListaCombosComponent,
-        data: { title: 'Combos', subTitle: 'Lista de combos u otros especiales' },
+        data: {
+          title: 'Combos',
+          subTitle: 'Lista de combos u otros especiales',
+        },
       },
       {
         path: 'categorias/page/:page',
@@ -82,7 +88,7 @@ const routes: Routes = [
         },
       },
       {
-        path: 'venta',
+        path: 'venta/:id',
         component: VentaComponent,
         data: {
           title: 'Venta',

@@ -26,7 +26,7 @@ export class SidebarService {
         {
           title: 'Realizar venta',
           icon: 'fas fa-shopping-cart',
-          url: 'venta',
+          url: 'venta/:id',
         },
       ],
     },

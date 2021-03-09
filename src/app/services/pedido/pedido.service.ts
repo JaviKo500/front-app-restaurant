@@ -31,6 +31,18 @@ export class PedidoService {
 
   //listar pedidos del dia
   //el numero 1 es del estado solicitado
+
+  //obtener un pedido por id
+  obtenerPedidoPorId(id: number): Observable<any> {
+    return this.http.get(this.url + 'get/pedido/auth/' + id).pipe(
+      map((response: any) => response.pedido as Pedido),
+      catchError((e) => {
+        swal.fire(e.error.mensaje, e.error.error, 'warning');
+        return throwError(e);
+      })
+    );
+  }
+
   listarPedidosDia(): Observable<any> {
     return this.http.get(this.url + 'pedidos/dia/estado/' + 1).pipe(
       map((response: any) => response.pedidos as Pedido[]),
