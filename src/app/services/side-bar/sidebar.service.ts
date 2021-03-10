@@ -58,21 +58,28 @@ export class SidebarService {
           url: 'productos/page/0',
         },
         {
+          title: 'Agregar producto',
+          icon: 'fa fa-plus-circle',
+          url: 'crearpro/:id',
+        },
+        { title: 'Categorias', icon: 'fa fa-tags', url: 'categorias/page/0' },
+      ],
+    },
+    {
+      title: 'Combos / Especiales',
+      icon: 'fas fa-gifts ',
+      url: '',
+      subMenu: [
+        {
           title: 'Lista combos',
           icon: 'fas fa-boxes',
           url: 'combos/page/0',
         },
         {
-          title: 'Agregar producto',
-          icon: 'fa fa-plus-circle',
-          url: 'crearpro/:id',
-        },
-        {
           title: 'Crear combo o promoción',
           icon: 'fas fa-hamburger',
           url: 'crearcombo/:id',
-        },
-        { title: 'Categorias', icon: 'fa fa-tags', url: 'categorias/page/0' },
+        }
       ],
     },
     {

@@ -52,7 +52,7 @@ export class VentaComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    //cargar pedido en caso de haberlo
+    // cargar pedido en caso de haberlo
     this.activatedRoute.paramMap.subscribe((params) => {
       let id = +params.get('id');
       if (id) {
@@ -64,7 +64,7 @@ export class VentaComponent implements OnInit {
   }
   buscarPedido(id: number): void {
     this.pedidoService.obtenerPedidoPorId(id).subscribe((res) => {
-      //reasignar los valores
+      // reasignar los valores
       this.pedido = res;
       this.cliente = res.cliente;
       this.mesa = res.mesa;
@@ -72,7 +72,7 @@ export class VentaComponent implements OnInit {
     });
   }
   registrarPedido(): void {
-    //asignar los valores al pedido
+    // asignar los valores al pedido
     this.pedido.cliente = this.cliente;
     this.pedido.mesa = this.mesa;
     this.pedido.fecha = new Date();
@@ -201,7 +201,7 @@ export class VentaComponent implements OnInit {
   // para mostrar datos en la lista del input
   formatterCombo = (combo: Combo) =>
     combo.nombre + ' -> $' + combo.precio + ' -> ' + combo.categoria.nombre;
-  dataC: Combo[] = [];
+  dataC: Combo [] = [];
   // temina el formato
   // funcion para agregar un combo al pedido
   seleccionarCombo = (combo: Combo) => {
@@ -247,12 +247,12 @@ export class VentaComponent implements OnInit {
 
   private pedidoConProductos(): boolean {
     let band = true;
-    if (this.pedido.items.length == 0 && this.pedido.combos.length == 0) {
+    if (this.pedido.items.length === 0 && this.pedido.combos.length === 0) {
       band = false;
     }
     return band;
   }
-  //validar opciones para registrar el pedido
+  // validar opciones para registrar el pedido
   validarCampos(): boolean {
     let band = true;
     if (this.pedidoConProductos()) {
@@ -275,13 +275,13 @@ export class VentaComponent implements OnInit {
     }
     return band;
   }
-  //---- calcular el total del pedido
+  // ---- calcular el total del pedido
   calcularTotal(): number {
     let total = 0.0;
     this.pedido.items.forEach((item: DetallePedido) => {
       total += this.calcularImporte(item.cantidad, item.producto.precio);
     });
-    //combos
+    // combos
     this.pedido.combos.forEach((itemsCombo: DetalleComboPedido) => {
       total += this.calcularImporte(
         itemsCombo.cantidad,
@@ -291,7 +291,7 @@ export class VentaComponent implements OnInit {
     return Math.floor(total * 100) / 100;
   }
 
-  //calcular importe de cada producto
+  // calcular importe de cada producto
   public calcularImporte(cantidad: number, precio: number): number {
     let total = cantidad * precio;
     return Math.round(total * 100) / 100;

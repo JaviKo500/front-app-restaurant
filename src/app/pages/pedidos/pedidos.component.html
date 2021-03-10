@@ -28,23 +28,24 @@
             <table class="table row-hover row-border">
                 <thead>
                     <tr>
-                        <th>Cant.</th>
-                        <th>Producto</th>
-                        <th>Total</th>
+                        <th>#</th>
+                        <th>Cliente</th>
+                        <th>Mesa</th>
                         <th>Hora</th>
-                        <th>Acciones</th>
+                        <th>Total</th>
+                        <th>Finalizar</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let pedido of pedidosPorMesa">
-                        <td>1</td>
-                        <td>Bill</td>
-                        <td>Gates</td>
-                        <td>@billy</td>
+                    <tr *ngFor="let pedido of pedidosPorMesa; let i = index">
+                        <td>{{i+1}}</td>
+                        <td>{{pedido.cliente.nombres}} {{pedido.cliente.apellidos}}</td>
+                        <td>{{pedido.mesa.nombre}}</td>
+                        <td>{{pedido.hora | date:'h:mm a'}}</td>
+                        <td>{{pedido.total}}</td>
                         <td>
-                            <div class="w-100 d-flex justify-content-around">
-                                <span class="tally success">Listo ó entregado</span>
-                                <code class="warning">Cancelado</code>
+                            <div class="d-flex justify-content-start">
+                                <button class="button shadowed yellow" [routerLink]="['/dashboard/venta', pedido.id]"><i class="fas fa-concierge-bell"></i></button>
                             </div>
                         </td>
                     </tr>
