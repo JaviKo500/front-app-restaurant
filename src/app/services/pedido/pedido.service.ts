@@ -18,21 +18,21 @@ import { Estado } from 'src/app/models/pedidos/estado';
   providedIn: 'root',
 })
 export class PedidoService {
-  //evento para retornar el detalle pedido
+  // evento para retornar el detalle pedido
   items$ = new EventEmitter<DetallePedido[]>();
-  //evento para pasar el id de la mesa
+  // evento para pasar el id de la mesa
   id_mesa$ = new EventEmitter<number>();
-  //evento para pasar los combos si existen
+  // evento para pasar los combos si existen
   itemscombo$ = new EventEmitter<DetalleComboPedido[]>();
 
   constructor(private http: HttpClient, private router: Router) {}
   private url: string = BASE_URL;
   private httpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
 
-  //listar pedidos del dia
-  //el numero 1 es del estado solicitado
+  // listar pedidos del dia
+  // el numero 1 es del estado solicitado
 
-  //obtener un pedido por id
+  // obtener un pedido por id
   obtenerPedidoPorId(id: number): Observable<any> {
     return this.http.get(this.url + 'get/pedido/auth/' + id).pipe(
       map((response: any) => response.pedido as Pedido),
@@ -63,7 +63,7 @@ export class PedidoService {
     );
   }
 
-  //registrar pedido
+  // registrar pedido
   registrarPedido(pedido: Pedido): Observable<any> {
     return this.http
       .post(this.url + 'register/new/pedido', pedido, {
@@ -77,7 +77,7 @@ export class PedidoService {
         })
       );
   }
-  //registrar pedido
+  // registrar pedido
   registrarPedidoAuth(pedido: Pedido): Observable<any> {
     return this.http
       .post(this.url + 'register/new/auth/pedido', pedido, {
