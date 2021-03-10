@@ -126,7 +126,12 @@
           </div>
           <!-- botones -->
           <div class="d-flex justify-content-around mt-75 p-2">
-            <button class="button shadowed alert rounded-0">Cancelar</button>
+            <button
+              class="button shadowed alert rounded-0"
+              (click)="restablecerCampos()"
+            >
+              Cancelar
+            </button>
             <button
               class="button shadowed bg-black"
               (click)="registrarPedido()"

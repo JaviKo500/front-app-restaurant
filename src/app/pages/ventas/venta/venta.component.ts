@@ -201,7 +201,7 @@ export class VentaComponent implements OnInit {
   // para mostrar datos en la lista del input
   formatterCombo = (combo: Combo) =>
     combo.nombre + ' -> $' + combo.precio + ' -> ' + combo.categoria.nombre;
-  dataC: Combo [] = [];
+  dataC: Combo[] = [];
   // temina el formato
   // funcion para agregar un combo al pedido
   seleccionarCombo = (combo: Combo) => {
@@ -295,5 +295,11 @@ export class VentaComponent implements OnInit {
   public calcularImporte(cantidad: number, precio: number): number {
     let total = cantidad * precio;
     return Math.round(total * 100) / 100;
+  }
+
+  restablecerCampos(): void {
+    this.cliente = new Cliente();
+    this.mesa = new Mesa();
+    this.pedido = new Pedido();
   }
 }
