@@ -64,9 +64,9 @@ export class PedidoService {
   }
 
   // registrar pedido
-  registrarPedido(pedido: Pedido): Observable<any> {
+  registrarPedido(pedido: Pedido, cedula: string): Observable<any> {
     return this.http
-      .post(this.url + 'register/new/pedido', pedido, {
+      .post(this.url + 'register/new/pedido/' + cedula, pedido, {
         headers: this.httpHeaders,
       })
       .pipe(

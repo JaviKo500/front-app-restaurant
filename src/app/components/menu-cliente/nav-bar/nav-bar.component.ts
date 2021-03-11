@@ -27,6 +27,7 @@ export class NavBarComponent implements OnInit {
   pedido: Pedido = new Pedido();
   pedido_local: Pedido;
   id_mesa: number;
+  cedula: string = 'none';
   constructor(
     private modalService: NgbModal,
     private pedidoService: PedidoService,
@@ -72,20 +73,28 @@ export class NavBarComponent implements OnInit {
       swal
         .fire({
           title: '¿Eres cliente?',
-          input: 'text',
+          input: 'number',
           inputPlaceholder: 'Ingrese su cédula',
           showDenyButton: true,
-          confirmButtonColor: '#3085d6',
-          denyButtonColor: '#000',
-          denyButtonText: `Enviar pedido`,
-          confirmButtonText: 'Registrarme',
+          confirmButtonColor: '#000',
+          denyButtonColor: '#3085d6',
+          confirmButtonText: `Enviar pedido`,
+          denyButtonText: 'Registrarme',
+          preConfirm: (val) => {
+            if (val == '') {
+              this.cedula = 'none';
+            } else {
+              this.cedula = val;
+            }
+          },
         })
         .then((result) => {
-          if (result.isConfirmed) {
+          console.log('value' + result.value);
+          if (result.isDenied) {
             // si el cliente se quiere registrar sus datos
             this.cerrarModal();
             this.modalRegistrarCliente();
-          } else if (result.isDenied) {
+          } else if (result.isConfirmed) {
             // si solo quiere enviar los datos
             this.cerrarModal();
             this.enviarPedido();
@@ -114,19 +123,21 @@ export class NavBarComponent implements OnInit {
     this.cerrarModal();
     swal.fire('Pedido', 'Enviado', 'success');
     if (this.pedido.items.length > 0 || this.pedido.combos.length > 0) {
-      this.pedidoService.registrarPedido(this.pedido).subscribe((res) => {
-        this.itemsProducto = [];
-        this.pedidoService.items$.emit(this.itemsProducto);
-        this.pedido = new Pedido();
-        this.limpiarPedidoLocalStorage();
-        this.guardarEnLocalStorageIdPedido(res.id_pedido);
-        //recuperar la mesa en el pedido
-        if (this.id_mesa) {
-          console.log('id mesa obtenido e el navbar');
-          this.ObtenerMesaId(this.id_mesa);
-          this.router.navigate(['/cliente/home/mesa/', this.id_mesa]);
-        }
-      });
+      this.pedidoService
+        .registrarPedido(this.pedido, this.cedula)
+        .subscribe((res) => {
+          this.itemsProducto = [];
+          this.pedidoService.items$.emit(this.itemsProducto);
+          this.pedido = new Pedido();
+          this.limpiarPedidoLocalStorage();
+          this.guardarEnLocalStorageIdPedido(res.id_pedido);
+          //recuperar la mesa en el pedido
+          if (this.id_mesa) {
+            console.log('id mesa obtenido e el navbar');
+            this.ObtenerMesaId(this.id_mesa);
+            this.router.navigate(['/cliente/home/mesa/', this.id_mesa]);
+          }
+        });
     } else {
       swal.fire('Observación', 'Debe seleccionar productos', 'warning');
     }
