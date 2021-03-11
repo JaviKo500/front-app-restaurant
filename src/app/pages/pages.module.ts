@@ -22,7 +22,8 @@ import { FormularioComboComponent } from './producto/formulario-combo/formulario
 import { ListaCombosComponent } from './producto/lista-combos/lista-combos.component';
 import { VentaComponent } from './ventas/venta/venta.component';
 
-
+//qr code
+import { QRCodeModule } from 'angularx-qrcode';
 
 @NgModule({
   declarations: [
@@ -38,18 +39,17 @@ import { VentaComponent } from './ventas/venta/venta.component';
     FormularioUsuarioComponent,
     FormularioComboComponent,
     ListaCombosComponent,
-    VentaComponent
+    VentaComponent,
   ],
-  exports: [
-    DashboardComponent,
-  ],
+  exports: [DashboardComponent],
   imports: [
     CommonModule,
     RouterModule,
     SharedModule,
     ComponentsModule,
     FormsModule,
-    NgbModule
-  ]
+    NgbModule,
+    QRCodeModule,
+  ],
 })
-export class PagesModule { }
+export class PagesModule {}

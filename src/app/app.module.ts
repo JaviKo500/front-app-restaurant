@@ -18,6 +18,9 @@ import { CategoriaService } from './services/categoria/categoria.service';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
+//qr code
+import { QRCodeModule } from 'angularx-qrcode';
+
 @NgModule({
   declarations: [AppComponent],
   imports: [
@@ -28,6 +31,7 @@ import { FormsModule } from '@angular/forms';
     PagesModule,
     AuthModule,
     NgbModule,
+    QRCodeModule,
   ],
   providers: [
     CategoriaService,
