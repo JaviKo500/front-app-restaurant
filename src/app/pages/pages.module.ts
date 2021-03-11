@@ -21,7 +21,6 @@ import { FormularioUsuarioComponent } from './usuarios/formulario-usuario/formul
 import { FormularioComboComponent } from './producto/formulario-combo/formulario-combo.component';
 import { ListaCombosComponent } from './producto/lista-combos/lista-combos.component';
 import { VentaComponent } from './ventas/venta/venta.component';
-
 //qr code
 import { QRCodeModule } from 'angularx-qrcode';
 

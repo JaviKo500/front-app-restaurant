@@ -35,8 +35,6 @@ export class PedidosComponent implements OnInit, OnDestroy {
   listarPedidosDelDia(): void {
     this.pedidoService.listarPedidosDia().subscribe((pedidos) => {
       this.listaPedidos = pedidos;
-      console.log(pedidos);
-
       this.filtrarPorMesas();
     });
   }

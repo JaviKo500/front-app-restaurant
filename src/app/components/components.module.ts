@@ -21,8 +21,6 @@ import { FormularioClienteComponent } from './menu-cliente/formulario-cliente/fo
 import { FormsModule } from '@angular/forms';
 import { ClienteMesaComponent } from './menu-cliente/mesa/mesa.component';
 import { CombosComponent } from './menu-cliente/combos/combos.component';
-//qr code
-import { QRCodeModule } from 'angularx-qrcode';
 
 @NgModule({
   declarations: [
@@ -47,13 +45,6 @@ import { QRCodeModule } from 'angularx-qrcode';
     CategoriasClienteComponent,
     FormularioClienteComponent,
   ],
-  imports: [
-    CommonModule,
-    FormsModule,
-    NgbModule,
-    SharedModule,
-    RouterModule,
-    QRCodeModule,
-  ],
+  imports: [CommonModule, FormsModule, NgbModule, SharedModule, RouterModule],
 })
 export class ComponentsModule {}

@@ -6,6 +6,7 @@ import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { Mesa } from 'src/app/models/mesa/mesa';
 import { MesaService } from 'src/app/services/mesa/mesa.service';
 import swal from 'sweetalert2';
+import { API_QR } from 'src/environments/configurations';
 @Component({
   selector: 'app-mesas',
   templateUrl: './mesas.component.html',
@@ -14,6 +15,9 @@ import swal from 'sweetalert2';
 export class MesasComponent implements OnInit {
   mesa: Mesa = new Mesa();
   //datos para componete paginador
+  api: string = API_QR;
+  //qr data
+  QR_DATA: string = '';
   paginador: any;
   path: any = '/dashboard/mesas/page';
   //termina paginacion
@@ -32,7 +36,6 @@ export class MesasComponent implements OnInit {
 
   //listar mesas paginador
   listarMesasPageable(): void {
-    console.log('Paginando.....');
     this.activatedRoute.paramMap.subscribe((params) => {
       let page: number = +params.get('page');
       if (!page) {
@@ -40,7 +43,6 @@ export class MesasComponent implements OnInit {
       }
       this.mesasService.ObtenerMesasPageable(page).subscribe((mesas: any) => {
         this.listaMesas = mesas.content;
-        console.log(mesas.content);
         this.paginador = mesas;
       });
     });
@@ -50,7 +52,6 @@ export class MesasComponent implements OnInit {
     console.log(this.mesa.estado);
     if (this.camposLlenos()) {
       this.mesasService.registrarMesa(this.mesa).subscribe((res) => {
-        console.log(res);
         //alerta de mensaje al guardar el
         this.listarMesasPageable();
         swal.fire({
@@ -102,7 +103,6 @@ export class MesasComponent implements OnInit {
           this.mesasService.deleteMesa(id).subscribe((res) => {
             this.listarMesasPageable();
             swal.fire('Borrado', res, 'success');
-            console.log(res);
           });
         }
       });
@@ -111,6 +111,10 @@ export class MesasComponent implements OnInit {
   openLg(modalMesa) {
     this.mesa = new Mesa();
     this.modalReference = this.modalService.open(modalMesa);
+  }
+  abrirModalMesaQR(modal, mesa: Mesa): void {
+    this.QR_DATA = this.api + 'cliente/home/mesa/' + mesa.id;
+    this.modalReference = this.modalService.open(modal);
   }
   //abrimos modal con los datos de esa categoria
   ModalActualizarMesa(modalMesa, mesa) {

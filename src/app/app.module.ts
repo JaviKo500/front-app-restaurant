@@ -33,6 +33,7 @@ import { QRCodeModule } from 'angularx-qrcode';
     NgbModule,
     QRCodeModule,
   ],
+  exports: [QRCodeModule],
   providers: [
     CategoriaService,
     { provide: LocationStrategy, useClass: HashLocationStrategy },

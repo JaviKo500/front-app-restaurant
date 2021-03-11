@@ -71,7 +71,10 @@
                             </button>
                           </div>
                           <div class="cell-sm-4">
-                            <button class="button success rounded shadowed">
+                            <button
+                              class="button success rounded shadowed"
+                              (click)="abrirModalMesaQR(modalMesaQR, mesa)"
+                            >
                               <span class="ml-1"
                                 >QR<i class="fas fa-qrcode ml-1"></i
                               ></span>
@@ -200,12 +203,29 @@
   </div>
 </ng-template>
 
-<!--codigo para el qr
-
-<qrcode
-  [qrdata]="'Your data string'"
-  [width]="256"
-  [errorCorrectionLevel]="'M'"
-></qrcode>
-
--->
+<ng-template #modalMesaQR let-modal>
+  <div class="card">
+    <div class="card-header">Card header</div>
+    <div class="card-content p-2">
+      <qrcode
+        [qrdata]="QR_DATA"
+        [width]="256"
+        [errorCorrectionLevel]="'M'"
+      ></qrcode>
+    </div>
+    <div class="card-footer">
+      <div class="d-flex flex-justify-between" style="width: 40%">
+        <button
+          type="button"
+          class="button alert btn-width"
+          (click)="modal.close('Close click')"
+        >
+          Cancelar
+        </button>
+        <button type="button" class="button dark rounded btn-width">
+          Imprimir
+        </button>
+      </div>
+    </div>
+  </div>
+</ng-template>
