@@ -4,6 +4,8 @@ import { ActivatedRoute } from '@angular/router';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { Observable } from 'rxjs';
 import { distinctUntilChanged, mergeMap } from 'rxjs/operators';
+import swal from 'sweetalert2';
+
 import { Mesa } from 'src/app/models/mesa/mesa';
 import { OperacionesCombos } from 'src/app/models/operaciones/operaciones-combos';
 import { OperacionesProductos } from 'src/app/models/operaciones/operaciones-productos';
@@ -20,7 +22,6 @@ import { MesaService } from 'src/app/services/mesa/mesa.service';
 import { PedidoService } from 'src/app/services/pedido/pedido.service';
 import { ProductoService } from 'src/app/services/productos/producto.service';
 import { BASE_URL } from 'src/environments/configurations';
-import swal from 'sweetalert2';
 
 @Component({
   selector: 'app-venta',
