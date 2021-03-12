@@ -371,7 +371,7 @@ export class VentaComponent implements OnInit {
       this.mesa = pedi.mesa;
     }
     this.pedido = pedi;
-    console.log(pedi);
+    this.eliminarPedidoLocal(pedi);
     this.CerrarModal();
   }
   eliminarPedidoLocal(ped: Pedido) {
