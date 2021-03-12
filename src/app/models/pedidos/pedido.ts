@@ -15,4 +15,5 @@ export class Pedido {
   estado: Estado;
   cliente: Cliente;
   medioPago: MedioPago;
+  enEspera: string = '';
 }

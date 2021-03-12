@@ -29,6 +29,8 @@ import { BASE_URL } from 'src/environments/configurations';
   styleUrls: ['./venta.component.css'],
 })
 export class VentaComponent implements OnInit {
+  //lista de pedidos en memoria
+  pedidosMemoria: Pedido[] = [];
   //api carga de imagenes
   api = BASE_URL;
   mesas: Mesa[] = [];
@@ -230,22 +232,6 @@ export class VentaComponent implements OnInit {
     this.pedido.combos = operacion.eliminarCombo(id, this.pedido.combos);
   }
 
-  // --------------funciones d elos modaless-----------------
-  abrirModalCliente(modal): void {
-    this.modalReference = this.modalService.open(modal, { size: 'xl' });
-  }
-  abrirModalMesa(modal): void {
-    this.obtenerMesas();
-    this.modalReference = this.modalService.open(modal, { scrollable: true });
-  }
-  abrirModalDetalle(modal, detallePedidoCombo: DetalleComboPedido): void {
-    this.comboDetalle = detallePedidoCombo.combo;
-    this.modalReference = this.modalService.open(modal, { scrollable: true });
-  }
-  CerrarModal(): void {
-    this.modalReference.close();
-  }
-
   private pedidoConProductos(): boolean {
     let band = true;
     if (this.pedido.items.length === 0 && this.pedido.combos.length === 0) {
@@ -302,5 +288,97 @@ export class VentaComponent implements OnInit {
     this.cliente = new Cliente();
     this.mesa = new Mesa();
     this.pedido = new Pedido();
+  }
+  // --------------funciones d elos modaless-----------------
+  abrirModalCliente(modal): void {
+    this.modalReference = this.modalService.open(modal, { size: 'xl' });
+  }
+  abrirModalMesa(modal): void {
+    this.obtenerMesas();
+    this.modalReference = this.modalService.open(modal, { scrollable: true });
+  }
+  abrirModalDetalle(modal, detallePedidoCombo: DetalleComboPedido): void {
+    this.comboDetalle = detallePedidoCombo.combo;
+    this.modalReference = this.modalService.open(modal, { scrollable: true });
+  }
+  abrirModalPedidosMen(modal): void {
+    this.recuperarPeidosEnMemoriaDelLocalStorage();
+    this.modalReference = this.modalService.open(modal, { scrollable: true });
+  }
+  CerrarModal(): void {
+    this.modalReference.close();
+  }
+
+  AlmacenarEnMemoria(): void {
+    // guardar pedido en el local storage
+    swal
+      .fire({
+        title: 'Submit your Github username',
+        input: 'text',
+        inputAttributes: {
+          autocapitalize: 'off',
+        },
+        showCancelButton: true,
+        confirmButtonText: 'Guardar',
+        showLoaderOnConfirm: true,
+        preConfirm: (val) => {
+          if (!val) {
+            swal.showValidationMessage('Ingrese una descripción.');
+          }
+        },
+        allowOutsideClick: () => !swal.isLoading(),
+      })
+      .then((result) => {
+        if (result.isConfirmed) {
+          this.guardarPedidoTemporal(this.pedido, result.value);
+        }
+      });
+  }
+  guardarPedidoTemporal(pedido: Pedido, Descripcion): void {
+    if (pedido) {
+      pedido.enEspera = Descripcion;
+      this.pedidosMemoria.push(pedido);
+    }
+    const now = new Date();
+    const item = {
+      value: this.pedidosMemoria,
+      expiry: now.getTime() + 1800000,
+    };
+    localStorage.setItem('pedidosMemoria', JSON.stringify(item));
+  }
+  // recuperar pedid del local storage
+  recuperarPeidosEnMemoriaDelLocalStorage(): void {
+    let pedidos_men = localStorage.getItem('pedidosMemoria');
+    let pedidosmem: Pedido[] = [];
+    if (pedidos_men) {
+      const item = JSON.parse(pedidos_men);
+      const now = new Date();
+      if (now.getTime() > item.expiry) {
+        localStorage.removeItem('pedidosMemoria');
+      } else {
+        pedidosmem = item.value;
+        if (pedidosmem != null) {
+          this.pedidosMemoria = pedidosmem;
+        }
+      }
+    }
+  }
+  CargarPedidoRecuperado(pedi: Pedido): void {
+    if (pedi.cliente) {
+      this.cliente = pedi.cliente;
+    }
+    if (pedi.mesa) {
+      this.mesa = pedi.mesa;
+    }
+    this.pedido = pedi;
+    console.log(pedi);
+    this.CerrarModal();
+  }
+  eliminarPedidoLocal(ped: Pedido) {
+    console.log('eliminar');
+    this.pedidosMemoria = this.pedidosMemoria.filter(
+      (item: Pedido) => ped.enEspera !== item.enEspera
+    );
+    this.guardarPedidoTemporal(null, '');
   }
 }
