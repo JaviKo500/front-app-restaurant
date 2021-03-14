@@ -1,0 +1,93 @@
+<div class="card">
+    <div class="card-body">
+
+        <!-- Tabla -->
+        <div class="row">
+            <div class="cell-sm">
+                <table class="table row-hover row-border">
+                    <thead>
+                        <tr>
+                            <th>Monto</th>
+                            <th>T. Pago</th>
+                            <th class="w-25">Descripción</th>
+                            <th>F. Movimiento</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>23</td>
+                            <td>Efectivo</td>
+                            <td>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Fugit, ipsum? </td>
+                            <td>2021-03-25</td>
+                            <td>
+                                <div class="row row-width alinear">
+                                    <div class="cell-sm-4">
+                                        <button class="button shadowed yellow " (click)="abrirDetalle(modalDetalle)">
+                                            <span class="">Detalles <i class="far fa-eye"></i></span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <!-- Spinner -->
+        <div class="row">
+            <div class="cell">
+                <div>
+                    <app-spinner></app-spinner>
+                </div>
+            </div>
+        </div>
+        <!-- paginador -->
+        <div class="row">
+            <div class="cell-12 d-flex flex-justify-end">
+                <!-- componente paginador -->
+                <!-- <app-paginator
+          ></app-paginator> -->
+            </div>
+        </div>
+    </div>
+</div>
+<!-- modal para ver otros detalles del arqueo -->
+<ng-template #modalDetalle let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title">Detalles</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+        <p class=""><strong>Cliente: </strong>Alan Brito</p>
+        <p class="mt-1"><strong>CI: </strong>0105566046</p>
+        <p class="mt-1"><strong>Mesa: </strong>Mesa 1</p>
+        <table class="table row-hover row-border">
+            <thead>
+                <tr>
+                    <th class="w-25">Producto</th>
+                    <th class="w100">Cantidad</th>
+                    <th class="w100">Precio</th>
+                    <th class="w100">Total</th>
+                    <th class="w-50">Descripción</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Salchipapa</td>
+                    <td>2</td>
+                    <td>$20</td>
+                    <td>$40</td>
+                    <td>
+                        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Animi cumque temporibus quo. Molestia
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="modal-footer d-flex justify-content-around">
+        <button type="button" class="button shadowed alert mb-0 rounded-0" (click)="cerrarModal()">Aceptar</button>
+    </div>
+</ng-template>

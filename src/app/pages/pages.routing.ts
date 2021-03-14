@@ -14,6 +14,10 @@ import { ConfiguracionEmpresaComponent } from './configuraciones/configuracion-e
 import { FormularioComboComponent } from './producto/formulario-combo/formulario-combo.component';
 import { ListaCombosComponent } from './producto/lista-combos/lista-combos.component';
 import { VentaComponent } from './ventas/venta/venta.component';
+import { CrearCajaComponent } from './caja/crear-caja/crear-caja.component';
+import { AbrirArqueCajaComponent } from './caja/abrir-arque-caja/abrir-arque-caja.component';
+import { ListarArqueosComponent } from './caja/listar-arqueos/listar-arqueos.component';
+import { ListarMovimientosCajaComponent } from './caja/listar-movimientos-caja/listar-movimientos-caja.component';
 
 const routes: Routes = [
   {
@@ -42,6 +46,26 @@ const routes: Routes = [
         path: 'usuarios/page/0',
         component: UsuariosComponent,
         data: { title: 'Usuarios', subTitle: 'Administrar tus usuarios' },
+      },
+      {
+        path: 'crearcaja',
+        component: CrearCajaComponent,
+        data: { title: 'Caja', subTitle: 'Ver y agregar cajas' },
+      },
+      {
+        path: 'creararqueo',
+        component: AbrirArqueCajaComponent,
+        data: { title: 'Nuevo Arqueo', subTitle: 'Crea y asigna un nuevo arqueo' },
+      },
+      {
+        path: 'arqueos',
+        component: ListarArqueosComponent,
+        data: { title: 'Arqueos', subTitle: 'Detalles de arqueos' },
+      },
+      {
+        path: 'movimientos',
+        component: ListarMovimientosCajaComponent,
+        data: { title: 'Movimientos caja', subTitle: 'Detalles de las transacciones del arqueo actual' },
       },
       {
         path: 'crearusu/:id',

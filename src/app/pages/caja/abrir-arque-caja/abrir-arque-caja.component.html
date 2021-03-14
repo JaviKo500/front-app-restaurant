@@ -1,0 +1,67 @@
+<div class="card mt-0 fondo">
+    <div class="card-body p-2">
+        <!-- formulario -->
+        <!-- <div *ngIf="erroresBackend.length != 0" class="container">
+        <ul class="list-group">
+          <li
+            class="list-group-item list-group-item-danger"
+            *ngFor="let err of erroresBackend"
+          >
+            {{ err }}
+          </li>
+        </ul>
+      </div> -->
+        <form>
+            <div class="card w-75-md w-50-xxl w-50-xl w-100-sm">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="cell-md-12">
+                            <!-- select e input usuario -->
+                            <div>
+                                <div class="input-group mb-2">
+                                    <div class="input-group-prepend">
+                                        <label class="input-group-text" for="inputGroupSelect01" style="border-right-color: transparent">
+                                            Asignar Usuario:
+                                        </label>
+                                    </div>
+                                    <select class="custom-select" id="inputGroupSelect01" name="bebida_combo">
+                                        <option >Seleccionar...</option>
+                                        <option> usuario 1</option>
+                                     </select>
+                                </div>
+                            </div>
+                            <!-- select e input Caja -->
+                            <div>
+                                <div class="input-group mb-2">
+                                    <div class="input-group-prepend">
+                                        <label class="input-group-text" for="inputGroupSelect01" style="border-right-color: transparent">
+                                            Asignar Caja:
+                                        </label>
+                                    </div>
+                                    <select class="custom-select" id="inputGroupSelect01" name="bebida_combo">
+                                        <option >Seleccionar...</option>
+                                        <option> Caja asados</option>
+                                        </select>
+                                </div>
+                            </div>
+                            <!-- monto inicial -->
+                            <input type="number" class="mb-2" data-role="input" data-prepend="Monto ($): ">
+                            <!-- descripcion -->
+                            <textarea data-role="textarea" placeholder="Descripción" data-prepend="<i class='fas fa-book-open'></i>"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <!-- botones -->
+        <div class="row">
+            <div class="cell-12 d-flex justify-content-center">
+                <div class="w-75-md w-50-xxl w-50-xl w-100-sm d-flex justify-content-around">
+                    <button class="button outline alert mb-0 w-25" routerLink="/dashboard/arqueos"> Cancelar</button>
+                    <button class="button shadowed bg-black w-25"> Guardar</button>
+                    <!-- <button class="button shadowed bg-black w-25">Actualizar</button> -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

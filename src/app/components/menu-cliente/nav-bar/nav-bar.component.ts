@@ -143,7 +143,7 @@ export class NavBarComponent implements OnInit {
     }
   }
 
-  //eliminar un producto de la lista del pedido
+  // eliminar un producto de la lista del pedido
   eliminarProducto(id: number): void {
     this.pedido.items = this.pedido.items.filter(
       (item: DetallePedido) => id !== item.producto.id
@@ -151,7 +151,7 @@ export class NavBarComponent implements OnInit {
     this.PasarDetallePedido();
   }
 
-  //eliminar un producto de la lista del pedido
+  // eliminar un producto de la lista del pedido
   eliminarCombo(id: number): void {
     this.pedido.combos = this.pedido.combos.filter(
       (item: DetalleComboPedido) => id !== item.combo.id

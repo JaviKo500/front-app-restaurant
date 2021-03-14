@@ -23,6 +23,10 @@ import { ListaCombosComponent } from './producto/lista-combos/lista-combos.compo
 import { VentaComponent } from './ventas/venta/venta.component';
 //qr code
 import { QRCodeModule } from 'angularx-qrcode';
+import { CrearCajaComponent } from './caja/crear-caja/crear-caja.component';
+import { AbrirArqueCajaComponent } from './caja/abrir-arque-caja/abrir-arque-caja.component';
+import { ListarArqueosComponent } from './caja/listar-arqueos/listar-arqueos.component';
+import { ListarMovimientosCajaComponent } from './caja/listar-movimientos-caja/listar-movimientos-caja.component';
 
 @NgModule({
   declarations: [
@@ -39,6 +43,10 @@ import { QRCodeModule } from 'angularx-qrcode';
     FormularioComboComponent,
     ListaCombosComponent,
     VentaComponent,
+    CrearCajaComponent,
+    AbrirArqueCajaComponent,
+    ListarArqueosComponent,
+    ListarMovimientosCajaComponent,
   ],
   exports: [DashboardComponent],
   imports: [

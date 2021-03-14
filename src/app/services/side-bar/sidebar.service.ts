@@ -31,6 +31,33 @@ export class SidebarService {
       ],
     },
     {
+      title: 'Caja',
+      icon: 'fas fa-cash-register',
+      url: '',
+      subMenu: [
+        {
+          title: 'Abrir Arqueo',
+          icon: 'fas fa-dolly-flatbed',
+          url: 'creararqueo',
+        },
+        {
+          title: 'Listar Arqueos',
+          icon: 'fas fa-list-ul',
+          url: 'arqueos',
+        },
+        {
+          title: 'Listar Movimientos Caja',
+          icon: 'fas fa-luggage-cart',
+          url: 'movimientos',
+        },
+        {
+          title: 'Crear Caja',
+          icon: 'fas fa-briefcase',
+          url: 'crearcaja',
+        },
+      ],
+    },
+    {
       title: 'Gestión de usuarios',
       icon: 'fas fa-users',
       url: '',
