@@ -48,14 +48,17 @@ const routes: Routes = [
         data: { title: 'Usuarios', subTitle: 'Administrar tus usuarios' },
       },
       {
-        path: 'crearcaja',
+        path: 'crearcaja/page/:page',
         component: CrearCajaComponent,
         data: { title: 'Caja', subTitle: 'Ver y agregar cajas' },
       },
       {
         path: 'creararqueo',
         component: AbrirArqueCajaComponent,
-        data: { title: 'Nuevo Arqueo', subTitle: 'Crea y asigna un nuevo arqueo' },
+        data: {
+          title: 'Nuevo Arqueo',
+          subTitle: 'Crea y asigna un nuevo arqueo',
+        },
       },
       {
         path: 'arqueos',
@@ -65,7 +68,10 @@ const routes: Routes = [
       {
         path: 'movimientos',
         component: ListarMovimientosCajaComponent,
-        data: { title: 'Movimientos caja', subTitle: 'Detalles de las transacciones del arqueo actual' },
+        data: {
+          title: 'Movimientos caja',
+          subTitle: 'Detalles de las transacciones del arqueo actual',
+        },
       },
       {
         path: 'crearusu/:id',

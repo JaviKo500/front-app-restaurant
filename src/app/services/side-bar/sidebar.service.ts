@@ -53,7 +53,7 @@ export class SidebarService {
         {
           title: 'Crear Caja',
           icon: 'fas fa-briefcase',
-          url: 'crearcaja',
+          url: 'crearcaja/page/:page',
         },
       ],
     },
@@ -106,7 +106,7 @@ export class SidebarService {
           title: 'Crear combo o promoción',
           icon: 'fas fa-hamburger',
           url: 'crearcombo/:id',
-        }
+        },
       ],
     },
     {
