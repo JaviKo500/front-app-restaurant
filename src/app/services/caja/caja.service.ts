@@ -44,4 +44,17 @@ export class CajaService {
         )
       );
   }
+  eliminarCaja(id: number): Observable<any> {
+    return this.http.delete(this.url + '/delete/caja/' + id).pipe(
+      map(
+        (response: any) => {
+          return response;
+        },
+        catchError((e) => {
+          swal.fire(e.error.mensaje, e.error.error, 'warning');
+          return throwError(e);
+        })
+      )
+    );
+  }
 }

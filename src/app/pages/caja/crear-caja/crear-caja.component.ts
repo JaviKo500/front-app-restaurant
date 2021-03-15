@@ -68,6 +68,35 @@ export class CrearCajaComponent implements OnInit {
       }
     );
   }
+  //eliminar caja logicamente
+  eliminarCaja(caja: Caja): void {
+    if (caja) {
+      swal
+        .fire({
+          title: '¿Está seguro?',
+          text: 'Se eliminará la caja de su registro.',
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Yes, borrar',
+        })
+        .then((result) => {
+          if (result.isConfirmed) {
+            this.cajaService.eliminarCaja(caja.id).subscribe((res) => {
+              this.listarCajasPaginado();
+              swal.fire({
+                position: 'top-end',
+                icon: 'success',
+                title: res.mensaje,
+                showConfirmButton: false,
+                timer: 1000,
+              });
+            });
+          }
+        });
+    }
+  }
   //--------------------congiguracion de modales---------------------------------
   abrirModalCaja(modalCaja, caja): void {
     this.caja = new Caja();
