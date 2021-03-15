@@ -18,14 +18,16 @@ export class PedidosComponent implements OnInit, OnDestroy {
   mesasPedidos: Mesa[] = [];
   nombreMesa: string;
   pedidosPorMesa: Pedido[] = [];
-  cantidadPedido: number = 0;
+  cantidadPedido = 0;
   listaPedidos: Pedido[] = [];
   constructor(
     private modalService: NgbModal,
     private pedidoService: PedidoService
   ) {}
   ngOnDestroy(): void {
-    this.modalRef.close();
+    if ( this.modalRef ) {
+      this.modalRef.close();
+    }
   }
   ngOnInit(): void {
     this.listarPedidosDelDia();
