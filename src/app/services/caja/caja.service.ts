@@ -14,6 +14,10 @@ export class CajaService {
   private httpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
   constructor(private http: HttpClient) {}
 
+  obtenerTodasCajas(): Observable<Caja[]> {
+    return this.http.get<Caja[]>(this.url + 'get/cajas/to-arqueos');
+  }
+
   obtenerCajasPage(page: number): Observable<any> {
     return this.http.get(this.url + 'get/cajas/' + page).pipe(
       map(
