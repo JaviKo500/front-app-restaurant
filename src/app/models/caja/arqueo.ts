@@ -13,4 +13,6 @@ export class Arqueo {
   fecha: Date;
   fechaApertura: Date;
   fechaCierre: Date;
+  descripcion: string = '';
+  descripcionCierre: string = '';
 }
