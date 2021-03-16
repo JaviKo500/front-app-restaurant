@@ -17,6 +17,10 @@ export class UsuarioService {
 
   private httpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
 
+  obtenerUsuariosToArqueo(): Observable<Usuario[]> {
+    return this.http.get<Usuario[]>(this.url + 'get/usuarios/to-arqueos');
+  }
+
   //paginar lista de usuarios
   obtenerUsuariosPageable(page: number): Observable<any> {
     return this.http.get(this.url + 'get/users/' + page).pipe(

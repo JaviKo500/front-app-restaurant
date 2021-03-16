@@ -29,12 +29,20 @@
                     </label>
                   </div>
                   <select
+                    [compareWith]="compararusuario"
                     class="custom-select"
                     id="inputGroupSelect01"
-                    name="bebida_combo"
+                    name="usuario_arqueo"
+                    [(ngModel)]="arqueo.usuario"
                   >
-                    <option>Seleccionar...</option>
-                    <option>usuario 1</option>
+                    <option [ngValue]="undefined">Seleccionar...</option>
+                    <option
+                      value="1"
+                      [ngValue]="user"
+                      *ngFor="let user of usuarios"
+                    >
+                      {{ user.username }}
+                    </option>
                   </select>
                 </div>
               </div>
