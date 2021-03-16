@@ -33,6 +33,12 @@ export class AbrirArqueCajaComponent implements OnInit {
       this.cajas = res;
     });
   }
+  //*********************************************
+  ///resgistrar arqueo
+  registrarArqueo(): void {
+    console.log(this.arqueo);
+  }
+  //*********************************************
 
   //comparar-validar datos de Caja en boostrap
   compararCaja(o1: Caja, o2: Caja): boolean {
