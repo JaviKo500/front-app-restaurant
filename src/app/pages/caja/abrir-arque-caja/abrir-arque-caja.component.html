@@ -18,7 +18,7 @@
                   <div class="input-group-prepend">
                     <label
                       class="input-group-text"
-                      for="inputGroupSelect01"
+                      for="select_usuario"
                       style="border-right-color: transparent"
                     >
                       Asignar Usuario:
@@ -27,7 +27,7 @@
                   <select
                     [compareWith]="compararusuario"
                     class="custom-select"
-                    id="inputGroupSelect01"
+                    id="select_usuario"
                     name="usuario_arqueo"
                     [(ngModel)]="arqueo.usuario"
                   >
@@ -48,7 +48,7 @@
                   <div class="input-group-prepend">
                     <label
                       class="input-group-text"
-                      for="inputGroupSelect01"
+                      for="select_caja"
                       style="border-right-color: transparent"
                     >
                       Asignar Caja:
@@ -57,7 +57,7 @@
                   <select
                     [compareWith]="compararCaja"
                     class="custom-select"
-                    id="inputGroupSelect01"
+                    id="select_caja"
                     name="caja_arqueo"
                     [(ngModel)]="arqueo.caja"
                   >
