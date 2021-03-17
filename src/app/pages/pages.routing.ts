@@ -61,7 +61,7 @@ const routes: Routes = [
         },
       },
       {
-        path: 'arqueos',
+        path: 'arqueos/page/:page',
         component: ListarArqueosComponent,
         data: { title: 'Arqueos', subTitle: 'Detalles de arqueos' },
       },

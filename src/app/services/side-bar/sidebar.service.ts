@@ -43,7 +43,7 @@ export class SidebarService {
         {
           title: 'Listar Arqueos',
           icon: 'fas fa-list-ul',
-          url: 'arqueos',
+          url: 'arqueos/page/:page',
         },
         {
           title: 'Listar Movimientos Caja',

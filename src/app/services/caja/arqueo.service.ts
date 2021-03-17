@@ -33,4 +33,19 @@ export class ArqueoService {
         )
       );
   }
+
+  //listar arqueos paginado
+  obtenerArqueosFecha(page: number, desde: Date, hasta: Date): Observable<any> {
+    let api: string =
+      'get/arqueos-caja/from/' + desde + '/to/' + hasta + '/page/' + page;
+    return this.http.get(this.url + api).pipe(
+      map((response: any) => {
+        return response.arqueos;
+      }),
+      catchError((e) => {
+        console.log('Error service paginacion arque: ' + e.error);
+        return throwError(e);
+      })
+    );
+  }
 }
