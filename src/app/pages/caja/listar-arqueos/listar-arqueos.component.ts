@@ -3,6 +3,8 @@ import { ActivatedRoute } from '@angular/router';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { Arqueo } from 'src/app/models/caja/arqueo';
 import { ArqueoService } from 'src/app/services/caja/arqueo.service';
+import swal from 'sweetalert2';
+
 @Component({
   selector: 'app-listar-arqueos',
   templateUrl: './listar-arqueos.component.html',
@@ -16,6 +18,7 @@ export class ListarArqueosComponent implements OnInit {
   //fechas de peticion de arqueos
   desde: Date = new Date();
   hasta: Date = new Date();
+  arqueoModal: Arqueo = new Arqueo();
   public modalRef: NgbModalRef;
   arqueos: Arqueo[] = [];
   constructor(
@@ -27,6 +30,9 @@ export class ListarArqueosComponent implements OnInit {
   ngOnInit(): void {
     this.listarArqueos();
   }
+  //************************************************ */
+  //--------------------funciones---------------------
+  //************************************************ */
 
   listarArqueos(): void {
     this.activatedRoute.paramMap.subscribe((params) => {
@@ -46,15 +52,46 @@ export class ListarArqueosComponent implements OnInit {
         });
     });
   }
+  //cerrar el arqueo
+  cerrarArqueoCaja(arqueo: Arqueo): void {
+    swal
+      .fire({
+        title: '¿Está seguro de cerrar la caja?',
+        text: 'No se podrá abrir nuevamente.',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Sí, cerrar',
+      })
+      .then((result) => {
+        if (result.isConfirmed) {
+          this.arqueoService.cerrarArqueo(arqueo).subscribe((res) => {
+            this.listarArqueos();
+            swal.fire({
+              position: 'top-end',
+              icon: 'success',
+              title: res,
+              showConfirmButton: false,
+              timer: 1000,
+            });
+          });
+        }
+      });
+  }
 
   //************************************************ */
   //--------------------modales-----------------------
-  abrirModalDetalleArqueo(modalDetallerArqueo): void {
+  //************************************************ */
+  abrirModalDetalleArqueo(modalDetallerArqueo, arqueo: Arqueo): void {
+    this.arqueoModal = arqueo;
     this.modalRef = this.modalService.open(modalDetallerArqueo, {
       centered: true,
+      size: 'xl',
     });
   }
   cerrarModal(): void {
+    this.arqueoModal = new Arqueo();
     this.modalRef.close();
   }
 }

@@ -13,6 +13,7 @@ export class Arqueo {
   fecha: Date;
   fechaApertura: Date;
   fechaCierre: Date;
-  descripcion: string = '';
+  descripcion: string = 'Apertura de caja.';
   descripcionCierre: string = '';
+  isOpen: boolean;
 }

@@ -4,6 +4,7 @@ import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { Arqueo } from 'src/app/models/caja/arqueo';
 import { BASE_URL } from 'src/environments/configurations';
+import swal from 'sweetalert2';
 
 @Injectable({
   providedIn: 'root',
@@ -44,6 +45,19 @@ export class ArqueoService {
       }),
       catchError((e) => {
         console.log('Error service paginacion arque: ' + e.error);
+        return throwError(e);
+      })
+    );
+  }
+
+  //cerrar arqueo/caja
+  cerrarArqueo(arqueo: Arqueo): Observable<any> {
+    return this.http.put(this.url + 'cerrar/arqueo', arqueo).pipe(
+      map((response: any) => {
+        return response.mensaje;
+      }),
+      catchError((e) => {
+        swal.fire(e.error.mensaje, e.error.error, 'warning');
         return throwError(e);
       })
     );

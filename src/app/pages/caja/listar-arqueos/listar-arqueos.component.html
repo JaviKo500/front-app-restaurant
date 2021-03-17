@@ -40,7 +40,8 @@
               <th>Caja</th>
               <th>Mon. Inicial</th>
               <th>Mon. Final</th>
-              <th>T. Pago</th>
+              <th>Efectivo</th>
+              <th>Bancos</th>
               <th>Acciones</th>
             </tr>
           </thead>
@@ -50,18 +51,25 @@
               <td>{{ arq.caja.nombreCaja }}</td>
               <td>{{ " $ " + arq.montoInicial }}</td>
               <td>{{ " $ " + arq.montoFinal }}</td>
-              <td>Efectivo</td>
+              <td>{{ " $ " + arq.efectivo }}</td>
+              <td>{{ " $ " + arq.bancos }}</td>
               <td>
                 <div class="row row-width alinear">
                   <div class="cell-sm-4">
-                    <button class="button shadowed primary">
-                      <span class="">Cerrar caja</span>
+                    <!--acomodar este badge-->
+                    <span class="badge badge-danger" *ngIf="!arq.isOpen"
+                      >Cerrado</span
+                    >
+                    <button class="button shadowed primary" *ngIf="arq.isOpen">
+                      <span class="" (click)="cerrarArqueoCaja(arq)"
+                        >Cerrar caja</span
+                      >
                     </button>
                   </div>
                   <div class="cell-sm-4">
                     <button
                       class="button shadowed yellow"
-                      (click)="abrirModalDetalleArqueo(modalDetalleArqueo)"
+                      (click)="abrirModalDetalleArqueo(modalDetalleArqueo, arq)"
                     >
                       <span class="">Detalles</span>
                     </button>
@@ -82,7 +90,7 @@
     <div class="row">
       <div class="cell">
         <div>
-          <app-spinner></app-spinner>
+          <!--<app-spinner></app-spinner>-->
         </div>
       </div>
     </div>
@@ -113,11 +121,71 @@
     </button>
   </div>
   <div class="modal-body">
-    <p class=""><strong>F. Apertura: </strong>2021-03-21</p>
-    <p class="mt-2"><strong>F. Cierre: </strong>2021-03-21</p>
-    <p class="mt-2"><strong>Descripción:</strong></p>
-    Lorem ipsum dolor sit amet consectetur adipisicing elit. Provident esse
-    sapiente ipsum nobis?
+    <p class="mt-2"><strong>Caja: </strong>{{ arqueoModal.caja.nombreCaja }}</p>
+    <p class="mt-2">
+      <strong>N/C de Caja: </strong>{{ arqueoModal.caja.numeroCaja }}
+    </p>
+    <p class="mt-2">
+      <strong>Usuario: </strong
+      >{{
+        arqueoModal.usuario.username + " - cl: " + arqueoModal.usuario.cedula
+      }}
+    </p>
+    <p class="">
+      <strong>F. Apertura: </strong
+      >{{ arqueoModal.fechaApertura | date: "dd/MM/yyyy h:mm:ss a" }}
+    </p>
+    <p class="mt-2">
+      <strong>F. Cierre: </strong
+      >{{ arqueoModal.fechaCierre | date: "dd/MM/yyyy h:mm:ss a" }}
+    </p>
+    <p class="mt-2">
+      <strong>Descripción apertura:</strong>{{ arqueoModal.descripcion }}
+    </p>
+    <p class="mt-2">
+      <strong>Descripción cierre:</strong>{{ arqueoModal.descripcionCierre }}
+    </p>
+    <!--Table For details-->
+    <table class="table row-hover row-border">
+      <thead>
+        <th>Mon. Inicial</th>
+        <th>Mon. Final</th>
+        <th>Mon. Diferencia</th>
+        <th>Mon. Efectivo</th>
+        <th>Mon. Bancos</th>
+      </thead>
+      <tbody>
+        <tr>
+          <td>{{ " $ " + arqueoModal.montoInicial }}</td>
+          <td>{{ " $ " + arqueoModal.montoFinal }}</td>
+          <td>{{ " $ " + arqueoModal.diferencia }}</td>
+          <td>{{ " $ " + arqueoModal.efectivo }}</td>
+          <td>{{ " $ " + arqueoModal.bancos }}</td>
+        </tr>
+      </tbody>
+    </table>
+    <hr />
+    <!--Table For transacctions-->
+    <table class="table row-hover row-border">
+      <thead>
+        <th>id</th>
+        <th>monto</th>
+        <th>tipoPago</th>
+        <th>descripcion</th>
+        <th>fecha/hora</th>
+        <th>detalle pedido</th>
+      </thead>
+      <tbody>
+        <tr>
+          <td>movi</td>
+          <td>$20.2</td>
+          <td>efectivo</td>
+          <td>descrip</td>
+          <td>fecha</td>
+          <td>boton para el detalle de pedido</td>
+        </tr>
+      </tbody>
+    </table>
   </div>
   <div class="modal-footer d-flex justify-content-around">
     <button
