@@ -2,8 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { Arqueo } from 'src/app/models/caja/arqueo';
 import { Caja } from 'src/app/models/caja/caja';
 import { Usuario } from 'src/app/models/persona/usuario.model';
+import { ArqueoService } from 'src/app/services/caja/arqueo.service';
 import { CajaService } from 'src/app/services/caja/caja.service';
 import { UsuarioService } from 'src/app/services/usuarios/usuario.service';
+import swal from 'sweetalert2';
 
 @Component({
   selector: 'app-abrir-arque-caja',
@@ -14,9 +16,11 @@ export class AbrirArqueCajaComponent implements OnInit {
   arqueo: Arqueo = new Arqueo();
   cajas: Caja[] = [];
   usuarios: Usuario[] = [];
+  errores: string[] = [];
   constructor(
     private cajaService: CajaService,
-    private usuarioService: UsuarioService
+    private usuarioService: UsuarioService,
+    private arqueoService: ArqueoService
   ) {}
 
   ngOnInit(): void {
@@ -37,6 +41,28 @@ export class AbrirArqueCajaComponent implements OnInit {
   ///resgistrar arqueo
   registrarArqueo(): void {
     console.log(this.arqueo);
+    this.errores = [];
+    this.arqueoService.registrarAperturaArqueo(this.arqueo).subscribe(
+      (res) => {
+        console.log(res);
+        this.errores = [];
+        swal.fire({
+          position: 'top-end',
+          icon: 'success',
+          title: res.mensaje,
+          showConfirmButton: false,
+          timer: 1000,
+        });
+        this.arqueo = new Arqueo();
+      },
+      (err) => {
+        if (err.status === 409) {
+          this.errores = err.error.errores as string[];
+        } else {
+          swal.fire(err.error.mensaje, err.error.error, 'warning');
+        }
+      }
+    );
   }
   //*********************************************
 

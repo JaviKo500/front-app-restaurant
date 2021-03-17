@@ -1,16 +1,12 @@
 <div class="card mt-0 fondo">
   <div class="card-body p-2">
     <!-- formulario -->
-    <!-- <div *ngIf="erroresBackend.length != 0" class="container">
-        <ul class="list-group">
-          <li
-            class="list-group-item list-group-item-danger"
-            *ngFor="let err of erroresBackend"
-          >
-            {{ err }}
-          </li>
-        </ul>
-      </div> -->
+    <!--errores desde el backend-->
+    <div class="container" *ngIf="errores.length != 0">
+      <div class="alert alert-danger" role="alert" *ngFor="let err of errores">
+        {{ err }}
+      </div>
+    </div>
     <form>
       <div class="card w-75-md w-50-xxl w-50-xl w-100-sm">
         <div class="card-body">

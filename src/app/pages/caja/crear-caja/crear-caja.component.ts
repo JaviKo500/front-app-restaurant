@@ -57,6 +57,7 @@ export class CrearCajaComponent implements OnInit {
           showConfirmButton: false,
           timer: 1000,
         });
+        this.errores = [];
         this.cerrarModal();
       },
       (err) => {
