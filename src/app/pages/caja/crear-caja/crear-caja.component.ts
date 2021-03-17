@@ -1,9 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import {NgbDateStruct} from '@ng-bootstrap/ng-bootstrap';
+import swal from 'sweetalert2';
+
+
 import { Caja } from 'src/app/models/caja/caja';
 import { CajaService } from 'src/app/services/caja/caja.service';
-import swal from 'sweetalert2';
 @Component({
   selector: 'app-crear-caja',
   templateUrl: './crear-caja.component.html',
@@ -11,10 +14,11 @@ import swal from 'sweetalert2';
 })
 export class CrearCajaComponent implements OnInit {
   public modalRef: NgbModalRef;
-  //paginacion
+  model: NgbDateStruct;
+  // paginacion
   paginador: any;
   path: any = '/dashboard/crearcaja/page';
-  //termina paginacion
+  // termina paginacion
   caja: Caja = new Caja();
   errores: string[] = [];
   cajas: Caja[] = [];
