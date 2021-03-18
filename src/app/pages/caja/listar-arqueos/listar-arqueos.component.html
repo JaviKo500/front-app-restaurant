@@ -53,7 +53,7 @@
               <td>
                 <div class="row row-width alinear">
                   <div class="cell-sm-4">
-                    <div class="d-flex justify-content-center mt-1" *ngIf="!arq.isOpen">
+                    <div class="d-flex justify-content-center mt-2" *ngIf="!arq.isOpen">
                       <span class="bgBange rounded">Cerrado</span>
                     </div>
                     <button class="button shadowed primary" *ngIf="arq.isOpen">
@@ -117,30 +117,20 @@
     </button>
   </div>
   <div class="modal-body">
-    <p class="mt-2"><strong>Caja: </strong>{{ arqueoModal.caja.nombreCaja }}</p>
-    <p class="mt-2">
-      <strong>N/C de Caja: </strong>{{ arqueoModal.caja.numeroCaja }}
-    </p>
-    <p class="mt-2">
-      <strong>Usuario: </strong
-      >{{
-        arqueoModal.usuario.username + " - cl: " + arqueoModal.usuario.cedula
-      }}
-    </p>
-    <p class="">
-      <strong>F. Apertura: </strong
-      >{{ arqueoModal.fechaApertura | date: "dd/MM/yyyy h:mm:ss a" }}
-    </p>
-    <p class="mt-2">
-      <strong>F. Cierre: </strong
-      >{{ arqueoModal.fechaCierre | date: "dd/MM/yyyy h:mm:ss a" }}
-    </p>
-    <p class="mt-2">
-      <strong>Descripción apertura:</strong>{{ arqueoModal.descripcion }}
-    </p>
-    <p class="mt-2">
-      <strong>Descripción cierre:</strong>{{ arqueoModal.descripcionCierre }}
-    </p>
+    <div class="row">
+      <div class="cell-6 cell-12-sm">
+        <p class="mt-2"><strong>Usaurio: </strong>{{ arqueoModal.usuario.nombre }}</p>
+        <p class="mt-2"><strong>Caja: </strong>{{ arqueoModal.caja.nombreCaja }}</p>
+        <p class="mt-2"><strong>N/C de Caja: </strong>{{ arqueoModal.caja.numeroCaja }}</p>
+        <p class="mt-2"><strong>Usuario: </strong>{{arqueoModal.usuario.username + " - cl: " + arqueoModal.usuario.cedula}}</p>
+      </div>
+      <div class="cell-6 cell-12-sm">
+        <p class="mt-2"><strong>F. Apertura: </strong>{{ arqueoModal.fechaApertura | date: "dd/MM/yyyy h:mm:ss a" }}</p>
+        <p class="mt-2"><strong>F. Cierre: </strong>{{ arqueoModal.fechaCierre | date: "dd/MM/yyyy h:mm:ss a" }}</p>
+        <p class="mt-2"><strong>Descripción apertura:</strong>{{ arqueoModal.descripcion }}</p>
+        <p class="mt-2"><strong>Descripción cierre:</strong>{{ arqueoModal.descripcionCierre }}</p>
+      </div>
+    </div>
     <!--Table For details-->
     <table class="table row-hover row-border">
       <thead>
@@ -178,7 +168,9 @@
           <td>efectivo</td>
           <td>descrip</td>
           <td>fecha</td>
-          <td>boton para el detalle de pedido</td>
+          <td>
+            <button class="button shadowed yellow"><i class="fa fa-eye"></i></button>
+          </td>
         </tr>
       </tbody>
     </table>
