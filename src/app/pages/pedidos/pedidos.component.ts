@@ -25,7 +25,7 @@ export class PedidosComponent implements OnInit, OnDestroy {
     private pedidoService: PedidoService
   ) {}
   ngOnDestroy(): void {
-    if ( this.modalRef ) {
+    if (this.modalRef) {
       this.modalRef.close();
     }
   }
@@ -35,10 +35,14 @@ export class PedidosComponent implements OnInit, OnDestroy {
 
   // listar pedidos del dia
   listarPedidosDelDia(): void {
-    this.pedidoService.listarPedidosDia().subscribe((pedidos) => {
-      this.listaPedidos = pedidos;
-      this.filtrarPorMesas();
-    });
+    this.pedidoService
+      .listarPedidosExepEntregadosAnulados()
+      .subscribe((pedidos) => {
+        this.listaPedidos = pedidos;
+        console.log(pedidos);
+
+        this.filtrarPorMesas();
+      });
   }
 
   // filtramos por mesa para separar los pedidos en la vista del cliente

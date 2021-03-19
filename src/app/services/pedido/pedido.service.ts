@@ -53,6 +53,18 @@ export class PedidoService {
     );
   }
 
+  listarPedidosExepEntregadosAnulados(): Observable<any> {
+    return this.http
+      .get(this.url + 'pedidos/dia/no-entregados/no-anulados')
+      .pipe(
+        map((response: any) => response.pedidos as Pedido[]),
+        catchError((e) => {
+          swal.fire(e.error.mensaje, e.error.error, 'warning');
+          return throwError(e);
+        })
+      );
+  }
+
   listarEstadosPedidos(): Observable<any> {
     return this.http.get(this.url + 'get/pedidos/estados').pipe(
       map((response: any) => response as Estado[]),
