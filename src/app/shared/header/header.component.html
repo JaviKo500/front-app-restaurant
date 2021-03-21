@@ -4,16 +4,19 @@
         <div class="w-10">
             <button id="pane-toggle" class="button color-bg square d-none-md "><i class="fas fa-bars fa-2x"></i></button>
         </div>
-        <div class=" ">
-            <button class="button link ">
-          <i class="fab fa-whatsapp fa-2x"></i>
-        </button>
-            <button class="button link">
-          <i class="fab fa-instagram fa-2x"></i>
-        </button>
-            <button class="button link">
-          <i class="fas fa-shopping-cart fa-2x"></i>
-        </button>
+        <div class="" *ngIf="authService.isAuthenticated()">
+            <div ngbDropdown class="d-inline-block">
+                <button class=" button info cycle" id="dropdownBasic1" ngbDropdownToggle>
+                  <i class="fas fa-1x fa-user-cog"></i>
+                </button>
+                <div ngbDropdownMenu aria-labelledby="dropdownBasic1" class="dropdown-menu dropdown-menu-right">
+                    <div ngbDropdownItem>
+                        <p>{{authService.usuario.username}}</p>
+                        <p>{{authService.usuario.roles[0]}}</p>
+                    </div>
+                    <button ngbDropdownItem (click)="logOut()">Cerrar sesión</button>
+                </div>
+            </div>
         </div>
     </div>
 </nav>

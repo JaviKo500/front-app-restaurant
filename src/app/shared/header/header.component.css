@@ -49,3 +49,15 @@
     background-color: transparent;
     color: white;
 }
+
+.dropdown-toggle::before {
+    display: none;
+}
+
+.dropdown-toggle::after {
+    display: none;
+}
+
+.dropdown-toggle {
+    padding-right: 0rem !important;
+}

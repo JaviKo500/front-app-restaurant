@@ -18,6 +18,8 @@ import { CrearCajaComponent } from './caja/crear-caja/crear-caja.component';
 import { AbrirArqueCajaComponent } from './caja/abrir-arque-caja/abrir-arque-caja.component';
 import { ListarArqueosComponent } from './caja/listar-arqueos/listar-arqueos.component';
 import { ListarMovimientosCajaComponent } from './caja/listar-movimientos-caja/listar-movimientos-caja.component';
+import { AuthGuard } from '../guards/auth.guard';
+import { RoleGuard } from '../guards/role.guard';
 
 const routes: Routes = [
   {
@@ -27,102 +29,125 @@ const routes: Routes = [
       {
         path: '',
         component: DashboardComponent,
-        data: { title: 'Inicio', subTitle: 'Bienvenido' },
+        canActivate: [AuthGuard, RoleGuard],
+        data: { title: 'Inicio', subTitle: 'Bienvenido', role: ['ROLE_ADMIN', 'ROLE_CAJERO'] },
       },
       {
         path: 'crearpro/:id',
         component: FormularioComponent,
-        data: { title: 'Productos', subTitle: 'Administrar producto' },
+        canActivate: [AuthGuard, RoleGuard],
+        data: { title: 'Productos', subTitle: 'Administrar producto',role: ['ROLE_ADMIN'] },
       },
       {
         path: 'crearcombo/:id',
         component: FormularioComboComponent,
+        canActivate: [AuthGuard, RoleGuard],
         data: {
           title: 'Especiales',
           subTitle: 'Crea tus propios combos o promociones',
+          role: ['ROLE_ADMIN']
         },
       },
       {
         path: 'usuarios/page/0',
         component: UsuariosComponent,
-        data: { title: 'Usuarios', subTitle: 'Administrar tus usuarios' },
+        canActivate: [AuthGuard, RoleGuard],
+        data: { title: 'Usuarios', subTitle: 'Administrar tus usuarios',role: ['ROLE_ADMIN'] },
       },
       {
         path: 'crearcaja/page/:page',
         component: CrearCajaComponent,
-        data: { title: 'Caja', subTitle: 'Ver y agregar cajas' },
+        canActivate: [AuthGuard, RoleGuard],
+        data: { title: 'Caja', subTitle: 'Ver y agregar cajas',role: ['ROLE_ADMIN'] },
       },
       {
         path: 'creararqueo',
         component: AbrirArqueCajaComponent,
+        canActivate: [AuthGuard, RoleGuard],
         data: {
           title: 'Nuevo Arqueo',
-          subTitle: 'Crea y asigna un nuevo arqueo',
+          subTitle: 'Crea y asigna un nuevo arqueo', role: ['ROLE_ADMIN'],
         },
       },
       {
         path: 'arqueos/page/:page',
         component: ListarArqueosComponent,
-        data: { title: 'Arqueos', subTitle: 'Detalles de arqueos' },
+        canActivate: [AuthGuard, RoleGuard],
+        data: { title: 'Arqueos', subTitle: 'Detalles de arqueos', role: ['ROLE_ADMIN'] },
       },
       {
         path: 'movimientos',
         component: ListarMovimientosCajaComponent,
+        canActivate: [AuthGuard, RoleGuard],
         data: {
           title: 'Movimientos caja',
           subTitle: 'Detalles de las transacciones del arqueo actual',
+          role: ['ROLE_ADMIN', 'ROLE_CAJERO']
         },
       },
       {
         path: 'crearusu/:id',
         component: FormularioUsuarioComponent,
-        data: { title: 'Usuarios', subTitle: 'Agrega usuarios' },
+        canActivate: [AuthGuard, RoleGuard],
+        data: { title: 'Usuarios', subTitle: 'Agrega usuarios', role: ['ROLE_ADMIN']},
       },
       {
         path: 'productos/page/:page',
         component: ProductoListarComponent,
-        data: { title: 'Productos', subTitle: 'Lista de productos' },
+        canActivate: [AuthGuard, RoleGuard],
+        data: { title: 'Productos', subTitle: 'Lista de productos',role: ['ROLE_ADMIN'] },
+        
       },
       {
         path: 'combos/page/:page',
         component: ListaCombosComponent,
+        canActivate: [AuthGuard, RoleGuard],
         data: {
           title: 'Combos',
           subTitle: 'Lista de combos u otros especiales',
+          role: ['ROLE_ADMIN']
         },
       },
       {
         path: 'categorias/page/:page',
         component: CategoriaListarComponent,
-        data: { title: 'Categorías', subTitle: 'Administra tus categorías' },
+        canActivate: [AuthGuard, RoleGuard],
+        data: { title: 'Categorías', subTitle: 'Administra tus categorías', role: ['ROLE_ADMIN']},
       },
       {
         path: 'mesas/page/:page',
         component: MesasComponent,
-        data: { title: 'Mesas', subTitle: 'Administrar mesas del Restaurante' },
+        canActivate: [AuthGuard, RoleGuard],
+        data: { title: 'Mesas', subTitle: 'Administrar mesas del Restaurante', role: ['ROLE_ADMIN'] },
       },
       {
         path: 'empresa',
         component: ConfiguracionEmpresaComponent,
+        canActivate: [AuthGuard, RoleGuard],
         data: {
           title: 'Empresa ',
           subTitle: 'Configura los datos de tu empresa',
+          role: ['ROLE_ADMIN']
         },
       },
       {
         path: 'pedidos',
         component: PedidosComponent,
+        canActivate: [AuthGuard, RoleGuard],
         data: {
           title: 'Pedidos',
           subTitle: 'Revisa los pedidos de tus clientes',
+          role: ['ROLE_ADMIN', 'ROLE_CAJERO']
         },
       },
       {
         path: 'venta/:id',
         component: VentaComponent,
+        canActivate: [AuthGuard, RoleGuard],
         data: {
           title: 'Venta',
           subTitle: 'Realizar pedidos personales',
+          role: ['ROLE_ADMIN', 'ROLE_CAJERO']
         },
       },
     ],
