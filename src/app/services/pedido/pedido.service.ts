@@ -27,7 +27,6 @@ export class PedidoService {
 
   constructor(private http: HttpClient, private router: Router) {}
   private url: string = BASE_URL;
-  private httpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
 
   // listar pedidos del dia
   // el numero 1 es del estado solicitado
@@ -78,9 +77,7 @@ export class PedidoService {
   // registrar pedido
   registrarPedido(pedido: Pedido, cedula: string): Observable<any> {
     return this.http
-      .post(this.url + 'register/new/pedido/' + cedula, pedido, {
-        headers: this.httpHeaders,
-      })
+      .post(this.url + 'register/new/pedido/' + cedula, pedido)
       .pipe(
         map((response: any) => response),
         catchError((e) => {
@@ -91,16 +88,12 @@ export class PedidoService {
   }
   // registrar pedido
   registrarPedidoAuth(pedido: Pedido): Observable<any> {
-    return this.http
-      .post(this.url + 'register/new/auth/pedido', pedido, {
-        headers: this.httpHeaders,
+    return this.http.post(this.url + 'register/new/auth/pedido', pedido).pipe(
+      map((response: any) => response),
+      catchError((e) => {
+        swal.fire(e.error.mensaje, e.error.error, 'warning');
+        return throwError(e);
       })
-      .pipe(
-        map((response: any) => response),
-        catchError((e) => {
-          swal.fire(e.error.mensaje, e.error.error, 'warning');
-          return throwError(e);
-        })
-      );
+    );
   }
 }

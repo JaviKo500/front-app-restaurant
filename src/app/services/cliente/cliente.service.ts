@@ -11,7 +11,6 @@ import swal from 'sweetalert2';
 })
 export class ClienteService {
   private url: string = BASE_URL;
-  private httpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
   constructor(private http: HttpClient) {}
 
   listarClientesPaginado(page: number): Observable<any> {
@@ -36,19 +35,15 @@ export class ClienteService {
 
   //registrar cliente
   RegistrarCliente(cliente: Cliente): Observable<any> {
-    return this.http
-      .post(this.url + 'client/register/client', cliente, {
-        headers: this.httpHeaders,
-      })
-      .pipe(
-        map((response: any) => response),
-        catchError((e) => {
-          if (e.status === 409) {
-            return throwError(e);
-          }
-          swal.fire(e.error.mensaje, e.error.error, 'warning');
+    return this.http.post(this.url + 'client/register/client', cliente).pipe(
+      map((response: any) => response),
+      catchError((e) => {
+        if (e.status === 409) {
           return throwError(e);
-        })
-      );
+        }
+        swal.fire(e.error.mensaje, e.error.error, 'warning');
+        return throwError(e);
+      })
+    );
   }
 }

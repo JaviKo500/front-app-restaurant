@@ -12,21 +12,17 @@ import swal from 'sweetalert2';
 export class ComboService {
   constructor(private http: HttpClient) {}
   private url: string = BASE_URL;
-  private httpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
-
   registrarCombo(combo: Combo): Observable<any> {
-    return this.http
-      .post(this.url + 'registrar/combo', combo, { headers: this.httpHeaders })
-      .pipe(
-        map((response: any) => response),
-        catchError((e) => {
-          if (e.status === 409) {
-            console.log(e);
-          }
-          swal.fire(e.error.mensaje, e.error.error, 'warning');
-          return throwError(e);
-        })
-      );
+    return this.http.post(this.url + 'registrar/combo', combo).pipe(
+      map((response: any) => response),
+      catchError((e) => {
+        if (e.status === 409) {
+          console.log(e);
+        }
+        swal.fire(e.error.mensaje, e.error.error, 'warning');
+        return throwError(e);
+      })
+    );
   }
   //lista las categorias para los combos
   listarCategoriasCombo(): Observable<any> {

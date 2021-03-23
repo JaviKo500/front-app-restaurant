@@ -13,8 +13,6 @@ export class ProductoService {
   constructor(private http: HttpClient) {}
   private url: string = BASE_URL;
 
-  private httpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
-
   // filtrar productos del cliente
   ObtenerProductosClientes(cate_id: number): Observable<any> {
     return this.http.get(this.url + 'get/client/products/' + cate_id).pipe(
@@ -63,24 +61,18 @@ export class ProductoService {
   }
   //registrar productos
   RegistarProducto(producto: Producto): Observable<Producto> {
-    return this.http
-      .post(this.url + 'register/product', producto, {
-        headers: this.httpHeaders,
+    return this.http.post(this.url + 'register/product', producto).pipe(
+      map((response: any) => response),
+      catchError((e) => {
+        swal.fire(e.error.mensaje, e.error.error, 'error');
+        return throwError(e);
       })
-      .pipe(
-        map((response: any) => response),
-        catchError((e) => {
-          swal.fire(e.error.mensaje, e.error.error, 'error');
-          return throwError(e);
-        })
-      );
+    );
   }
   //actualizar productos
   updateProduct(producto: Producto): Observable<any> {
     return this.http
-      .put(this.url + 'update/product/' + producto.id, producto, {
-        headers: this.httpHeaders,
-      })
+      .put(this.url + 'update/product/' + producto.id, producto)
       .pipe(
         map((response: any) => response),
         catchError((e) => {

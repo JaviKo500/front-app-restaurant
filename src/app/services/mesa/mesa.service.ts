@@ -13,8 +13,6 @@ export class MesaService {
   constructor(private http: HttpClient) {}
   private url: string = BASE_URL;
 
-  private httpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
-
   ObtenerMesaId(id: number): Observable<any> {
     return this.http.get(this.url + 'get/mesa/cliente/' + id).pipe(
       map((response: any) => response.mesa as Mesa),
@@ -26,29 +24,23 @@ export class MesaService {
   }
 
   registrarMesa(mesa: Mesa): Observable<any> {
-    return this.http
-      .post(this.url + 'register/mesa', mesa, { headers: this.httpHeaders })
-      .pipe(
-        map((response: any) => response),
-        catchError((e) => {
-          swal.fire(e.error.mensaje, e.error.error, 'error');
-          return throwError(e);
-        })
-      );
+    return this.http.post(this.url + 'register/mesa', mesa).pipe(
+      map((response: any) => response),
+      catchError((e) => {
+        swal.fire(e.error.mensaje, e.error.error, 'error');
+        return throwError(e);
+      })
+    );
   }
 
   actualizarMesa(mesa: Mesa): Observable<any> {
-    return this.http
-      .put(this.url + 'update/mesa/' + mesa.id, mesa, {
-        headers: this.httpHeaders,
+    return this.http.put(this.url + 'update/mesa/' + mesa.id, mesa).pipe(
+      map((response: any) => response),
+      catchError((e) => {
+        swal.fire(e.error.mensaje, e.error.error, 'error');
+        return throwError(e);
       })
-      .pipe(
-        map((response: any) => response),
-        catchError((e) => {
-          swal.fire(e.error.mensaje, e.error.error, 'error');
-          return throwError(e);
-        })
-      );
+    );
   }
 
   ObtenerMesasPageable(page: number): Observable<any> {

@@ -11,7 +11,6 @@ import swal from 'sweetalert2';
 export class CajaService {
   private url: string = BASE_URL;
 
-  private httpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
   constructor(private http: HttpClient) {}
 
   obtenerTodasCajas(): Observable<Caja[]> {
@@ -32,21 +31,19 @@ export class CajaService {
     );
   }
   registrarCaja(caja: Caja): Observable<any> {
-    return this.http
-      .post(this.url + 'register/new/caja', caja, { headers: this.httpHeaders })
-      .pipe(
-        map(
-          (response: any) => {
-            return response;
-          },
-          catchError((e) => {
-            if (e.status === 409) {
-              return throwError(e);
-            }
+    return this.http.post(this.url + 'register/new/caja', caja).pipe(
+      map(
+        (response: any) => {
+          return response;
+        },
+        catchError((e) => {
+          if (e.status === 409) {
             return throwError(e);
-          })
-        )
-      );
+          }
+          return throwError(e);
+        })
+      )
+    );
   }
   eliminarCaja(id: number): Observable<any> {
     return this.http.delete(this.url + '/delete/caja/' + id).pipe(

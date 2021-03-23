@@ -15,8 +15,6 @@ export class UsuarioService {
   constructor(private http: HttpClient) {}
   private url: string = BASE_URL;
 
-  private httpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
-
   obtenerUsuariosToArqueo(): Observable<Usuario[]> {
     return this.http.get<Usuario[]>(this.url + 'get/usuarios/to-arqueos');
   }
@@ -67,55 +65,43 @@ export class UsuarioService {
   }
 
   registrarUsuario(usuario: Usuario): Observable<any> {
-    return this.http
-      .post(this.url + 'register/user', usuario, {
-        headers: this.httpHeaders,
-      })
-      .pipe(
-        map((response: any) => response),
-        catchError((e) => {
-          if (e.status === 409) {
-            return throwError(e);
-          } else {
-            swal.fire(e.error.mensaje, e.error.error, 'error');
-          }
+    return this.http.post(this.url + 'register/user', usuario).pipe(
+      map((response: any) => response),
+      catchError((e) => {
+        if (e.status === 409) {
           return throwError(e);
-        })
-      );
+        } else {
+          swal.fire(e.error.mensaje, e.error.error, 'error');
+        }
+        return throwError(e);
+      })
+    );
   }
 
   //actualizarUsuario
   actualizarUsuario(usuario: Usuario): Observable<any> {
-    return this.http
-      .put(this.url + 'update/user', usuario, {
-        headers: this.httpHeaders,
-      })
-      .pipe(
-        map((response: any) => response),
-        catchError((e) => {
-          if (e.status === 409) {
-            return throwError(e);
-          } else {
-            swal.fire(e.error.mensaje, e.error.error, 'error');
-          }
+    return this.http.put(this.url + 'update/user', usuario).pipe(
+      map((response: any) => response),
+      catchError((e) => {
+        if (e.status === 409) {
           return throwError(e);
-        })
-      );
+        } else {
+          swal.fire(e.error.mensaje, e.error.error, 'error');
+        }
+        return throwError(e);
+      })
+    );
   }
 
   //actualizar Usuario estado
   actualizarUsuarioEstado(usuario: Usuario): Observable<any> {
-    return this.http
-      .put(this.url + 'update/user/estado', usuario, {
-        headers: this.httpHeaders,
+    return this.http.put(this.url + 'update/user/estado', usuario).pipe(
+      map((response: any) => response),
+      catchError((e) => {
+        swal.fire(e.error.mensaje, e.error.error, 'error');
+        return throwError(e);
       })
-      .pipe(
-        map((response: any) => response),
-        catchError((e) => {
-          swal.fire(e.error.mensaje, e.error.error, 'error');
-          return throwError(e);
-        })
-      );
+    );
   }
 
   //metodo eliminar usuario

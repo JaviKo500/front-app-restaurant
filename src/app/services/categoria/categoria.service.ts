@@ -11,21 +11,16 @@ import swal from 'sweetalert2';
 })
 export class CategoriaService {
   private url: string = BASE_URL;
-  private httpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
   constructor(private http: HttpClient) {}
 
   RegistarCategoria(categoria: Categoria): Observable<Categoria> {
-    return this.http
-      .post(this.url + 'register/category', categoria, {
-        headers: this.httpHeaders,
+    return this.http.post(this.url + 'register/category', categoria).pipe(
+      map((response: any) => response),
+      catchError((e) => {
+        swal.fire(e.error.mensaje, e.error.error, 'error');
+        return throwError(e);
       })
-      .pipe(
-        map((response: any) => response),
-        catchError((e) => {
-          swal.fire(e.error.mensaje, e.error.error, 'error');
-          return throwError(e);
-        })
-      );
+    );
   }
 
   listarTiposCategorias(): Observable<any> {
@@ -39,9 +34,7 @@ export class CategoriaService {
 
   ActualizarCategoria(categoria: Categoria): Observable<Categoria> {
     return this.http
-      .put(this.url + 'update/category/' + categoria.id, categoria, {
-        headers: this.httpHeaders,
-      })
+      .put(this.url + 'update/category/' + categoria.id, categoria)
       .pipe(
         map((response: any) => response),
         catchError((e) => {
@@ -53,7 +46,7 @@ export class CategoriaService {
 
   ListaTodasCategorias(): Observable<Categoria[]> {
     return this.http.get(this.url + 'get/categories').pipe(
-      map((response: any) =>  response.categorias as Categoria[]),
+      map((response: any) => response.categorias as Categoria[]),
       catchError((e) => {
         return throwError(e);
       })

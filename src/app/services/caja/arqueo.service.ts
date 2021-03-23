@@ -11,28 +11,22 @@ import swal from 'sweetalert2';
 })
 export class ArqueoService {
   private url: string = BASE_URL;
-
-  private httpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
   constructor(private http: HttpClient) {}
 
   registrarAperturaArqueo(arqueo: Arqueo): Observable<any> {
-    return this.http
-      .post(this.url + 'register/new/arqueo-caja', arqueo, {
-        headers: this.httpHeaders,
-      })
-      .pipe(
-        map(
-          (response: any) => {
-            return response;
-          },
-          catchError((e) => {
-            if (e.status === 409) {
-              return throwError(e);
-            }
+    return this.http.post(this.url + 'register/new/arqueo-caja', arqueo).pipe(
+      map(
+        (response: any) => {
+          return response;
+        },
+        catchError((e) => {
+          if (e.status === 409) {
             return throwError(e);
-          })
-        )
-      );
+          }
+          return throwError(e);
+        })
+      )
+    );
   }
 
   //listar arqueos paginado
