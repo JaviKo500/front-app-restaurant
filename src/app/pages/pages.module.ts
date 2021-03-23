@@ -27,6 +27,8 @@ import { CrearCajaComponent } from './caja/crear-caja/crear-caja.component';
 import { AbrirArqueCajaComponent } from './caja/abrir-arque-caja/abrir-arque-caja.component';
 import { ListarArqueosComponent } from './caja/listar-arqueos/listar-arqueos.component';
 import { ListarMovimientosCajaComponent } from './caja/listar-movimientos-caja/listar-movimientos-caja.component';
+import { ClientesComponent } from './clientes/clientes.component';
+import { FormClienteComponent } from './clientes/form-cliente/form-cliente.component';
 
 @NgModule({
   declarations: [
@@ -47,6 +49,8 @@ import { ListarMovimientosCajaComponent } from './caja/listar-movimientos-caja/l
     AbrirArqueCajaComponent,
     ListarArqueosComponent,
     ListarMovimientosCajaComponent,
+    ClientesComponent,
+    FormClienteComponent,
   ],
   exports: [DashboardComponent],
   imports: [

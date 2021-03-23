@@ -20,6 +20,8 @@ import { ListarArqueosComponent } from './caja/listar-arqueos/listar-arqueos.com
 import { ListarMovimientosCajaComponent } from './caja/listar-movimientos-caja/listar-movimientos-caja.component';
 import { AuthGuard } from '../guards/auth.guard';
 import { RoleGuard } from '../guards/role.guard';
+import { FormClienteComponent } from './clientes/form-cliente/form-cliente.component';
+import { ClientesComponent } from './clientes/clientes.component';
 
 const routes: Routes = [
   {
@@ -70,6 +72,21 @@ const routes: Routes = [
         },
       },
       {
+        path: 'crearcli/:id',
+        component: FormClienteComponent,
+        canActivate: [AuthGuard, RoleGuard],
+        data: {
+          title: 'Nuevo cliente',
+          subTitle: 'Agrega clientes', role: ['ROLE_ADMIN', 'ROLE_CAJERO'],
+        },
+      },
+      {
+        path: 'cliente/page/:page',
+        component: ClientesComponent,
+        canActivate: [AuthGuard, RoleGuard],
+        data: { title: 'Clientes', subTitle: 'Detalles de clientes', role: ['ROLE_ADMIN', 'ROLE_CAJERO'] },
+      },
+      {
         path: 'arqueos/page/:page',
         component: ListarArqueosComponent,
         canActivate: [AuthGuard, RoleGuard],
@@ -96,7 +113,6 @@ const routes: Routes = [
         component: ProductoListarComponent,
         canActivate: [AuthGuard, RoleGuard],
         data: { title: 'Productos', subTitle: 'Lista de productos',role: ['ROLE_ADMIN'] },
-        
       },
       {
         path: 'combos/page/:page',

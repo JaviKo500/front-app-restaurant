@@ -91,6 +91,26 @@ export class SidebarService {
       ],
     },
     {
+      title: 'Gestiónde clientes',
+      icon: 'fas fa-users',
+      url: '',
+      roles: ['ROLE_ADMIN', 'ROLE_CAJERO'],
+      subMenu: [
+        {
+          title: 'Lista de clientes ',
+          icon: 'fas fa-address-book',
+          roles: ['ROLE_ADMIN', 'ROLE_CAJERO'],
+          url: 'cliente/page/0',
+        },
+        {
+          title: 'Agregar cliente ',
+          icon: 'fas fa-user-plus',
+          roles: ['ROLE_ADMIN', 'ROLE_CAJERO'],
+          url: 'crearcli/:id',
+        },
+      ],
+    },
+    {
       title: 'Productos',
       icon: 'fas fa-box',
       url: '',
@@ -108,11 +128,11 @@ export class SidebarService {
           roles: ['ROLE_ADMIN'],
           url: 'crearpro/:id',
         },
-        { 
-          title: 'Categorias', 
-          icon: 'fa fa-tags', 
-          roles: ['ROLE_ADMIN'], 
-          url: 'categorias/page/0', 
+        {
+          title: 'Categorias',
+          icon: 'fa fa-tags',
+          roles: ['ROLE_ADMIN'],
+          url: 'categorias/page/0',
         },
       ],
     },
@@ -142,17 +162,17 @@ export class SidebarService {
       url: '',
       roles: ['ROLE_ADMIN'],
       subMenu: [
-        { 
-          title: 'Configuración empresa', 
+        {
+          title: 'Configuración empresa',
           icon: 'fas fa-cog',
           roles: ['ROLE_ADMIN'],
-          url: 'empresa' 
+          url: 'empresa'
         },
-        { 
-          title: 'Mesas', 
+        {
+          title: 'Mesas',
           icon: 'fas fa-chair',
           roles: ['ROLE_ADMIN'],
-          url: 'mesas/page/0' 
+          url: 'mesas/page/0'
         },
       ],
     },
@@ -160,16 +180,16 @@ export class SidebarService {
   verificarUsuarioRol = (): SideBarModel [] => {
     // cuando se vueve a llamar este metodo no se duplique el menu
     this.menuTipoRol = [];
-    let usuario = JSON.parse(sessionStorage.getItem('usuario'));
+    const usuario = JSON.parse(sessionStorage.getItem('usuario'));
     // fitro por rol los menus principales
-     this.menu.map( (itemMenu: SideBarModel) => { 
+    this.menu.map( (itemMenu: SideBarModel) => {
        itemMenu.roles.map( rol => {
-         // si cumple el rol se agrega al array 
+         // si cumple el rol se agrega al array
         if (usuario.roles.includes(rol)) {
           // luego vemos si los submenus cumple el rol se agregan al array
-          itemMenu.subMenu.map( (subMenuItem: SubMenuModel) => {
+          itemMenu.subMenu.map((subMenuItem: SubMenuModel) => {
             subMenuItem.roles.map( rol => {
-              if( usuario.roles.includes(rol)){
+              if ( usuario.roles.includes(rol)){
                 this.subMenu.push(subMenuItem);
               }
             });
@@ -181,7 +201,7 @@ export class SidebarService {
         }
        });
     });
-    return this.menuTipoRol;    
+    return this.menuTipoRol;
   }
   constructor() {
   }
