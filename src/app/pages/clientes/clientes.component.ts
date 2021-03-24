@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Cliente } from 'src/app/models/persona/cliente';
 import { ClienteService } from 'src/app/services/cliente/cliente.service';
+import swal from 'sweetalert2';
 
 @Component({
   selector: 'app-clientes',
@@ -20,6 +21,10 @@ export class ClientesComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.listarClientesPaginado();
+  }
+  //listar clientes paginado
+  listarClientesPaginado(): void {
     this.activatedRoute.paramMap.subscribe((params) => {
       let page: number = +params.get('page');
       if (!page) {
@@ -31,5 +36,34 @@ export class ClientesComponent implements OnInit {
         console.log(this.clientes);
       });
     });
+  }
+  //eliminar cliente logicamente
+  eliminarClienteLogico(cli: Cliente): void {
+    swal
+      .fire({
+        title: '¿Esta seguro?',
+        text: 'Se eliminará este cliente de su lista.',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!',
+      })
+      .then((result) => {
+        if (result.isConfirmed) {
+          this.clienteService.eliminarCliente(cli.id).subscribe((res) => {
+            console.log(res);
+            swal.fire({
+              position: 'top-end',
+              icon: 'success',
+              title: res,
+              showConfirmButton: false,
+              timer: 1000,
+            });
+            //listar los clientes nuevamente
+            this.listarClientesPaginado();
+          });
+        }
+      });
   }
 }

@@ -29,7 +29,7 @@ export class ClienteService {
     return this.http.get(this.url + 'get/clientes/page/' + page).pipe(
       map((response: any) => response),
       catchError((e) => {
-        swal.fire(e.error.mensaje, e.error.error, 'warning');
+        console.log(e.error.mensaje, e.error.error, 'warning');
         return throwError(e);
       })
     );
@@ -55,6 +55,17 @@ export class ClienteService {
           return throwError(e);
         }
         swal.fire(e.error.mensaje, e.error.error, 'warning');
+        return throwError(e);
+      })
+    );
+  }
+
+  //eliminar clientes
+  eliminarCliente(id: number): Observable<any> {
+    return this.http.delete(this.url + 'cliente/delete/' + id).pipe(
+      map((response: any) => response.mensaje),
+      catchError((e) => {
+        swal.fire(e.error.mensaje, e.error.error, 'error');
         return throwError(e);
       })
     );
