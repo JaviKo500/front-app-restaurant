@@ -42,7 +42,7 @@ export class FormularioClienteComponent implements OnInit {
         },
         (err) => {
           if (err.status === 409) {
-            this.erroresBackend = err.error.mensaje as string[];
+            this.erroresBackend = err.error.errores as string[];
           }
         }
       );
