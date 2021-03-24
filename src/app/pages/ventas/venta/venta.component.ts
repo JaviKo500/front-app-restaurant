@@ -22,6 +22,8 @@ import { MesaService } from 'src/app/services/mesa/mesa.service';
 import { PedidoService } from 'src/app/services/pedido/pedido.service';
 import { ProductoService } from 'src/app/services/productos/producto.service';
 import { BASE_URL } from 'src/environments/configurations';
+import { Usuario } from 'src/app/models/persona/usuario.model';
+import { Movimiento } from 'src/app/models/caja/movimiento';
 
 @Component({
   selector: 'app-venta',
@@ -289,6 +291,40 @@ export class VentaComponent implements OnInit {
     this.mesa = new Mesa();
     this.pedido = new Pedido();
   }
+
+  CargarPedidoRecuperado(pedi: Pedido): void {
+    if (pedi.cliente) {
+      this.cliente = pedi.cliente;
+    }
+    if (pedi.mesa) {
+      this.mesa = pedi.mesa;
+    }
+    this.pedido = pedi;
+    this.eliminarPedidoLocal(pedi);
+    this.CerrarModal();
+  }
+  eliminarPedidoLocal(ped: Pedido) {
+    console.log('eliminar');
+    this.pedidosMemoria = this.pedidosMemoria.filter(
+      (item: Pedido) => ped.enEspera !== item.enEspera
+    );
+    this.guardarPedidoTemporal(null, '');
+  }
+
+  finalizarPedido(): void {
+    let ped: Pedido = this.pedido;
+    let movimiento: Movimiento = new Movimiento();
+    if (ped.id) {
+      movimiento.pedido = ped;
+      console.log(ped);
+    }
+  }
+
+  //obtener usuario para armar el movimiento
+  obtenerUsuarioCorrespondiente(): Usuario {
+    return new Usuario();
+  }
+  ///********************************************************************************************************* */
   // --------------funciones d elos modaless-----------------
   abrirModalCliente(modal): void {
     this.modalReference = this.modalService.open(modal, { size: 'xl' });
@@ -362,23 +398,5 @@ export class VentaComponent implements OnInit {
         }
       }
     }
-  }
-  CargarPedidoRecuperado(pedi: Pedido): void {
-    if (pedi.cliente) {
-      this.cliente = pedi.cliente;
-    }
-    if (pedi.mesa) {
-      this.mesa = pedi.mesa;
-    }
-    this.pedido = pedi;
-    this.eliminarPedidoLocal(pedi);
-    this.CerrarModal();
-  }
-  eliminarPedidoLocal(ped: Pedido) {
-    console.log('eliminar');
-    this.pedidosMemoria = this.pedidosMemoria.filter(
-      (item: Pedido) => ped.enEspera !== item.enEspera
-    );
-    this.guardarPedidoTemporal(null, '');
   }
 }
