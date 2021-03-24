@@ -21,8 +21,6 @@ export class PaginatorComponent implements OnInit, OnChanges {
   constructor() {}
 
   ngOnInit(): void {
-    console.log('path del paginador: ' + this.path);
-
     this.initPaginator();
   }
   ngOnChanges(changes: SimpleChanges) {

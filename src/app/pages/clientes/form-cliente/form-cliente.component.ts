@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { Cliente } from 'src/app/models/persona/cliente';
 import { ClienteService } from 'src/app/services/cliente/cliente.service';
 import swal from 'sweetalert2';
@@ -10,12 +11,23 @@ import swal from 'sweetalert2';
 })
 export class FormClienteComponent implements OnInit {
   cliente: Cliente = new Cliente();
-  constructor(private clienteService: ClienteService) {}
+  constructor(
+    private clienteService: ClienteService,
+    private activatedRoute: ActivatedRoute
+  ) {}
   erroresBackend: string[] = [];
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.activatedRoute.paramMap.subscribe((params) => {
+      let id: number = +params.get('id');
+      if (id) {
+        this.clienteService.ObtenerClienteId(id).subscribe((cliente) => {
+          this.cliente = cliente;
+        });
+      }
+    });
+  }
 
   registrarCliente(): void {
-    console.log(this.cliente);
     //validar los campos
     if (this.camposCompletos()) {
       //llamar al servicio
@@ -23,6 +35,13 @@ export class FormClienteComponent implements OnInit {
         (res) => {
           this.cliente = new Cliente();
           this.erroresBackend = [];
+          swal.fire({
+            position: 'top-end',
+            icon: 'success',
+            title: res.mensaje,
+            showConfirmButton: false,
+            timer: 1000,
+          });
         },
         (err) => {
           if (err.status === 409) {
@@ -40,8 +59,6 @@ export class FormClienteComponent implements OnInit {
     let c = this.cliente;
     //eliminar espacios del email
     this.cliente.email = this.cliente.email.replace(/ /g, '');
-    console.log(this.cliente);
-
     if (
       c.nombres.length < 3 ||
       c.apellidos.length < 3 ||

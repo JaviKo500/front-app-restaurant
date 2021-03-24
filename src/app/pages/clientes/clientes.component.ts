@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Cliente } from 'src/app/models/persona/cliente';
 import { ClienteService } from 'src/app/services/cliente/cliente.service';
 
 @Component({
@@ -8,6 +9,11 @@ import { ClienteService } from 'src/app/services/cliente/cliente.service';
   styleUrls: ['./clientes.component.css'],
 })
 export class ClientesComponent implements OnInit {
+  //**************paginacion*********** */
+  paginador: any;
+  path: any = '/dashboard/cliente/page';
+  //******************termina paginacion************ */
+  clientes: Cliente[] = [];
   constructor(
     private clienteService: ClienteService,
     private activatedRoute: ActivatedRoute
@@ -19,7 +25,11 @@ export class ClientesComponent implements OnInit {
       if (!page) {
         page = 0;
       }
-      console.log(page);
+      this.clienteService.listarClientesPaginado(page).subscribe((res) => {
+        this.paginador = res.clientes;
+        this.clientes = res.clientes.content;
+        console.log(this.clientes);
+      });
     });
   }
 }

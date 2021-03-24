@@ -13,10 +13,23 @@ export class ClienteService {
   private url: string = BASE_URL;
   constructor(private http: HttpClient) {}
 
+  //listar
+  ObtenerClienteId(id: number): Observable<any> {
+    return this.http.get(this.url + 'cliente/find-by-id/' + id).pipe(
+      map((response: any) => response.cliente as Cliente),
+      catchError((e) => {
+        swal.fire(e.error.mensaje, e.error.error, 'warning');
+        return throwError(e);
+      })
+    );
+  }
+
+  //listar
   listarClientesPaginado(page: number): Observable<any> {
-    return this.http.get(this.url + 'get/users/' + page).pipe(
+    return this.http.get(this.url + 'get/clientes/page/' + page).pipe(
       map((response: any) => response),
       catchError((e) => {
+        swal.fire(e.error.mensaje, e.error.error, 'warning');
         return throwError(e);
       })
     );
