@@ -311,20 +311,21 @@ export class VentaComponent implements OnInit {
     this.guardarPedidoTemporal(null, '');
   }
 
-  finalizarPedido(): void {
+  finalizarPedido( modalTipoPago): void {
     let ped: Pedido = this.pedido;
     let movimiento: Movimiento = new Movimiento();
     if (ped.id) {
       movimiento.pedido = ped;
+      this.abrirModalTipoPago(modalTipoPago);
       console.log(ped);
     }
   }
 
-  //obtener usuario para armar el movimiento
+  // obtener usuario para armar el movimiento
   obtenerUsuarioCorrespondiente(): Usuario {
     return new Usuario();
   }
-  ///********************************************************************************************************* */
+  // ********************************************************************************************************* */
   // --------------funciones d elos modaless-----------------
   abrirModalCliente(modal): void {
     this.modalReference = this.modalService.open(modal, { size: 'xl' });
@@ -339,6 +340,9 @@ export class VentaComponent implements OnInit {
   }
   abrirModalPedidosMen(modal): void {
     this.recuperarPeidosEnMemoriaDelLocalStorage();
+    this.modalReference = this.modalService.open(modal, { scrollable: true });
+  }
+  abrirModalTipoPago(modal): void {
     this.modalReference = this.modalService.open(modal, { scrollable: true });
   }
   CerrarModal(): void {

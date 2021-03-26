@@ -5,6 +5,7 @@ import swal from 'sweetalert2';
 import { Producto } from '../../models/productos/producto';
 import { ProductoService } from 'src/app/services/productos/producto.service';
 import { BASE_URL } from 'src/environments/configurations';
+import { delay } from 'rxjs/operators';
 
 @Component({
   selector: 'app-producto-listar',
@@ -13,11 +14,12 @@ import { BASE_URL } from 'src/environments/configurations';
 })
 export class ProductoListarComponent implements OnInit {
   listaProductos: Producto[] = [];
-  //variable contenedor de los datos de la paginacion de productos
+  // variable contenedor de los datos de la paginacion de productos
   paginador: any;
   path: any = '/dashboard/productos/page';
   producto: Producto = new Producto();
   api: any = BASE_URL;
+  loading = false;
   constructor(
     private productoserService: ProductoService,
     private activatedRoute: ActivatedRoute
@@ -70,7 +72,13 @@ export class ProductoListarComponent implements OnInit {
 
   //funcion para cambiar el estado del producto
   cambiarEstadoProducto(prod): void {
-    this.productoserService.CambiarEstadoProducto(prod).subscribe((res) => {
+    this.loading = true;
+    this.productoserService.CambiarEstadoProducto(prod).
+    pipe(
+      delay(2000)
+    )
+    .subscribe((res) => {
+      this.loading = false;
       console.log(res);
     });
   }
