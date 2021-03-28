@@ -24,6 +24,8 @@ import { ProductoService } from 'src/app/services/productos/producto.service';
 import { BASE_URL } from 'src/environments/configurations';
 import { Usuario } from 'src/app/models/persona/usuario.model';
 import { Movimiento } from 'src/app/models/caja/movimiento';
+import { MedioPago } from 'src/app/models/pedidos/medio-pago';
+import { MovimientoService } from 'src/app/services/caja/movimiento.service';
 
 @Component({
   selector: 'app-venta',
@@ -45,6 +47,8 @@ export class VentaComponent implements OnInit {
   pedido: Pedido = new Pedido();
   comboDetalle: Combo;
   modalReference: NgbModalRef;
+  tiposPago: MedioPago[] = [];
+  movimiento: Movimiento = new Movimiento();
 
   constructor(
     private modalService: NgbModal,
@@ -53,7 +57,8 @@ export class VentaComponent implements OnInit {
     private clienteService: ClienteService,
     private productoService: ProductoService,
     private comboService: ComboService,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private movimientoService: MovimientoService
   ) {}
 
   ngOnInit(): void {
@@ -112,6 +117,15 @@ export class VentaComponent implements OnInit {
   }
 
   compararEstados(o1: Estado, o2: Estado): boolean {
+    if (o1 === undefined && o2 === undefined) {
+      return true;
+    }
+    return o1 === null || o2 === null || o1 === undefined || o2 === undefined
+      ? false
+      : o1.id === o2.id;
+  }
+
+  compararMediosPago(o1: MedioPago, o2: MedioPago): boolean {
     if (o1 === undefined && o2 === undefined) {
       return true;
     }
@@ -326,29 +340,6 @@ export class VentaComponent implements OnInit {
   obtenerUsuarioCorrespondiente(): Usuario {
     return new Usuario();
   }
-  // ********************************************************************************************************* */
-  // --------------funciones d elos modaless-----------------
-  abrirModalCliente(modal): void {
-    this.modalReference = this.modalService.open(modal, { size: 'xl' });
-  }
-  abrirModalMesa(modal): void {
-    this.obtenerMesas();
-    this.modalReference = this.modalService.open(modal, { scrollable: true });
-  }
-  abrirModalDetalle(modal, detallePedidoCombo: DetalleComboPedido): void {
-    this.comboDetalle = detallePedidoCombo.combo;
-    this.modalReference = this.modalService.open(modal, { scrollable: true });
-  }
-  abrirModalPedidosMen(modal): void {
-    this.recuperarPeidosEnMemoriaDelLocalStorage();
-    this.modalReference = this.modalService.open(modal, { scrollable: true });
-  }
-  abrirModalTipoPago(modal): void {
-    this.modalReference = this.modalService.open(modal, { scrollable: true });
-  }
-  CerrarModal(): void {
-    this.modalReference.close();
-  }
 
   AlmacenarEnMemoria(): void {
     // guardar pedido en el local storage
@@ -403,5 +394,37 @@ export class VentaComponent implements OnInit {
         }
       }
     }
+  }
+
+  //obtener los medios de pagos
+  listarMediosPagos(): void {
+    this.movimientoService.obtenerMediosPago().subscribe((res) => {
+      this.tiposPago = res;
+    });
+  }
+
+  // ********************************************************************************************************* */
+  // --------------funciones d elos modaless-----------------
+  abrirModalCliente(modal): void {
+    this.modalReference = this.modalService.open(modal, { size: 'xl' });
+  }
+  abrirModalMesa(modal): void {
+    this.obtenerMesas();
+    this.modalReference = this.modalService.open(modal, { scrollable: true });
+  }
+  abrirModalDetalle(modal, detallePedidoCombo: DetalleComboPedido): void {
+    this.comboDetalle = detallePedidoCombo.combo;
+    this.modalReference = this.modalService.open(modal, { scrollable: true });
+  }
+  abrirModalPedidosMen(modal): void {
+    this.recuperarPeidosEnMemoriaDelLocalStorage();
+    this.modalReference = this.modalService.open(modal, { scrollable: true });
+  }
+  abrirModalTipoPago(modal): void {
+    this.listarMediosPagos();
+    this.modalReference = this.modalService.open(modal, { scrollable: true });
+  }
+  CerrarModal(): void {
+    this.modalReference.close();
   }
 }
