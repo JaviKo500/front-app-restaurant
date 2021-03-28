@@ -19,7 +19,6 @@ export class ProductoListarComponent implements OnInit {
   path: any = '/dashboard/productos/page';
   producto: Producto = new Producto();
   api: any = BASE_URL;
-  loading = false;
   constructor(
     private productoserService: ProductoService,
     private activatedRoute: ActivatedRoute
@@ -70,15 +69,10 @@ export class ProductoListarComponent implements OnInit {
       });
   }
 
-  //funcion para cambiar el estado del producto
+  // funcion para cambiar el estado del producto
   cambiarEstadoProducto(prod): void {
-    this.loading = true;
-    this.productoserService.CambiarEstadoProducto(prod).
-    pipe(
-      delay(2000)
-    )
+    this.productoserService.CambiarEstadoProducto(prod)
     .subscribe((res) => {
-      this.loading = false;
       console.log(res);
     });
   }

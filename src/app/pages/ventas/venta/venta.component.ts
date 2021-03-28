@@ -329,9 +329,9 @@ export class VentaComponent implements OnInit {
   finalizarPedido(modalTipoPago): void {
     let ped: Pedido = this.pedido;
     let movimiento: Movimiento = new Movimiento();
+    this.abrirModalTipoPago(modalTipoPago);
     if (ped.id) {
       movimiento.pedido = ped;
-      this.abrirModalTipoPago(modalTipoPago);
       console.log(ped);
     }
   }
