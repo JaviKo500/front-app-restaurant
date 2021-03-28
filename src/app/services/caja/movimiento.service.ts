@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { Movimiento } from 'src/app/models/caja/movimiento';
+import { MedioPago } from 'src/app/models/pedidos/medio-pago';
 import { BASE_URL } from 'src/environments/configurations';
 import swal from 'sweetalert2';
 
@@ -23,5 +24,9 @@ export class MovimientoService {
           })
         )
       );
+  }
+  //obtener lista de medios de pago
+  obtenerMediosPago(): Observable<MedioPago[]> {
+    return this.http.get<MedioPago[]>(this.url + 'get/medio-pago');
   }
 }

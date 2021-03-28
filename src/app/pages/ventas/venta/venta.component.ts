@@ -86,6 +86,7 @@ export class VentaComponent implements OnInit {
       this.pedidoService.registrarPedidoAuth(this.pedido).subscribe((res) => {
         console.log(res);
         //restablecer valores
+        this.ConsumidorFinal = false;
         this.pedido = new Pedido();
         this.cliente = new Cliente();
         this.mesa = new Mesa();
@@ -311,7 +312,7 @@ export class VentaComponent implements OnInit {
     this.guardarPedidoTemporal(null, '');
   }
 
-  finalizarPedido( modalTipoPago): void {
+  finalizarPedido(modalTipoPago): void {
     let ped: Pedido = this.pedido;
     let movimiento: Movimiento = new Movimiento();
     if (ped.id) {
