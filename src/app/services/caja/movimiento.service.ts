@@ -2,8 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
+import { MedioPago } from 'src/app/models/caja/medio-pago';
 import { Movimiento } from 'src/app/models/caja/movimiento';
-import { MedioPago } from 'src/app/models/pedidos/medio-pago';
 import { BASE_URL } from 'src/environments/configurations';
 import swal from 'sweetalert2';
 
@@ -17,12 +17,10 @@ export class MovimientoService {
     return this.http
       .post(this.url + 'finalizar-pedido/crear-movimiento', movimiento)
       .pipe(
-        map(
-          catchError((e) => {
-            swal.fire(e.error.mensaje, e.error.error, 'warning');
-            return throwError(e);
-          })
-        )
+        map((response: any) => response),
+        catchError((e) => {
+          return throwError(e);
+        })
       );
   }
   //obtener lista de medios de pago

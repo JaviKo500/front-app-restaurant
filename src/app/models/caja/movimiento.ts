@@ -1,13 +1,15 @@
-import { MedioPago } from '../pedidos/medio-pago';
 import { Pedido } from '../pedidos/pedido';
 import { Usuario } from '../persona/usuario.model';
+import { MedioPago } from './medio-pago';
 
 export class Movimiento {
   id: number;
   monto: number = 0.0;
-  usuario: Usuario;
+  usuario: Usuario = null;
   descripcion: string = '';
-  pedido: Pedido;
+  pedido: Pedido = null;
   tipoPago: MedioPago;
-  codigoTransaccion: string = '';
+  fecha: Date;
+  fechaMovimiento: Date;
+  estado: boolean;
 }

@@ -43,6 +43,17 @@ export class UsuarioService {
     );
   }
 
+  //bucar usuario por id
+  obtenerUsuarioIdMovimiento(id: number): Observable<any> {
+    return this.http.get(this.url + 'get/user/movimiento/' + id).pipe(
+      map((response: any) => response.usuario as Usuario),
+      catchError((e) => {
+        swal.fire(e.error.mensaje, e.error.error, 'error');
+        return throwError(e);
+      })
+    );
+  }
+
   //listar roles de usuario
   obtenerusuarioRoles(): Observable<Role[]> {
     return this.http.get(this.url + 'get/user/roles').pipe(

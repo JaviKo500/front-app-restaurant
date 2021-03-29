@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { Observable } from 'rxjs';
@@ -24,8 +24,10 @@ import { ProductoService } from 'src/app/services/productos/producto.service';
 import { BASE_URL } from 'src/environments/configurations';
 import { Usuario } from 'src/app/models/persona/usuario.model';
 import { Movimiento } from 'src/app/models/caja/movimiento';
-import { MedioPago } from 'src/app/models/pedidos/medio-pago';
 import { MovimientoService } from 'src/app/services/caja/movimiento.service';
+import { MedioPago } from 'src/app/models/caja/medio-pago';
+import { AuthService } from 'src/app/services/auth/auth.service';
+import { UsuarioService } from 'src/app/services/usuarios/usuario.service';
 
 @Component({
   selector: 'app-venta',
@@ -58,7 +60,9 @@ export class VentaComponent implements OnInit {
     private productoService: ProductoService,
     private comboService: ComboService,
     private activatedRoute: ActivatedRoute,
-    private movimientoService: MovimientoService
+    private movimientoService: MovimientoService,
+    private authService: AuthService,
+    private usuarioService: UsuarioService
   ) {}
 
   ngOnInit(): void {
@@ -91,12 +95,71 @@ export class VentaComponent implements OnInit {
       this.pedidoService.registrarPedidoAuth(this.pedido).subscribe((res) => {
         console.log(res);
         //restablecer valores
+        this.buscarClienteCedula = '';
         this.ConsumidorFinal = false;
         this.pedido = new Pedido();
         this.cliente = new Cliente();
         this.mesa = new Mesa();
       });
     }
+  }
+  //finalizar el pedido de forma exitosa
+  finalizarPedido(modalTipoPago): void {
+    this.pedido.cliente = this.cliente;
+    if (this.validarCampos()) {
+      this.abrirModalTipoPago(modalTipoPago);
+      let user = this.authService.usuario;
+      if (user.id) {
+        this.usuarioService.obtenerUsuarioIdMovimiento(56).subscribe(
+          (res) => {
+            this.movimiento.usuario = res;
+          },
+          (err) => {
+            swal.fire('Error', 'No puedes continuar logueate nuevamente.');
+            this.CerrarModal();
+          }
+        );
+        this.movimiento.pedido = this.pedido;
+      } else {
+        swal.fire('No puede seguir error con el usuario', '', 'warning');
+      }
+    }
+  }
+
+  //enviarPedidoFinalizado
+  enviarPedidoFinalizado(): void {
+    console.log(this.movimiento);
+    if (this.movimiento.tipoPago.id != undefined) {
+      if (this.movimiento.tipoPago.id != 1) {
+        if (!this.movimiento.tipoPago.folio) {
+          swal.fire('Ingresar el numero de documento o fólio', '', 'warning');
+        } else {
+          this.enviarMovimiento();
+        }
+      } else {
+        this.enviarMovimiento();
+      }
+    }
+  }
+
+  enviarMovimiento(): void {
+    this.movimientoService.registrarMovimiento(this.movimiento).subscribe(
+      (res) => {
+        console.log(res);
+        this.CerrarModal();
+        //restablecer valores
+        this.buscarClienteCedula = '';
+        this.ConsumidorFinal = false;
+        this.pedido = new Pedido();
+        this.cliente = new Cliente();
+        this.mesa = new Mesa();
+        this.movimiento = new Movimiento();
+        console.log(this.movimiento);
+      },
+      (err) => {
+        swal.fire(err.error.mensaje, err.error.error, 'warning');
+      }
+    );
   }
 
   obtenerMesas(): void {
@@ -326,16 +389,6 @@ export class VentaComponent implements OnInit {
     this.guardarPedidoTemporal(null, '');
   }
 
-  finalizarPedido(modalTipoPago): void {
-    let ped: Pedido = this.pedido;
-    let movimiento: Movimiento = new Movimiento();
-    this.abrirModalTipoPago(modalTipoPago);
-    if (ped.id) {
-      movimiento.pedido = ped;
-      console.log(ped);
-    }
-  }
-
   // obtener usuario para armar el movimiento
   obtenerUsuarioCorrespondiente(): Usuario {
     return new Usuario();
@@ -345,7 +398,7 @@ export class VentaComponent implements OnInit {
     // guardar pedido en el local storage
     swal
       .fire({
-        title: 'Submit your Github username',
+        title: 'Ingresar un detalle para almacenar el pedido.',
         input: 'text',
         inputAttributes: {
           autocapitalize: 'off',
@@ -366,6 +419,7 @@ export class VentaComponent implements OnInit {
         }
       });
   }
+  //guardar temporalmente pedidos
   guardarPedidoTemporal(pedido: Pedido, Descripcion): void {
     if (pedido) {
       pedido.enEspera = Descripcion;

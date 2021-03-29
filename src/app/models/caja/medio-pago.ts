@@ -1,4 +1,5 @@
 export class MedioPago {
   id: number;
-  tipoPago: string;
+  tipoPago: string = '';
+  folio: string = '';
 }
