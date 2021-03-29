@@ -18,12 +18,12 @@
                         <button class="button shadowed yellow" (click)="abrirModalCliente(modalCliente)">
               Nuevo cliente
             </button>
-                        <input type="checkbox" data-role="checkbox" data-caption="Cons. final" name="consumidorFinal" [(ngModel)]="ConsumidorFinal" (change)="ConsumidorFilanEstado()">
-                        <button class="button shadowed warning" (click)="abrirModalMesa(modalMesa)">
-              Seleccionar Mesa
-            </button>
+                        <input type="checkbox" data-role="checkbox" data-caption="Consumidor final" name="consumidorFinal" [(ngModel)]="ConsumidorFinal" (change)="ConsumidorFilanEstado()" />
                     </div>
-
+                    <!-- mesa # -->
+                    <div class="d-flex justify-content-between mb-4">
+                        <input type="text" data-role="input" placeholder="Seleccionar mesa" name="mesa_pedido" [(ngModel)]="mesa.nombre" (click)="abrirModalMesa(modalMesa)" />
+                    </div>
 
                     <!-- estado pedido -->
                     <div class="input-group mb-2">
