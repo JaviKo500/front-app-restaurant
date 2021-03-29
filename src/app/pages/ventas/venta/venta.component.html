@@ -1,37 +1,80 @@
 <div class="card">
-    <div class="card-body" style="margin-top: 0px">
-        <div class="grid">
-            <div class="row">
-                <div class="cell-12">
-                    <div class="d-flex justify-content-end">
-                        <button class="button shadowed" (click)="abrirModalPedidosMen(modalPedidoMemoria)" placement="bottom" ngbTooltip="Ver pedido guardado">
+  <div class="card-body" style="margin-top: 0px">
+    <div class="grid">
+      <div class="row">
+        <div class="cell-12">
+          <div class="d-flex justify-content-end">
+            <button
+              class="button shadowed"
+              (click)="abrirModalPedidosMen(modalPedidoMemoria)"
+              placement="bottom"
+              ngbTooltip="Ver pedido guardado"
+            >
               <i class="fas fa-list"></i>
             </button>
-                        <button class="button shadowed light" (click)="AlmacenarEnMemoria()" placement="left" ngbTooltip="Guardar pedido temporal">
+            <button
+              class="button shadowed light"
+              (click)="AlmacenarEnMemoria()"
+              placement="left"
+              ngbTooltip="Guardar pedido temporal"
+            >
               <i class="fas fa-save"></i>
             </button>
-                    </div>
-                </div>
-                <div class="cell-xxl-4 cell-xl-4 cell-sm-12 fondo-recibo">
-                    <input class="mb-4 mt-1" type="text" data-role="input" data-prepend="CI: " name="cliente_busqueda" [(ngModel)]="buscarClienteCedula" (change)="buscarClientePorCedula($event)" [disabled]="ConsumidorFinal" />
-                    <div class="d-flex justify-content-between align-items-center mb-2">
-                        <button class="button shadowe yellow" (click)="abrirModalCliente(modalCliente)">
+          </div>
+        </div>
+        <div class="cell-xxl-4 cell-xl-4 cell-sm-12 fondo-recibo">
+          <input
+            class="mb-4 mt-1"
+            type="text"
+            data-role="input"
+            data-prepend="CI: "
+            name="cliente_busqueda"
+            [(ngModel)]="buscarClienteCedula"
+            (change)="buscarClientePorCedula($event)"
+            [disabled]="ConsumidorFinal"
+          />
+          <div class="d-flex justify-content-between align-items-center mb-2">
+            <button
+              class="button shadowe yellow"
+              (click)="abrirModalCliente(modalCliente)"
+            >
               Nuevo cliente
             </button>
-                        <input type="checkbox" data-role="checkbox" data-caption="Consumidor final" name="consumidorFinal" [(ngModel)]="ConsumidorFinal" (change)="ConsumidorFilanEstado()" />
-                    </div>
-                    <!-- mesa # -->
-                    <div class="d-flex justify-content-between mb-4">
-                        <button class="button shadowed warning ancho-mesa" (click)="abrirModalMesa(modalMesa)">
+            <input
+              type="checkbox"
+              data-role="checkbox"
+              data-caption="Consumidor final"
+              name="consumidorFinal"
+              [(ngModel)]="ConsumidorFinal"
+              (change)="ConsumidorFilanEstado()"
+            />
+          </div>
+          <!-- mesa # -->
+          <div class="d-flex justify-content-between mb-4">
+            <button
+              class="button shadowed warning ancho-mesa"
+              (click)="abrirModalMesa(modalMesa)"
+            >
               Mesa
             </button>
-                        <input type="text" class="ancho-mesa-input" placeholder="Seleccionar mesa" name="mesa_pedido" [(ngModel)]="mesa.nombre" disabled />
-                    </div>
+            <input
+              type="text"
+              class="ancho-mesa-input"
+              placeholder="Seleccionar mesa"
+              name="mesa_pedido"
+              [(ngModel)]="mesa.nombre"
+              disabled
+            />
+          </div>
 
-                    <!-- estado pedido -->
-                    <div class="input-group mb-2">
-                        <div class="input-group-prepend">
-                            <label class="input-group-text" for="inputGroupSelect01" style="border-right-color: transparent">Estado pedido:</label
+          <!-- estado pedido -->
+          <div class="input-group mb-2">
+            <div class="input-group-prepend">
+              <label
+                class="input-group-text"
+                for="inputGroupSelect01"
+                style="border-right-color: transparent"
+                >Estado pedido:</label
               >
             </div>
             <select
@@ -492,8 +535,15 @@
       </select>
     </div>
     <!-- si no es un pago en efectivo  -->
-    <div *ngIf="movimiento.tipoPago && movimiento.tipoPago.id != 1 ">
-      <input type="text" data-role="input" placeholder="Número de tarjeta" data-append="# Tarjeta">
+    <div *ngIf="movimiento.tipoPago && movimiento.tipoPago.id != 1">
+      <input
+        type="text"
+        data-role="input"
+        placeholder="Número de documento/Fólio"
+        data-append="# Doc/Fólio"
+        name="id_doc/folio"
+        [(ngModel)]="movimiento.tipoPago.folio"
+      />
     </div>
   </div>
   <div class="modal-footer">
@@ -504,7 +554,13 @@
       >
         Cancelar
       </button>
-      <button class="button shadowed bg-black rounded-0 w-25">Finalizar</button>
+      <button
+        class="button shadowed bg-black rounded-0 w-25"
+        [disabled]="!movimiento.tipoPago"
+        (click)="enviarPedidoFinalizado()"
+      >
+        Finalizar
+      </button>
     </div>
   </div>
 </ng-template>
