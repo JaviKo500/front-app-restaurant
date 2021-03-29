@@ -7,8 +7,8 @@ import { SubMenuModel } from '../../models/side-bar/submenu.model';
   providedIn: 'root',
 })
 export class SidebarService {
-  menuTipoRol: SideBarModel [] = [];
-  subMenu: SubMenuModel [] = [];
+  menuTipoRol: SideBarModel[] = [];
+  subMenu: SubMenuModel[] = [];
   menu: SideBarModel[] = [
     {
       title: 'Inicio',
@@ -60,7 +60,7 @@ export class SidebarService {
           title: 'Listar Movimientos Caja',
           icon: 'fas fa-luggage-cart',
           roles: ['ROLE_ADMIN', 'ROLE_CAJERO'],
-          url: 'movimientos',
+          url: 'movimientos/page/:page',
         },
         {
           title: 'Crear Caja',
@@ -166,30 +166,30 @@ export class SidebarService {
           title: 'Configuración empresa',
           icon: 'fas fa-cog',
           roles: ['ROLE_ADMIN'],
-          url: 'empresa'
+          url: 'empresa',
         },
         {
           title: 'Mesas',
           icon: 'fas fa-chair',
           roles: ['ROLE_ADMIN'],
-          url: 'mesas/page/0'
+          url: 'mesas/page/0',
         },
       ],
     },
   ];
-  verificarUsuarioRol = (): SideBarModel [] => {
+  verificarUsuarioRol = (): SideBarModel[] => {
     // cuando se vueve a llamar este metodo no se duplique el menu
     this.menuTipoRol = [];
     const usuario = JSON.parse(sessionStorage.getItem('usuario'));
     // fitro por rol los menus principales
-    this.menu.map( (itemMenu: SideBarModel) => {
-       itemMenu.roles.map( rol => {
-         // si cumple el rol se agrega al array
+    this.menu.map((itemMenu: SideBarModel) => {
+      itemMenu.roles.map((rol) => {
+        // si cumple el rol se agrega al array
         if (usuario.roles.includes(rol)) {
           // luego vemos si los submenus cumple el rol se agregan al array
           itemMenu.subMenu.map((subMenuItem: SubMenuModel) => {
-            subMenuItem.roles.map( rol => {
-              if ( usuario.roles.includes(rol)){
+            subMenuItem.roles.map((rol) => {
+              if (usuario.roles.includes(rol)) {
                 this.subMenu.push(subMenuItem);
               }
             });
@@ -199,10 +199,9 @@ export class SidebarService {
           this.subMenu = [];
           this.menuTipoRol.push(itemMenu);
         }
-       });
+      });
     });
     return this.menuTipoRol;
-  }
-  constructor() {
-  }
+  };
+  constructor() {}
 }

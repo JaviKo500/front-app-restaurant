@@ -23,6 +23,21 @@ export class MovimientoService {
         })
       );
   }
+
+  obtenerMovimientosUsuario(id_usuario: number, page: number): Observable<any> {
+    return this.http
+      .get(
+        this.url + 'get/movimientos/id_usuario/' + id_usuario + '/page/' + page
+      )
+      .pipe(
+        map((response: any) => response.movimientos),
+        catchError((e) => {
+          console.log(e.error.mensaje, e.error.error);
+          return throwError(e);
+        })
+      );
+  }
+
   //obtener lista de medios de pago
   obtenerMediosPago(): Observable<MedioPago[]> {
     return this.http.get<MedioPago[]>(this.url + 'get/medio-pago');

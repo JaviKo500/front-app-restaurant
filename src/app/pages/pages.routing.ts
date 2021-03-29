@@ -32,13 +32,21 @@ const routes: Routes = [
         path: '',
         component: DashboardComponent,
         canActivate: [AuthGuard, RoleGuard],
-        data: { title: 'Inicio', subTitle: 'Bienvenido', role: ['ROLE_ADMIN', 'ROLE_CAJERO'] },
+        data: {
+          title: 'Inicio',
+          subTitle: 'Bienvenido',
+          role: ['ROLE_ADMIN', 'ROLE_CAJERO'],
+        },
       },
       {
         path: 'crearpro/:id',
         component: FormularioComponent,
         canActivate: [AuthGuard, RoleGuard],
-        data: { title: 'Productos', subTitle: 'Administrar producto',role: ['ROLE_ADMIN'] },
+        data: {
+          title: 'Productos',
+          subTitle: 'Administrar producto',
+          role: ['ROLE_ADMIN'],
+        },
       },
       {
         path: 'crearcombo/:id',
@@ -47,20 +55,28 @@ const routes: Routes = [
         data: {
           title: 'Especiales',
           subTitle: 'Crea tus propios combos o promociones',
-          role: ['ROLE_ADMIN']
+          role: ['ROLE_ADMIN'],
         },
       },
       {
         path: 'usuarios/page/0',
         component: UsuariosComponent,
         canActivate: [AuthGuard, RoleGuard],
-        data: { title: 'Usuarios', subTitle: 'Administrar tus usuarios',role: ['ROLE_ADMIN'] },
+        data: {
+          title: 'Usuarios',
+          subTitle: 'Administrar tus usuarios',
+          role: ['ROLE_ADMIN'],
+        },
       },
       {
         path: 'crearcaja/page/:page',
         component: CrearCajaComponent,
         canActivate: [AuthGuard, RoleGuard],
-        data: { title: 'Caja', subTitle: 'Ver y agregar cajas',role: ['ROLE_ADMIN'] },
+        data: {
+          title: 'Caja',
+          subTitle: 'Ver y agregar cajas',
+          role: ['ROLE_ADMIN'],
+        },
       },
       {
         path: 'creararqueo',
@@ -68,7 +84,8 @@ const routes: Routes = [
         canActivate: [AuthGuard, RoleGuard],
         data: {
           title: 'Nuevo Arqueo',
-          subTitle: 'Crea y asigna un nuevo arqueo', role: ['ROLE_ADMIN'],
+          subTitle: 'Crea y asigna un nuevo arqueo',
+          role: ['ROLE_ADMIN'],
         },
       },
       {
@@ -77,42 +94,59 @@ const routes: Routes = [
         canActivate: [AuthGuard, RoleGuard],
         data: {
           title: 'Nuevo cliente',
-          subTitle: 'Agrega clientes', role: ['ROLE_ADMIN', 'ROLE_CAJERO'],
+          subTitle: 'Agrega clientes',
+          role: ['ROLE_ADMIN', 'ROLE_CAJERO'],
         },
       },
       {
         path: 'cliente/page/:page',
         component: ClientesComponent,
         canActivate: [AuthGuard, RoleGuard],
-        data: { title: 'Clientes', subTitle: 'Detalles de clientes', role: ['ROLE_ADMIN', 'ROLE_CAJERO'] },
+        data: {
+          title: 'Clientes',
+          subTitle: 'Detalles de clientes',
+          role: ['ROLE_ADMIN', 'ROLE_CAJERO'],
+        },
       },
       {
         path: 'arqueos/page/:page',
         component: ListarArqueosComponent,
         canActivate: [AuthGuard, RoleGuard],
-        data: { title: 'Arqueos', subTitle: 'Detalles de arqueos', role: ['ROLE_ADMIN'] },
+        data: {
+          title: 'Arqueos',
+          subTitle: 'Detalles de arqueos',
+          role: ['ROLE_ADMIN'],
+        },
       },
       {
-        path: 'movimientos',
+        path: 'movimientos/page/:page',
         component: ListarMovimientosCajaComponent,
         canActivate: [AuthGuard, RoleGuard],
         data: {
           title: 'Movimientos caja',
           subTitle: 'Detalles de las transacciones del arqueo actual',
-          role: ['ROLE_ADMIN', 'ROLE_CAJERO']
+          role: ['ROLE_ADMIN', 'ROLE_CAJERO'],
         },
       },
       {
         path: 'crearusu/:id',
         component: FormularioUsuarioComponent,
         canActivate: [AuthGuard, RoleGuard],
-        data: { title: 'Usuarios', subTitle: 'Agrega usuarios', role: ['ROLE_ADMIN']},
+        data: {
+          title: 'Usuarios',
+          subTitle: 'Agrega usuarios',
+          role: ['ROLE_ADMIN'],
+        },
       },
       {
         path: 'productos/page/:page',
         component: ProductoListarComponent,
         canActivate: [AuthGuard, RoleGuard],
-        data: { title: 'Productos', subTitle: 'Lista de productos',role: ['ROLE_ADMIN'] },
+        data: {
+          title: 'Productos',
+          subTitle: 'Lista de productos',
+          role: ['ROLE_ADMIN'],
+        },
       },
       {
         path: 'combos/page/:page',
@@ -121,20 +155,28 @@ const routes: Routes = [
         data: {
           title: 'Combos',
           subTitle: 'Lista de combos u otros especiales',
-          role: ['ROLE_ADMIN']
+          role: ['ROLE_ADMIN'],
         },
       },
       {
         path: 'categorias/page/:page',
         component: CategoriaListarComponent,
         canActivate: [AuthGuard, RoleGuard],
-        data: { title: 'Categorías', subTitle: 'Administra tus categorías', role: ['ROLE_ADMIN']},
+        data: {
+          title: 'Categorías',
+          subTitle: 'Administra tus categorías',
+          role: ['ROLE_ADMIN'],
+        },
       },
       {
         path: 'mesas/page/:page',
         component: MesasComponent,
         canActivate: [AuthGuard, RoleGuard],
-        data: { title: 'Mesas', subTitle: 'Administrar mesas del Restaurante', role: ['ROLE_ADMIN'] },
+        data: {
+          title: 'Mesas',
+          subTitle: 'Administrar mesas del Restaurante',
+          role: ['ROLE_ADMIN'],
+        },
       },
       {
         path: 'empresa',
@@ -143,7 +185,7 @@ const routes: Routes = [
         data: {
           title: 'Empresa ',
           subTitle: 'Configura los datos de tu empresa',
-          role: ['ROLE_ADMIN']
+          role: ['ROLE_ADMIN'],
         },
       },
       {
@@ -153,7 +195,7 @@ const routes: Routes = [
         data: {
           title: 'Pedidos',
           subTitle: 'Revisa los pedidos de tus clientes',
-          role: ['ROLE_ADMIN', 'ROLE_CAJERO']
+          role: ['ROLE_ADMIN', 'ROLE_CAJERO'],
         },
       },
       {
@@ -163,7 +205,7 @@ const routes: Routes = [
         data: {
           title: 'Venta',
           subTitle: 'Realizar pedidos personales',
-          role: ['ROLE_ADMIN', 'ROLE_CAJERO']
+          role: ['ROLE_ADMIN', 'ROLE_CAJERO'],
         },
       },
     ],

@@ -110,7 +110,7 @@ export class VentaComponent implements OnInit {
       this.abrirModalTipoPago(modalTipoPago);
       let user = this.authService.usuario;
       if (user.id) {
-        this.usuarioService.obtenerUsuarioIdMovimiento(56).subscribe(
+        this.usuarioService.obtenerUsuarioIdMovimiento(user.id).subscribe(
           (res) => {
             this.movimiento.usuario = res;
           },
@@ -143,6 +143,7 @@ export class VentaComponent implements OnInit {
   }
 
   enviarMovimiento(): void {
+    this.pedido.total = this.calcularTotal();
     this.movimientoService.registrarMovimiento(this.movimiento).subscribe(
       (res) => {
         console.log(res);
@@ -422,8 +423,15 @@ export class VentaComponent implements OnInit {
   //guardar temporalmente pedidos
   guardarPedidoTemporal(pedido: Pedido, Descripcion): void {
     if (pedido) {
+      pedido.cliente = this.cliente;
       pedido.enEspera = Descripcion;
       this.pedidosMemoria.push(pedido);
+      //limpiar variables
+      this.buscarClienteCedula = '';
+      this.ConsumidorFinal = false;
+      this.pedido = new Pedido();
+      this.cliente = new Cliente();
+      this.mesa = new Mesa();
     }
     const now = new Date();
     const item = {

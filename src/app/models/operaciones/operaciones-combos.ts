@@ -24,6 +24,9 @@ export class OperacionesCombos {
     items = items.map((item: DetalleComboPedido) => {
       if (id === item.combo.id) {
         item.cantidad += cantidad;
+        if (item.combo.infoExtra) {
+          item.infoExtra = item.combo.infoExtra;
+        }
       }
       return item;
     });

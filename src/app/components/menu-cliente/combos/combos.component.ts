@@ -31,6 +31,7 @@ export class CombosComponent implements OnInit {
   BebidaCombo: Producto;
   operaciones: OperacionesCombos = new OperacionesCombos();
   api = BASE_URL;
+  infoExtra: string = '';
   constructor(
     private modalService: NgbModal,
     private activatedRouter: ActivatedRoute,
@@ -63,7 +64,7 @@ export class CombosComponent implements OnInit {
 
   // agregar un producto al pedido
   agregarCombo(comb: Combo): void {
-    console.log('sabor ' + this.combo.saborBebida);
+    comb.infoExtra = this.infoExtra;
     //en el caso de ser sin bebidas
     if (!this.combo.saborBebida && this.verificarComboBebidas() == false) {
       this.addCombo(comb);
@@ -73,7 +74,7 @@ export class CombosComponent implements OnInit {
         this.addCombo(comb);
         this.cerrarModalDetalle();
       } else {
-        console.log('escoger un abor');
+        console.log('escoger un sabor');
       }
     }
     //en el caso de contener bebidas
@@ -83,18 +84,21 @@ export class CombosComponent implements OnInit {
 
   private addCombo(comb: Combo): void {
     if (this.existeCombo(comb.id)) {
+      this.combo.infoExtra = this.infoExtra;
       this.incrementarCantidad(comb.id);
       // ARREGLAR LAS NOTIFICACIOINES
       // this.notificaciones('se actualizó la cantidad del producto');
     } else {
       // agregamos el produxto al item
       this.item.combo = comb;
+      this.item.infoExtra = this.infoExtra;
       this.items.push(this.item);
       // ARREGLAR LAS NOTIFICACIOINES
       // this.notificaciones('se agregó un producto');
       // aqui debe estar este medodo par que funcione
       this.pedidoService.itemscombo$.emit(this.items);
     }
+    this.combo = new Combo();
   }
 
   // verificar si un producto existe en el pedido
@@ -123,6 +127,7 @@ export class CombosComponent implements OnInit {
     });
   }
   comboModal(combo: Combo, modal): void {
+    this.infoExtra = '';
     this.combo = combo;
     this.modalRef = this.modalService.open(modal, {
       centered: true,
