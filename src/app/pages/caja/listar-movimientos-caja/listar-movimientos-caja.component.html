@@ -10,6 +10,7 @@
               <th>Monto</th>
               <th>T. Pago</th>
               <th>F. Movimiento</th>
+              <th>Estado</th>
               <th>Acciones</th>
             </tr>
           </thead>
@@ -18,8 +19,8 @@
               <td>{{ mov.usuario.username + " " + mov.usuario.cedula }}</td>
               <td>{{ mov.monto }}</td>
               <td>{{ mov.tipoPago.tipoPago }}</td>
-
               <td>{{ mov.fechaMovimiento | date: "dd/MM/yyyy h:mm:ss a" }}</td>
+              <td>{{ mov.pedido.estado.nomEstado }}</td>
               <td>
                 <div class="row row-width alinear">
                   <div class="cell-sm-4">
@@ -86,6 +87,7 @@
           <th class="w100">V.Unit</th>
           <th class="w100">Total</th>
           <th class="w-50">Descripción</th>
+
           <th>Combo InfoExtra</th>
           <th>Combo SaborBebida</th>
         </tr>
