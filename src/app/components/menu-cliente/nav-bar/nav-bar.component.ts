@@ -11,6 +11,10 @@ import { MesaService } from 'src/app/services/mesa/mesa.service';
 import { PedidoService } from 'src/app/services/pedido/pedido.service';
 import swal from 'sweetalert2';
 
+//sock js
+import { Client } from '@stomp/stompjs';
+import * as SockJs from 'sockjs-client';
+
 @Component({
   selector: 'app-nav-bar',
   templateUrl: './nav-bar.component.html',
@@ -28,6 +32,9 @@ export class NavBarComponent implements OnInit {
   pedido_local: Pedido;
   id_mesa: number;
   cedula: string = 'none';
+
+  //sockets
+  private client: Client;
   constructor(
     private modalService: NgbModal,
     private pedidoService: PedidoService,
@@ -49,6 +56,18 @@ export class NavBarComponent implements OnInit {
         this.ObtenerMesaId(id_mesa);
       }
     });
+    ////////////////////////////////
+    this.client = new Client();
+    this.client.webSocketFactory = () => {
+      return new SockJs('http://192.168.10.50:8080/chat-websocket');
+    };
+    //escuchar conexion de
+    this.client.onConnect = (frame) => {
+      //tareas
+      console.log('Conectado: ' + this.client.connected + ' : ' + frame);
+    };
+    //inicialzar conexion de
+    this.client.activate();
   }
   modalPedido(modal, modalRegistro): void {
     this.modalRef = this.modalService.open(modal, { centered: true });
