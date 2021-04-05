@@ -14,6 +14,7 @@ import swal from 'sweetalert2';
 //sock js
 import { Client } from '@stomp/stompjs';
 import * as SockJs from 'sockjs-client';
+import { Notificacion } from 'src/app/models/sockets/notificacion';
 
 @Component({
   selector: 'app-nav-bar',
@@ -32,6 +33,7 @@ export class NavBarComponent implements OnInit {
   pedido_local: Pedido;
   id_mesa: number;
   cedula: string = 'none';
+  notificacion: Notificacion = new Notificacion();
 
   //sockets
   private client: Client;
@@ -56,19 +58,30 @@ export class NavBarComponent implements OnInit {
         this.ObtenerMesaId(id_mesa);
       }
     });
-    ////////////////////////////////
+  }
+  //************************SOCKETS****************** */
+  //sockets
+  conectar(): void {
     this.client = new Client();
     this.client.webSocketFactory = () => {
-      return new SockJs('http://192.168.10.50:8080/chat-websocket');
+      return new SockJs('http://192.168.20.101:8080/chat-websocket');
     };
-    //escuchar conexion de
-    this.client.onConnect = (frame) => {
-      //tareas
-      console.log('Conectado: ' + this.client.connected + ' : ' + frame);
-    };
-    //inicialzar conexion de
+    //conectar a escuchar las notificaciones
     this.client.activate();
   }
+  desconectar(): void {
+    this.client.deactivate();
+  }
+  enviarNotificacion(): void {
+    this.notificacion.texto = 'Pedido: ';
+    this.client.publish({
+      destination: '/app/mensaje',
+      body: JSON.stringify(this.notificacion),
+    });
+    this.notificacion.texto = '';
+  }
+  ///**********************TERMINA METODOS DE SOCKETS */
+  /////////////**************************************MODALESS */
   modalPedido(modal, modalRegistro): void {
     this.modalRef = this.modalService.open(modal, { centered: true });
     // para guardar la data del modal si desea o no resgistrarse el cliente
