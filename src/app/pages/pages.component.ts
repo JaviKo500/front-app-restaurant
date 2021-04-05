@@ -45,7 +45,7 @@ export class PagesComponent implements OnInit {
       icon: 'success',
       title: notificacion.texto,
       showConfirmButton: false,
-      timer: 1500,
+      timer: 2500,
     });
   }
 }
