@@ -64,7 +64,7 @@ export class NavBarComponent implements OnInit {
   conectar(): void {
     this.client = new Client();
     this.client.webSocketFactory = () => {
-      return new SockJs('http://192.168.20.101:8080/chat-websocket');
+      return new SockJs('http://192.168.10.50:8080/chat-websocket');
     };
     //conectar a escuchar las notificaciones
     this.client.activate();
@@ -73,7 +73,8 @@ export class NavBarComponent implements OnInit {
     this.client.deactivate();
   }
   enviarNotificacion(): void {
-    this.notificacion.texto = 'Pedido: ';
+    this.notificacion.texto =
+      'Nuevo pedido para la mesa: ' + this.pedido.mesa.nombre;
     this.client.publish({
       destination: '/app/mensaje',
       body: JSON.stringify(this.notificacion),
@@ -81,27 +82,10 @@ export class NavBarComponent implements OnInit {
     this.notificacion.texto = '';
   }
   ///**********************TERMINA METODOS DE SOCKETS */
-  /////////////**************************************MODALESS */
-  modalPedido(modal, modalRegistro): void {
-    this.modalRef = this.modalService.open(modal, { centered: true });
-    // para guardar la data del modal si desea o no resgistrarse el cliente
-    this.modalRegistrar = modalRegistro;
-  }
-  modalNotificacion(modal): void {
-    this.modalRef = this.modalService.open(modal, { centered: true });
-  }
-  modalRegistrarCliente(): void {
-    this.modalRef = this.modalService.open(this.modalRegistrar, {
-      centered: true,
-      size: 'xl',
-    });
-  }
-  cerrarModal(): void {
-    this.modalRef.close();
-  }
 
   postEnviarPedido(): void {
     if (this.pedido.items.length > 0 || this.pedido.combos.length > 0) {
+      this.conectar();
       swal
         .fire({
           title: '¿Eres cliente?',
@@ -158,11 +142,13 @@ export class NavBarComponent implements OnInit {
       this.pedidoService
         .registrarPedido(this.pedido, this.cedula)
         .subscribe((res) => {
+          this.enviarNotificacion();
           this.itemsProducto = [];
           this.pedidoService.items$.emit(this.itemsProducto);
           this.pedido = new Pedido();
           this.limpiarPedidoLocalStorage();
           this.guardarEnLocalStorageIdPedido(res.id_pedido);
+          this.desconectar();
           //recuperar la mesa en el pedido
           if (this.id_mesa) {
             console.log('id mesa obtenido e el navbar');
@@ -293,5 +279,23 @@ export class NavBarComponent implements OnInit {
       this.pedido.combos = items;
       this.guardarEnLocalStorage(this.pedido);
     });
+  }
+  /////////////**************************************MODALESS */
+  modalPedido(modal, modalRegistro): void {
+    this.modalRef = this.modalService.open(modal, { centered: true });
+    // para guardar la data del modal si desea o no resgistrarse el cliente
+    this.modalRegistrar = modalRegistro;
+  }
+  modalNotificacion(modal): void {
+    this.modalRef = this.modalService.open(modal, { centered: true });
+  }
+  modalRegistrarCliente(): void {
+    this.modalRef = this.modalService.open(this.modalRegistrar, {
+      centered: true,
+      size: 'xl',
+    });
+  }
+  cerrarModal(): void {
+    this.modalRef.close();
   }
 }
