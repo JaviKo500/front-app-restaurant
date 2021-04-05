@@ -5,12 +5,14 @@ import * as SockJS from 'sockjs-client';
 import { Notificacion } from '../models/sockets/notificacion';
 //alerta swal
 import swal from 'sweetalert2';
+import { BASE_URL } from 'src/environments/configurations';
 @Component({
   selector: 'app-pages',
   templateUrl: './pages.component.html',
   styleUrls: ['./pages.component.css'],
 })
 export class PagesComponent implements OnInit {
+  api = BASE_URL;
   //sockets
   private client: Client;
   conectado: boolean = false;
@@ -24,7 +26,7 @@ export class PagesComponent implements OnInit {
   ConectarSocket(): void {
     this.client = new Client();
     this.client.webSocketFactory = () => {
-      return new SockJS('http://192.168.10.50:8080/chat-websocket');
+      return new SockJS(this.api + 'chat-websocket');
     };
     //conectar a escuchar las notificaciones
     this.client.activate();

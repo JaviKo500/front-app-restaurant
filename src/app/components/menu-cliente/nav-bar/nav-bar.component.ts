@@ -15,6 +15,7 @@ import swal from 'sweetalert2';
 import { Client } from '@stomp/stompjs';
 import * as SockJs from 'sockjs-client';
 import { Notificacion } from 'src/app/models/sockets/notificacion';
+import { BASE_URL } from 'src/environments/configurations';
 
 @Component({
   selector: 'app-nav-bar',
@@ -36,6 +37,7 @@ export class NavBarComponent implements OnInit {
   notificacion: Notificacion = new Notificacion();
 
   //sockets
+  api = BASE_URL;
   private client: Client;
   constructor(
     private modalService: NgbModal,
@@ -64,7 +66,7 @@ export class NavBarComponent implements OnInit {
   conectar(): void {
     this.client = new Client();
     this.client.webSocketFactory = () => {
-      return new SockJs('http://192.168.10.50:8080/chat-websocket');
+      return new SockJs(this.api + 'chat-websocket');
     };
     //conectar a escuchar las notificaciones
     this.client.activate();
