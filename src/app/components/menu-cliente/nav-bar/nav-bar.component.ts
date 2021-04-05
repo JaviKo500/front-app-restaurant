@@ -58,7 +58,7 @@ export class NavBarComponent implements OnInit {
     });
     ////////////////////////////////
     this.client = new Client();
-    this.client.webSocketFactory = () => {
+    /*this.client.webSocketFactory = () => {
       return new SockJs('http://192.168.10.50:8080/chat-websocket');
     };
     //escuchar conexion de
@@ -67,7 +67,7 @@ export class NavBarComponent implements OnInit {
       console.log('Conectado: ' + this.client.connected + ' : ' + frame);
     };
     //inicialzar conexion de
-    this.client.activate();
+    this.client.activate();*/
   }
   modalPedido(modal, modalRegistro): void {
     this.modalRef = this.modalService.open(modal, { centered: true });
