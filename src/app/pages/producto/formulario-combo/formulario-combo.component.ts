@@ -31,7 +31,7 @@ export class FormularioComboComponent implements OnInit {
     private categoriaService: CategoriaService,
     private router: Router,
     private activatedRoute: ActivatedRoute
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.listarCategoriasCombo();
@@ -45,7 +45,7 @@ export class FormularioComboComponent implements OnInit {
 
   onChange(event): void {
     this.imagenProducto = event.target.files[0];
-    if (this.imagenProducto.type.indexOf('image') < 0) {
+    if (this.imagenProducto && this.imagenProducto.type.indexOf('image') < 0) {
       this.imagenProducto = null;
       swal.fire('Error', 'Solo imágenes', 'error');
     }
@@ -80,10 +80,9 @@ export class FormularioComboComponent implements OnInit {
         this.comboService.registrarCombo(this.combo).subscribe((res) => {
           this.cargarImagenProducto(res.id_combo);
           this.router.navigate(['/dashboard/combos/page/0']);
-        }),
-          (error) => {
+        }, (error) => {
             console.log(error.mensaje);
-          };
+          });
       } else {
         if (this.combo.imagen == '') {
           swal.fire('Advertencia', 'Debe seleccionar su imagen', 'warning');
@@ -211,7 +210,7 @@ export class FormularioComboComponent implements OnInit {
         (error) => {
           this.productoService
             .deleteProductoDefinitive(id)
-            .subscribe((res) => {});
+            .subscribe((res) => { });
           console.log('error');
           console.log(error);
           this.imagenProducto = null;
@@ -231,9 +230,10 @@ export class FormularioComboComponent implements OnInit {
   buscarCombo(id: number): void {
     this.comboService.obtenerComboId(id).subscribe((res) => {
       this.combo = res.combo;
-    }),
+      this.img_url.pasarURLImg('product/img/' + this.combo.imagen);
+    },
       (err) => {
         console.log(err);
-      };
+      });
   }
 }

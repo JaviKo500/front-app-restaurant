@@ -45,6 +45,12 @@ export class SidebarService {
       roles: ['ROLE_ADMIN', 'ROLE_CAJERO'],
       subMenu: [
         {
+          title: 'Crear Caja',
+          icon: 'fas fa-briefcase',
+          roles: ['ROLE_ADMIN'],
+          url: 'crearcaja/page/:page',
+        },
+        {
           title: 'Abrir Arqueo',
           icon: 'fas fa-dolly-flatbed',
           roles: ['ROLE_ADMIN'],
@@ -62,12 +68,6 @@ export class SidebarService {
           roles: ['ROLE_ADMIN', 'ROLE_CAJERO'],
           url: 'movimientos/page/:page',
         },
-        {
-          title: 'Crear Caja',
-          icon: 'fas fa-briefcase',
-          roles: ['ROLE_ADMIN'],
-          url: 'crearcaja/page/:page',
-        },
       ],
     },
     {
@@ -77,16 +77,16 @@ export class SidebarService {
       roles: ['ROLE_ADMIN'],
       subMenu: [
         {
-          title: 'Lista de usuarios ',
-          icon: 'fas fa-address-book',
-          roles: ['ROLE_ADMIN'],
-          url: 'usuarios/page/0',
-        },
-        {
           title: 'Agregar usuarios ',
           icon: 'fas fa-user-plus',
           roles: ['ROLE_ADMIN'],
           url: 'crearusu/:id',
+        },
+        {
+          title: 'Lista de usuarios ',
+          icon: 'fas fa-address-book',
+          roles: ['ROLE_ADMIN'],
+          url: 'usuarios/page/0',
         },
       ],
     },
@@ -97,16 +97,16 @@ export class SidebarService {
       roles: ['ROLE_ADMIN', 'ROLE_CAJERO'],
       subMenu: [
         {
-          title: 'Lista de clientes ',
-          icon: 'fas fa-address-book',
-          roles: ['ROLE_ADMIN', 'ROLE_CAJERO'],
-          url: 'cliente/page/0',
-        },
-        {
           title: 'Agregar cliente ',
           icon: 'fas fa-user-plus',
           roles: ['ROLE_ADMIN', 'ROLE_CAJERO'],
           url: 'crearcli/:id',
+        },
+        {
+          title: 'Lista de clientes ',
+          icon: 'fas fa-address-book',
+          roles: ['ROLE_ADMIN', 'ROLE_CAJERO'],
+          url: 'cliente/page/0',
         },
       ],
     },
@@ -116,12 +116,6 @@ export class SidebarService {
       url: '',
       roles: ['ROLE_ADMIN'],
       subMenu: [
-        {
-          title: 'Lista de productos',
-          icon: 'fas fa-list-alt',
-          roles: ['ROLE_ADMIN'],
-          url: 'productos/page/0',
-        },
         {
           title: 'Agregar producto',
           icon: 'fa fa-plus-circle',
@@ -134,6 +128,12 @@ export class SidebarService {
           roles: ['ROLE_ADMIN'],
           url: 'categorias/page/0',
         },
+        {
+          title: 'Lista de productos',
+          icon: 'fas fa-list-alt',
+          roles: ['ROLE_ADMIN'],
+          url: 'productos/page/0',
+        },
       ],
     },
     {
@@ -143,18 +143,25 @@ export class SidebarService {
       roles: ['ROLE_ADMIN'],
       subMenu: [
         {
-          title: 'Lista combos',
-          icon: 'fas fa-boxes',
-          url: 'combos/page/0',
-          roles: ['ROLE_ADMIN'],
-        },
-        {
           title: 'Crear combo o promoción',
           icon: 'fas fa-hamburger',
           roles: ['ROLE_ADMIN'],
           url: 'crearcombo/:id',
         },
+        {
+          title: 'Lista combos',
+          icon: 'fas fa-boxes',
+          url: 'combos/page/0',
+          roles: ['ROLE_ADMIN'],
+        },
       ],
+    },
+    {
+      title: 'Mesas',
+      icon: 'fas fa-chair',
+      roles: ['ROLE_ADMIN'],
+      url: 'mesas/page/0',
+      subMenu: [],
     },
     {
       title: 'Configuraciones',
@@ -167,13 +174,7 @@ export class SidebarService {
           icon: 'fas fa-cog',
           roles: ['ROLE_ADMIN'],
           url: 'empresa',
-        },
-        {
-          title: 'Mesas',
-          icon: 'fas fa-chair',
-          roles: ['ROLE_ADMIN'],
-          url: 'mesas/page/0',
-        },
+        }
       ],
     },
   ];

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import {NgbDateStruct} from '@ng-bootstrap/ng-bootstrap';
+
 import { Movimiento } from 'src/app/models/caja/movimiento';
 import { Pedido } from 'src/app/models/pedidos/pedido';
 import { Usuario } from 'src/app/models/persona/usuario.model';
@@ -13,6 +15,8 @@ import { MovimientoService } from 'src/app/services/caja/movimiento.service';
 })
 export class ListarMovimientosCajaComponent implements OnInit {
   public modalRef: NgbModalRef;
+  fechaInico: NgbDateStruct;
+  fechaFin: NgbDateStruct;
   //************************paginacion******************** */
   paginador: any;
   path: string = '/dashboard/movimientos/page';

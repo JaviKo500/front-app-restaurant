@@ -37,7 +37,7 @@ export class PreviewImgComponent implements OnInit {
     this.imagenFile = event.target.files[0];
     // mandamos el evento
     this.imagenSave.emit(this.imagenFile);
-    if (this.imagenFile.type.indexOf('image') < 0) {
+    if ( this.imagenFile && this.imagenFile.type.indexOf('image') < 0) {
       this.imagenFile = null;
       this.bandera = false;
       swal.fire({

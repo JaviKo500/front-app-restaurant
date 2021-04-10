@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import {NgbDateStruct} from '@ng-bootstrap/ng-bootstrap';
+
 import { Arqueo } from 'src/app/models/caja/arqueo';
 import { ArqueoService } from 'src/app/services/caja/arqueo.service';
 import swal from 'sweetalert2';
@@ -11,6 +13,9 @@ import swal from 'sweetalert2';
   styleUrls: ['./listar-arqueos.component.css'],
 })
 export class ListarArqueosComponent implements OnInit {
+  public modalRef: NgbModalRef;
+  fechaInico: NgbDateStruct;
+  fechaFin: NgbDateStruct;
   //paginacion
   paginador: any;
   path: any = '/dashboard/arqueos/page';
@@ -19,7 +24,7 @@ export class ListarArqueosComponent implements OnInit {
   desde: Date = new Date();
   hasta: Date = new Date();
   arqueoModal: Arqueo = new Arqueo();
-  public modalRef: NgbModalRef;
+  
   arqueos: Arqueo[] = [];
   constructor(
     private modalService: NgbModal,

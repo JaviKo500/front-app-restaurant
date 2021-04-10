@@ -500,6 +500,14 @@
         [(ngModel)]="movimiento.tipoPago.folio"
       />
     </div>
+    <div *ngIf="movimiento.tipoPago && movimiento.tipoPago.id === 1">
+      <label for="">Monto:</label>
+      <input type="number" data-role="input" data-prepend="$: "  required minlength="1">
+      
+      <br>
+      <p class="mt-0"><code class="warning">Total: </code> &#36;{{pedido.total}}</p>
+      <p class="mt-0"><code class="info">Saldo: </code> &#36;{{moviem}}</p>
+    </div>
   </div>
   <div class="modal-footer">
     <div class="d-flex flex-justify-between w-100">
