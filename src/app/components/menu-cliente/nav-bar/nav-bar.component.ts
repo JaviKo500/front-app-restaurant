@@ -1,21 +1,25 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
+// ng boostrap
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { Mesa } from 'src/app/models/mesa/mesa';
+
+import swal from 'sweetalert2';
+// constantes
+import { BASE_URL } from 'src/environments/configurations';
+// modelos
+import { Cliente } from 'src/app/models/persona/cliente';
 import { DetalleComboPedido } from 'src/app/models/pedidos/detalle-combo-pedido';
 import { DetallePedido } from 'src/app/models/pedidos/detalle-pedido';
-import { Pedido } from 'src/app/models/pedidos/pedido';
-import { Cliente } from 'src/app/models/persona/cliente';
+import { Mesa } from 'src/app/models/mesa/mesa';
 import { MesaService } from 'src/app/services/mesa/mesa.service';
+import { Notificacion } from 'src/app/models/sockets/notificacion';
+import { Pedido } from 'src/app/models/pedidos/pedido';
 import { PedidoService } from 'src/app/services/pedido/pedido.service';
-import swal from 'sweetalert2';
 
 //sock js
 import { Client } from '@stomp/stompjs';
 import * as SockJs from 'sockjs-client';
-import { Notificacion } from 'src/app/models/sockets/notificacion';
-import { BASE_URL } from 'src/environments/configurations';
 
 @Component({
   selector: 'app-nav-bar',

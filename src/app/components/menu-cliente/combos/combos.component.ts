@@ -1,18 +1,21 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
+// ng boostrap
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-
-import { Combo } from '../../../models/productos/combo';
-import { ComboService } from '../../../services/combo/combo.service';
+// constantes
 import { BASE_URL } from '../../../../environments/configurations';
+// modelos
+import { Combo } from '../../../models/productos/combo';
 import { DetalleComboPedido } from 'src/app/models/pedidos/detalle-combo-pedido';
-import { PedidoService } from 'src/app/services/pedido/pedido.service';
 import { Pedido } from 'src/app/models/pedidos/pedido';
 import { Producto } from 'src/app/models/productos/producto';
-import { ProductoService } from 'src/app/services/productos/producto.service';
-import { OperacionesCombos } from 'src/app/models/operaciones/operaciones-combos';
 import { ProductoCombo } from '../../../models/productos/producto-combo';
+import { OperacionesCombos } from 'src/app/models/operaciones/operaciones-combos';
+// servicios
+import { ComboService } from '../../../services/combo/combo.service';
+import { PedidoService } from 'src/app/services/pedido/pedido.service';
+import { ProductoService } from 'src/app/services/productos/producto.service';
 
 @Component({
   selector: 'app-combos',

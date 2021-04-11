@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
+import swal from 'sweetalert2';
+// modelos
 import { Arqueo } from 'src/app/models/caja/arqueo';
 import { Caja } from 'src/app/models/caja/caja';
 import { Usuario } from 'src/app/models/persona/usuario.model';
+// servicios
 import { ArqueoService } from 'src/app/services/caja/arqueo.service';
 import { CajaService } from 'src/app/services/caja/caja.service';
 import { UsuarioService } from 'src/app/services/usuarios/usuario.service';
-import swal from 'sweetalert2';
 
 @Component({
   selector: 'app-abrir-arque-caja',

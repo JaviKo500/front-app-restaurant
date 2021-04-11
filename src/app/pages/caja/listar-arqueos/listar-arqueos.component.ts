@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import swal from 'sweetalert2';
+// ngboostrap
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import {NgbDateStruct} from '@ng-bootstrap/ng-bootstrap';
-
+// modelos
 import { Arqueo } from 'src/app/models/caja/arqueo';
+// servicios
 import { ArqueoService } from 'src/app/services/caja/arqueo.service';
-import swal from 'sweetalert2';
 
 @Component({
   selector: 'app-listar-arqueos',

@@ -1,19 +1,22 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Observable } from 'rxjs';
 import { distinctUntilChanged, mergeMap } from 'rxjs/operators';
-
+import { ActivatedRoute, Router } from '@angular/router';
 import swal from 'sweetalert2';
 
-import { PreviewImgComponent } from '../../../components/preview-img/preview-img.component';
-import { Producto } from '../../../models/productos/producto';
-import { ProductoService } from '../../../services/productos/producto.service';
+// constantes
 import { API_PROD, BASE_URL } from '../../../../environments/configurations';
-import { Combo } from 'src/app/models/productos/combo';
-import { ProductoCombo } from 'src/app/models/productos/producto-combo';
-import { ComboService } from 'src/app/services/combo/combo.service';
-import { CategoriaService } from 'src/app/services/categoria/categoria.service';
+// Modelos
 import { Categoria } from 'src/app/models/productos/categoria';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Combo } from 'src/app/models/productos/combo';
+import { Producto } from '../../../models/productos/producto';
+import { ProductoCombo } from 'src/app/models/productos/producto-combo';
+// servicios
+import { CategoriaService } from 'src/app/services/categoria/categoria.service';
+import { ComboService } from 'src/app/services/combo/combo.service';
+import { ProductoService } from '../../../services/productos/producto.service';
+// componentes
+import { PreviewImgComponent } from '../../../components/preview-img/preview-img.component';
 @Component({
   selector: 'app-formulario-combo',
   templateUrl: './formulario-combo.component.html',

@@ -1,5 +1,5 @@
-import { Usuario } from '../persona/usuario.model';
 import { Caja } from './caja';
+import { Usuario } from '../persona/usuario.model';
 
 export class Arqueo {
   id: number;

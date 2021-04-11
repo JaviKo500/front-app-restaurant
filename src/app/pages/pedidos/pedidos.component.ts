@@ -1,10 +1,11 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-
+// ngboostrap
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 
 // Modelos
 import { Mesa } from 'src/app/models/mesa/mesa';
 import { Pedido } from 'src/app/models/pedidos/pedido';
+// servicios
 import { PedidoService } from 'src/app/services/pedido/pedido.service';
 
 @Component({

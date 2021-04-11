@@ -1,32 +1,35 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-
-import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { Observable } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
 import { distinctUntilChanged, mergeMap } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 import swal from 'sweetalert2';
+// ng boostrap
+import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 
-import { Mesa } from 'src/app/models/mesa/mesa';
-import { OperacionesCombos } from 'src/app/models/operaciones/operaciones-combos';
-import { OperacionesProductos } from 'src/app/models/operaciones/operaciones-productos';
+// constantes
+import { BASE_URL } from 'src/environments/configurations';
+// modelos
+import { Combo } from 'src/app/models/productos/combo';
+import { Cliente } from 'src/app/models/persona/cliente';
 import { DetalleComboPedido } from 'src/app/models/pedidos/detalle-combo-pedido';
 import { DetallePedido } from 'src/app/models/pedidos/detalle-pedido';
 import { Estado } from 'src/app/models/pedidos/estado';
+import { Mesa } from 'src/app/models/mesa/mesa';
+import { MedioPago } from 'src/app/models/caja/medio-pago';
+import { Movimiento } from 'src/app/models/caja/movimiento';
+import { OperacionesCombos } from 'src/app/models/operaciones/operaciones-combos';
+import { OperacionesProductos } from 'src/app/models/operaciones/operaciones-productos';
 import { Pedido } from 'src/app/models/pedidos/pedido';
-import { Cliente } from 'src/app/models/persona/cliente';
-import { Combo } from 'src/app/models/productos/combo';
 import { Producto } from 'src/app/models/productos/producto';
+import { Usuario } from 'src/app/models/persona/usuario.model';
+// servicios
+import { AuthService } from 'src/app/services/auth/auth.service';
 import { ClienteService } from 'src/app/services/cliente/cliente.service';
 import { ComboService } from 'src/app/services/combo/combo.service';
 import { MesaService } from 'src/app/services/mesa/mesa.service';
+import { MovimientoService } from 'src/app/services/caja/movimiento.service';
 import { PedidoService } from 'src/app/services/pedido/pedido.service';
 import { ProductoService } from 'src/app/services/productos/producto.service';
-import { BASE_URL } from 'src/environments/configurations';
-import { Usuario } from 'src/app/models/persona/usuario.model';
-import { Movimiento } from 'src/app/models/caja/movimiento';
-import { MovimientoService } from 'src/app/services/caja/movimiento.service';
-import { MedioPago } from 'src/app/models/caja/medio-pago';
-import { AuthService } from 'src/app/services/auth/auth.service';
 import { UsuarioService } from 'src/app/services/usuarios/usuario.service';
 
 @Component({

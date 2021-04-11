@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Cliente } from 'src/app/models/persona/cliente';
-import { ClienteService } from 'src/app/services/cliente/cliente.service';
 import swal from 'sweetalert2';
+// modelos
+import { Cliente } from 'src/app/models/persona/cliente';
+// servicios
+import { ClienteService } from 'src/app/services/cliente/cliente.service';
 
 @Component({
   selector: 'app-form-cliente',

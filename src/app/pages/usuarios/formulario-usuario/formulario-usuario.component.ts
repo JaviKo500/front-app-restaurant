@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import swal from 'sweetalert2';
+// modelos
 import { Role } from 'src/app/models/persona/role.model';
 import { Sexo } from 'src/app/models/persona/sexo.model';
 import { Usuario } from 'src/app/models/persona/usuario.model';
+// servicios
 import { UsuarioService } from 'src/app/services/usuarios/usuario.service';
-import swal from 'sweetalert2';
 
 @Component({
   selector: 'app-formulario-usuario',

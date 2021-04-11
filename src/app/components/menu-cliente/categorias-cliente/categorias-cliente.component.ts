@@ -1,8 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { BASE_URL } from 'src/environments/configurations';
 
 // ngbootstrap
-
+// constante
+import { BASE_URL } from 'src/environments/configurations';
 // models
 import { Categoria } from '../../../models/productos/categoria';
 

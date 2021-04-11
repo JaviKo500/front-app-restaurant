@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import swal from 'sweetalert2';
-
-import { Producto } from '../../models/productos/producto';
-import { ProductoService } from 'src/app/services/productos/producto.service';
+// constantes
 import { BASE_URL } from 'src/environments/configurations';
-import { delay } from 'rxjs/operators';
+// modelos
+import { Producto } from '../../models/productos/producto';
+// servicios
+import { ProductoService } from 'src/app/services/productos/producto.service';
 
 @Component({
   selector: 'app-producto-listar',

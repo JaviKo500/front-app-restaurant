@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { UsuarioService } from 'src/app/services/usuarios/usuario.service';
-import { Usuario } from '../../models/persona/usuario.model';
 import swal from 'sweetalert2';
+// modelos
+import { Usuario } from '../../models/persona/usuario.model';
+// servicios
+import { UsuarioService } from 'src/app/services/usuarios/usuario.service';
 
 @Component({
   selector: 'app-usuarios',

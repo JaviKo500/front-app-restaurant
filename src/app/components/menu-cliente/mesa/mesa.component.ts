@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { MesaService } from '../../../services/mesa/mesa.service';
+// modelos
 import { Mesa } from '../../../models/mesa/mesa';
+// servicios
+import { MesaService } from '../../../services/mesa/mesa.service';
 
 @Component({
   selector: 'app-mesa',

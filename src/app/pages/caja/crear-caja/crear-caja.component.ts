@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import swal from 'sweetalert2';
+// ng boostrap
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import {NgbDateStruct} from '@ng-bootstrap/ng-bootstrap';
-import swal from 'sweetalert2';
 
-
+// modelos
 import { Caja } from 'src/app/models/caja/caja';
+// servicios
 import { CajaService } from 'src/app/services/caja/caja.service';
 @Component({
   selector: 'app-crear-caja',

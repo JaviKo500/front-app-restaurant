@@ -1,10 +1,12 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { MesaService } from 'src/app/services/mesa/mesa.service';
-import { PedidoService } from 'src/app/services/pedido/pedido.service';
+import { Router } from '@angular/router';
+
+// constantes
 import { BASE_URL } from 'src/environments/configurations';
+// modelos
 import { Categoria } from '../../../models/productos/categoria';
-import { Combo } from '../../../models/productos/combo';
+// servicos
+import { PedidoService } from 'src/app/services/pedido/pedido.service';
 
 @Component({
   selector: 'app-cliente-sidebar',

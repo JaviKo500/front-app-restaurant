@@ -1,17 +1,20 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-
+// ng boostrap
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { OperacionesProductos } from 'src/app/models/operaciones/operaciones-productos';
-import { DetallePedido } from 'src/app/models/pedidos/detalle-pedido';
-import { Pedido } from 'src/app/models/pedidos/pedido';
+// constantes
+import { BASE_URL } from 'src/environments/configurations';
+// modelos
 import { Combo } from 'src/app/models/productos/combo';
+import { DetallePedido } from 'src/app/models/pedidos/detalle-pedido';
+import { OperacionesProductos } from 'src/app/models/operaciones/operaciones-productos';
+import { Pedido } from 'src/app/models/pedidos/pedido';
+import { Producto } from '../../../models/productos/producto';
+// servicios
 import { ComboService } from 'src/app/services/combo/combo.service';
 import { PedidoService } from 'src/app/services/pedido/pedido.service';
 import { ProductoService } from 'src/app/services/productos/producto.service';
-import { BASE_URL } from 'src/environments/configurations';
 
-import { Producto } from '../../../models/productos/producto';
 
 @Component({
   selector: 'app-productos',

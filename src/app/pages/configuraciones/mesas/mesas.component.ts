@@ -1,12 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-
-// Para crear modales del ng boostrap
-import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { Mesa } from 'src/app/models/mesa/mesa';
-import { MesaService } from 'src/app/services/mesa/mesa.service';
 import swal from 'sweetalert2';
+
+// ng boostrap
+import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+// constantes
 import { API_QR } from 'src/environments/configurations';
+// modelos
+import { Mesa } from 'src/app/models/mesa/mesa';
+// servicios
+import { MesaService } from 'src/app/services/mesa/mesa.service';
 @Component({
   selector: 'app-mesas',
   templateUrl: './mesas.component.html',

@@ -1,9 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-
+// ng boostrap
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { ComboService } from 'src/app/services/combo/combo.service';
+// constantes
 import { BASE_URL } from 'src/environments/configurations';
+// modelos
 import { Combo } from '../../../models/productos/combo';
+// servicios
+import { ComboService } from 'src/app/services/combo/combo.service';
 
 @Component({
   selector: 'app-lista-combos',

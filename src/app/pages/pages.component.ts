@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import swal from 'sweetalert2';
 //sockets
 import { Client } from '@stomp/stompjs';
 import * as SockJS from 'sockjs-client';
 import { Notificacion } from '../models/sockets/notificacion';
-//alerta swal
-import swal from 'sweetalert2';
+// constante
 import { BASE_URL } from 'src/environments/configurations';
 @Component({
   selector: 'app-pages',

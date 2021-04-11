@@ -36,6 +36,12 @@ export class SidebarService {
           roles: ['ROLE_ADMIN', 'ROLE_CAJERO'],
           url: 'venta/:id',
         },
+        {
+          title: 'Ventas',
+          icon: 'fas fa-list-alt',
+          roles: ['ROLE_ADMIN', 'ROLE_CAJERO'],
+          url: 'ventas/page/:page',
+        },
       ],
     },
     {

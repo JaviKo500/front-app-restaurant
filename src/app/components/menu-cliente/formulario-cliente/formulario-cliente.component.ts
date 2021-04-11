@@ -1,10 +1,12 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+// ngboostrap
 import { NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { Cliente } from 'src/app/models/persona/cliente';
-import { ClienteService } from 'src/app/services/cliente/cliente.service';
 import swal from 'sweetalert2';
+// modelos
+import { Cliente } from 'src/app/models/persona/cliente';
+// servicios
+import { ClienteService } from 'src/app/services/cliente/cliente.service';
 
-//service cliente
 @Component({
   selector: 'app-formulario-cliente',
   templateUrl: './formulario-cliente.component.html',

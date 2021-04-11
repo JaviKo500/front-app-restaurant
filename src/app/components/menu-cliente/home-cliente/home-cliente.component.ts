@@ -1,9 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { CategoriaService } from 'src/app/services/categoria/categoria.service';
-import { PedidoService } from 'src/app/services/pedido/pedido.service';
+
+// modelos
 import { Categoria } from '../../../models/productos/categoria';
+// servicios
+import { CategoriaService } from 'src/app/services/categoria/categoria.service';
 import { ComboService } from '../../../services/combo/combo.service';
+import { PedidoService } from 'src/app/services/pedido/pedido.service';
 
 @Component({
   selector: 'app-home-cliente',

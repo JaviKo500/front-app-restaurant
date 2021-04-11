@@ -6,10 +6,11 @@ import {
   HttpInterceptor
 } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
-import { AuthService } from '../services/auth/auth.service';
 import { Router } from '@angular/router';
-import swal from 'sweetalert2';
 import { catchError } from 'rxjs/operators';
+import swal from 'sweetalert2';
+// servicios
+import { AuthService } from '../services/auth/auth.service';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {

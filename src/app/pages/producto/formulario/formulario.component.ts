@@ -1,18 +1,19 @@
 import {
   Component,
   OnInit,
-  EventEmitter,
-  Output,
   ViewChild,
 } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import swal from 'sweetalert2';
+// constantes
+import { API_PROD } from 'src/environments/configurations';
+// modelos
 import { Categoria } from 'src/app/models/productos/categoria';
 import { Producto } from 'src/app/models/productos/producto';
+// servicios
 import { CategoriaService } from 'src/app/services/categoria/categoria.service';
 import { ProductoService } from 'src/app/services/productos/producto.service';
-import { API_PROD } from 'src/environments/configurations';
-import swal from 'sweetalert2';
-
+// componentes
 import { PreviewImgComponent } from '../../../components/preview-img/preview-img.component';
 
 @Component({

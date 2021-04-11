@@ -1,6 +1,6 @@
+import { MedioPago } from './medio-pago';
 import { Pedido } from '../pedidos/pedido';
 import { Usuario } from '../persona/usuario.model';
-import { MedioPago } from './medio-pago';
 
 export class Movimiento {
   id: number;

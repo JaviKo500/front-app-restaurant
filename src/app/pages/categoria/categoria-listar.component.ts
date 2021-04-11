@@ -1,15 +1,16 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-
-// Para crear modales del ng boostrap
-import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { CategoriaService } from 'src/app/services/categoria/categoria.service';
-import { BASE_URL, API_CATE } from 'src/environments/configurations';
 import swal from 'sweetalert2';
+
+// ng boostrap
+import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+// constantes
+import { BASE_URL, API_CATE } from 'src/environments/configurations';
+// modelos
 import { Categoria } from '../../models/productos/categoria';
 import { TipoCategoria } from 'src/app/models/productos/tipo-categoria';
-import { ComboService } from 'src/app/services/combo/combo.service';
-
+// servicios
+import { CategoriaService } from 'src/app/services/categoria/categoria.service';
 @Component({
   selector: 'app-categoria-listar',
   templateUrl: './categoria-listar.component.html',
