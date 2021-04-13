@@ -34,27 +34,23 @@ export class ListarArqueosComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.listarArqueos();
+    this.listarArqueos(this.desde, this.hasta);
   }
   //************************************************ */
   //--------------------funciones---------------------
   //************************************************ */
 
-  listarArqueos(): void {
+  listarArqueos(desde: Date, hasta: Date): void {
     this.activatedRoute.paramMap.subscribe((params) => {
       let page: number = +params.get('page');
       if (!page) {
         page = 0;
       }
       this.arqueoService
-        .obtenerArqueosFecha(page, this.desde, this.hasta)
+        .obtenerArqueosFecha(page, desde, hasta)
         .subscribe((res) => {
           this.arqueos = res.content;
           this.paginador = res;
-          console.log(this.arqueos);
-          console.log('fechas');
-          console.log(this.desde);
-          console.log(this.hasta);
         });
     });
   }
@@ -67,15 +63,7 @@ export class ListarArqueosComponent implements OnInit {
       let fF = this.fechaFin;
       let fechaFin: Date = new Date(fF.year, fF.month - 1, fF.day);
 
-      this.arqueoService
-        .obtenerArqueosFecha(0, fechaIni, fechaFin)
-        .subscribe((res) => {
-          this.arqueos = res.content;
-          this.paginador = res;
-          console.log(res);
-        });
-
-      console.log(fechaIni);
+      this.listarArqueos(fechaIni, fechaFin);
     } else {
       swal.fire(
         'Observación',
@@ -100,7 +88,7 @@ export class ListarArqueosComponent implements OnInit {
       .then((result) => {
         if (result.isConfirmed) {
           this.arqueoService.cerrarArqueo(arqueo).subscribe((res) => {
-            this.listarArqueos();
+            this.listarArqueos(this.desde, this.hasta);
             swal.fire({
               position: 'top-end',
               icon: 'success',
