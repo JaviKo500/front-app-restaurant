@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 // ng boostrap
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import {NgbDateStruct} from '@ng-bootstrap/ng-bootstrap';
+import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 // modelos
 import { Movimiento } from 'src/app/models/caja/movimiento';
 import { Pedido } from 'src/app/models/pedidos/pedido';
@@ -34,6 +34,8 @@ export class ListarMovimientosCajaComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    console.log(this.fechaInico);
+
     this.activatedRoute.paramMap.subscribe((params) => {
       this.page = +params.get('page');
       if (!this.page) {
