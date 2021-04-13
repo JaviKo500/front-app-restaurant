@@ -26,7 +26,6 @@ export class ListarArqueosComponent implements OnInit {
   desde: Date = new Date();
   hasta: Date = new Date();
   arqueoModal: Arqueo = new Arqueo();
-
   arqueos: Arqueo[] = [];
   constructor(
     private modalService: NgbModal,
@@ -61,7 +60,29 @@ export class ListarArqueosComponent implements OnInit {
   }
 
   changeFechas(): void {
-    console.log(this.fechaInico);
+    if (this.fechaInico && this.fechaFin) {
+      let fI = this.fechaInico;
+      let fechaIni: Date = new Date(fI.year, fI.month - 1, fI.day);
+
+      let fF = this.fechaFin;
+      let fechaFin: Date = new Date(fF.year, fF.month - 1, fF.day);
+
+      this.arqueoService
+        .obtenerArqueosFecha(0, fechaIni, fechaFin)
+        .subscribe((res) => {
+          this.arqueos = res.content;
+          this.paginador = res;
+          console.log(res);
+        });
+
+      console.log(fechaIni);
+    } else {
+      swal.fire(
+        'Observación',
+        'Seleccionar ambas fechas para la busqueda.',
+        'warning'
+      );
+    }
   }
 
   //cerrar el arqueo
