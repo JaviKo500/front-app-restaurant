@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import swal from 'sweetalert2';
 // ngboostrap
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import {NgbDateStruct} from '@ng-bootstrap/ng-bootstrap';
+import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 // modelos
 import { Arqueo } from 'src/app/models/caja/arqueo';
 // servicios
@@ -26,7 +26,7 @@ export class ListarArqueosComponent implements OnInit {
   desde: Date = new Date();
   hasta: Date = new Date();
   arqueoModal: Arqueo = new Arqueo();
-  
+
   arqueos: Arqueo[] = [];
   constructor(
     private modalService: NgbModal,
@@ -59,6 +59,11 @@ export class ListarArqueosComponent implements OnInit {
         });
     });
   }
+
+  changeFechas(): void {
+    console.log(this.fechaInico);
+  }
+
   //cerrar el arqueo
   cerrarArqueoCaja(arqueo: Arqueo): void {
     swal
