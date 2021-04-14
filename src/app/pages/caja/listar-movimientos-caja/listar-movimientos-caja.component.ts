@@ -17,7 +17,7 @@ import { MovimientoService } from 'src/app/services/caja/movimiento.service';
 })
 export class ListarMovimientosCajaComponent implements OnInit {
   public modalRef: NgbModalRef;
-  fechaInico: NgbDateStruct;
+  fechaInicio: NgbDateStruct;
   fechaFin: NgbDateStruct;
   //************************paginacion******************** */
   paginador: any;
@@ -34,8 +34,11 @@ export class ListarMovimientosCajaComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    console.log(this.fechaInico);
+    console.log(this.fechaInicio);
+    this.obtenerMovimientos();
+  }
 
+  obtenerMovimientos() {
     this.activatedRoute.paramMap.subscribe((params) => {
       this.page = +params.get('page');
       if (!this.page) {
@@ -47,12 +50,30 @@ export class ListarMovimientosCajaComponent implements OnInit {
       let IsAdmin: boolean = this.authService.hasRole('ROLE_ADMIN');
       //cambiar aqui
       if (!IsAdmin) {
-        this.obtenerMovimientosFechaAdmin(this.page);
+        this.obtenerMovimientosFechaAdmin(new Date(), new Date(), this.page);
       } else {
         this.obtenerMovimientosUsuario(user.id, this.page);
       }
     }
   }
+
+  obtenerMovimientosFechaAdmin(desde: Date, hasta: Date, page: number): void {
+    this.movimientoService
+      .obtenerMovimientosFecha(desde, hasta, page)
+      .subscribe((res) => {
+        console.log(res);
+      });
+  }
+
+  obtenerMovimientosUsuario(user_id: number, page: number): void {
+    this.movimientoService
+      .obtenerMovimientosUsuario(user_id, page)
+      .subscribe((res) => {
+        this.movimientos = res.content;
+        this.paginador = res;
+      });
+  }
+
   abrirDetalle(pedido: Pedido, modalDetalle): void {
     if (pedido) {
       this.pedido = pedido;
@@ -64,15 +85,5 @@ export class ListarMovimientosCajaComponent implements OnInit {
   }
   cerrarModal(): void {
     this.modalRef.close();
-  }
-  obtenerMovimientosFechaAdmin(page: number): void {}
-
-  obtenerMovimientosUsuario(user_id: number, page: number): void {
-    this.movimientoService
-      .obtenerMovimientosUsuario(user_id, page)
-      .subscribe((res) => {
-        this.movimientos = res.content;
-        this.paginador = res;
-      });
   }
 }

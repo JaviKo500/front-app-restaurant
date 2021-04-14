@@ -38,6 +38,25 @@ export class MovimientoService {
       );
   }
 
+  //listar arqueos paginado
+  obtenerMovimientosFecha(
+    desde: Date,
+    hasta: Date,
+    page: number
+  ): Observable<any> {
+    let api: string =
+      'get/movimientos/from/' + desde + '/to/' + hasta + '/page/' + page;
+    return this.http.get(this.url + api).pipe(
+      map((response: any) => {
+        return response.movimientos;
+      }),
+      catchError((e) => {
+        console.log('Error service paginacion movimientos: ' + e.error);
+        return throwError(e);
+      })
+    );
+  }
+
   //obtener lista de medios de pago
   obtenerMediosPago(): Observable<MedioPago[]> {
     return this.http.get<MedioPago[]>(this.url + 'get/medio-pago');
