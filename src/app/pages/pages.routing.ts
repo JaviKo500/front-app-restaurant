@@ -38,7 +38,7 @@ const routes: Routes = [
         data: {
           title: 'Inicio',
           subTitle: 'Bienvenido',
-          role: ['ROLE_ADMIN', 'ROLE_CAJERO'],
+          role: ['ROLE_ADMIN', 'ROLE_CAJERO', 'ROLE_COCINERO'],
         },
       },
       {
