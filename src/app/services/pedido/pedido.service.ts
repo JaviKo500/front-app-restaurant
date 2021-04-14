@@ -52,6 +52,23 @@ export class PedidoService {
     );
   }
 
+  //ventas
+  listarVentas(
+    fecha_ini: Date,
+    fecha_fin: Date,
+    page: number
+  ): Observable<any> {
+    let enpoint: string =
+      'get/ventas/from/' + fecha_ini + '/to/' + fecha_fin + '/page/' + page;
+    return this.http.get(this.url + enpoint).pipe(
+      map((response: any) => response.ventas),
+      catchError((e) => {
+        swal.fire(e.error.mensaje, e.error.error, 'warning');
+        return throwError(e);
+      })
+    );
+  }
+
   listarPedidosExepEntregadosAnulados(): Observable<any> {
     return this.http
       .get(this.url + 'pedidos/dia/no-entregados/no-anulados')
