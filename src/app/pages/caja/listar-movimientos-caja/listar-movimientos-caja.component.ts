@@ -10,6 +10,8 @@ import { Usuario } from 'src/app/models/persona/usuario.model';
 // servicios
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { MovimientoService } from 'src/app/services/caja/movimiento.service';
+//swalservice
+import swal from 'sweetalert2';
 @Component({
   selector: 'app-listar-movimientos-caja',
   templateUrl: './listar-movimientos-caja.component.html',
@@ -49,11 +51,27 @@ export class ListarMovimientosCajaComponent implements OnInit {
     if (user.id) {
       let IsAdmin: boolean = this.authService.hasRole('ROLE_ADMIN');
       //cambiar aqui
-      if (!IsAdmin) {
+      if (IsAdmin) {
         this.obtenerMovimientosFechaAdmin(new Date(), new Date(), this.page);
       } else {
         this.obtenerMovimientosUsuario(user.id, this.page);
       }
+    }
+  }
+
+  buscarMovimientosPorFechas(): void {
+    if (this.fechaInicio && this.fechaFin) {
+      let fI = this.fechaInicio;
+      let fechaIni: Date = new Date(fI.year, fI.month - 1, fI.day);
+      let fF = this.fechaFin;
+      let fechaFin: Date = new Date(fF.year, fF.month - 1, fF.day);
+      this.obtenerMovimientosFechaAdmin(fechaIni, fechaFin, this.page);
+    } else {
+      swal.fire(
+        'Observación',
+        'Seleccionar ambas fechas para la busqueda.',
+        'warning'
+      );
     }
   }
 
@@ -62,6 +80,7 @@ export class ListarMovimientosCajaComponent implements OnInit {
       .obtenerMovimientosFecha(desde, hasta, page)
       .subscribe((res) => {
         console.log(res);
+        this.movimientos = res.content;
       });
   }
 
