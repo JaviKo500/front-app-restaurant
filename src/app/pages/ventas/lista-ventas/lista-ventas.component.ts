@@ -41,7 +41,7 @@ export class ListaVentasComponent implements OnInit {
       .listarVentas(fecha_ini, fecha_fin, page)
       .subscribe((res) => {
         console.log(res);
-        this.ventas = res.content as Pedido[];
+        this.ventas = res.content;
       });
   }
 
