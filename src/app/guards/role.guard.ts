@@ -25,12 +25,14 @@ export class RoleGuard implements CanActivate {
       let role = next.data['role'] as Array<Role>;      
       for (let i = 0; i < role.length; i++) {
         if (this.authService.hasRole(role[i])) {
+          console.log(role[i]);
+          
           return true;
         }
       }
   
       swal.fire({ position: 'top-end', icon: 'warning', title: `No tienes acceso a este recurso`, showConfirmButton: false, timer: 1500 });
-      this.router.navigate(['/dashboard']);
+      this.router.navigate(['/dashboard/user']);
       return false;
     }
   

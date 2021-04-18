@@ -14,7 +14,14 @@ export class SidebarService {
       title: 'Inicio',
       icon: 'fas fa-home',
       url: '/',
-      roles: ['ROLE_ADMIN', 'ROLE_CAJERO'],
+      roles: ['ROLE_ADMIN'],
+      subMenu: [],
+    },
+    {
+      title: 'Inicio',
+      icon: 'fas fa-home',
+      url: '/user',
+      roles: ['ROLE_COCINERO', 'ROLE_CAJERO'],
       subMenu: [],
     },
     {

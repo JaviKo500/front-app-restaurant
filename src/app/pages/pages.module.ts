@@ -31,6 +31,7 @@ import { VentaComponent } from './ventas/venta/venta.component';
 
 //qr code
 import { QRCodeModule } from 'angularx-qrcode';
+import { DashboardUsersComponent } from './dashboard-users/dashboard-users.component';
 
 @NgModule({
   declarations: [
@@ -54,6 +55,7 @@ import { QRCodeModule } from 'angularx-qrcode';
     PedidosComponent,
     UsuariosComponent,
     VentaComponent,
+    DashboardUsersComponent,
   ],
   exports: [DashboardComponent],
   imports: [

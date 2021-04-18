@@ -11,6 +11,7 @@ import { ClientesComponent } from './clientes/clientes.component';
 import { CrearCajaComponent } from './caja/crear-caja/crear-caja.component';
 import { ConfiguracionEmpresaComponent } from './configuraciones/configuracion-empresa/configuracion-empresa.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { DashboardUsersComponent } from './dashboard-users/dashboard-users.component';
 import { FormularioComponent } from './producto/formulario/formulario.component';
 import { FormularioComboComponent } from './producto/formulario-combo/formulario-combo.component';
 import { FormularioUsuarioComponent } from './usuarios/formulario-usuario/formulario-usuario.component';
@@ -38,7 +39,17 @@ const routes: Routes = [
         data: {
           title: 'Inicio',
           subTitle: 'Bienvenido',
-          role: ['ROLE_ADMIN', 'ROLE_CAJERO'],
+          role: ['ROLE_ADMIN'],
+        },
+      },
+      {
+        path: 'user',
+        component: DashboardUsersComponent,
+        canActivate: [AuthGuard, RoleGuard],
+        data: {
+          title: 'Inicio',
+          subTitle: 'Bienvenido',
+          role: ['ROLE_COCINERO', 'ROLE_CAJERO'],
         },
       },
       {
