@@ -74,8 +74,6 @@ export class VentaComponent implements OnInit {
     console.log('cambio');
     this.Cambio =
       Math.floor((this.MontoCambio - this.calcularTotal()) * 100) / 100;
-    this.movimiento.tipoPago.monto = this.MontoCambio;
-    this.movimiento.tipoPago.cambio = this.Cambio;
   }
 
   ngOnInit(): void {
@@ -153,6 +151,8 @@ export class VentaComponent implements OnInit {
         if (this.Cambio < 0) {
           return;
         } else {
+          this.movimiento.monto_entregado = this.MontoCambio;
+          this.movimiento.cambio_usuario = this.Cambio;
           this.enviarMovimiento();
         }
       }
