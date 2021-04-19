@@ -1,35 +1,74 @@
 <div class="card">
-    <div class="card-body" style="margin-top: 0px">
-        <div class="grid">
-            <div class="row">
-                <div class="cell-12">
-                    <div class="d-flex justify-content-end">
-                        <button class="button shadowed" (click)="abrirModalPedidosMen(modalPedidoMemoria)" placement="bottom" ngbTooltip="Ver pedido guardado">
+  <div class="card-body" style="margin-top: 0px">
+    <div class="grid">
+      <div class="row">
+        <div class="cell-12">
+          <div class="d-flex justify-content-end">
+            <button
+              class="button shadowed"
+              (click)="abrirModalPedidosMen(modalPedidoMemoria)"
+              placement="bottom"
+              ngbTooltip="Ver pedido guardado"
+            >
               <i class="fas fa-list"></i>
             </button>
-                        <button class="button shadowed light" (click)="AlmacenarEnMemoria()" placement="left" ngbTooltip="Guardar pedido temporal">
+            <button
+              class="button shadowed light"
+              (click)="AlmacenarEnMemoria()"
+              placement="left"
+              ngbTooltip="Guardar pedido temporal"
+            >
               <i class="fas fa-save"></i>
             </button>
-                    </div>
-                </div>
-                <div class="cell-xxl-4 cell-xl-4 cell-sm-12 fondo-recibo">
-                    <input class="mb-4 mt-1" type="text" data-role="input" data-prepend="CI: " name="cliente_busqueda" [(ngModel)]="buscarClienteCedula" (change)="buscarClientePorCedula($event)" [disabled]="ConsumidorFinal" />
-                    <div class="d-flex justify-content-between align-items-center mb-2">
-                        <button class="button shadowed yellow" (click)="abrirModalCliente(modalCliente)">
+          </div>
+        </div>
+        <div class="cell-xxl-4 cell-xl-4 cell-sm-12 fondo-recibo">
+          <input
+            class="mb-4 mt-1"
+            type="text"
+            data-role="input"
+            data-prepend="CI: "
+            name="cliente_busqueda"
+            [(ngModel)]="buscarClienteCedula"
+            (change)="buscarClientePorCedula($event)"
+            [disabled]="ConsumidorFinal"
+          />
+          <div class="d-flex justify-content-between align-items-center mb-2">
+            <button
+              class="button shadowed yellow"
+              (click)="abrirModalCliente(modalCliente)"
+            >
               Nuevo cliente
             </button>
-                        <input type="checkbox" data-role="checkbox" data-caption="Consumidor final" name="consumidorFinal" [(ngModel)]="ConsumidorFinal" (change)="ConsumidorFilanEstado()" />
-                    </div>
-                    <!-- mesa # -->
-                    <div class="d-flex justify-content-between mb-4">
-                        <input type="text" data-role="input" [placeholder]="mesa.nombre || 'Seleccionar mesa'" name="mesa_pedido" (click)="abrirModalMesa(modalMesa)">
-                        <!-- <input class="button shadowed warning" [value]="mesa.nombre || 'Seleccionar mesa'" (click)="abrirModalMesa(modalMesa)"> -->
-                    </div>
+            <input
+              type="checkbox"
+              data-role="checkbox"
+              data-caption="Consumidor final"
+              name="consumidorFinal"
+              [(ngModel)]="ConsumidorFinal"
+              (change)="ConsumidorFilanEstado()"
+            />
+          </div>
+          <!-- mesa # -->
+          <div class="d-flex justify-content-between mb-4">
+            <input
+              type="text"
+              data-role="input"
+              [placeholder]="mesa.nombre || 'Seleccionar mesa'"
+              name="mesa_pedido"
+              (click)="abrirModalMesa(modalMesa)"
+            />
+            <!-- <input class="button shadowed warning" [value]="mesa.nombre || 'Seleccionar mesa'" (click)="abrirModalMesa(modalMesa)"> -->
+          </div>
 
-                    <!-- estado pedido -->
-                    <div class="input-group mb-2">
-                        <div class="input-group-prepend">
-                            <label class="input-group-text" for="inputGroupSelect01" style="border-right-color: transparent">Estado pedido:</label
+          <!-- estado pedido -->
+          <div class="input-group mb-2">
+            <div class="input-group-prepend">
+              <label
+                class="input-group-text"
+                for="inputGroupSelect01"
+                style="border-right-color: transparent"
+                >Estado pedido:</label
               >
             </div>
             <select
@@ -502,11 +541,24 @@
     </div>
     <div *ngIf="movimiento.tipoPago && movimiento.tipoPago.id === 1">
       <label for="">Monto:</label>
-      <input type="number" data-role="input" data-prepend="$: "  required minlength="1">
-      
-      <br>
-      <p class="mt-0"><code class="warning">Total: </code> &#36;{{pedido.total}}</p>
-      <p class="mt-0"><code class="info">Saldo: </code> &#36;{{moviem}}</p>
+      <input
+        type="number"
+        data-role="input"
+        data-prepend="$: "
+        required
+        minlength="1"
+        [(ngModel)]="MontoCambio"
+        (keyup)="calcularCambio($event)"
+      />
+
+      <br />
+      <p class="mt-0">
+        <code class="warning">Total: </code> &#36;{{ calcularTotal() }}
+      </p>
+      <p class="mt-0"><code class="info">Cambio: </code> &#36;{{ Cambio }}</p>
+      <div *ngIf="Cambio < 0" style="background-color: red">
+        Ingrese un valor correcto
+      </div>
     </div>
   </div>
   <div class="modal-footer">
