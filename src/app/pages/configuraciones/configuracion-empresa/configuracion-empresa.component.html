@@ -1,27 +1,67 @@
 <div class="card fondo">
-    <div class="card-body">
-        <form>
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="mb-2">Datos empresa</h5>
-                    <div class="row">
-                        <div class="cell-md-6 pb-0">
-                            <!-- inputs -->
-                            <input type="text" data-role="input" data-prepend="Nombre" class="mb-5" />
-                            <input type="number" data-role="input" data-prepend="Ruc" />
-                        </div>
-                        <div class="cell-md-6 pb-0">
-                            <!-- inputs -->
-                            <input type="number" data-role="input" data-prepend="Celular" class="mb-5" />
-                            <input type="number" data-role="input" data-prepend="Teléfono" class="mb-5" />
-                        </div>
-                    </div>
-                </div>
+  <div class="card-body">
+    <form>
+      <div class="card">
+        <div class="card-body">
+          <h5 class="mb-2">Datos empresa</h5>
+          <div class="row">
+            <div class="cell-md-6 pb-0">
+              <!-- inputs -->
+              <input
+                autocomplete="off"
+                type="text"
+                data-role="input"
+                data-prepend="Nombre"
+                class="mb-5"
+                name="Nombre"
+                placeholder="nombre empresa"
+                [(ngModel)]="restaurant.nombreRestaurante"
+              />
+              <input
+                autocomplete="off"
+                type="text"
+                data-role="input"
+                data-prepend="Ruc"
+                name="Ruc"
+                placeholder="RUC"
+                [(ngModel)]="restaurant.ruc"
+              />
             </div>
-            <div class="w-100 d-flex justify-content-sm-between mt-5 mb-2">
-                <button class="button shadowed button-usuario ml-2">Cancelar</button>
-                <button class="button shadowed button-usuario button-save mr-2">Guardar</button>
+            <div class="cell-md-6 pb-0">
+              <!-- inputs -->
+              <input
+                autocomplete="off"
+                type="number"
+                data-role="input"
+                data-prepend="Celular"
+                class="mb-5"
+                name="celular"
+                placeholder="celular"
+                [(ngModel)]="restaurant.celular"
+              />
+              <input
+                type="number"
+                data-role="input"
+                data-prepend="Teléfono"
+                name="telef"
+                class="mb-5"
+                placeholder="Teléfono"
+                autocomplete="off"
+                [(ngModel)]="restaurant.telefono"
+              />
             </div>
-        </form>
-    </div>
+          </div>
+        </div>
+      </div>
+      <div class="w-100 d-flex justify-content-sm-between mt-5 mb-2">
+        <button class="button shadowed button-usuario ml-2">Cancelar</button>
+        <button
+          class="button shadowed button-usuario button-save mr-2"
+          (click)="registrarEmpresa()"
+        >
+          Guardar
+        </button>
+      </div>
+    </form>
+  </div>
 </div>
