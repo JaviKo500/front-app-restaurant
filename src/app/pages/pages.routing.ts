@@ -49,7 +49,12 @@ const routes: Routes = [
         data: {
           title: 'Inicio',
           subTitle: 'Bienvenido',
-          role: ['ROLE_COCINERO', 'ROLE_CAJERO'],
+          role: [
+            'ROLE_COCINERO',
+            'ROLE_CAJERO',
+            'ROLE_MESERO',
+            'ROLE_COCINERO',
+          ],
         },
       },
       {
