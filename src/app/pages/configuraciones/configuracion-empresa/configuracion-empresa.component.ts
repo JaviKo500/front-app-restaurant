@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { timeStamp } from 'console';
 import { Restaurant } from 'src/app/models/restaurant/restaurant';
 import { RestaurantService } from 'src/app/services/restaurant/restaurant.service';
 
