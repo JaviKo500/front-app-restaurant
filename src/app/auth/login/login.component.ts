@@ -50,12 +50,13 @@ export class LoginComponent implements OnInit {
   };
 
   logIn = (): void => {
+    
     if (!this.usuario.username || !this.usuario.password) {
       swal.fire('Advertencia', 'Debe llenar los campos', 'warning');
       return;
     }
     this.authService.logIn(this.usuario).subscribe(
-      (response) => {
+      (response) => {        
         this.authService.guardarUsuario(response.access_token);
         this.authService.guardarToken(response.access_token);
         swal.fire({
@@ -65,7 +66,7 @@ export class LoginComponent implements OnInit {
           showConfirmButton: false,
           timer: 1500,
         });
-        this.router.navigate(['/dashboard/user']);
+        this.router.navigate(['/dashboard']);
       },
       (error) => {
         if (error.status === 400) {

@@ -51,7 +51,7 @@ export class AuthService {
     );
   };
 
-  guardarUsuario = (access_token: string): void => {
+  guardarUsuario = (access_token: string): void => {    
     let payload = this.obtenerDatosToken(access_token);
     this._usuario = new Usuario();
     this._usuario.id = payload.id_usuario;
