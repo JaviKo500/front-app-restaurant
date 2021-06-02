@@ -42,7 +42,7 @@ export class LoginComponent implements OnInit {
     if ( this.authService.isAuthenticated()){
       swal.fire({ position: 'top-end', icon: 'info', title: `${this.authService.usuario.username} , ya estas autentificado`, showConfirmButton: false, timer: 1500 });
       this.router.navigate(['/dashboard']);
-    } else {      
+    } else {
       this.router.navigate(['/login']);
     }
   }

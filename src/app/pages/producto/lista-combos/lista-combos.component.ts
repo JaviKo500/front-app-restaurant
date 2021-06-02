@@ -36,11 +36,20 @@ export class ListaCombosComponent implements OnInit {
   }
 
   // combos items
-  productosCombo(combo: Combo, modalPedido) {
+  productosCombo(combo: Combo, modalPedido): void {
     console.log(combo);
-
     this.combo = combo;
+    this.cerrarModal();
     this.modalRef = this.modalService.open(modalPedido, {
+      size: 'xl',
+      centered: true,
+      scrollable: true,
+    });
+  }
+
+  abrirModalAcciones(combo: Combo, modalAcciones): void {
+    this.combo = combo;
+    this.modalRef = this.modalService.open(modalAcciones, {
       size: 'xl',
       centered: true,
       scrollable: true,
@@ -52,6 +61,12 @@ export class ListaCombosComponent implements OnInit {
     this.comboService.CambiarEstadoCombo(combo).subscribe((res) => {
       //colocar lña notificacion
       console.log(res);
+    }, error => {
+      this.listarCombosPageable();
     });
+  }
+
+  cerrarModal(): void {
+    this.modalRef.close();
   }
 }

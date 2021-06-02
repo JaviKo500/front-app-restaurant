@@ -59,28 +59,15 @@
             <td>{{ com.precio }}</td>
             <td>
               <div class="d-flex justify-content-around align-items-center">
-                <div class="cell-xl-3 cell-sm-1">
+                <div class="cell-xl-3 cell-sm-1 cell-md-1">
                   <button
                     class="button primary shadowed"
-                    (click)="productosCombo(com, modalItemsCombo)"
+                    (click)="abrirModalAcciones(com, modalAcciones)"
                   >
-                    Ver Detalle
+                  <i class="fas fa-bars"></i>
                   </button>
                 </div>
-                <div class="cell-xl-3 cell-sm-1">
-                  <button
-                    class="button yellow shadowed border-radius-1 mb-0"
-                    [routerLink]="['/dashboard/crearcombo/', com.id]"
-                  >
-                    Editar
-                  </button>
-                </div>
-                <div class="cell-xl-3 cell-sm-1">
-                  <button class="button alert shadowed border-radius-1 mb-0">
-                    Borrar
-                  </button>
-                </div>
-                <div class="cell-xl-3 cell-sm-1 d-flex align-content-center">
+                <div class="cell-xl-3 cell-sm-1 cell-md-1 d-flex align-content-center">
                   <label class="checkbox transition-on"
                     ><input
                       type="checkbox"
@@ -94,6 +81,20 @@
                     ><span class="caption">Esta en el menú</span></label
                   >
                 </div>
+                <div class="cell-xl-3 cell-sm-1 cell-md-1 d-flex align-content-center">
+                  <label class="checkbox transition-on"
+                    ><input
+                      type="checkbox"
+                      data-role="checkbox"
+                      data-caption="Style 1"
+                      data-role-checkbox="true"
+                      name="combo_especial"
+                      [(ngModel)]="com.especial"
+                      (change)="cambiarestado(com)"
+                    /><span class="check"></span
+                    ><span class="caption">Especial</span></label
+                  >
+                </div>
               </div>
             </td>
           </tr>
@@ -102,7 +103,46 @@
     </div>
   </div>
 </div>
-
+<ng-template #modalAcciones let-modal>
+  <div class="modal-header">
+   <h3>Acciones para los combos</h3>
+  </div>
+  <div class="modal-body flex-style">
+    <div class="cont-description">
+      <div class="d-flex justify-content-around align-items-center">
+        <div class="cell-xl-3 cell-sm-1">
+          <button
+            class="button primary shadowed"
+            (click)="productosCombo(combo, modalItemsCombo)"
+          >
+            Ver Detalles
+          </button>
+        </div>
+        <div class="cell-xl-3 cell-sm-1">
+          <button
+            class="button yellow shadowed border-radius-1 mb-0" (click)="cerrarModal()"
+            [routerLink]="['/dashboard/crearcombo/', combo.id]"
+          >
+            Editar
+          </button>
+        </div>
+        <div class="cell-xl-3 cell-sm-1">
+          <button class="button alert shadowed border-radius-1 mb-0">
+            Borrar
+          </button>
+        </div>
+        </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button
+      class="button alert shadowed border-radius-1 mb-0"
+      (click)="modal.dismiss('Cross click')"
+    >
+      Cerrar
+    </button>
+  </div>
+</ng-template>
 <!-- modal apra ver los items del Combo -->
 <ng-template #modalItemsCombo let-modal>
   <div class="modal-header">

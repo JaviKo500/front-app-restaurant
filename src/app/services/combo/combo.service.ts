@@ -5,12 +5,13 @@ import { catchError, map } from 'rxjs/operators';
 import { Combo } from 'src/app/models/productos/combo';
 import { BASE_URL } from 'src/environments/configurations';
 import swal from 'sweetalert2';
+import { MensajesAlertaService } from '../mensajes-alerta.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ComboService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private mensajesService: MensajesAlertaService) {}
   private url: string = BASE_URL;
   registrarCombo(combo: Combo): Observable<any> {
     return this.http.post(this.url + 'registrar/combo', combo).pipe(
@@ -69,9 +70,12 @@ export class ComboService {
   //cambiar el estado del combo
   CambiarEstadoCombo(combo: Combo): Observable<any> {
     return this.http.put(this.url + 'actualizar/estado/combo', combo).pipe(
-      map((response: any) => response.mensaje),
+      map((response: any) => {
+        this.mensajesService.mensajeSweetInformacionToast('success', response.mensaje);
+        return response.mensaje;
+      }),
       catchError((e) => {
-        swal.fire(e.error.mensaje, e.error.error, 'warning');
+        swal.fire(e.error.titulo, e.error.mensaje, 'warning');
         return throwError(e);
       })
     );

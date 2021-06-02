@@ -9,6 +9,7 @@ export class Combo {
   imagen: string;
   categoria: Categoria;
   estado: boolean = false;
+  especial: boolean = false;
   itemsCombo: ProductoCombo[] = [];
   infoExtra: string = '';
   saborBebida: string = '';

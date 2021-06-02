@@ -5,12 +5,13 @@ import { catchError, map } from 'rxjs/operators';
 import swal from 'sweetalert2';
 import { Observable, throwError } from 'rxjs';
 import { Producto } from 'src/app/models/productos/producto';
+import { MensajesAlertaService } from '../mensajes-alerta.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ProductoService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private mensajeService: MensajesAlertaService) {}
   private url: string = BASE_URL;
 
   // filtrar productos del cliente
@@ -29,9 +30,12 @@ export class ProductoService {
     return this.http
       .put(this.url + 'actualizar/estado/producto', producto)
       .pipe(
-        map((response: any) => response.mensaje),
+        map((response: any) => {
+          this.mensajeService.mensajeSweetInformacionToast('success', response.mensaje);
+          return response.mensaje;
+        }),
         catchError((e) => {
-          swal.fire(e.error.mensaje, e.error.error, 'warning');
+          swal.fire(e.error.titulo, e.error.mensaje , 'warning');
           return throwError(e);
         })
       );
@@ -51,6 +55,8 @@ export class ProductoService {
   ObtenerProductosPageable(page: number): Observable<any> {
     return this.http.get(this.url + 'get/products/' + page).pipe(
       map((response: any) => {
+        console.log(response);
+        
         return response.productos;
       }),
       catchError((e) => {
