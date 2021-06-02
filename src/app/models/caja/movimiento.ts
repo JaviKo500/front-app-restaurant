@@ -12,4 +12,6 @@ export class Movimiento {
   fecha: Date;
   fechaMovimiento: Date;
   estado: boolean;
+  monto_entregado: number = 0.0;
+  cambio_usuario: number = 0.0;
 }

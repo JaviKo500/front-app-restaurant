@@ -54,6 +54,8 @@ export class VentaComponent implements OnInit {
   modalReference: NgbModalRef;
   tiposPago: MedioPago[] = [];
   movimiento: Movimiento = new Movimiento();
+  MontoCambio: number = 0.0;
+  Cambio: number = 0.0;
 
   constructor(
     private modalService: NgbModal,
@@ -67,6 +69,12 @@ export class VentaComponent implements OnInit {
     private authService: AuthService,
     private usuarioService: UsuarioService
   ) {}
+
+  calcularCambio(event: any): void {
+    console.log('cambio');
+    this.Cambio =
+      Math.floor((this.MontoCambio - this.calcularTotal()) * 100) / 100;
+  }
 
   ngOnInit(): void {
     // cargar pedido en caso de haberlo
@@ -140,7 +148,13 @@ export class VentaComponent implements OnInit {
           this.enviarMovimiento();
         }
       } else {
-        this.enviarMovimiento();
+        if (this.Cambio < 0) {
+          return;
+        } else {
+          this.movimiento.monto_entregado = this.MontoCambio;
+          this.movimiento.cambio_usuario = this.Cambio;
+          this.enviarMovimiento();
+        }
       }
     }
   }
@@ -486,6 +500,7 @@ export class VentaComponent implements OnInit {
     this.modalReference = this.modalService.open(modal, { scrollable: true });
   }
   abrirModalTipoPago(modal): void {
+    this.Cambio = this.MontoCambio - this.calcularTotal();
     this.listarMediosPagos();
     this.modalReference = this.modalService.open(modal, { scrollable: true });
   }

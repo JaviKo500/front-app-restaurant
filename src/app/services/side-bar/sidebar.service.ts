@@ -28,7 +28,7 @@ export class SidebarService {
       title: 'Pedidos',
       icon: 'fas fa-th-list',
       url: 'pedidos',
-      roles: ['ROLE_ADMIN', 'ROLE_CAJERO'],
+      roles: ['ROLE_ADMIN', 'ROLE_CAJERO','ROLE_MESERO'],
       subMenu: [],
     },
     {
