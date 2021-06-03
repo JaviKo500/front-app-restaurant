@@ -25,6 +25,17 @@ export class ProductoService {
     );
   }
 
+  // filtrar productos del cliente
+  ObtenerProductosEspecialesClientes(): Observable<any> {
+    return this.http.get(this.url + 'get/products/especiales').pipe(
+      map((response: any) => response.productos as Producto[]),
+      catchError((e) => {
+        swal.fire(e.error.mensaje, e.error.error, 'error');
+        return throwError(e);
+      })
+    );
+  }
+
   // cambiar el estado del producto
   CambiarEstadoProducto(producto: Producto): Observable<any> {
     return this.http
@@ -41,7 +52,7 @@ export class ProductoService {
       );
   }
 
-  //obtener productos por el id
+  // obtener productos por el id
   ObtenerProducto(id: number): Observable<Producto> {
     return this.http.get(this.url + 'get/product/' + id).pipe(
       map((response: any) => response.producto as Producto),
@@ -51,12 +62,10 @@ export class ProductoService {
       })
     );
   }
-  //obtener productos por paginacion
+  // obtener productos por paginacion
   ObtenerProductosPageable(page: number): Observable<any> {
     return this.http.get(this.url + 'get/products/' + page).pipe(
       map((response: any) => {
-        console.log(response);
-        
         return response.productos;
       }),
       catchError((e) => {
@@ -65,7 +74,7 @@ export class ProductoService {
       })
     );
   }
-  //registrar productos
+  // registrar productos
   RegistarProducto(producto: Producto): Observable<Producto> {
     return this.http.post(this.url + 'register/product', producto).pipe(
       map((response: any) => response),
@@ -75,7 +84,7 @@ export class ProductoService {
       })
     );
   }
-  //actualizar productos
+  // actualizar productos
   updateProduct(producto: Producto): Observable<any> {
     return this.http
       .put(this.url + 'update/product/' + producto.id, producto)
@@ -87,7 +96,7 @@ export class ProductoService {
         })
       );
   }
-  //elimnar productos
+  // elimnar productos
   deleteProducto(id: number): Observable<any> {
     return this.http.delete(this.url + 'delete/product/' + id).pipe(
       map((response: any) => response.mensaje),
@@ -98,7 +107,7 @@ export class ProductoService {
     );
   }
 
-  //elimnar productos definitivamente por error de imagen
+  // elimnar productos definitivamente por error de imagen
   deleteProductoDefinitive(id: number): Observable<any> {
     return this.http.delete(this.url + 'delete/product/definitivo/' + id).pipe(
       map((response: any) => response.mensaje),

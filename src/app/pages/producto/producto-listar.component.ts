@@ -72,8 +72,6 @@ export class ProductoListarComponent implements OnInit {
 
   // funcion para cambiar el estado del producto
   cambiarEstadoProducto(prod: Producto): void {
-    console.log(prod);
-    
     this.productoserService.CambiarEstadoProducto(prod)
     .subscribe((res) => {
       console.log(res);

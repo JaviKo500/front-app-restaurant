@@ -59,8 +59,6 @@ export class ListaCombosComponent implements OnInit {
   cambiarestado(combo): void {
     console.log(combo.estado);
     this.comboService.CambiarEstadoCombo(combo).subscribe((res) => {
-      //colocar lña notificacion
-      console.log(res);
     }, error => {
       this.listarCombosPageable();
     });

@@ -34,6 +34,7 @@ export class ProductosComponent implements OnInit {
   productos: Producto[] = [];
   combos: Combo[] = [];
   operacion: OperacionesProductos = new OperacionesProductos();
+  titulo: string = '';
   constructor(
     private modalService: NgbModal,
     private productoService: ProductoService,
@@ -56,8 +57,13 @@ export class ProductosComponent implements OnInit {
     //parametros de id de categoria
     this.activatedRoute.paramMap.subscribe((params) => {
       let id_cate = +params.get('id_cate');
+      const productoEspecial = params.get('id_cate');
       if (id_cate) {
+        this.titulo = '';
         this.listarProductosPorCategoria(id_cate);
+      } else if ( productoEspecial ) {
+        this.titulo = 'Productos especiales';
+        this.listarProductosEspeciales();
       }
     });
   }
@@ -65,6 +71,12 @@ export class ProductosComponent implements OnInit {
   //listar productos por categoria
   listarProductosPorCategoria(id: number): void {
     this.productoService.ObtenerProductosClientes(id).subscribe((res) => {
+      this.productos = res;
+    });
+  }
+  //listar productos por categoria
+  listarProductosEspeciales(): void {
+    this.productoService.ObtenerProductosEspecialesClientes().subscribe((res) => {
       this.productos = res;
     });
   }

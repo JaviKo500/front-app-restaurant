@@ -25,7 +25,7 @@ export class ComboService {
       })
     );
   }
-  //lista las categorias para los combos
+  // lista las categorias para los combos
   listarCategoriasCombo(): Observable<any> {
     return this.http.get(this.url + 'get/categories/combos').pipe(
       map((response: any) => response),
@@ -35,7 +35,7 @@ export class ComboService {
       })
     );
   }
-  //pagina todos los combos
+  // pagina todos los combos
   listarCombosPageable(page: number): Observable<any> {
     return this.http.get(this.url + 'get/combos-disponibles/' + page).pipe(
       map((response: any) => response),
@@ -46,9 +46,19 @@ export class ComboService {
     );
   }
 
-  //filtrar combos para el cliente
+  // filtrar combos para el cliente
   ObtenerCombosClientes(cate_id: number): Observable<any> {
     return this.http.get(this.url + 'get/client/combos/' + cate_id).pipe(
+      map((response: any) => response.combos as Combo[]),
+      catchError((e) => {
+        swal.fire(e.error.mensaje, e.error.error, 'error');
+        return throwError(e);
+      })
+    );
+  }
+  // filtrar combos para el cliente
+  ObtenerCombosEspecialesClientes(): Observable<any> {
+    return this.http.get(this.url + 'get/combos/especiales').pipe(
       map((response: any) => response.combos as Combo[]),
       catchError((e) => {
         swal.fire(e.error.mensaje, e.error.error, 'error');
@@ -67,7 +77,7 @@ export class ComboService {
     );
   }
 
-  //cambiar el estado del combo
+  // cambiar el estado del combo
   CambiarEstadoCombo(combo: Combo): Observable<any> {
     return this.http.put(this.url + 'actualizar/estado/combo', combo).pipe(
       map((response: any) => {

@@ -35,6 +35,8 @@ export class CombosComponent implements OnInit {
   operaciones: OperacionesCombos = new OperacionesCombos();
   api = BASE_URL;
   infoExtra: string = '';
+
+  titulo:string  = '';
   constructor(
     private modalService: NgbModal,
     private activatedRouter: ActivatedRoute,
@@ -44,18 +46,7 @@ export class CombosComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.activatedRouter.paramMap.subscribe((params) => {
-      let id_categoria = +params.get('id');
-      console.log(id_categoria);
-      if (id_categoria) {
-        this.comboService
-          .ObtenerCombosClientes(id_categoria)
-          .subscribe((combosCliente) => {
-            console.log(combosCliente);
-            this.combos = combosCliente;
-          });
-      }
-    });
+    this.listarCombos();
     this.recuperarDelLocalStorage();
     // obtener la lista modificada de
     this.pedidoService.itemscombo$.subscribe((items) => {
@@ -65,6 +56,26 @@ export class CombosComponent implements OnInit {
     this.obtenerBebidas();
   }
 
+  listarCombos = (): void => {
+    this.activatedRouter.paramMap.subscribe((params) => {
+      const id_categoria = +params.get('id');
+      const comboEspecia = params.get('id');
+      if (id_categoria) {
+        this.titulo = 'Combos';
+        this.comboService
+          .ObtenerCombosClientes(id_categoria)
+          .subscribe((combosCliente) => {
+            console.log(combosCliente);
+            this.combos = combosCliente;
+          });
+      } else if ( comboEspecia ) {
+        this.titulo = 'Combos especiales';
+        this.comboService.ObtenerCombosEspecialesClientes().subscribe( response => {
+          this.combos = response;
+        });
+      }
+    });
+  }
   // agregar un producto al pedido
   agregarCombo(comb: Combo): void {
     comb.infoExtra = this.infoExtra;
