@@ -6,7 +6,7 @@
             </div>
             <hr>
             <!-- carousel de imagenes -->
-            <app-carousel [productosEspeciales] ="productosEspeciales" [tipo] = "'producto'"></app-carousel>
+            <app-carousel [productosEspeciales] ="productosEspeciales" [tipo] = "'producto'" *ngIf="productosEspeciales.length > 0"></app-carousel>
             <div class="flex-container wrap">
                 <div class="alert alert-primary" role="alert" *ngIf="categorias.length == 0 && categoriasCombos.length === 0">
                     Menu no disponible aun, intente actualizando la página!
@@ -34,7 +34,7 @@
             </div>
             <hr>
             <!-- carousel de imagenes -->
-            <app-carousel [combosEspeciales] ="combosEspeciales" [tipo] = "'combo'"></app-carousel>
+            <app-carousel [combosEspeciales] ="combosEspeciales" [tipo] = "'combo'" *ngIf="combosEspeciales.length > 0"></app-carousel>
             <div class="flex-container wrap">
                 <div *ngFor="let catCombo of categoriasCombos">
                     <div class="card-categoria" [routerLink]="['/cliente/menu/combo/', catCombo.id]">

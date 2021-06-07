@@ -10,5 +10,5 @@ export const API_CATE = 'register/category/image/upload';
 // export const API_QR = 'http://192.168.10.50:4200/#/';
 
 // javi 
-export const BASE_URL = 'http://192.168.1.7:8080/';
-export const API_QR = 'http://192.168.1.7:4200/#/';
+export const BASE_URL = 'http://192.168.1.10:8080/';
+export const API_QR = 'http://192.168.1.10:4200/#/';
