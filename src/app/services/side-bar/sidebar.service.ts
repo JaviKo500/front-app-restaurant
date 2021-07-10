@@ -170,13 +170,6 @@ export class SidebarService {
       ],
     },
     {
-      title: 'Mesas',
-      icon: 'fas fa-chair',
-      roles: ['ROLE_ADMIN'],
-      url: 'mesas/page/0',
-      subMenu: [],
-    },
-    {
       title: 'Configuraciones',
       icon: 'fas fa-cogs',
       url: '',
@@ -187,6 +180,12 @@ export class SidebarService {
           icon: 'fas fa-cog',
           roles: ['ROLE_ADMIN'],
           url: 'empresa',
+        },
+        {
+          title: 'Mesas',
+          icon: 'fas fa-chair',
+          roles: ['ROLE_ADMIN'],
+          url: 'mesas/page/0'
         }
       ],
     },

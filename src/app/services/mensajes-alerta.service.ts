@@ -25,6 +25,16 @@ export class MensajesAlertaService {
       title: mensaje
     });
   }
+  // tslint:disable-next-line: max-line-length
+  mensajeSweetFireToast = (alertIcon: 'success' | 'error' | 'warning' | 'info' | 'question', mensaje: string, pos: 'top-end', tim = 1500) => {
+    Swal.fire({
+      position: pos,
+      icon: alertIcon,
+      title: mensaje,
+      showConfirmButton: false,
+      timer: tim,
+    });
+  }
   // <-------------------------- mensajes para usuario ------------------------->
   mensajeSweetFire = (sweetAlertIcon: 'success' | 'error' | 'warning' | 'info' | 'question', mensaje: string , titulo: string): void => {
     Swal.fire( titulo, mensaje, sweetAlertIcon);

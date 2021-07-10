@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { Restaurant } from 'src/app/models/restaurant/restaurant';
-import { RestaurantService } from 'src/app/services/restaurant/restaurant.service';
 
-//swal import
-import swal from 'sweetalert2';
+// models
+import { Restaurant } from 'src/app/models/restaurant/restaurant';
+
+// services
+import { MensajesAlertaService } from '../../../services/mensajes-alerta.service';
+import { RestaurantService } from 'src/app/services/restaurant/restaurant.service';
 
 @Component({
   selector: 'app-configuracion-empresa',
@@ -12,10 +14,15 @@ import swal from 'sweetalert2';
 })
 export class ConfiguracionEmpresaComponent implements OnInit {
   restaurant: Restaurant = new Restaurant();
-  vacio: string = 'no registrado';
-  numberVacio: number = 0;
-  erroresbackend: string[] = [];
-  constructor(private restaurantService: RestaurantService) {}
+  vacio = 'no registrado';
+  numberVacio = 0;
+  erroresBackend: string [] = [];
+
+  public isEditar = false;
+  constructor(
+              private mensajeService: MensajesAlertaService,
+              private restaurantService: RestaurantService
+              ) {}
 
   ngOnInit(): void {
     this.cargarDataRestaurant();
@@ -25,31 +32,36 @@ export class ConfiguracionEmpresaComponent implements OnInit {
       this.restaurant = res;
       if (!this.restaurant) {
         this.restaurant = new Restaurant();
-        swal.fire(
-          'Registro',
-          'Debe ingresar los datos para registrar su empresa.',
-          'warning'
-        );
+        this.mensajeService.mensajeSweetFire('warning', 'Ingrese los datos para registrar su empresa.' , 'Registro')
+        this.isEditar = true;
+      } else {
+        this.isEditar = false;
       }
-      console.log(res);
     });
   }
 
   registrarEmpresa(): void {
     this.restaurantService.actualizarDataRestaurant(this.restaurant).subscribe(
       (res) => {
-        swal.fire({
-          position: 'top-end',
-          icon: 'success',
-          title: 'Your work has been saved',
-          showConfirmButton: false,
-          timer: 1500,
-        });
+        this.mensajeService.mensajeSweetFireToast('success', 'Datos de la empresa guardados', 'top-end');
+        this.isEditar = false;
+        this.erroresBackend = [];
       },
       (err) => {
-        this.erroresbackend = err.error.errores as string[];
-        console.log(this.erroresbackend);
+        this.erroresBackend = err.error.errores as string[];
+        this.isEditar = true;
       }
     );
   }
+
+  //  regresamos a la url anterior
+  regresar = () => history.back();
+
+  // para ocultar y mostrar los datos y form
+  editar = () => {
+    if ( this.restaurant.id  || this.restaurant.nombreRestaurante) {
+      this.isEditar = !this.isEditar;
+    }
+  }
+  
 }

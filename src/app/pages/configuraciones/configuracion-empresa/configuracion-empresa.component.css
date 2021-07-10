@@ -11,3 +11,7 @@ button:focus {
     outline: none;
     outline: none;
 }
+
+.invalid_feedback{
+    display: block !important;
+}

@@ -3,11 +3,48 @@
     <form>
       <div class="card">
         <div class="card-body">
-          <h5 class="mb-2">Datos empresa</h5>
-          <div class="row">
+          <h4 class="mb-2">Datos de la empresa</h4>
+          <!-- erroes del back -->
+            <div class="row" *ngIf="erroresBackend.length > 0">
+              <ul class="list-group">
+                <li
+                  class="invalid_feedback"
+                  *ngFor="let err of erroresBackend"
+                >
+                  {{ err }}
+                </li>
+              </ul>
+            </div>
+          <div  class="row"
+                *ngIf="!isEditar && restaurant">
+            <!-- bloque de informaciond e la empresa -->
+            <div class="cell-sm-5 cell-md-5 cell-lg-5  cell-12">
+              <address>
+                <h5>Detalles</h5>
+                <p><strong>Nombre:</strong> {{restaurant.nombreRestaurante}}</p> 
+                <p><strong>RUC:</strong> {{restaurant.ruc}}</p> 
+              </address>
+            </div>
+            <div class="cell-sm-5 cell-md-5 cell-lg-5 cell-12">
+              <address>
+                <h5>Contactos</h5>
+                <p title="Movil"><strong>Cel:</strong> {{restaurant.celular}}</p> 
+                <p title="Teléfono"><strong>Tel:</strong>  {{restaurant.telefono}}</p>
+              </address>
+            </div>
+            <div class="cell-1">              
+              <button class="button light"
+                      (click)="editar()">
+                <span class="fas fa-edit">
+                </span>
+              </button>
+            </div>
+          </div>
+          <div  class="row"
+                *ngIf="isEditar && restaurant">
             <div class="cell-md-6 pb-0">
-              <!-- inputs -->
-              <input
+              <!-- inputs para editar datos-->
+                <input
                 autocomplete="off"
                 type="text"
                 data-role="input"
@@ -53,13 +90,21 @@
           </div>
         </div>
       </div>
-      <div class="w-100 d-flex justify-content-sm-between mt-5 mb-2">
-        <button class="button shadowed button-usuario ml-2">Cancelar</button>
-        <button
-          class="button shadowed button-usuario button-save mr-2"
-          (click)="registrarEmpresa()"
-        >
-          Guardar
+      <div class="w-100 d-flex justify-content-between mt-5 mb-2">
+        <button class="button shadowed button-usuario ml-2 w-100"
+                *ngIf="!isEditar && restaurant"
+                (click)="regresar()">
+                Regresar
+        </button>
+        <button class="button shadowed button-usuario ml-2"
+                *ngIf="isEditar && restaurant"
+                (click)="editar()">
+                Cancelar
+        </button>
+        <button class="button shadowed button-usuario button-save mr-2"
+                *ngIf="isEditar && restaurant"
+                (click)="registrarEmpresa()">
+                Guardar
         </button>
       </div>
     </form>
