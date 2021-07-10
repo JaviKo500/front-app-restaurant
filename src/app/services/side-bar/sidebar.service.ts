@@ -20,7 +20,7 @@ export class SidebarService {
     {
       title: 'Inicio',
       icon: 'fas fa-home',
-      url: '/user',
+      url: 'user',
       roles: ['ROLE_COCINERO', 'ROLE_CAJERO'],
       subMenu: [],
     },
@@ -28,7 +28,7 @@ export class SidebarService {
       title: 'Pedidos',
       icon: 'fas fa-th-list',
       url: 'pedidos',
-      roles: ['ROLE_ADMIN', 'ROLE_CAJERO','ROLE_MESERO'],
+      roles: ['ROLE_ADMIN', 'ROLE_CAJERO', 'ROLE_MESERO'],
       subMenu: [],
     },
     {

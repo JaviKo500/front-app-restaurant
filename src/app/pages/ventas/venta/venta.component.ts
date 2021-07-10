@@ -500,7 +500,7 @@ export class VentaComponent implements OnInit {
     this.modalReference = this.modalService.open(modal, { scrollable: true });
   }
   abrirModalTipoPago(modal): void {
-    this.Cambio = this.MontoCambio - this.calcularTotal();
+    this.Cambio = this.MontoCambio >= this.calcularTotal() ? this.MontoCambio - this.calcularTotal() : 0;
     this.listarMediosPagos();
     this.modalReference = this.modalService.open(modal, { scrollable: true });
   }

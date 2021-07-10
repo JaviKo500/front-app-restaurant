@@ -550,14 +550,15 @@
         [(ngModel)]="MontoCambio"
         (keyup)="calcularCambio($event)"
       />
-
-      <br />
-      <p class="mt-0">
-        <code class="warning">Total: </code> &#36;{{ calcularTotal() }}
-      </p>
-      <p class="mt-0"><code class="info">Cambio: </code> &#36;{{ Cambio }}</p>
-      <div *ngIf="Cambio < 0" style="background-color: red">
+      <div *ngIf="Cambio < 0" style="color: red;" >
         Ingrese un valor correcto
+      </div>
+      <br />
+      <div class="d-flex justify-content-around">
+        <p class="mt-0">
+          <code class="warning">Total a pagar: </code> &#36;{{ calcularTotal() }}
+        </p>
+        <p class="mt-0"><code class="info">Cambio: </code> &#36;{{ Cambio }}</p>
       </div>
     </div>
   </div>

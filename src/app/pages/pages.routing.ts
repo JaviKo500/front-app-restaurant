@@ -53,7 +53,6 @@ const routes: Routes = [
             'ROLE_COCINERO',
             'ROLE_CAJERO',
             'ROLE_MESERO',
-            'ROLE_COCINERO',
           ],
         },
       },

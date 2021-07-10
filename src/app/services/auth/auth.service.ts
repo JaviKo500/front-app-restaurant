@@ -49,7 +49,7 @@ export class AuthService {
       params.toString(),
       { headers: httpHeaders }
     );
-  };
+  }
 
   guardarUsuario = (access_token: string): void => {    
     let payload = this.obtenerDatosToken(access_token);
@@ -59,36 +59,36 @@ export class AuthService {
     this._usuario.roles = payload.authorities;
     // gurdamos en el localstorage
     sessionStorage.setItem('usuario', JSON.stringify(this._usuario));
-  };
+  }
   guardarToken = (access_token: string): void => {
     this._token = access_token;
     sessionStorage.setItem('token', this._token);
-  };
+  }
 
   obtenerDatosToken = (access_token: string): any => {
     if (access_token !== null) {
       return JSON.parse(atob(access_token.split('.')[1]));
     }
     return null;
-  };
+  }
   isAuthenticated = (): boolean => {
     let payload = this.obtenerDatosToken(this.token);
     if (payload !== null && payload.user_name && payload.user_name.length > 0) {
       return true;
     }
     return false;
-  };
+  }
 
   logOut = (): void => {
     this._token = null;
     this._usuario = null;
     sessionStorage.removeItem('usuario');
     sessionStorage.removeItem('token');
-  };
+  }
   hasRole = (role: any): boolean => {
     if (this.usuario.roles.includes(role)) {
       return true;
     }
     return false;
-  };
+  }
 }
