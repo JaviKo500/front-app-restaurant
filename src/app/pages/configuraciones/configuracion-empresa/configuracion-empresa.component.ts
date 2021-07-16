@@ -14,8 +14,6 @@ import { RestaurantService } from 'src/app/services/restaurant/restaurant.servic
 })
 export class ConfiguracionEmpresaComponent implements OnInit {
   restaurant: Restaurant = new Restaurant();
-  vacio = 'no registrado';
-  numberVacio = 0;
   erroresBackend: string [] = [];
 
   public isEditar = false;
@@ -30,6 +28,7 @@ export class ConfiguracionEmpresaComponent implements OnInit {
   cargarDataRestaurant(): void {
     this.restaurantService.obtenerDatosRestaurant().subscribe((res) => {
       this.restaurant = res;
+      console.log(res);
       if (!this.restaurant) {
         this.restaurant = new Restaurant();
         this.mensajeService.mensajeSweetFire('warning', 'Ingrese los datos para registrar su empresa.' , 'Registro')
@@ -46,6 +45,7 @@ export class ConfiguracionEmpresaComponent implements OnInit {
         this.mensajeService.mensajeSweetFireToast('success', 'Datos de la empresa guardados', 'top-end');
         this.isEditar = false;
         this.erroresBackend = [];
+        this.cargarDataRestaurant();
       },
       (err) => {
         this.erroresBackend = err.error.errores as string[];
@@ -59,9 +59,8 @@ export class ConfiguracionEmpresaComponent implements OnInit {
 
   // para ocultar y mostrar los datos y form
   editar = () => {
-    if ( this.restaurant.id  || this.restaurant.nombreRestaurante) {
+    if ( this.restaurant.id) {
       this.isEditar = !this.isEditar;
     }
   }
-  
 }
