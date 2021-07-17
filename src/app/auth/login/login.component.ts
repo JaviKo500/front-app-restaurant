@@ -34,6 +34,7 @@ export class LoginComponent implements OnInit {
     this.contenedor.style.height = `${this.pantalla}px`;
     this.verificarUsuarioLogIn();
   }
+
   verificarUsuarioLogIn = () => {
     if (this.authService.isAuthenticated()) {
       swal.fire({
@@ -47,16 +48,18 @@ export class LoginComponent implements OnInit {
     } else {
       this.router.navigate(['/login']);
     }
-  };
+  }
 
   logIn = (): void => {
-    
+
     if (!this.usuario.username || !this.usuario.password) {
       swal.fire('Advertencia', 'Debe llenar los campos', 'warning');
       return;
     }
+    this.showLoading();
     this.authService.logIn(this.usuario).subscribe(
-      (response) => {        
+      (response) => {
+        swal.close();
         this.authService.guardarUsuario(response.access_token);
         this.authService.guardarToken(response.access_token);
         swal.fire({
@@ -66,13 +69,24 @@ export class LoginComponent implements OnInit {
           showConfirmButton: false,
           timer: 1500,
         });
+        this.dismissLoading();
         this.router.navigate(['/dashboard']);
       },
       (error) => {
+        this.dismissLoading();
         if (error.status === 400) {
           swal.fire('Error', 'Usuario o clave incorrecta', 'error');
         }
       }
     );
-  };
+  }
+
+  showLoading = (): void => {
+    swal.showLoading();
+  }
+
+  dismissLoading = (): void => {
+    swal.close();
+  }
+
 }
