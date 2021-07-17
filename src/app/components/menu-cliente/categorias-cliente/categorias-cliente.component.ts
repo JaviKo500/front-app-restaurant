@@ -18,26 +18,26 @@ import { Combo } from '../../../models/productos/combo';
 export class CategoriasClienteComponent implements OnInit {
   @Input() categorias: Categoria[] = [];
   @Input() categoriasCombos: Categoria[] = [];
-  productosEspeciales: Producto [] = [];
-  combosEspeciales: Combo [] = [];
+  productosEspeciales: Producto[] = [];
+  combosEspeciales: Combo[] = [];
   categoria: Categoria;
   api = BASE_URL;
-  constructor( 
+  constructor(
     private productoService: ProductoService,
     private comboService: ComboService
-    ) {}
+  ) { }
   ngOnInit(): void {
     this.listaProductosEspeciales();
     this.listaCombosEspeciales();
   }
 
   listaProductosEspeciales = (): void => {
-    this.productoService.ObtenerProductosEspecialesClientes().subscribe( response => {
+    this.productoService.ObtenerProductosEspecialesClientes().subscribe(response => {
       this.productosEspeciales = response;
     });
   }
   listaCombosEspeciales = (): void => {
-    this.comboService.ObtenerCombosEspecialesClientes().subscribe( response => {
+    this.comboService.ObtenerCombosEspecialesClientes().subscribe(response => {
       this.combosEspeciales = response;
     });
   }
