@@ -2,7 +2,7 @@ export const API_PROD = 'register/product/img/upload';
 export const API_CATE = 'register/category/image/upload';
 
 // javi
-export const BASE_URL = 'http://192.168.1.2:8080/';
+export const BASE_URL = 'https://marcatoma-appetit-backend.herokuapp.com/';
 export const API_QR = 'http://192.168.1.2:4200/#/';
 
 // cris
