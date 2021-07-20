@@ -4,6 +4,7 @@ import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+
 // modulos creados
 import { SharedModule } from '../shared/shared.module';
 import { ComponentsModule } from '../components/components.module';
@@ -14,6 +15,7 @@ import { ConfiguracionEmpresaComponent } from './configuraciones/configuracion-e
 import { CrearCajaComponent } from './caja/crear-caja/crear-caja.component';
 import { ClientesComponent } from './clientes/clientes.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { DashboardUsersComponent } from './dashboard-users/dashboard-users.component';
 import { FormularioUsuarioComponent } from './usuarios/formulario-usuario/formulario-usuario.component';
 import { FormularioComponent } from './producto/formulario/formulario.component';
 import { FormularioComboComponent } from './producto/formulario-combo/formulario-combo.component';
@@ -31,7 +33,6 @@ import { VentaComponent } from './ventas/venta/venta.component';
 
 //qr code
 import { QRCodeModule } from 'angularx-qrcode';
-import { DashboardUsersComponent } from './dashboard-users/dashboard-users.component';
 
 @NgModule({
   declarations: [

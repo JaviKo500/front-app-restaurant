@@ -13,9 +13,10 @@
                             </div>
                             <div class="cell-3 offset-6 text-right">
                                 <div class="d-flex flex-justify-end">
-                                    <button class="button primary shadowed btn-block" (click)="openLg(modalMesa)">
-                    Añadir
-                  </button>
+                                    <button class="button primary shadowed btn-block" 
+                                            (click)="openLg(modalMesa)">
+                                        Añadir
+                                    </button>
                                 </div>
                             </div>
                         </div>
@@ -29,8 +30,8 @@
                             <div class="cell-3 offset-0">
                                 <div class="d-flex flex-justify-between">
                                     <button class="button info shadowed btn-block">
-                    Acciones
-                  </button>
+                                        Acciones
+                                    </button>
                                 </div>
                             </div>
                         </div>
@@ -51,28 +52,29 @@
                                             <td>{{ mesa.id }}</td>
                                             <td>{{ mesa.nombre }}</td>
                                             <td>{{ mesa.nombreQr }}</td>
-                                            <td>
-                                                <div class="row row-width alinear">
-                                                    <div class="cell-sm-4">
-                                                        <button class="button primary rounded shadowed" (click)="ModalActualizarMesa(modalMesa, mesa)">
-                              <span class="ml-1"
-                                >Editar <i class="fas fa-edit ml-1"></i
-                              ></span>
-                            </button>
+                                            <td class="pt-2">
+                                                <div class="row" style="height: 45px;">
+                                                    <div class="cell-sm-4" >
+                                                        <button class="button info rounded shadowed"  
+                                                                (click)="ModalActualizarMesa(modalMesa, mesa)"
+                                                                placement="bottom" 
+                                                                ngbTooltip="Editar">
+                                                                <i class="fas fa-edit"></i>
+                                                        </button>
                                                     </div>
-                                                    <div class="cell-sm-4">
-                                                        <button class="button success rounded shadowed" (click)="abrirModalMesaQR(modalMesaQR, mesa)">
-                              <span class="ml-1"
-                                >QR<i class="fas fa-qrcode ml-1"></i
-                              ></span>
-                            </button>
+                                                    <div class="cell-sm-4" >
+                                                        <button class="button success rounded shadowed" 
+                                                                (click)="abrirModalMesaQR(modalMesaQR, mesa)"
+                                                                placement="bottom" 
+                                                                ngbTooltip="Ver código qr">
+                                                                <i class="fas fa-qrcode"></i>
+                                                        </button>
                                                     </div>
-                                                    <div class="cell-sm-4">
-                                                        <button class="button primary alert rounded shadowed" (click)="deletMesa(mesa.id)">
-                              <span class="ml-1"
-                                >Borrar<i class="fas fa-trash-alt ml-1"></i
-                              ></span>
-                            </button>
+                                                    <div class="cell-sm-4" >
+                                                        <button class="button alert outline rounded " 
+                                                                (click)="deletMesa(mesa.id)">
+                                                                <i class="fas fa-trash-alt "></i>
+                                                        </button>
                                                     </div>
                                                 </div>
                                             </td>
@@ -102,10 +104,14 @@
         </div>
     </div>
 </div>
+<!-- Modal para agregar o editar la mesas -->
 <ng-template #modalMesa let-modal>
     <div class="modal-header">
-        <h4 class="modal-title" *ngIf="!mesa.id">Añadir Mesa</h4>
-        <h4 class="modal-title" *ngIf="mesa.id">Editar Mesa</h4>
+        <!-- titulo del modal -->
+        <h4 class="modal-title" *ngIf="!mesa.id; else mesaEdit">Añadir Mesa</h4>
+        <ng-template #mesaEdit>
+            <h4 class="modal-title">Editar Mesa</h4>
+        </ng-template>
         <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
       <span aria-hidden="true">&times;</span>
     </button>
@@ -113,52 +119,78 @@
     <div class="modal-body">
         <div class="d-flex flex-justify-center">
             <div class="row d-flex flex-justify-center" style="width: 100%">
-                <form style="width: 100%">
-                    <input type="text" data-role="input" name="nombre" data-prepend="Nombre Mesa: " [(ngModel)]="mesa.nombre" #nombre="ngModel" required minlength="3" autocomplete="off" />
-                    <div class="sms-alert" *ngIf="nombre.invalid && (nombre.dirty || nombre.touched)">
-                        <div class="sms-alert-required" *ngIf="nombre.errors.required">
-                            <small class="p-invalid">Ingresar un nombre</small>
+                <form style="width: 100%" >
+                    <input  type="text" 
+                            data-role="input" 
+                            name="nombre" 
+                            id="nombre" 
+                            data-prepend="Nombre Mesa: " 
+                            [(ngModel)]="mesa.nombre" 
+                            #nombre="ngModel" 
+                            required 
+                            minlength="3" 
+                            autocomplete="off" />
+                        <div *ngIf="nombre.invalid && (nombre.dirty || nombre.touched)"
+                            class="alert p-0 text-danger">
+                            <div *ngIf="nombre.errors?.required">
+                                Por favor, ingrese un nombre válido
+                            </div>
+                            <div *ngIf="nombre.errors?.minlength">
+                                Por favor, ingrese almenos 3 caracteres
+                            </div>
                         </div>
-                        <div class="sms-alert-length" *ngIf="nombre.errors.minlength">
-                            <small class="p-invalid">Ingresar al menos 3 caracteres</small>
-                        </div>
-                    </div>
-                    <div class="d-flex justify-content-start">
-                        <label for="" class="mt-1 mr-1">Estado</label>
-                        <input type="checkbox" data-role="checkbox" name="estado" [(ngModel)]="mesa.estado" />
+                    <div class="d-flex justify-content-start mt-2">
+                        <label for="" class="mt-1 ml-3">Mesa visible</label>
+                        <input  type="checkbox" 
+                                data-role="checkbox" 
+                                name="estado" 
+                                [(ngModel)]="mesa.estado" />
                     </div>
                 </form>
             </div>
         </div>
     </div>
+    <!-- modal para ver el qr -->
     <div class="modal-footer">
-        <div class="d-flex flex-justify-between" style="width: 40%">
-            <button type="button" class="button dark rounded btn-width" (click)="saveMesa()" *ngIf="!mesa.id">
-        Guardar
-      </button>
-            <button type="button" class="button dark rounded btn-width" (click)="updateMesa()" *ngIf="mesa.id">
-        Actualizar
-      </button>
-            <button type="button" class="button alert btn-width" (click)="modal.close('Close click')">
-        Cancelar
-      </button>
+        <div class="d-flex flex-justify-between w-100" >
+            <button type="button" 
+                    class="button shadowed button-usuario" 
+                    (click)="modal.close('Close click')">
+                Cancelar
+            </button>
+            <button type="button" 
+                    class="button shadowed button-usuario button-save border-radius-3" 
+                    (click)="saveMesa()" 
+                    *ngIf="!mesa.id; else mesaEditButton">
+                Guardar
+            </button>
+            <ng-template #mesaEditButton>
+                <button type="button" 
+                class="button shadowed button-usuario button-save border-radius-3"  
+                (click)="updateMesa()">
+                    Actualizar
+                </button>
+            </ng-template>
         </div>
     </div>
 </ng-template>
 
 <ng-template #modalMesaQR let-modal>
-    <div class="card">
+    <div class="card mb-2">
         <div class="card-header">Código QR</div>
         <div class="card-content p-2 d-flex justify-content-center">
             <qrcode [qrdata]="QR_DATA" [width]="256" [errorCorrectionLevel]="'M'"></qrcode>
         </div>
-        <div class="card-footer d-flex justify-content-around">
-            <button type="button" class="button shadowed alert mb-0 rounded-0 " (click)="modal.close('Close click')">
-          Cancelar
-        </button>
-            <button type="button" class="button shadowed bg-black ">
-          Imprimir
-        </button>
+        <div class="card-footer d-flex justify-content-between">
+            <button type="button" 
+                    class="button shadowed button-usuario" 
+                    (click)="modal.close('Close click')">
+                Cancelar
+            </button>
+            <button type="button" 
+                    class="button shadowed button-usuario button-save border-radius-3">
+                Imprimir
+            </button>
         </div>
     </div>
 </ng-template>
