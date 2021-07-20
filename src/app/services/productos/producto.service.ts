@@ -42,7 +42,7 @@ export class ProductoService {
       .put(this.url + 'actualizar/estado/producto', producto)
       .pipe(
         map((response: any) => {
-          this.mensajeService.mensajeSweetInformacionToast('success', response.mensaje);
+          this.mensajeService.mensajeSweetInformacionToast('success', response.mensaje, 'top-end');
           return response.mensaje;
         }),
         catchError((e) => {

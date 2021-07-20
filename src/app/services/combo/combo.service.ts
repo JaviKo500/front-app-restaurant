@@ -81,7 +81,7 @@ export class ComboService {
   CambiarEstadoCombo(combo: Combo): Observable<any> {
     return this.http.put(this.url + 'actualizar/estado/combo', combo).pipe(
       map((response: any) => {
-        this.mensajesService.mensajeSweetInformacionToast('success', response.mensaje);
+        this.mensajesService.mensajeSweetInformacionToast('success', response.mensaje, 'top-end');
         return response.mensaje;
       }),
       catchError((e) => {
