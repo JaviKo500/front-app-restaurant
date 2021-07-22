@@ -7,10 +7,8 @@
           <!-- erroes del back -->
             <div class="row" *ngIf="erroresBackend.length > 0">
               <ul class="list-group">
-                <li
-                  class="invalid_feedback"
-                  *ngFor="let err of erroresBackend"
-                >
+                <li class="invalid_feedback"
+                    *ngFor="let err of erroresBackend">
                   {{ err }}
                 </li>
               </ul>

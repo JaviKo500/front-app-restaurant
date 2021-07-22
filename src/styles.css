@@ -121,6 +121,14 @@ Layouts
     color: #67757c;
 }
 
+/* tabla */
+.table td, .table th {
+    border-top: none;
+}
+
+.invalid_feedback{
+    display: block !important;
+}
 
 /*panels*/
 

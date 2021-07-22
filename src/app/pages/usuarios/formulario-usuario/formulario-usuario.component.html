@@ -1,175 +1,195 @@
 <div class="card mt-0 fondo">
   <div class="card-body p-2">
     <!-- formulario -->
-    <div *ngIf="erroresBackend.length != 0" class="container">
-      <ul class="list-group">
-        <li
-          class="list-group-item list-group-item-danger"
-          *ngFor="let err of erroresBackend"
-        >
-          {{ err }}
-        </li>
-      </ul>
-    </div>
     <form>
       <div class="card mb-2">
         <div class="card-body">
           <h5 class="mb-2">Datos generales</h5>
+          <div  *ngIf="erroresBackend.length != 0" >
+            <ul class="ml-0">
+              <li class="invalid_feedback"
+                  *ngFor="let err of erroresBackend">
+                {{ err }}
+              </li>
+            </ul>
+          </div>
           <div class="row">
             <div class="cell-md-6 pb-0">
               <!-- inputs -->
-              <input
-                type="text"
-                data-role="input"
-                data-prepend="Nombre"
-                class="mb-5"
-                name="nombre"
-                autocomplete="off"
-                [(ngModel)]="usuario.nombre"
-              />
-              <input
-                type="number"
-                data-role="input"
-                data-prepend="Teléfono"
-                name="telef"
-                autocomplete="off"
-                [(ngModel)]="usuario.telefono"
-              />
-            </div>
-            <div class="cell-md-6 pb-0">
-              <!-- inputs -->
-              <input
-                type="number"
-                data-role="input"
-                data-prepend="Identificación"
-                class="mb-5"
-                name="ced"
-                autocomplete="off"
-                [(ngModel)]="usuario.cedula"
-              />
-              <div class="input-group mb-0">
-                <div class="input-group-prepend">
-                  <label
-                    class="input-group-text"
-                    for="genero"
-                    style="border-right-color: transparent"
-                    >Género</label
-                  >
+              <div class="mb-4">
+                <input  type="text"
+                      data-role="input"
+                      data-prepend="Nombre"
+                      name="nombre"
+                      #nombre="ngModel" 
+                      autocomplete="off"
+                      required
+                      minlength="3"
+                      [(ngModel)]="usuario.nombre"/>
+                <div  *ngIf="nombre.invalid && (nombre.dirty || nombre.touched)"
+                      class="alert p-0 mb-0 text-danger">
+                  <div *ngIf="nombre.errors?.required">
+                    Por favor, ingrese un nombre válido
+                  </div>
+                  <div *ngIf="nombre.errors?.minlength">
+                    Por favor, ingrese almenos 3 caracteres
+                  </div>
                 </div>
-                <select
-                  [compareWith]="compararGenero"
-                  class="custom-select"
-                  id="genero"
-                  name="genero"
-                  [(ngModel)]="usuario.sexo"
-                >
-                  <option [ngValue]="undefined">Choose...</option>
-                  <option value="1" [ngValue]="gen" *ngFor="let gen of generos">
-                    {{ gen.tipo }}
-                  </option>
-                </select>
+              </div>
+              <div class="mb-4">
+                <input  type="number"
+                        data-role="input"
+                        data-prepend="Teléfono"
+                        name="telefono"
+                        autocomplete="off"
+                        #telefono="ngModel" 
+                        required
+                        pattern="^[1-9][0-9]{6,9}$"
+                        [(ngModel)]="usuario.telefono"/>
+                <div  *ngIf="telefono.invalid && (telefono.dirty || telefono.touched)"
+                      class="alert p-0 mb-0 text-danger">
+                  <div *ngIf="telefono.errors?.required">
+                    Por favor, ingrese un teléfono válido
+                  </div>
+                  <div div *ngIf="telefono.errors?.pattern">
+                        Por favor, ingrese almenos 7 caracteres
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="cell-md-5 pb-0">
+              <!-- inputs -->
+              <div class="mb-4">
+                <input  type="number"
+                        data-role="input"
+                        data-prepend="Identificación"
+                        name="ced"
+                        #cedula="ngModel" 
+                        required
+                        pattern="^([0-9])[0-9][0-9]{7,10}$"
+                        autocomplete="off"
+                        [(ngModel)]="usuario.cedula"/>
+                <div  *ngIf="cedula.invalid && (cedula.dirty || cedula.touched)"
+                      class="alert p-0 mb-0 text-danger">
+                  <div *ngIf="cedula.errors?.required">
+                    Por favor, ingrese una cédula válida
+                  </div>
+                  <div div *ngIf="cedula.errors?.pattern">
+                        Por favor, ingrese almenos 10 caracteres
+                  </div>
+                </div>
+              </div>
+              <div class="mb-4">
+                <div class="input-group mb-0">
+                    <div class="input-group-prepend">
+                      <label  class="input-group-text"
+                              for="genero"
+                              style="border-right-color: transparent">
+                              Género
+                      </label>
+                    </div>
+                    <select [compareWith]="compararGenero"
+                            class="custom-select"
+                            id="genero"
+                            name="genero"
+                            #genero="ngModel" 
+                            required
+                            [(ngModel)]="usuario.sexo">
+                    <option [ngValue]="undefined">Seleccionar...</option>
+                    <option value="1" 
+                            [ngValue]="gen" 
+                            *ngFor="let gen of generos">
+                      {{ gen.tipo }}
+                    </option>
+                  </select>
+                  <div  *ngIf="genero.invalid && (genero.dirty || genero.touched)"
+                        class="alert p-0 mb-0 text-danger">
+                    <div *ngIf="genero.errors?.required">
+                      Por favor, el género es requerido
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      </div>
-      <div class="card mb-2">
-        <div class="card-body">
           <h5 class="mb-2">Datos Usuario</h5>
           <div class="row">
             <div class="cell-md-6 pb-0">
               <!-- inputs -->
-              <input
-                type="text"
-                data-role="input"
-                data-prepend="Nombre usuario"
-                class="mb-5"
-                name="username"
-                autocomplete="off"
-                [(ngModel)]="usuario.username"
-              />
-              <input
-                type="password"
-                data-role="input"
-                data-prepend="Contraseña"
-                class="mb-5"
-                autocomplete="off"
-                name="password"
-                [(ngModel)]="usuario.password"
-              />
-              <input
-                type="password"
-                data-role="input"
-                autocomplete="off"
-                data-prepend="Confirmar contraseña"
-                name="confirmpass"
-                [(ngModel)]="confirmarPassword"
-                (change)="compararContrasenas()"
-              />
-            </div>
-            <div class="cell-md-6 pb-0">
-              <!-- inputs -->
-              <input
-                type="email"
-                data-role="input"
-                data-prepend="Email"
-                class="mb-5"
-                name="email"
-                autocomplete="off"
-                [(ngModel)]="usuario.email"
-              />
+              <input  type="text"
+                      data-role="input"
+                      data-prepend="Usuario"
+                      class="mb-5"
+                      name="username"
+                      autocomplete="off"
+                      [(ngModel)]="usuario.username"/>
+              <input  type="email"
+                      data-role="input"
+                      data-prepend="Email"
+                      class="mb-5"
+                      name="email"
+                      autocomplete="off"
+                      [(ngModel)]="usuario.email"/>
               <div class="input-group mb-3">
                 <div class="input-group-prepend">
-                  <label
-                    class="input-group-text"
-                    for="inputGroupSelect01"
-                    style="border-right-color: transparent"
-                    >Role
+                  <label  class="input-group-text"
+                          for="inputGroupSelect01"
+                          style="border-right-color: transparent">
+                    Role
                   </label>
                 </div>
-                <select
-                  [compareWith]="compararRole"
-                  class="custom-select"
-                  id="roles"
-                  name="roles"
-                  [(ngModel)]="usuario.roles[0]"
-                >
-                  <option [ngValue]="undefined">Choose...</option>
-                  <option value="1" [ngValue]="rol" *ngFor="let rol of roles">
-                    {{ rol.nombre }}
+                <select [compareWith]="compararRole"
+                        class="custom-select"
+                        id="roles"
+                        name="roles"
+                        [(ngModel)]="usuario.roles[0]">
+                  <option [ngValue]="undefined">Seleccionar...</option>
+                  <option value="1" 
+                          [ngValue]="rol" 
+                          *ngFor="let rol of roles">
+                    {{ rol.nombre | titlecase }}
                   </option>
                 </select>
               </div>
             </div>
+            <div class="cell-md-6 pb-0">
+              <!-- inputs -->
+              <input  type="password"
+                      data-role="input"
+                      data-prepend="Contraseña"
+                      class="mb-5"
+                      autocomplete="off"
+                      name="password"
+                      [(ngModel)]="usuario.password"/>
+              <input  type="password"
+                      data-role="input"
+                      autocomplete="off"
+                      data-prepend="Confirmar "
+                      name="confirmpass"
+                      [(ngModel)]="confirmarPassword"
+                      (change)="compararContrasenas()"/>
+            </div>
           </div>
         </div>
-        <div
-          *ngIf="coinsidenPassword == false"
-          class="alert alert-danger"
-          role="alert"
-        >
+        <div  *ngIf="coinsidenPassword == false"
+              class="alert alert-danger"
+              role="alert">
           Las contraseñas no coinsiden
         </div>
       </div>
       <div class="w-100 d-flex justify-content-sm-between mt-5 mb-2">
-        <button
-          class="button shadowed button-usuario ml-2"
-          [routerLink]="['/dashboard/usuarios/page/0']"
-        >
+        <button class="button shadowed button-usuario ml-2"
+                [routerLink]="['/dashboard/usuarios/page/0']">
           Cancelar
         </button>
-        <button
-          class="button shadowed button-usuario button-save mr-2"
-          (click)="registrarUsuario()"
-          *ngIf="!usuario.id"
-        >
+        <button class="button shadowed button-usuario button-save mr-2"
+                (click)="registrarUsuario()"
+                *ngIf="!usuario.id">
           Guardar
         </button>
-        <button
-          class="button primary rounded shadowed w-25"
-          (click)="actualizarUsuario()"
-          *ngIf="usuario.id"
-        >
+        <button class="button primary rounded shadowed w-25"
+                (click)="actualizarUsuario()"
+                *ngIf="usuario.id">
           Actualizar
         </button>
       </div>

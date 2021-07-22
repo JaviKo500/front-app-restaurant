@@ -1,9 +1,21 @@
-[class*=cell-],
-[class*=col-] {
-    position: relative;
-    display: block;
-    padding: 6px;
-    padding-bottom: 0px;
-    width: 100%;
-    min-height: 1px
+.bg-black {
+    background-color: black;
+    color: white;
+}
+.button-usuario {
+    width: 20%;
+}
+
+.button-save {
+    background-color: black;
+    color: white;
+}
+
+button:focus {
+    outline: none;
+    outline: none;
+}
+
+.invalid_feedback{
+    display: block !important;
 }

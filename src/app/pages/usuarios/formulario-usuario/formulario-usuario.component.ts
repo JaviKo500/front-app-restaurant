@@ -40,9 +40,9 @@ export class FormularioUsuarioComponent implements OnInit {
 
   registrarUsuario(): void {
     if (this.camposCompletos()) {
-      //confirmacion de compararContraseñas
+      // confirmacion de compararContraseñas
       if (this.compararContrasenas()) {
-        //eliminar espacios en email, usuario
+        // eliminar espacios en email, usuario
         this.usuario.email = this.usuario.email.replace(' ', '');
         this.usuario.username = this.usuario.username.replace(' ', '');
         console.log(this.usuario);
@@ -56,7 +56,7 @@ export class FormularioUsuarioComponent implements OnInit {
               showConfirmButton: false,
               timer: 1500,
             });
-            //resetear variables al guardar
+            // resetear variables al guardar
             this.usuario = new Usuario();
             this.role = undefined;
             this.coinsidenPassword = true;
@@ -99,7 +99,7 @@ export class FormularioUsuarioComponent implements OnInit {
             showConfirmButton: false,
             timer: 1500,
           });
-          //regresar a listado de usuarios
+          // regresar a listado de usuarios
           this.router.navigate(['/dashboard/usuarios/page/0']);
         },
         (err) => {

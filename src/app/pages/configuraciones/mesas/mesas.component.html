@@ -38,7 +38,7 @@
                         <!-- Tabla -->
                         <div class="row">
                             <div class="cell-sm">
-                                <table class="table striped">
+                                <table class="table ">
                                     <thead>
                                         <tr>
                                             <th>#</th>
@@ -53,27 +53,27 @@
                                             <td>{{ mesa.nombre }}</td>
                                             <td>{{ mesa.nombreQr }}</td>
                                             <td class="pt-2">
-                                                <div class="row" style="height: 45px;">
+                                                <div class="row" >
                                                     <div class="cell-sm-4" >
                                                         <button class="button info rounded shadowed"  
                                                                 (click)="ModalActualizarMesa(modalMesa, mesa)"
                                                                 placement="bottom" 
                                                                 ngbTooltip="Editar">
-                                                                <i class="fas fa-edit"></i>
+                                                            <i class="fas fa-edit"></i>
                                                         </button>
                                                     </div>
                                                     <div class="cell-sm-4" >
-                                                        <button class="button success rounded shadowed" 
+                                                        <button class="button rounded shadowed" 
                                                                 (click)="abrirModalMesaQR(modalMesaQR, mesa)"
                                                                 placement="bottom" 
                                                                 ngbTooltip="Ver código qr">
-                                                                <i class="fas fa-qrcode"></i>
+                                                            <i class="fas fa-qrcode"></i>
                                                         </button>
                                                     </div>
                                                     <div class="cell-sm-4" >
-                                                        <button class="button alert outline rounded " 
+                                                        <button class="button light rounded " 
                                                                 (click)="deletMesa(mesa.id)">
-                                                                <i class="fas fa-trash-alt "></i>
+                                                            <i class="fas fa-trash-alt "></i>
                                                         </button>
                                                     </div>
                                                 </div>

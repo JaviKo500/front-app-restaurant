@@ -53,7 +53,6 @@ export class MesasComponent implements OnInit {
   }
 
   saveMesa(): void {
-    console.log(this.mesa.estado);
     if (this.camposLlenos()) {
       this.mesasService.registrarMesa(this.mesa).subscribe((res) => {
         this.listarMesasPageable();
