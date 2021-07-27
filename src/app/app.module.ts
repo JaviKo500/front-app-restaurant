@@ -25,6 +25,7 @@ import { QRCodeModule } from 'angularx-qrcode';
 import { TokenInterceptor } from './interceptors/token.interceptor';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
 
+
 @NgModule({
   declarations: [AppComponent],
   imports: [

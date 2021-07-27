@@ -33,6 +33,7 @@ import { VentaComponent } from './ventas/venta/venta.component';
 
 //qr code
 import { QRCodeModule } from 'angularx-qrcode';
+import { EstadoMesaPipe } from '../pipes/estado-mesa.pipe';
 
 @NgModule({
   declarations: [
@@ -57,6 +58,8 @@ import { QRCodeModule } from 'angularx-qrcode';
     UsuariosComponent,
     VentaComponent,
     DashboardUsersComponent,
+
+    EstadoMesaPipe
   ],
   exports: [DashboardComponent],
   imports: [
@@ -66,7 +69,7 @@ import { QRCodeModule } from 'angularx-qrcode';
     ComponentsModule,
     FormsModule,
     NgbModule,
-    QRCodeModule,
+    QRCodeModule
   ],
 })
 export class PagesModule {}

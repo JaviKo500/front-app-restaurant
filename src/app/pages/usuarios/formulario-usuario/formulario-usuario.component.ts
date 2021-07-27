@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import swal from 'sweetalert2';
 // modelos
@@ -7,6 +7,8 @@ import { Sexo } from 'src/app/models/persona/sexo.model';
 import { Usuario } from 'src/app/models/persona/usuario.model';
 // servicios
 import { UsuarioService } from 'src/app/services/usuarios/usuario.service';
+import { MensajesAlertaService } from '../../../services/mensajes-alerta.service';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-formulario-usuario',
@@ -14,6 +16,9 @@ import { UsuarioService } from 'src/app/services/usuarios/usuario.service';
   styleUrls: ['./formulario-usuario.component.css'],
 })
 export class FormularioUsuarioComponent implements OnInit {
+
+  @ViewChild('miForm') miForm!: NgForm;
+
   usuario: Usuario = new Usuario();
   erroresBackend: String[] = [];
   generos: Sexo[] = [];
@@ -22,9 +27,10 @@ export class FormularioUsuarioComponent implements OnInit {
   confirmarPassword: string = '';
   coinsidenPassword: boolean = true;
   constructor(
+    private router: Router,
     private activatedRoute: ActivatedRoute,
     private usuarioService: UsuarioService,
-    private router: Router
+    private mensajesService: MensajesAlertaService
   ) {}
 
   ngOnInit(): void {
@@ -49,19 +55,14 @@ export class FormularioUsuarioComponent implements OnInit {
         this.usuarioService.registrarUsuario(this.usuario).subscribe(
           (res) => {
             console.log(res);
-            swal.fire({
-              position: 'top-end',
-              icon: 'success',
-              title: res.mensaje,
-              showConfirmButton: false,
-              timer: 1500,
-            });
+            this.mensajesService.mensajeSweetInformacion('success', res.mensaje, 'top-end');
             // resetear variables al guardar
             this.usuario = new Usuario();
             this.role = undefined;
             this.coinsidenPassword = true;
             this.confirmarPassword = '';
             this.erroresBackend = [];
+            this.miForm.reset();
           },
           (err) => {
             if (err.status === 409) {
@@ -75,11 +76,10 @@ export class FormularioUsuarioComponent implements OnInit {
         this.coinsidenPassword = false;
       }
     } else {
-      swal.fire(
-        'Observación',
-        'Llenar los campos con almenos 3 caracteres y seleccionar todas las opciones.',
-        'warning'
-      );
+      this.mensajesService.mensajeSweetFire('warning',
+                                            'Llenar los campos con almenos 3 caracteres y seleccionar todas las opciones.',
+                                            'Observación'
+                                          );
     }
   }
 
@@ -92,13 +92,8 @@ export class FormularioUsuarioComponent implements OnInit {
       this.usuarioService.actualizarUsuario(this.usuario).subscribe(
         (res) => {
           console.log(res);
-          swal.fire({
-            position: 'top-end',
-            icon: 'success',
-            title: res.mensaje,
-            showConfirmButton: false,
-            timer: 1500,
-          });
+          this.mensajesService.mensajeSweetInformacion('success', res.mensaje, 'top-end');
+          this.miForm.reset();
           // regresar a listado de usuarios
           this.router.navigate(['/dashboard/usuarios/page/0']);
         },
@@ -111,11 +106,10 @@ export class FormularioUsuarioComponent implements OnInit {
         }
       );
     } else {
-      swal.fire(
-        'Observación',
-        'Llenar los campos con almenos 3 caracteres y seleccionar todas las opciones.',
-        'warning'
-      );
+      this.mensajesService.mensajeSweetFire('warning', 
+                                            'Llenar los campos con almenos 3 caracteres y seleccionar todas las opciones.', 
+                                            'Observación'
+                                          );
     }
   }
 
@@ -159,7 +153,7 @@ export class FormularioUsuarioComponent implements OnInit {
     return band;
   }
 
-  //compararContraseñas
+  // compararContraseñas
   compararContrasenas(): boolean {
     let band: boolean;
     if (this.usuario.password === this.confirmarPassword) {
@@ -172,7 +166,7 @@ export class FormularioUsuarioComponent implements OnInit {
     return band;
   }
 
-  //comparar-validar datos de roles en boostrap
+  // comparar-validar datos de roles en boostrap
   compararRole(o1: Role, o2: Role): boolean {
     if (o1 === undefined && o2 === undefined) {
       return true;
@@ -182,7 +176,7 @@ export class FormularioUsuarioComponent implements OnInit {
       : o1.id === o2.id;
   }
 
-  //comparar-validar datos de categorias en boostrap
+  // comparar-validar datos de categorias en boostrap
   compararGenero(o1: Sexo, o2: Sexo): boolean {
     if (o1 === undefined && o2 === undefined) {
       return true;
