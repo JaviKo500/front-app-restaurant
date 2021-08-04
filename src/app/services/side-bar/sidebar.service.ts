@@ -85,7 +85,7 @@ export class SidebarService {
     },
     {
       title: 'Gestión de usuarios',
-      icon: 'fas fa-users',
+      icon: 'fas fa-users-cog',
       url: '',
       roles: ['ROLE_ADMIN'],
       subMenu: [

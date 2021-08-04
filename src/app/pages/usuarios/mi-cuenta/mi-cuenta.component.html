@@ -1,0 +1,57 @@
+<div class="container-fluid">
+    <div class="grid">
+        <div class="row">
+            <div class="cell-sm">
+                <form autocomplete="off" #miForm="ngForm">
+                    <div class="card mb-2">
+                        <div class="card-body">
+                            <div class="w-100 d-flex justify-content-center border-bottom">
+                                <h5 class="mb-2">Cuenta</h5>
+                                <hr>
+                            </div>
+                            <div class="row">
+                                <div class="cell-md-12 pb-0">
+                                    <!-- email user -->
+                                    <div class="mb-4 ">
+                                        <p>Correo electrónico:</p>
+                                        <input  type="email" 
+                                                data-role="input"
+                                                placeholder="Ingrese correo">       
+                                    </div>
+                                    <!-- contraseñas -->
+                                    <div class="mb-4 border-top">
+                                        <p class="mt-1">Contraseña:</p>
+                                        <input  type="password" 
+                                                data-role="input" 
+                                                placeholder="Contraseña actual">       
+                                    </div>
+                                    <div class="mb-4">
+                                        <input  type="password" 
+                                                data-role="input" 
+                                                placeholder="Contraseña nueva">    
+                                    </div>
+                                    <div class="mb-4">
+                                        <input  type="password" 
+                                                data-role="input" 
+                                                placeholder="Confirmar contraseña">    
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="w-100 d-flex justify-content-between mt-3 mb-2">
+                                <button class="button shadowed button-usuario ">
+                                  Cancelar
+                                </button>
+                                <button class="button shadowed button-usuario button-save border-radius-2 ">
+                                  Guardar
+                                </button>
+                                <!-- <button class="button primary rounded shadowed w-25">
+                                  Actualizar
+                                </button> -->
+                            </div>
+                      </div>
+                    </div>
+                </form>
+        </div>
+    </div>
+</div>
+                

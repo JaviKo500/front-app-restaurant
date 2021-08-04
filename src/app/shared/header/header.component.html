@@ -11,10 +11,19 @@
                 </button>
                 <div ngbDropdownMenu aria-labelledby="dropdownBasic1" class="dropdown-menu dropdown-menu-right">
                     <div ngbDropdownItem>
-                        <p>{{authService.usuario.username}}</p>
-                        <p>{{authService.usuario.roles[0]}}</p>
+                        <p>
+                            <i class="fas fa-user-alt"></i>
+                            {{authService.usuario.username | titlecase}} ({{authService.usuario.roles[0] | titlecase}})
+                        </p>
                     </div>
-                    <button ngbDropdownItem (click)="logOut()">Cerrar sesión</button>
+                    <hr>
+                    <button ngbDropdownItem routerLink="perfil/:id">Mi perfil</button>
+                    <button ngbDropdownItem routerLink="cuenta/:id">Cuenta</button>
+                    <hr>
+                    <button ngbDropdownItem (click)="logOut()">
+                        <i class="fas fa-sign-out-alt"></i>
+                        Cerrar sesión
+                    </button>
                 </div>
             </div>
         </div>

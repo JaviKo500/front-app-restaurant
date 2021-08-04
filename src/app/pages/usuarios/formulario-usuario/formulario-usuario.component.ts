@@ -153,6 +153,9 @@ export class FormularioUsuarioComponent implements OnInit {
     return band;
   }
 
+  //  regresamos a la url anterior
+  regresar = () => history.back();
+  
   // compararContraseñas
   compararContrasenas(): boolean {
     let band: boolean;

@@ -34,6 +34,8 @@ import { VentaComponent } from './ventas/venta/venta.component';
 //qr code
 import { QRCodeModule } from 'angularx-qrcode';
 import { EstadoMesaPipe } from '../pipes/estado-mesa.pipe';
+import { MiPerfilComponent } from './usuarios/mi-perfil/mi-perfil.component';
+import { MiCuentaComponent } from './usuarios/mi-cuenta/mi-cuenta.component';
 
 @NgModule({
   declarations: [
@@ -59,7 +61,11 @@ import { EstadoMesaPipe } from '../pipes/estado-mesa.pipe';
     VentaComponent,
     DashboardUsersComponent,
 
-    EstadoMesaPipe
+    EstadoMesaPipe,
+
+    MiPerfilComponent,
+
+    MiCuentaComponent
   ],
   exports: [DashboardComponent],
   imports: [

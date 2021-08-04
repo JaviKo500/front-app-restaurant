@@ -26,6 +26,8 @@ import { ProductoListarComponent } from './producto/producto-listar.component';
 import { PedidosComponent } from './pedidos/pedidos.component';
 import { UsuariosComponent } from './usuarios/usuarios.component';
 import { VentaComponent } from './ventas/venta/venta.component';
+import { MiPerfilComponent } from './usuarios/mi-perfil/mi-perfil.component';
+import { MiCuentaComponent } from './usuarios/mi-cuenta/mi-cuenta.component';
 
 const routes: Routes = [
   {
@@ -155,7 +157,28 @@ const routes: Routes = [
           subTitle: 'Agrega usuarios',
           role: ['ROLE_ADMIN'],
         },
+      }, /// estoy
+      {
+        path: 'perfil/:id',
+        component: MiPerfilComponent,
+        canActivate: [AuthGuard, RoleGuard],
+        data: {
+          title: 'Mi perfil',
+          subTitle: 'Actualizar mis datos',
+          role: ['ROLE_ADMIN', 'ROLE_CAJERO'],
+        },
       },
+      {
+        path: 'cuenta/:id',
+        component: MiCuentaComponent,
+        canActivate: [AuthGuard, RoleGuard],
+        data: {
+          title: 'Mi cuenta',
+          subTitle: 'Actualizar mis datos',
+          role: ['ROLE_ADMIN', 'ROLE_CAJERO'],
+        },
+      },
+      /// termina
       {
         path: 'productos/page/:page',
         component: ProductoListarComponent,

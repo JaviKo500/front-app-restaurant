@@ -1,0 +1,70 @@
+<div class="container-fluid">
+    <div class="grid">
+        <div class="row">
+            <div class="cell-sm">
+                <form autocomplete="off" #miForm="ngForm">
+                    <div class="card mb-2">
+                        <div class="card-body">
+                            <div class="w-100 d-flex justify-content-center border-bottom">
+                                <h5 class="mb-2">Perfil público</h5>
+                                <hr>
+                            </div>
+                            <div class="row">
+                                <div class="cell-md-12 pb-0">
+                                    <!-- nombre -->
+                                    <div class="mb-4 ">
+                                        <p>Nombre:</p>
+                                        <input  type="text" 
+                                                data-role="input"
+                                                placeholder="Nombre">       
+                                    </div>
+                                    <!-- usuario -->
+                                    <div class="mb-4">
+                                        <p class="mt-1">Usuario:</p>
+                                        <input  type="text" 
+                                        data-role="input" 
+                                        placeholder="Usuario">       
+                                    </div>
+                                    <div class="mb-4">
+                                        <p class="mt-1">Cédula:</p>
+                                        <input  type="number" 
+                                        data-role="input" 
+                                        placeholder="Cédula">    
+                                    </div>
+                                    <div class="mb-4">
+                                        <p class="mt-1">Teléfono:</p>
+                                        <input  type="tel" 
+                                        data-role="input" 
+                                        placeholder="Teléfono">    
+                                    </div>
+                                    <div class="mb-4">
+                                        <p class="mt-1">Género:</p>
+                                        <div class="input-group mb-0">
+                                            <select class="custom-select"
+                                                    id="genero"
+                                                    name="genero" 
+                                                    required>
+                                            <option [ngValue]="undefined">Seleccionar...</option>
+                                          </select>
+                                        </div>
+                                      </div>
+                                </div>
+                            </div>
+                            <div class="w-100 d-flex justify-content-between mt-3 mb-2">
+                                <button class="button shadowed button-usuario ">
+                                  Cancelar
+                                </button>
+                                <button class="button shadowed button-usuario button-save border-radius-2 ">
+                                  Guardar
+                                </button>
+                                <!-- <button class="button primary rounded shadowed w-25">
+                                  Actualizar
+                                </button> -->
+                            </div>
+                      </div>
+                    </div>
+                </form>
+        </div>
+    </div>
+</div>
+                
