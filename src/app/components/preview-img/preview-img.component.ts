@@ -9,9 +9,9 @@ import swal from 'sweetalert2';
   styleUrls: ['./preview-img.component.css'],
 })
 export class PreviewImgComponent implements OnInit {
-  @Input() imagen: string;
+  @Input()  imagen: string;
+  @Input()  pathImg: string;
   @Output() imagenSave: EventEmitter<File> = new EventEmitter();
-  @Input() pathImg: string;
 
   api:any = BASE_URL;
   imagenFile: File;

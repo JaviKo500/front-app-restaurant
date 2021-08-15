@@ -2,7 +2,6 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Observable } from 'rxjs';
 import { distinctUntilChanged, mergeMap } from 'rxjs/operators';
 import { ActivatedRoute, Router } from '@angular/router';
-import swal from 'sweetalert2';
 
 // constantes
 import { API_PROD, BASE_URL } from '../../../../environments/configurations';
@@ -17,6 +16,8 @@ import { ComboService } from 'src/app/services/combo/combo.service';
 import { ProductoService } from '../../../services/productos/producto.service';
 // componentes
 import { PreviewImgComponent } from '../../../components/preview-img/preview-img.component';
+import { NgModel } from '@angular/forms';
+import { MensajesAlertaService } from '../../../services/mensajes-alerta.service';
 @Component({
   selector: 'app-formulario-combo',
   templateUrl: './formulario-combo.component.html',
@@ -32,6 +33,7 @@ export class FormularioComboComponent implements OnInit {
     private productoService: ProductoService,
     private comboService: ComboService,
     private categoriaService: CategoriaService,
+    private mensajesService: MensajesAlertaService,
     private router: Router,
     private activatedRoute: ActivatedRoute
   ) { }
@@ -50,7 +52,7 @@ export class FormularioComboComponent implements OnInit {
     this.imagenProducto = event.target.files[0];
     if (this.imagenProducto && this.imagenProducto.type.indexOf('image') < 0) {
       this.imagenProducto = null;
-      swal.fire('Error', 'Solo imágenes', 'error');
+      this.mensajesService.mensajeSweetFire('error', 'Solo imágenes', 'Error');
     }
   }
 
@@ -71,7 +73,7 @@ export class FormularioComboComponent implements OnInit {
           this.cargarImagenProducto(res.id_combo);
         });
       } else {
-        swal.fire('Observación', 'Debe seleccionar una imágen.', 'warning');
+        this.mensajesService.mensajeSweetFire('warning', 'Debe seleccionar una imágen.', 'Observación');
       }
     }
   }
@@ -88,17 +90,11 @@ export class FormularioComboComponent implements OnInit {
           });
       } else {
         if (this.combo.imagen == '') {
-          swal.fire('Advertencia', 'Debe seleccionar su imagen', 'warning');
+          this.mensajesService.mensajeSweetFire('warning', 'Debe seleccionar una imágen.', 'Advertencia');
         } else {
           this.comboService.registrarCombo(this.combo).subscribe((res) => {
             console.log('Producto actualizado');
-            swal.fire({
-              position: 'top-end',
-              icon: 'success',
-              title: 'Su producto fué actualizado correctamente.',
-              showConfirmButton: false,
-              timer: 1000,
-            });
+            this.mensajesService.mensajeSweetFireToast('success', 'Su producto fué actualizado correctamente.', 'top-end');
             console.log(res);
             this.router.navigate(['/dashboard/combos/page/0']);
           }),
@@ -120,7 +116,7 @@ export class FormularioComboComponent implements OnInit {
       !c.categoria ||
       c.nombre.length < 3
     ) {
-      swal.fire('Observación', 'Completar los campos', 'warning');
+      this.mensajesService.mensajeSweetFire('warning', 'Completar los campos', 'Observación');
     } else {
       band = true;
     }
@@ -198,13 +194,7 @@ export class FormularioComboComponent implements OnInit {
       .saveImgCategoria_Producto(this.imagenProducto, id, API_PROD, 'combo')
       .subscribe(
         (res) => {
-          swal.fire({
-            position: 'top-end',
-            icon: 'success',
-            title: 'Producto guardado correctamente',
-            showConfirmButton: false,
-            timer: 1000,
-          });
+          this.mensajesService.mensajeSweetFireToast('success', 'Producto guardado correctamente.', 'top-end', 1000);
           console.log('guardado');
           this.imagenProducto = null;
           this.combo = new Combo();
@@ -238,5 +228,14 @@ export class FormularioComboComponent implements OnInit {
       (err) => {
         console.log(err);
       });
+  }
+
+  errorPrecio(precioInput: NgModel): boolean {
+    console.log();
+    let precio = precioInput.control.value;
+    if(!precio || precio<0){
+      return true;
+    }
+    return false;
   }
 }
