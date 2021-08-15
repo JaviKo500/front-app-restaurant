@@ -55,7 +55,9 @@ body {
     }
 }
 
-
+.hidden{
+    visibility: hidden;
+}
 
 /*******************
 Layouts
