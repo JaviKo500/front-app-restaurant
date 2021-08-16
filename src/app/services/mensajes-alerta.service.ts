@@ -29,7 +29,7 @@ export class MensajesAlertaService {
     Swal.fire({
       position: pos,
       icon: alertIcon,
-      title: msg,
+      text: msg,
       showConfirmButton: false,
       timer: tim,
     });

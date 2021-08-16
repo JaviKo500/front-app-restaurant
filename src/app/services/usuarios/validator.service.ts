@@ -7,17 +7,14 @@ import { AbstractControl, FormControl, FormGroup, ValidationErrors } from '@angu
 export class ValidatorService {
 
   public nombreApellidoPatter: string = '([a-zA-Z]+) ([a-zA-z]+)';
-  public emailPattern: string = "^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$";
   public miForm: FormGroup;
 
-  get emailErrorMsg(): string{
-    const errors = this.miForm.get('email')?.errors;
+  get usuarioErrorMsg(): string{
+    const errors = this.miForm.get('usuario')?.errors;
     if (errors?.required){
-      return 'El email es requerido';
-    } else if (errors?.pattern){
-      return 'Ingrese un email válido';
-    } else if (errors?.emailTomado){
-      return 'Email ya registrado';
+      return 'El usuario es requerido';
+    }else if (errors?.minlength){
+      return 'Ingrese mínimo 4 caracteres';
     }
     return '';
   }
@@ -48,7 +45,7 @@ export class ValidatorService {
     }
     return '';
   }
-  constructor() { }
+  constructor() {}
 
   camposIguales = (campo1: string, campo2: string) => {
     return (formGroup: AbstractControl): ValidationErrors | null => {

@@ -5,9 +5,10 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 
 import { ValidatorService } from '../../../services/usuarios/validator.service';
-import { PasswordRecovery } from '../../../models/persona/password-recovery.model';
+import { PasswordRecovery, UserNameRecovery } from '../../../models/persona/user-perfil.model';
 import { UsuarioPerfilService } from '../../../services/usuarios/usuario-perfil.service';
 import { MensajesAlertaService } from '../../../services/mensajes-alerta.service';
+import { AuthService } from '../../../services/auth/auth.service';
 
 @Component({
   selector: 'app-mi-cuenta',
@@ -15,53 +16,74 @@ import { MensajesAlertaService } from '../../../services/mensajes-alerta.service
   styleUrls: ['./mi-cuenta.component.css']
 })
 export class MiCuentaComponent implements OnInit {
-  public emailMSgError: string = '';
+  public usuarioMSgError: string = '';
   public msgErrorContraAct: string = '';
   public msgErrorContraNue: string = '';
   public msgErrorContraCon: string = '';
+  public userName: string = this._authService.usuario.username;
 
   public modalReference: NgbModalRef;
-
-  public miForm: FormGroup = this._fb.group({
-    email:          [ , [Validators.required, Validators.pattern(this._vsService.emailPattern)]],
-    contraActual:   [ , [Validators.required, Validators.minLength(6)], ],
-    contraNueva:    [ , [Validators.required, Validators.minLength(6)]],
-    contraConfirm:  [ , [Validators.required]],
-  }, {
-    validators: [this._vsService.camposIguales('contraNueva', 'contraConfirm')]
-  });
+  public miForm: FormGroup;
   constructor(
     private _fb: FormBuilder,
     private _modalService: NgbModal,
     private _vsService: ValidatorService,
     private _perfilService: UsuarioPerfilService,
+    private _authService: AuthService,
     private _mensajesService: MensajesAlertaService
   ) {
+    this.initForm();
     this._vsService.miForm = this.miForm;
   }
 
   ngOnInit(): void {
   }
 
-  editEmail = () => {
-    if(this.miForm.get('email').valid){
-      console.log('error');
+  initForm = () => {
+    this.miForm = this._fb.group({
+      usuario:          [ this.userName || '' , [Validators.required, Validators.minLength(4)]],
+      contraActual:   [ , [Validators.required, Validators.minLength(6)], ],
+      contraNueva:    [ , [Validators.required, Validators.minLength(6)]],
+      contraConfirm:  [ , [Validators.required]],
+    }, {
+      validators: [this._vsService.camposIguales('contraNueva', 'contraConfirm')]
+    });
+  }
+
+  editUsuario = () => {
+    if(this.miForm.get('usuario').valid && this.miForm.get('contraActual').valid){
+      const {usuario, contraActual} = this.miForm.value;
+      const recoveryUsername = new UserNameRecovery();
+      recoveryUsername.newUsername = usuario;
+      recoveryUsername.password = contraActual;
+      console.log(recoveryUsername);
+      this._perfilService.recoveryUserName(recoveryUsername, this._authService.usuario.id)
+                          .subscribe( res => {
+                            this._mensajesService.mensajeSweetFireToast('success', res.mensaje, 'top-end');
+                            this._authService.usuario.username = usuario;
+                            this.userName = usuario;
+                            this.cerrarModalUsuario();
+                          }, error => {
+                            this._mensajesService.mensajeSweetFire('warning', error.error.error, '');
+                          })
     } else {
-      this.miForm.get('email').markAsTouched();
+      this.miForm.get('usuario').markAsTouched();
+      this.miForm.get('contraActual').markAsTouched();
     }
   }
   editPassword = () => {
     if(this.miForm.get('contraActual').valid && this.miForm.get('contraNueva').valid && this.miForm.get('contraConfirm').valid){
       let recovery = new PasswordRecovery();
       const { contraActual, contraNueva} = this.miForm.value;
+      recovery.id = this._authService.usuario.id;
       recovery.newPassword = contraNueva;
       recovery.oldPassword = contraActual;
       this._perfilService.recoveryPassword(recovery)
                           .subscribe( res => {
                             console.log(res);
-                            this._mensajesService.mensajeSweetFireToast('success', 'sasa', 'top-end');
+                            this._mensajesService.mensajeSweetFireToast('success', res.mensaje, 'top-end');
+                            this.miForm.reset();
                           }, error => {
-                            console.log(error);
                             this._mensajesService.mensajeSweetInformacion('warning', error.error.error, 'center');
                           });
     } else {
@@ -72,18 +94,19 @@ export class MiCuentaComponent implements OnInit {
   }
 
   tieneError = (campo: string): boolean  => {
-    this.emailMSgError     = this._vsService.emailErrorMsg;
+    this.usuarioMSgError   = this._vsService.usuarioErrorMsg;
     this.msgErrorContraAct = this._vsService.contActlErrorMsg;
     this.msgErrorContraNue = this._vsService.contNueErrorMsg;
     this.msgErrorContraCon = this._vsService.contConErrorMsg;
     return this._vsService.campoEsValido(campo);
   }
 
-  abrirModalEmail = (modalEmail: TemplateRef<NgbModalRef>): void => {
-    this.modalReference = this._modalService.open(modalEmail);
+  abrirModalUsuario = (modalUsuario: TemplateRef<NgbModalRef>): void => {
+    this.modalReference = this._modalService.open(modalUsuario);
   }
-  cerrarModalEmail = (): void => {
-    this.miForm.get('email').reset();
+  cerrarModalUsuario = (): void => {
+    this.miForm.get('usuario').setValue(this.userName || '');
+    this.miForm.get('contraActual').reset();
     this.modalReference.close();
   }
 

@@ -3,3 +3,7 @@ export class PasswordRecovery{
     newPassword: string;
     oldPassword: string;
 }
+export class UserNameRecovery{
+    newUsername: string;
+    password: string;
+}

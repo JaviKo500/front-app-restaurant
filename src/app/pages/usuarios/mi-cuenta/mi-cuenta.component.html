@@ -11,13 +11,13 @@
                             </div>
                             <div class="row">
                                 <div class="cell-md-12 pb-0">
-                                    <!-- email user -->
-                                    <p>Correo electrónico:</p>
+                                    <!--  user -->
+                                    <p>Usuario:</p>
                                     <div class="mb-4">
                                         <div class="d-flex justify-content-center">
-                                            <div class="border w-100 d-flex justify-content-center align-items-center">Tu correo es: javikogutierrez64@gmail.com</div>
+                                            <div class="border w-100 d-flex justify-content-center align-items-center  text-leader2">Tu usuario: {{userName}}</div>
                                             <button class="button "
-                                                    (click)="abrirModalEmail(modalEmail)">
+                                                    (click)="abrirModalUsuario(modalUsuario)">
                                                 <i class='fas fa-pen'></i>
                                             </button>
                                         </div>
@@ -77,33 +77,46 @@
     </div>
 </div>
 
-<!-- Modal para editar email-->
-<ng-template #modalEmail let-modal>
+<!-- Modal para editar usuario-->
+<ng-template #modalUsuario let-modal>
     <div class="modal-header">
-        <h4 class="modal-title">Actualizar Email</h4>
+        <h4 class="modal-title">Actualizar Usuario</h4>
         <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
       <span aria-hidden="true">&times;</span>
     </button>
     </div>
     <div class="modal-body">
         <form autocomplete="off" [formGroup]="miForm">
-            <input  type="email" 
-                data-role="input"
-                formControlName="email">
-            <span   appDrErrorMsg 
-                    [valido]="!tieneError('email')"
-                    [mensaje]="emailMSgError">
-            </span>
+            <div class="mb-1">
+                <input  type="text" 
+                        data-role="input"
+                        formControlName="usuario">
+                <span   appDrErrorMsg 
+                        [valido]="!tieneError('usuario')"
+                        [mensaje]="usuarioMSgError">
+                </span>
+            </div>
+            <div class="mb-1">
+                <input  type="password" 
+                        data-role="input" 
+                        placeholder="Contraseña"
+                        formControlName="contraActual">
+                <span   class="mt-0"  
+                        appDrErrorMsg 
+                        [valido]="!tieneError('contraActual')"
+                        [mensaje]="msgErrorContraAct">
+                </span>       
+            </div>
         </form>
     </div>
     <div class="modal-footer">
         <div class="w-100 d-flex justify-content-between mt-3 mb-2">
             <button class="button shadowed button-usuario "
-                    (click)="cerrarModalEmail()">
+                    (click)="cerrarModalUsuario()">
               Cancelar
             </button>
             <button class="button shadowed button-usuario button-save border-radius-2 "
-                    (click)="editEmail()">
+                    (click)="editUsuario()">
               Guardar
             </button>
         </div>
