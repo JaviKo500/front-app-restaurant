@@ -6,4 +6,6 @@ export class Producto {
   descripcion: string = '';
   imagen: string = '';
   categoria: Categoria = undefined;
+  estado: boolean;
+  especial: boolean;
 }

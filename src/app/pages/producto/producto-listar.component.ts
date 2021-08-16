@@ -23,14 +23,13 @@ export class ProductoListarComponent implements OnInit {
   constructor(
     private productoserService: ProductoService,
     private activatedRoute: ActivatedRoute
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.listarProductospage();
   }
 
   listarProductospage(): void {
-    console.log('Paginando.....');
     this.activatedRoute.paramMap.subscribe((params) => {
       let page: number = +params.get('page');
       if (!page) {
@@ -47,7 +46,6 @@ export class ProductoListarComponent implements OnInit {
     });
   }
   eliminarProducto(id: number): void {
-    console.log('eliminando prod....');
     swal
       .fire({
         title: '¿Esta seguro de eliminar este producto?',
@@ -73,10 +71,20 @@ export class ProductoListarComponent implements OnInit {
   // funcion para cambiar el estado del producto
   cambiarEstadoProducto(prod: Producto): void {
     this.productoserService.CambiarEstadoProducto(prod)
-    .subscribe((res) => {
-      console.log(res);
-    }, error => {
-      this.listarProductospage();
-    });
+      .subscribe((res) => {
+        console.log(res);
+      }, error => {
+        this.listarProductospage();
+      });
+  }
+
+  // funcion para cambiar el estado del producto
+  cambiarEstadoEspecialProducto(prod: Producto): void {
+    this.productoserService.CambiarEstadoProducto(prod)
+      .subscribe((res) => {
+        console.log(res);
+      }, error => {
+        this.listarProductospage();
+      });
   }
 }

@@ -58,7 +58,7 @@ export class ComboService {
   }
   // filtrar combos para el cliente
   ObtenerCombosEspecialesClientes(): Observable<any> {
-    return this.http.get(this.url + 'get/combos/especiales').pipe(
+    return this.http.get(this.url + 'get/especiales/combos').pipe(
       map((response: any) => response.combos as Combo[]),
       catchError((e) => {
         swal.fire(e.error.mensaje, e.error.error, 'error');
@@ -85,11 +85,25 @@ export class ComboService {
         return response.mensaje;
       }),
       catchError((e) => {
-        swal.fire(e.error.titulo, e.error.mensaje, 'warning');
+        swal.fire(e.error.error, e.error.mensaje, 'warning');
         return throwError(e);
       })
     );
   }
+
+    // cambiar el estado especiales del combo
+    CambiarEstadoEspecialCombo(combo: Combo): Observable<any> {
+      return this.http.put(this.url + 'actualizar/especial/combo', combo).pipe(
+        map((response: any) => {
+          this.mensajesService.mensajeSweetInformacionToast('success', response.mensaje, 'top-end');
+          return response.mensaje;
+        }),
+        catchError((e) => {
+          swal.fire(e.error.error, e.error.mensaje, 'warning');
+          return throwError(e);
+        })
+      );
+    }
 
   // get productos por termino  a buscar
   getComboByTerm(term: string): Observable<Combo[]> {

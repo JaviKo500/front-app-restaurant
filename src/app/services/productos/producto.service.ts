@@ -11,7 +11,7 @@ import { MensajesAlertaService } from '../mensajes-alerta.service';
   providedIn: 'root',
 })
 export class ProductoService {
-  constructor(private http: HttpClient, private mensajeService: MensajesAlertaService) {}
+  constructor(private http: HttpClient, private mensajeService: MensajesAlertaService) { }
   private url: string = BASE_URL;
 
   // filtrar productos del cliente
@@ -46,7 +46,23 @@ export class ProductoService {
           return response.mensaje;
         }),
         catchError((e) => {
-          swal.fire(e.error.titulo, e.error.mensaje , 'warning');
+          swal.fire(e.error.error, e.error.mensaje, 'warning');
+          return throwError(e);
+        })
+      );
+  }
+
+  // cambiar el estado del producto
+  CambiarEstadoEspecialProducto(producto: Producto): Observable<any> {
+    return this.http
+      .put(this.url + 'actualizar/especial/producto', producto)
+      .pipe(
+        map((response: any) => {
+          this.mensajeService.mensajeSweetInformacionToast('success', response.mensaje, 'top-end');
+          return response.mensaje;
+        }),
+        catchError((e) => {
+          swal.fire(e.error.error, e.error.mensaje, 'warning');
           return throwError(e);
         })
       );

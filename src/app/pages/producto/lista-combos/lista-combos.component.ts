@@ -22,7 +22,7 @@ export class ListaCombosComponent implements OnInit {
   constructor(
     private modalService: NgbModal,
     private comboService: ComboService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.listarCombosPageable();
@@ -63,6 +63,15 @@ export class ListaCombosComponent implements OnInit {
       this.listarCombosPageable();
     });
   }
+
+  cambiarEstadoEspecial(combo): void {
+    console.log(combo.estado);
+    this.comboService.CambiarEstadoEspecialCombo(combo).subscribe((res) => {
+    }, error => {
+      this.listarCombosPageable();
+    });
+  }
+
 
   cerrarModal(): void {
     this.modalRef.close();

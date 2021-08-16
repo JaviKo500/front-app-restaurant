@@ -61,7 +61,7 @@ export class ProductosComponent implements OnInit {
       if (id_cate) {
         this.titulo = '';
         this.listarProductosPorCategoria(id_cate);
-      } else if ( productoEspecial ) {
+      } else if (productoEspecial) {
         this.titulo = 'Productos especiales';
         this.listarProductosEspeciales();
       }
