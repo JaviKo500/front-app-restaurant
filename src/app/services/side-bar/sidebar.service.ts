@@ -104,7 +104,7 @@ export class SidebarService {
       ],
     },
     {
-      title: 'Gestiónde clientes',
+      title: 'Gestión de clientes',
       icon: 'fas fa-users',
       url: '',
       roles: ['ROLE_ADMIN', 'ROLE_CAJERO'],

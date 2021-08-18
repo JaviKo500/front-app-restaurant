@@ -42,6 +42,16 @@ export class UsuarioService {
       })
     );
   }
+  //bucar usuario por id para el perfil
+  obtenerUsuarioIdPerfil(id: number): Observable<any> {
+    return this.http.get(this.url + 'get/user/profile/' + id).pipe(
+      map((response: any) => response.usuario as Usuario),
+      catchError((e) => {
+        swal.fire(e.error.mensaje, e.error.error, 'error');
+        return throwError(e);
+      })
+    );
+  }
 
   //bucar usuario por id
   obtenerUsuarioIdMovimiento(id: number): Observable<any> {

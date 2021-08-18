@@ -6,8 +6,8 @@ import { AbstractControl, FormControl, FormGroup, ValidationErrors } from '@angu
 })
 export class ValidatorService {
 
-  public nombreApellidoPatter: string = '([a-zA-Z]+) ([a-zA-z]+)';
   public miForm: FormGroup;
+  public emailPattern: string = '^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$';
 
   get usuarioErrorMsg(): string{
     const errors = this.miForm.get('usuario')?.errors;
@@ -45,6 +45,8 @@ export class ValidatorService {
     }
     return '';
   }
+
+  //
   constructor() {}
 
   camposIguales = (campo1: string, campo2: string) => {

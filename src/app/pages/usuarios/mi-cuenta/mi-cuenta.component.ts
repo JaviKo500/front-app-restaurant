@@ -65,7 +65,7 @@ export class MiCuentaComponent implements OnInit {
                             this.cerrarModalUsuario();
                           }, error => {
                             this._mensajesService.mensajeSweetFire('warning', error.error.error, '');
-                          })
+                          });
     } else {
       this.miForm.get('usuario').markAsTouched();
       this.miForm.get('contraActual').markAsTouched();
@@ -80,7 +80,6 @@ export class MiCuentaComponent implements OnInit {
       recovery.oldPassword = contraActual;
       this._perfilService.recoveryPassword(recovery)
                           .subscribe( res => {
-                            console.log(res);
                             this._mensajesService.mensajeSweetFireToast('success', res.mensaje, 'top-end');
                             this.miForm.reset();
                           }, error => {
