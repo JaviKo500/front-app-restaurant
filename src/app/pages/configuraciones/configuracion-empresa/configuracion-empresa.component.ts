@@ -54,7 +54,7 @@ export class ConfiguracionEmpresaComponent implements OnInit {
     );
   }
 
-  //  regresamos a la url anterior
+  // regresamos a la url anterior
   regresar = () => history.back();
 
   // para ocultar y mostrar los datos y form

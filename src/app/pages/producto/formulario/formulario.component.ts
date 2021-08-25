@@ -15,6 +15,7 @@ import { CategoriaService } from 'src/app/services/categoria/categoria.service';
 import { ProductoService } from 'src/app/services/productos/producto.service';
 // componentes
 import { PreviewImgComponent } from '../../../components/preview-img/preview-img.component';
+import { NgModel } from '@angular/forms';
 
 @Component({
   selector: 'app-formulario',
@@ -172,5 +173,17 @@ export class FormularioComponent implements OnInit {
       band = true;
     }
     return band;
+  }
+
+  // regresamos a la url anterior
+  regresar = () => history.back();
+
+  errorPrecio(precioInput: NgModel): boolean {
+    console.log();
+    let precio = precioInput.control.value;
+    if(!precio || precio < 0){
+      return true;
+    }
+    return false;
   }
 }

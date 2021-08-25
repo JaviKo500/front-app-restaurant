@@ -56,7 +56,7 @@ export class FormularioComboComponent implements OnInit {
     }
   }
 
-  //listar categorias para el combo
+  // listar categorias para el combo
   listarCategoriasCombo(): void {
     this.comboService.listarCategoriasCombo().subscribe((res) => {
       console.log(res.categorias);
@@ -64,7 +64,7 @@ export class FormularioComboComponent implements OnInit {
     });
   }
 
-  //registrar combo
+  // registrar combo
   registrarCombo(): void {
     if (this.camposLlenos()) {
       if (this.imagenProducto) {
@@ -78,7 +78,7 @@ export class FormularioComboComponent implements OnInit {
     }
   }
 
-  //actualizar combos
+  // actualizar combos
   actualizarCombo(): void {
     if (this.camposLlenos()) {
       if (this.imagenProducto) {
@@ -106,7 +106,7 @@ export class FormularioComboComponent implements OnInit {
     }
   }
 
-  //campos completos
+  // campos completos
   camposLlenos(): boolean {
     let band = false;
     let c = this.combo;
@@ -142,11 +142,11 @@ export class FormularioComboComponent implements OnInit {
   seleccionarProducto = (producto: Producto) => {
     let itemscombo: ProductoCombo = new ProductoCombo();
     itemscombo.producto = producto;
-    //verificar si existe sino hacer un nuevo push
+    // verificar si existe sino hacer un nuevo push
     if (!this.existeProducto(producto.id)) {
       this.combo.itemsCombo.push(itemscombo);
     } else {
-      //si existe solo suma la cantidad
+      // si existe solo suma la cantidad
       this.combo.itemsCombo = this.combo.itemsCombo.map(
         (item: ProductoCombo) => {
           if (item.producto.id == producto.id) {
@@ -169,13 +169,13 @@ export class FormularioComboComponent implements OnInit {
     return band;
   }
 
-  eliminarProductoArray(id: number) {
+  eliminarProductoArray(id: number): void {
     this.combo.itemsCombo = this.combo.itemsCombo.filter(
       (item: ProductoCombo) => id !== item.producto.id
     );
   }
 
-  actualizarCantidad$(id: number, event: any) {
+  actualizarCantidad$(id: number, event: any): void {
     let cantidad: number = event.target.value as number;
     if (cantidad <= 0) {
       return this.eliminarProductoArray(id);

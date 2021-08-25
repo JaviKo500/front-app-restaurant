@@ -59,7 +59,7 @@
                                                                 (click)="ModalActualizarMesa(modalMesa, mesa)"
                                                                 placement="bottom" 
                                                                 ngbTooltip="Editar">
-                                                            <i class="fas fa-edit"></i>
+                                                            <i class="fas fa-pen"></i>
                                                         </button>
                                                     </div>
                                                     <div class="cell-sm-4" >
@@ -130,15 +130,15 @@
                             required 
                             minlength="3" 
                             autocomplete="off" />
-                        <div *ngIf="nombre.invalid && (nombre.dirty || nombre.touched)"
-                            class="alert p-0 text-danger">
-                            <div *ngIf="nombre.errors?.required">
-                                Por favor, ingrese un nombre válido
-                            </div>
-                            <div *ngIf="nombre.errors?.minlength">
-                                Por favor, ingrese almenos 3 caracteres
-                            </div>
+                    <div *ngIf="nombre.invalid && (nombre.dirty || nombre.touched)"
+                        class="alert p-0 text-danger">
+                        <div *ngIf="nombre.errors?.required">
+                            Por favor, ingrese un nombre válido
                         </div>
+                        <div *ngIf="nombre.errors?.minlength">
+                            Por favor, ingrese almenos 3 caracteres
+                        </div>
+                    </div>
                     <div class="d-flex justify-content-start mt-2">
                         <label for="" class="mt-1 ml-3">Mesa visible</label>
                         <input  type="checkbox" 

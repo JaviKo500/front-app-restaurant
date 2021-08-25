@@ -1,15 +1,30 @@
 /* para los alerts msg */
 
+.bg-black {
+    background-color: black;
+    color: white;
+}
+.button-usuario {
+    width: 20%;
+}
+
+.button-save {
+    background-color: black;
+    color: white;
+}
+
+button:focus {
+    outline: none;
+    outline: none;
+}
+
+.invalid_feedback{
+    display: block !important;
+}
 .p-invalid {
     color: red;
 }
 
-
-/* para botones */
-
-.btn-width {
-    width: 45%;
-}
 
 
 /* Tabla */
@@ -18,27 +33,7 @@
     width: 40%;
 }
 
-.delete {
-    outline-color: #ecaba7;
-    background-color: #CE352C;
-    color: #ffffff;
-    border-color: transparent;
-}
 
-.delete:hover {
-    outline-color: #ecaba7;
-    background-color: #CE352C;
-    color: #ffffff;
-    border-color: transparent;
-}
-
-.delete:active {
-    box-shadow: 0 0 0 3px rgba(206, 53, 44, 0.45);
-}
-
-.delete:focus {
-    box-shadow: 0 0 0 3px rgba(206, 53, 44, 0.45);
-}
 
 .alinear {
     display: flex;

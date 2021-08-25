@@ -1,6 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import swal from 'sweetalert2';
 
 // ng boostrap
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
@@ -11,6 +10,7 @@ import { Categoria } from '../../models/productos/categoria';
 import { TipoCategoria } from 'src/app/models/productos/tipo-categoria';
 // servicios
 import { CategoriaService } from 'src/app/services/categoria/categoria.service';
+import { MensajesAlertaService } from '../../services/mensajes-alerta.service';
 @Component({
   selector: 'app-categoria-listar',
   templateUrl: './categoria-listar.component.html',
@@ -18,10 +18,10 @@ import { CategoriaService } from 'src/app/services/categoria/categoria.service';
 })
 export class CategoriaListarComponent implements OnInit {
   categoria = new Categoria();
-  //datos para pagnacion
+  // datos para pagnacion
   paginador: any;
   path: any = '/dashboard/categorias/page';
-  //termina datos paginacion
+  // termina datos paginacion
   listaTipoCategorias: TipoCategoria[] = [];
   api: any = BASE_URL;
   listaCategorias: Categoria[] = [];
@@ -30,8 +30,9 @@ export class CategoriaListarComponent implements OnInit {
   modalReference: NgbModalRef;
   constructor(
     private modalService: NgbModal,
+    private activatedRoute: ActivatedRoute,
     private categoriaService: CategoriaService,
-    private activatedRoute: ActivatedRoute
+    private mensajesService: MensajesAlertaService
   ) {}
 
   ngOnInit(): void {
@@ -43,11 +44,11 @@ export class CategoriaListarComponent implements OnInit {
     this.imagenCategoria = event.target.files[0];
     if (this.imagenCategoria.type.indexOf('image') < 0) {
       this.imagenCategoria = null;
-      swal.fire('Error', 'Solo imágenes', 'error');
+      this.mensajesService.mensajeSweetFire('error', 'Solo imágenes', 'Error');
     }
   }
 
-  //listar Tipo categorias
+  // listar Tipo categorias
   listarTiposCategorias(): void {
     this.categoriaService.listarTiposCategorias().subscribe((res) => {
       this.listaTipoCategorias = res;
@@ -56,7 +57,7 @@ export class CategoriaListarComponent implements OnInit {
   }
 
   private listarCategoriaspageable(): void {
-    //listar todas las categorias sin excepcion.
+    // listar todas las categorias sin excepcion.
     this.activatedRoute.paramMap.subscribe((params) => {
       let page: number = +params.get('page');
       if (!page) {
@@ -68,32 +69,31 @@ export class CategoriaListarComponent implements OnInit {
           this.listaCategorias = categorias.content;
           this.paginador = categorias;
           console.log(categorias.content);
-          
         });
     });
   }
 
-  openLg(content) {
+  openLg(content): void {
     this.categoria = new Categoria();
     // vaciamos el path al crear una nueva categoria
     this.pathImg = null;
     this.modalReference = this.modalService.open(content);
   }
-  //abrimos modal con los datos de esa categoria
-  abrirModalActualizarCate(MCategoria, cate: Categoria): void {
+  // abrimos modal con los datos de esa categoria
+  abrirModalActualizarCate(MCategoria, cate: Categoria): void {    
     if (cate) {
       this.openLg(MCategoria);
-      //cargamos los datos
+      // cargamos los datos
       this.categoria = cate;
       // path para cargar img en el componente preview
       this.pathImg = 'category/img/' + this.categoria.imagen;
     }
   }
-  //metodo para registrar categoria
+  // metodo para registrar categoria
   saveCategoria(): void {
     if (this.CamposLlenos()) {
       if (this.imagenCategoria) {
-        //servicio para registrar las categorias
+        // servicio para registrar las categorias
         this.categoria.estado = true;
         this.categoriaService
           .RegistarCategoria(this.categoria)
@@ -102,16 +102,16 @@ export class CategoriaListarComponent implements OnInit {
             console.log('categoria id: ' + res.id);
           });
       } else {
-        swal.fire('Observación', 'Debe seleccionar uma imágen', 'warning');
+        this.mensajesService.mensajeSweetFire('warning', 'Debe seleccionar uma imágen.', 'Observación');
       }
     } else {
-      swal.fire('Observación', 'Debe llenar los campos.', 'warning');
+      this.mensajesService.mensajeSweetFire('warning', 'Debe llenar los campos.', 'Observación');
     }
   }
 
-  //metodo para actualizar las categorias
+  // metodo para actualizar las categorias
   updateCategoria(): void {
-    //validar los campos de la categoria
+    // validar los campos de la categoria
     if (this.CamposLlenos()) {
       if (this.imagenCategoria) {
         this.categoriaService
@@ -122,12 +122,12 @@ export class CategoriaListarComponent implements OnInit {
             this.CerrarAllModals();
             this.listarCategoriaspageable();
           });
-        //si no existe un archivo o el archivo de imagen es erroneo se verifica que exista un nombre de imagenCategoria
-        //en el backend y si existe se pasa a actualizar la categoria a excepcion de la imagen
+        // si no existe un archivo o el archivo de imagen es erroneo se verifica que exista un nombre de imagenCategoria
+        // en el backend y si existe se pasa a actualizar la categoria a excepcion de la imagen
       } else {
         if (!this.categoria.imagen) {
-          //si no existe un nombre de imagen no se puede actualizar.
-          swal.fire('Advertencia', 'Debe seleccionar su imagen', 'warning');
+          // si no existe un nombre de imagen no se puede actualizar.
+          this.mensajesService.mensajeSweetFire('warning', 'Debe seleccionar su imagen', 'Advertencia');
         } else {
           this.categoriaService.ActualizarCategoria(this.categoria).subscribe(
             (response) => {
@@ -142,7 +142,7 @@ export class CategoriaListarComponent implements OnInit {
         }
       }
     } else {
-      swal.fire('Observación', 'Debe llenar los campos.', 'warning');
+      this.mensajesService.mensajeSweetFire('warning', 'Debe llenar los campos', 'Observación');
     }
   }
 
@@ -150,7 +150,7 @@ export class CategoriaListarComponent implements OnInit {
     this.modalReference.close();
   }
 
-  CerrarAllModals() {
+  CerrarAllModals(): void {
     this.modalService.dismissAll();
   }
 
@@ -159,16 +159,10 @@ export class CategoriaListarComponent implements OnInit {
       .saveImgCategoria_Producto(this.imagenCategoria, id, API_CATE, '')
       .subscribe(
         (res) => {
-          //alerta de mensaje al guardar el
-          swal.fire({
-            position: 'top-end',
-            icon: 'success',
-            title: 'Categoría registrada correctamente',
-            showConfirmButton: false,
-            timer: 1000,
-          });
-          //termina alerta
-          //restablecer variables
+          // alerta de mensaje al guardar el
+          this.mensajesService.mensajeSweetFireToast('success', 'Categoría registrada correctamente', 'top-end');
+          // termina alerta
+          // restablecer variables
           console.log('guardado');
           this.imagenCategoria = null;
           this.listarCategoriaspageable();
@@ -187,14 +181,14 @@ export class CategoriaListarComponent implements OnInit {
 
   CamposLlenos(): boolean {
     let band = false;
-    let cat = this.categoria;
+    const cat = this.categoria;
     if (cat.nombre.length > 2 && cat.tipo) {
       band = true;
     }
     return band;
   }
 
-  //comparar-validar datos de tipo categorias en boostrap
+  // comparar-validar datos de tipo categorias en boostrap
   compararCategoria(o1: TipoCategoria, o2: TipoCategoria): boolean {
     if (o1 === undefined && o2 === undefined) {
       return true;
@@ -205,27 +199,22 @@ export class CategoriaListarComponent implements OnInit {
   }
 
   eliminarCategoria(idCategoria: number): void {
-    swal
-      .fire({
-        title: '¿Esta seguro de eliminar esta categoría?',
-        text:
-          'Sí ud elimina esta categoría es posible que pierda productos y recibos relacionadas con esta categoría.',
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Si, Eliminar de todas formas',
-      })
-      .then((result) => {
-        if (result.isConfirmed) {
-          this.categoriaService
-            .deleteCategoria(idCategoria)
-            .subscribe((res) => {
-              this.listarCategoriaspageable();
-              swal.fire('Borrado', res, 'success');
-              console.log(res);
+    this.mensajesService
+            .confirmDialogSweet(
+              'warning',
+              '¿Eliminar esta categoría...?',
+              'Sí ud elimina esta categoría es posible que pierda productos y recibos relacionadas con esta categoría.',
+              'Si, no hay problema'
+            ).then((result) => {
+              if (result.isConfirmed) {
+                this.categoriaService
+                  .deleteCategoria(idCategoria)
+                  .subscribe((res) => {
+                    this.listarCategoriaspageable();
+                    this.mensajesService.mensajeSweetInformacion('success', res, 'top-end');
+                    console.log(res);
+                  });
+              }
             });
-        }
-      });
   }
 }

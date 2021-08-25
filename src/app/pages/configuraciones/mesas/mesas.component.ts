@@ -48,7 +48,6 @@ export class MesasComponent implements OnInit {
       this.mesasService.ObtenerMesasPageable(page).subscribe((mesas: any) => {
         this.listaMesas = mesas.content;
         console.log(this.listaMesas);
-        
         this.paginador = mesas;
       });
     });

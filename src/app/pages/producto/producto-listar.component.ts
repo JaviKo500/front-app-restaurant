@@ -7,6 +7,7 @@ import { BASE_URL } from 'src/environments/configurations';
 import { Producto } from '../../models/productos/producto';
 // servicios
 import { ProductoService } from 'src/app/services/productos/producto.service';
+import { MensajesAlertaService } from '../../services/mensajes-alerta.service';
 
 @Component({
   selector: 'app-producto-listar',
@@ -21,8 +22,9 @@ export class ProductoListarComponent implements OnInit {
   producto: Producto = new Producto();
   api: any = BASE_URL;
   constructor(
+    private activatedRoute: ActivatedRoute,
     private productoserService: ProductoService,
-    private activatedRoute: ActivatedRoute
+    private mensajesService: MensajesAlertaService
   ) { }
 
   ngOnInit(): void {
@@ -39,33 +41,24 @@ export class ProductoListarComponent implements OnInit {
         .ObtenerProductosPageable(page)
         .subscribe((res) => {
           this.listaProductos = res.content;
-          console.log('lista');
-          console.log(res.content);
           this.paginador = res;
         });
     });
   }
   eliminarProducto(id: number): void {
-    swal
-      .fire({
-        title: '¿Esta seguro de eliminar este producto?',
-        text:
-          'Sí ud elimina este producto es posible que pierda recibos relacionadas con este producto.',
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Si, Eliminar de todas formas',
-      })
-      .then((result) => {
-        if (result.isConfirmed) {
-          this.productoserService.deleteProducto(id).subscribe((res) => {
-            this.listarProductospage();
-            swal.fire('Borrado', res, 'success');
-            console.log(res);
-          });
-        }
-      });
+    this.mensajesService
+          .confirmDialogSweet('warning', 
+                              '¿Desea eliminar..?',
+                              'Sí ud elimina este producto es posible que pierda recibos relacionadas con este producto.', 
+                              'Si, Eliminar de todas formas'
+                            ).then((result) => {
+                              if (result.isConfirmed) {
+                                this.productoserService.deleteProducto(id).subscribe((res) => {
+                                  this.listarProductospage();
+                                  this.mensajesService.mensajeSweetInformacion('success', res, 'top-end');
+                                });
+                              }
+                            });
   }
 
   // funcion para cambiar el estado del producto

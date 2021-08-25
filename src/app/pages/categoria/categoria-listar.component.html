@@ -14,8 +14,8 @@
                             <div class="cell-3 offset-6 text-right">
                                 <div class="d-flex flex-justify-end">
                                     <button class="button primary shadowed btn-block" (click)="openLg(content)">
-                    Añadir
-                  </button>
+                                        Añadir
+                                    </button>
                                 </div>
                             </div>
                         </div>
@@ -29,8 +29,8 @@
                             <div class="cell-3 offset-0">
                                 <div class="d-flex flex-justify-between">
                                     <button class="button info shadowed btn-block">
-                    Acciones
-                  </button>
+                                        Acciones
+                                    </button>
                                 </div>
                             </div>
                         </div>
@@ -51,26 +51,27 @@
                                             <td>{{ cate.nombre }}</td>
                                             <td>{{ cate.tipo.tipo }}</td>
                                             <td>
-                                                <img class="img-categoria" src="assets/icons/addImg.png" alt="not found" *ngIf="
-                            cate.imagen == '' || categoria.imagen == undefined
-                          " />
-                                                <img class="img-categoria" src="{{ api }}category/img/{{ cate.imagen }}" alt="not found" *ngIf="cate.imagen != undefined" />
+                                                <img    class="img-categoria" 
+                                                        src="assets/icons/addImg.png" 
+                                                        alt="not found" 
+                                                        *ngIf="cate.imagen == '' || categoria.imagen == undefined" />
+                                                <img    class="img-categoria" 
+                                                        src="{{ api }}category/img/{{ cate.imagen }}" 
+                                                        alt="not found" 
+                                                        *ngIf="cate.imagen != undefined" />
                                             </td>
                                             <td>
                                                 <div class="row  alinear">
                                                     <div class="cell-sm-6">
-                                                        <button class="button primary rounded shadowed" (click)="abrirModalActualizarCate(content, cate)">
-                              <span class="ml-1"
-                                >Editar <i class="fas fa-edit ml-1"></i
-                              ></span>
-                            </button>
+                                                        <button class="button info rounded shadowed" 
+                                                                (click)="abrirModalActualizarCate(content, cate)">
+                                                            <span><i class="fas fa-pen"></i></span>
+                                                        </button>
                                                     </div>
                                                     <div class="cell-sm-6">
-                                                        <button class="button primary delete rounded shadowed" (click)="eliminarCategoria(cate.id)">
-                              <span class="ml-1"
-                                >Borrar<i class="fas fa-trash-alt ml-1"></i
-                              ></span>
-                            </button>
+                                                        <button class="button light rounded" (click)="eliminarCategoria(cate.id)">
+                                                            <span><i class="fas fa-trash-alt"></i></span>
+                                                        </button>
                                                     </div>
                                                 </div>
                                             </td>
@@ -91,7 +92,10 @@
                         <div class="row">
                             <div class="cell-12 d-flex flex-justify-end">
                                 <!-- componente paginador -->
-                                <app-paginator *ngIf="paginador" [paginador]="paginador" [path]="path"></app-paginator>
+                                <app-paginator  *ngIf="paginador" 
+                                                [paginador]="paginador" 
+                                                [path]="path">
+                                </app-paginator>
                             </div>
                         </div>
                     </div>
@@ -102,58 +106,99 @@
 </div>
 <ng-template #content let-modal>
     <div class="modal-header">
-        <h4 class="modal-title" *ngIf="!categoria.id">Añadir categoría</h4>
-        <h4 class="modal-title" *ngIf="categoria.id">Editar categoría</h4>
-        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-      <span aria-hidden="true">&times;</span>
-    </button>
+        <h4 class="modal-title" 
+            *ngIf="!categoria.id">
+            Añadir categoría
+        </h4>
+        <h4 class="modal-title" 
+            *ngIf="categoria.id">
+            Editar categoría
+        </h4>
+        <button type="button" 
+                class="close" 
+                aria-label="Close" 
+                (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
     </div>
     <div class="modal-body">
         <div class="d-flex flex-justify-center">
-            <div class="row d-flex flex-justify-center" style="width: 100%">
-                <form style="width: 100%">
-                    <input type="text" data-role="input" name="nombre" data-prepend="Nombre categoría: " [(ngModel)]="categoria.nombre" #nombre="ngModel" required minlength="3" autocomplete="off" />
-                    <div class="sms-alert" *ngIf="nombre.invalid && (nombre.dirty || nombre.touched)">
-                        <div class="sms-alert-required" *ngIf="nombre.errors.required">
-                            <small class="p-invalid">Ingresar un nombre</small>
+            <div class="row d-flex flex-justify-center w-100" >
+                <form class="w-100">
+                    <input  type="text" 
+                            data-role="input" 
+                            name="nombre" 
+                            data-prepend="Nombre categoría: " 
+                            [(ngModel)]="categoria.nombre" 
+                            #nombre="ngModel" 
+                            required 
+                            minlength="3" 
+                            autocomplete="off" />
+                    <div *ngIf="nombre.invalid && (nombre.dirty || nombre.touched)"
+                        class="alert p-0 text-danger">
+                        <div *ngIf="nombre.errors?.required">
+                            Por favor, ingrese un nombre válido
                         </div>
-                        <div class="sms-alert-length" *ngIf="nombre.errors.minlength">
-                            <small class="p-invalid">Ingresar al menos 3 caracteres</small>
+                        <div *ngIf="nombre.errors?.minlength">
+                            Por favor, ingrese almenos 3 caracteres
                         </div>
                     </div>
                     <div class="input-group mt-2">
                         <div class="input-group-prepend">
-                            <label class="input-group-text" for="inputGroupSelect01" style="border-right-color: transparent">Tipo:
-              </label>
+                            <label  class="input-group-text" 
+                                    for="inputGroupSelect01" 
+                                    style="border-right-color: transparent">
+                                Tipo:
+                            </label>
                         </div>
-                        <select class="custom-select" [compareWith]="compararCategoria" name="Tipocategorias" [(ngModel)]="categoria.tipo">
-              <option [ngValue]="undefined">Choose...</option>
-              <option
-                value="1"
-                [ngValue]="cate"
-                *ngFor="let cate of listaTipoCategorias"
-              >
-                {{ cate.tipo }}
-              </option>
-            </select>
+                        <select class="custom-select" 
+                                [compareWith]="compararCategoria" 
+                                name="Tipocategorias" 
+                                [(ngModel)]="categoria.tipo"
+                                #Tipocategorias="ngModel" 
+                                required>
+                            <option [ngValue]="undefined">Choose...</option>
+                            <option value="1"
+                                    [ngValue]="cate"
+                                    *ngFor="let cate of listaTipoCategorias">
+                                {{ cate.tipo }}
+                            </option>
+                        </select>
+                    </div>
+                    <div  *ngIf="Tipocategorias.invalid && (Tipocategorias.dirty || Tipocategorias.touched)"
+                          class="alert p-0 mb-0 text-danger">
+                      <div *ngIf="Tipocategorias.errors?.required">
+                        Por favor, la categoría es requerida
+                      </div>
                     </div>
                     <!-- Componente para subir una imagen te devuelve el file de la imagen -->
-                    <app-preview-img (imagenSave)="(imagenCategoria)" (change)="onChange($event)" [pathImg]="pathImg"></app-preview-img>
+                    <app-preview-img    (imagenSave)="(imagenCategoria)" 
+                                        (change)="onChange($event)" 
+                                        [pathImg]="pathImg">
+                    </app-preview-img>
                 </form>
             </div>
         </div>
     </div>
     <div class="modal-footer">
-        <div class="d-flex flex-justify-between" style="width: 40%">
-            <button type="button" class="button alert btn-width" (click)="modal.close('Close click')">
-        Cancelar
-      </button>
-            <button type="button" class="button dark rounded btn-width" (click)="saveCategoria()" *ngIf="!categoria.id">
-        Guardar
-      </button>
-            <button type="button" class="button dark rounded btn-width" (click)="updateCategoria()" *ngIf="categoria.id">
-        Actualizar
-      </button>
+        <div class="d-flex flex-justify-between w-100" >
+            <button type="button" 
+                    class="button shadowed button-usuario" 
+                    (click)="modal.close('Close click')">
+                Cancelar
+            </button>
+            <button type="button" 
+                    class="button shadowed button-usuario button-save border-radius-3" 
+                    (click)="saveCategoria()" 
+                    *ngIf="!categoria.id">
+                Guardar
+            </button>
+            <button type="button" 
+                    class="button shadowed button-usuario button-save border-radius-3" 
+                    (click)="updateCategoria()" 
+                    *ngIf="categoria.id">
+                Actualizar
+            </button>
         </div>
     </div>
 </ng-template>
